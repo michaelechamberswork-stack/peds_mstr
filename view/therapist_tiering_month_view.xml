@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="bcded651091787600f8d48e7a36ece39c12e2bc5" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createSxmlObject objectName="THERAPIST_TIERING_MONTH" objectType="VIEW" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>%USER_NAME%</SCHEMA>
+   <NAME>THERAPIST_TIERING_MONTH</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>THERAPIST_ID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>THERAPIST</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>WEEK_OF_SESSION_MONTH</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>WEEK_OF_SESSION_YEAR</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>NUM_CLIENTS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>NUM_SESSIONS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>TIER</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
+   <SUBQUERY>select therapist_id, 
+    therapist,
+    week_of_session_month,
+    week_of_session_year,
+    sum(num_clients) num_clients,
+    sum(num_sessions) num_sessions,
+    max(tier) tier
+from therapist_tiering_week
+group by therapist_id, therapist, week_of_session_month, week_of_session_year</SUBQUERY>
+</VIEW>]]></n0:source>
+      </n0:createSxmlObject>
+ </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="a9c7a436f06c40a494f3cec7dfdf573de40344cd" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleProcedure objectName="SEND_SIGNATURE_REQUEST" objectType="PROCEDURE" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PROCEDURE "%USER_NAME%"."SEND_SIGNATURE_REQUEST" (pSrId NUMBER, pEmail VARCHAR2)
+AS
+    email LTS_EMAIL := LTS_EMAIL();
+    hsh VARCHAR2(4000);
+BEGIN
+    hsh := lts_user.hash_varchar2(TO_CHAR(pSrId)||pEmail);
+
+    UPDATE session_review
+    SET signature_request_email = pEmail,
+        signature_request_hash = hsh
+    WHERE sr_id = pSrId;
+
+    email.subject := 'Session Review';
+    email.add_to_address(pEmail);
+--    email.html_body := 'Please <a href="https://www.life-ts.com/apex/f?p=1050:1:::::p1_hash:'||hsh||'">click here</a> to review sessions.';
+    email.html_body := 'Please <a href="https://geb5ae55b8e6002-lts.adb.us-ashburn-1.oraclecloudapps.com/ords/f?p=1050:1:::::p1_hash:'||hsh||'">click here</a> to review sessions.';
+    dbms_output.put_line(email.html_body);
+    email.send_email();
+END SEND_SIGNATURE_REQUEST;
+/]]></n0:source>
+      </n0:createOracleProcedure>
+ </changeSet>
+</databaseChangeLog>

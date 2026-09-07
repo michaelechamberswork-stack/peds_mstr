@@ -1,0 +1,1447 @@
+page 1501 (
+    name: ASSESSMENT v2016
+    alias: ASSESSMENT
+    title: ASSESSMENT v2016
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    readOnly {
+        type: always
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region assessment (
+        name: ASSESSMENT
+        type: form
+        source {
+            location: localDatabase
+            tableName: ASSESSMENT
+        }
+        layout {
+            sequence: 20
+            parentRegion: @selector
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+        edit {
+            enabled: true
+            allowedOperations: [
+                add
+                update
+                delete
+            ]
+        }
+    )
+
+    region child-family-goal (
+        name: CHILD / FAMILY GOAL
+        type: staticContent
+        layout {
+            sequence: 20
+            parentRegion: @treatment-plan
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region child-s-barriers-to-leisure (
+        name: CHILD'S BARRIERS TO LEISURE
+        type: staticContent
+        layout {
+            sequence: 60
+            parentRegion: @assessment
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region client-information (
+        name: CLIENT INFORMATION
+        type: staticContent
+        layout {
+            sequence: 10
+            parentRegion: @assessment
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region comments (
+        name: COMMENTS
+        type: staticContent
+        layout {
+            sequence: 70
+            parentRegion: @treatment-plan
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region disability-rehab-problem (
+        name: DISABILITY / REHAB PROBLEM
+        type: staticContent
+        layout {
+            sequence: 10
+            parentRegion: @treatment-plan
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region functional-leisure-skills (
+        name: FUNCTIONAL LEISURE SKILLS
+        type: staticContent
+        layout {
+            sequence: 10
+            parentRegion: @recreation-therapy-objectives
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region leisure-education (
+        name: LEISURE EDUCATION
+        type: staticContent
+        layout {
+            sequence: 20
+            parentRegion: @recreation-therapy-objectives
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region leisure-interests-list (
+        name: LEISURE INTERESTS (LIST)
+        type: staticContent
+        layout {
+            sequence: 50
+            parentRegion: @assessment
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region lifestyle-routines (
+        name: LIFESTYLE ROUTINES
+        type: staticContent
+        layout {
+            sequence: 20
+            parentRegion: @assessment
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region methods (
+        name: METHODS
+        type: staticContent
+        layout {
+            sequence: 60
+            parentRegion: @treatment-plan
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region personal-social-skills (
+        name: PERSONAL / SOCIAL SKILLS
+        type: staticContent
+        layout {
+            sequence: 40
+            parentRegion: @assessment
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region physical-skills (
+        name: PHYSICAL SKILLS
+        type: staticContent
+        layout {
+            sequence: 30
+            parentRegion: @assessment
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region recreation-participation (
+        name: RECREATION PARTICIPATION
+        type: staticContent
+        layout {
+            sequence: 30
+            parentRegion: @recreation-therapy-objectives
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region recreation-therapy-goal (
+        name: RECREATION THERAPY GOAL
+        type: staticContent
+        layout {
+            sequence: 40
+            parentRegion: @treatment-plan
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region recreation-therapy-objectives (
+        name: RECREATION THERAPY OBJECTIVES
+        type: staticContent
+        layout {
+            sequence: 50
+            parentRegion: @treatment-plan
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region selector (
+        name: Selector
+        type: regionDisplaySelector
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        settings {
+            displayRegionIcons: true
+            includeShowAll: false
+        }
+    )
+
+    region treatment-plan (
+        name: TREATMENT PLAN
+        type: staticContent
+        layout {
+            sequence: 60
+            parentRegion: @selector
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+    )
+
+    pageItem P1501_ASSESSMENT_DATE (
+        type: plugin/ltsDateField
+        label {
+            label: ASSESSMENT DATE
+            alignment: left
+        }
+        layout {
+            sequence: 30
+            region: @client-information
+            slot: regionBody
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        validation {
+            valueRequired: true
+        }
+        source {
+            formRegion: @assessment
+            column: ASSESSMENT_DATE
+            dataType: date
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+        }
+    )
+
+    pageItem P1501_CASE_NUMBER (
+        type: hidden
+        layout {
+            sequence: 20
+            region: @assessment
+            slot: regionBody
+        }
+        source {
+            formRegion: @assessment
+            column: CASE_NUMBER
+            dataType: number
+            primaryKey: true
+        }
+        default {
+            type: item
+            item: CURRENT_CLIENT
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+        }
+    )
+
+    pageItem P1501_CHILDS_BARRIER_TO_LEISURE (
+        type: textarea
+        label {
+            alignment: left
+        }
+        layout {
+            sequence: 10
+            region: @child-s-barriers-to-leisure
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: CHILDS_BARRIER_TO_LEISURE
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_EDUCATION_GRADE (
+        type: textField
+        label {
+            label: EDUCATION / GRADE
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 70
+            region: @lifestyle-routines
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            formRegion: @assessment
+            column: EDUCATION_GRADE
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_LEISURE_INTERESTS_CREATIVE_ACT (
+        type: textarea
+        label {
+            label: CREATIVE ACT
+            alignment: left
+        }
+        layout {
+            sequence: 180
+            region: @leisure-interests-list
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: LEISURE_INTERESTS_CREATIVE_ACT
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_LEISURE_INTERESTS_OUTDOOR_ACT (
+        type: textarea
+        label {
+            label: OUTDOOR ACT
+            alignment: left
+        }
+        layout {
+            sequence: 190
+            region: @leisure-interests-list
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: LEISURE_INTERESTS_OUTDOOR_ACT
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_LEISURE_INTERESTS_PHYSICAL_ACT (
+        type: textarea
+        label {
+            label: PHYSICAL ACT
+            alignment: left
+        }
+        layout {
+            sequence: 170
+            region: @leisure-interests-list
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: LEISURE_INTERESTS_PHYSICAL_ACT
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_LEISURE_INTERESTS_SENSORY_ACT (
+        type: textarea
+        label {
+            label: SENSORY ACT
+            alignment: left
+        }
+        layout {
+            sequence: 210
+            region: @leisure-interests-list
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: LEISURE_INTERESTS_SENSORY_ACT
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_LEISURE_INTERESTS_SIBLING_ACT (
+        type: textarea
+        label {
+            label: SIBLING ACT
+            alignment: left
+        }
+        layout {
+            sequence: 200
+            region: @leisure-interests-list
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: LEISURE_INTERESTS_SIBLING_ACT
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_LEISURE_INTERESTS_SOCIAL_GROUP_ACT (
+        type: textarea
+        label {
+            label: SOCIAL GROUP ACT
+            alignment: left
+        }
+        layout {
+            sequence: 150
+            region: @leisure-interests-list
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: LEISURE_INTERESTS_SOCIAL_GROUP_ACT
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_LEISURE_INTERESTS_SOLITARY_ACT (
+        type: textarea
+        label {
+            label: SOLITARY ACT
+            alignment: left
+        }
+        layout {
+            sequence: 220
+            region: @leisure-interests-list
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: LEISURE_INTERESTS_SOLITARY_ACT
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_LIVING_ARRANGEMENTS (
+        type: textarea
+        label {
+            label: LIVING ARRANGEMENTS
+            alignment: left
+        }
+        layout {
+            sequence: 60
+            region: @lifestyle-routines
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: LIVING_ARRANGEMENTS
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_MEDICAL_DIAGNOSIS (
+        type: textarea
+        label {
+            label: MEDICAL DIAGNOSIS
+            alignment: left
+        }
+        layout {
+            sequence: 40
+            region: @client-information
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: MEDICAL_DIAGNOSIS
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_NEW_ASSESSMENT (
+        type: hidden
+        layout {
+            sequence: 10
+            region: @assessment
+            slot: regionBody
+        }
+        default {
+            type: static
+            staticValue: N
+        }
+    )
+
+    pageItem P1501_PERSONAL_SOCIAL_SKILLS (
+        type: checkboxGroup
+        label {
+            alignment: left
+        }
+        settings {
+            noOfCols: 3
+        }
+        lov {
+            type: sharedComponent
+            lov: @assessment-personal-social-skills
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 140
+            region: @personal-social-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: PERSONAL_SOCIAL_SKILLS
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_PHYSICAL_SKILLS_ACTIVITY_ENDURANCE (
+        type: checkboxGroup
+        label {
+            label: ACTIVITY ENDURANCE
+            alignment: left
+        }
+        settings {
+            noOfCols: 4
+        }
+        lov {
+            type: sharedComponent
+            lov: @assessment-physical-skills-activity-endurance
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 130
+            region: @physical-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: PHYSICAL_SKILLS_ACTIVITY_ENDURANCE
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_PHYSICAL_SKILLS_BALANCE (
+        type: checkboxGroup
+        label {
+            label: BALANCE
+            alignment: left
+        }
+        settings {
+            noOfCols: 3
+        }
+        lov {
+            type: sharedComponent
+            lov: @assessment-physical-skills-balance
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 140
+            region: @physical-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: PHYSICAL_SKILLS_BALANCE
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_PHYSICAL_SKILLS_FINE_MOTOR (
+        type: checkboxGroup
+        label {
+            label: FINE MOTOR / ADAPTIVE
+            alignment: left
+        }
+        settings {
+            noOfCols: 5
+        }
+        lov {
+            type: sharedComponent
+            lov: @assessment-physical-skills-fine-motor-adaptive
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 110
+            region: @physical-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: PHYSICAL_SKILLS_FINE_MOTOR
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_PHYSICAL_SKILLS_GROSS_MOTOR (
+        type: checkboxGroup
+        label {
+            label: GROSS MOTOR
+            alignment: left
+        }
+        settings {
+            noOfCols: 5
+        }
+        lov {
+            type: sharedComponent
+            lov: @assessment-physical-skills-gross-motor
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 120
+            region: @physical-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: PHYSICAL_SKILLS_GROSS_MOTOR
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_PHYSICAL_SKILLS_HEARING (
+        type: checkboxGroup
+        label {
+            label: HEARING
+            alignment: left
+        }
+        settings {
+            noOfCols: 4
+        }
+        lov {
+            type: sharedComponent
+            lov: @assessment-physical-skills-hearing
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 100
+            region: @physical-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: PHYSICAL_SKILLS_HEARING
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_PHYSICAL_SKILLS_VISION (
+        type: checkboxGroup
+        label {
+            label: VISION
+            alignment: left
+        }
+        settings {
+            noOfCols: 4
+        }
+        lov {
+            type: sharedComponent
+            lov: @assessment-physical-skills-vision
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 80
+            region: @physical-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: PHYSICAL_SKILLS_VISION
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_SIBLING_NAMES (
+        type: textarea
+        label {
+            label: SIBLING NAMES
+            alignment: left
+        }
+        layout {
+            sequence: 50
+            region: @client-information
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: SIBLING_NAMES
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_CHILD_FAMILY_GOAL (
+        type: textarea
+        label {
+            alignment: left
+        }
+        layout {
+            sequence: 10
+            region: @child-family-goal
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_CHILD_FAMILY_GOAL
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_COMMENTS (
+        type: textarea
+        label {
+            alignment: left
+        }
+        layout {
+            sequence: 10
+            region: @comments
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_COMMENTS
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_DISABILITY_REHAB_PROBLEM (
+        type: textarea
+        label {
+            alignment: left
+        }
+        layout {
+            sequence: 10
+            region: @disability-rehab-problem
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_DISABILITY_REHAB_PROBLEM
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_LEISURE_EDUCATION (
+        type: checkboxGroup
+        label {
+            alignment: left
+        }
+        settings {
+            noOfCols: 3
+        }
+        lov {
+            type: sharedComponent
+            lov: @treatment-recreation-therapy-objectives-leisure-education
+        }
+        layout {
+            sequence: 60
+            region: @leisure-education
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_LEISURE_EDUCATION
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_METHODS (
+        type: checkboxGroup
+        label {
+            alignment: left
+        }
+        settings {
+            noOfCols: 2
+        }
+        lov {
+            type: sharedComponent
+            lov: @treament-plan-methods
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 10
+            region: @methods
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_METHODS
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_METHODS_SESSIONS (
+        type: hidden
+        layout {
+            sequence: 80
+            region: @assessment
+            slot: regionBody
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_METHODS_SESSIONS
+            dataType: number
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_RECREATION_PARTICIPATION (
+        type: checkboxGroup
+        label {
+            alignment: left
+        }
+        settings {
+            noOfCols: 3
+        }
+        lov {
+            type: sharedComponent
+            lov: @treatment-recreation-therapy-objectives-recreation-participation
+        }
+        layout {
+            sequence: 70
+            region: @recreation-participation
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_RECREATION_PARTICIPATION
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_RECREATION_THERAPY_GOAL (
+        type: checkboxGroup
+        label {
+            alignment: left
+        }
+        settings {
+            noOfCols: 3
+        }
+        lov {
+            type: sharedComponent
+            lov: @treatment-recreation-therapy-goal
+        }
+        layout {
+            sequence: 10
+            region: @recreation-therapy-goal
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_RECREATION_THERAPY_GOAL
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_COGNITIVE_SKILLS (
+        type: checkboxGroup
+        label {
+            label: COGNITIVE SKILLS
+            alignment: left
+        }
+        settings {
+            noOfCols: 3
+        }
+        lov {
+            type: sharedComponent
+            lov: @treatment-recreation-therapy-objectives-cognitive-skills
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 30
+            region: @functional-leisure-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_COGNITIVE_SKILLS
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_PHYSICAL_SKILLS (
+        type: checkboxGroup
+        label {
+            label: PHYSICAL SKILLS
+            alignment: left
+        }
+        settings {
+            noOfCols: 3
+        }
+        lov {
+            type: sharedComponent
+            lov: @treatment-recreation-therapy-objectives-physical-skills
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 40
+            region: @functional-leisure-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_PHYSICAL_SKILLS
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1501_TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_SOCIALIZATION_EMOTIONAL_SKILLS (
+        type: checkboxGroup
+        label {
+            label: SOCIALIZATION EMOTIONAL SKILLS
+            alignment: left
+        }
+        settings {
+            noOfCols: 3
+        }
+        lov {
+            type: sharedComponent
+            lov: @treatment-recreation-therapy-objectives-social-emotional-skills
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 50
+            region: @functional-leisure-skills
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @assessment
+            column: TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_SOCIALIZATION_EMOTIONAL_SKILLS
+            dataType: varchar2
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: Cancel
+        layout {
+            sequence: 10
+            region: @selector
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1500
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+    )
+
+    button create (
+        buttonName: CREATE
+        label: Create
+        layout {
+            sequence: 40
+            region: @selector
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: insert
+        }
+        serverSideCondition {
+            type: item=value
+            item: P1501_NEW_ASSESSMENT
+            value: Y
+        }
+        security {
+            authorizationScheme: mustNotBePublicUser
+        }
+        config {
+            buildOption: @excluded
+        }
+    )
+
+    button delete (
+        buttonName: DELETE
+        label: Delete
+        layout {
+            sequence: 20
+            region: @selector
+            slot: delete
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            executeValidations: false
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: delete
+            requiresConfirmation: true
+        }
+        confirmation {
+            message: &APP_TEXT$DELETE_MSG!RAW.
+            style: danger
+        }
+        serverSideCondition {
+            type: item=value
+            item: P1501_NEW_ASSESSMENT
+            value: N
+        }
+        config {
+            buildOption: @excluded
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: Apply Changes
+        layout {
+            sequence: 30
+            region: @selector
+            slot: change
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: item=value
+            item: P1501_NEW_ASSESSMENT
+            value: N
+        }
+        security {
+            authorizationScheme: mustNotBePublicUser
+        }
+        config {
+            buildOption: @excluded
+        }
+    )
+
+    dynamicAction set-text-fields (
+        name: set text fields 100%
+        execution {
+            sequence: 10
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("input[type='text']:not([id*='_DATE_'])").each(function() {
+                        $(this).parent().css('width', '100%');
+                        $(this).css('width', '100%');
+                    });
+                    
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    process initialize-form-assessment (
+        name: Initialize form ASSESSMENT
+        type: formInitialization
+        formRegion: @assessment
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 15009876091951594
+        }
+    )
+
+    process process-form-assessment (
+        name: Process form ASSESSMENT
+        type: formAutoRowProcessing
+        formRegion: @assessment
+        execution {
+            sequence: 10
+        }
+        advanced {
+            executionMappingIdentifier: 15010245157951593
+        }
+    )
+
+    branch (
+        execution {
+            sequence: 1
+        }
+        behavior {
+            target: {
+                page: 1500
+            }
+        }
+    )
+
+)
+

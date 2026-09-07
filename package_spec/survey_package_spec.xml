@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="d50116386bd94329e73d637812f9d870afe4cc84" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOraclePackageSpec objectName="SURVEY" objectType="PACKAGE_SPEC" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE "%USER_NAME%"."SURVEY" as
+    -- business rules
+    g_months_between_surveys number := 6;
+    g_days_before_survey_warning number := 14;
+    g_date_survey_late number := -14;
+
+    function days_to_next_survey(p_case_number in number) return number;
+    function last_survey(p_case_number in number) return date;
+    function next_survey(p_case_number in number) return date;
+    function notification_flag(p_case_number in number) return varchar2;
+end survey;
+/]]></n0:source>
+      </n0:createOraclePackageSpec>
+ </changeSet>
+</databaseChangeLog>

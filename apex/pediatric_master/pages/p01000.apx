@@ -1,0 +1,781 @@
+page 1000 (
+    name: SELECT CLIENT
+    title: SELECT CLIENT
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region select-client (
+        name: SELECT CLIENT
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region select-client-hidden-items (
+        name: SELECT_CLIENT_HIDDEN_ITEMS
+        type: staticContent
+        layout {
+            sequence: 30
+            parentRegion: @select-client
+            slot: subRegions
+            startNewRow: false
+            newColumn: false
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    region select-client-report (
+        name: SELECT CLIENT REPORT
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                WITH client_sessions AS (
+                    select
+                        case_number, 
+                        sessions_this_month(case_number) num_sessions
+                    from clients
+                ),
+                client_list AS (
+                    SELECT 
+                        clients.case_number, 
+                        first_name link,
+                        first_name,
+                        last_name,
+                        therapist_id,
+                        name program,
+                        num_sessions,
+                        active, 
+                        CASE WHEN therapist_id = lts_user.get_therapist_id 
+                                OR :APP_MODE = 'A' 
+                                OR INSTR(':'||therapist_student_ids||':', ':'||lts_user.get_therapist_id||':') > 0 THEN
+                            'N'
+                        ELSE
+                            'Y'
+                        END read_only_access,
+                        color_css_code,
+                        num_sessions_allowed_per_month,
+                        case 
+                            when nvl(num_sessions_allowed_per_month, 100) <= num_sessions then 
+                                '<span class="lts-alert-class u-danger"></span>' 
+                            when nvl(num_sessions_allowed_per_month, 100) - num_sessions = 1 then 
+                                '<span class="lts-alert-class u-warning"></span>' 
+                            else
+                                null
+                            end alert_span
+                    FROM clients
+                        join client_sessions on clients.case_number = client_sessions.case_number
+                        left join programs using (p_id)
+                    WHERE 
+                        (
+                            :APP_MODE = 'A'
+                            OR
+                            (
+                                therapist_id = lts_user.get_therapist_id
+                                AND
+                                active = 'Y'
+                            )
+                            OR
+                            (
+                                INSTR(':'||therapist_readonly_ids||':', ':'||lts_user.get_therapist_id||':') > 0
+                            )
+                            OR
+                            (
+                                INSTR(':'||therapist_student_ids||':', ':'||lts_user.get_therapist_id||':') > 0
+                            )
+                        )
+                        AND  
+                        (
+                            INSTR(UPPER(first_name), UPPER(NVL(:P1000_REPORT_SEARCH, first_name))) > 0
+                            OR INSTR(UPPER(last_name), UPPER(NVL(:P1000_REPORT_SEARCH, last_name))) > 0 
+                        )
+                        AND
+                        (
+                            active = 'Y'
+                            OR
+                            NVL(:P1000_SELECT_CLIENT_SHOW_INACTIVE, 'N') = 'Y'
+                        )
+                )
+                SELECT 
+                    case_number, 
+                    link,
+                    first_name,
+                    last_name,
+                    therapist_id,
+                    program,
+                    num_sessions || NVL2(num_sessions_allowed_per_month, ' of ' || num_sessions_allowed_per_month || alert_span, null) num_sessions,
+                    active, 
+                    read_only_access,
+                    color_css_code,
+                    survey.notification_flag(case_number) notification_flag
+                FROM client_list
+                
+                ```
+            pageItemsToSubmit: P1000_SELECT_CLIENT_SHOW_INACTIVE
+        }
+        layout {
+            sequence: 20
+            parentRegion: @select-client
+            slot: subRegions
+        }
+        appearance {
+            template: @interactive-report
+            templateOptions: #DEFAULT#
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+
+        column ACTIVE (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            heading {
+                heading: ACTIVE
+                alignment: center
+            }
+            layout {
+                sequence: 70
+            }
+            serverSideCondition {
+                type: item=value
+                item: P1000_SELECT_CLIENT_SHOW_INACTIVE
+                value: Y
+            }
+            security {
+                authorizationScheme: @is-admin
+            }
+        )
+
+        column CASE_NUMBER (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 10
+            }
+        )
+
+        column COLOR_CSS_CODE (
+            reportColumnQueryId: 10
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 90
+            }
+        )
+
+        column FIRST_NAME (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: FIRST NAME
+                alignment: center
+            }
+            layout {
+                sequence: 20
+            }
+        )
+
+        column LAST_NAME (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: LAST NAME
+                alignment: center
+            }
+            layout {
+                sequence: 30
+            }
+        )
+
+        column LINK (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: link
+            heading {
+                heading: Link
+            }
+            layout {
+                sequence: 100
+            }
+            link {
+                target: {
+                    page: 1001
+                    items: {
+                        P1001_CASE_NUMBER: #CASE_NUMBER#
+                        CURRENT_CLIENT: #CASE_NUMBER#
+                        CURRENT_CLIENT_NAME: #FIRST_NAME# #LAST_NAME#
+                        READ_ONLY_ACCESS: #READ_ONLY_ACCESS#
+                    }
+                    clearCache: 1001
+                }
+                linkText: #LINK#
+                linkAttributes: class="lts-bg-color #COLOR_CSS_CODE#"
+            }
+        )
+
+        column NOTIFICATION_FLAG (
+            reportColumnQueryId: 11
+            derivedColumn: N
+            heading {
+                heading: 6 Month survey
+            }
+            layout {
+                sequence: 110
+            }
+            security {
+                authorizationScheme: @is-admin
+                escapeSpecialChars: false
+            }
+        )
+
+        column NUM_SESSIONS (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            heading {
+                heading: SESSIONS THIS MONTH
+                alignment: center
+            }
+            layout {
+                sequence: 40
+            }
+            security {
+                escapeSpecialChars: false
+            }
+        )
+
+        column PROGRAM (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            heading {
+                heading: PROGRAM
+                alignment: center
+            }
+            layout {
+                sequence: 50
+            }
+        )
+
+        column READ_ONLY_ACCESS (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 80
+            }
+        )
+
+        column THERAPIST_ID (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: THERAPIST
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @therapists
+            }
+            layout {
+                sequence: 60
+            }
+            security {
+                authorizationScheme: @is-admin
+            }
+        )
+
+    )
+
+    region select-client-search (
+        name: SELECT CLIENT SEARCH
+        type: smartFilters
+        source {
+            filteredRegion: @select-client-report
+        }
+        layout {
+            sequence: 10
+            parentRegion: @select-client
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: SELECT_CLIENT_SEARCH
+        }
+        settings {
+            compactNosThreshold: 10000
+        }
+
+        filter P1000_SEARCH (
+            type: search
+            label {
+                label: Search
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+    )
+
+    pageItem P1000_SELECT_CLIENT_SHOW_INACTIVE (
+        type: hidden
+        layout {
+            sequence: 40
+            region: @select-client-search
+            slot: regionBody
+        }
+        default {
+            type: static
+            staticValue: N
+        }
+    )
+
+    button add-client (
+        buttonName: ADD_CLIENT
+        label: ADD CLIENT
+        layout {
+            sequence: 10
+            region: @select-client-search
+            slot: regionBody
+            startNewRow: false
+            newColumn: false
+        }
+        appearance {
+            buttonTemplate: @text-w-null-label-above
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1001
+                clearCache: 1001
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        advanced {
+            htmlDomId: ADD_CLIENT
+        }
+    )
+
+    button hide-inactive (
+        buttonName: HIDE_INACTIVE
+        label: HIDE INACTIVE
+        layout {
+            sequence: 30
+            region: @select-client-search
+            slot: regionBody
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            htmlDomId: HIDE_INACTIVE
+        }
+        security {
+            authorizationScheme: @is-admin
+        }
+    )
+
+    button show-inactive (
+        buttonName: SHOW_INACTIVE
+        label: SHOW INACTIVE
+        layout {
+            sequence: 20
+            region: @select-client-search
+            slot: regionBody
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            htmlDomId: SHOW_INACTIVE
+        }
+        security {
+            authorizationScheme: @is-admin
+        }
+    )
+
+    dynamicAction hide-inactive (
+        name: Hide Inactive
+        execution {
+            sequence: 50
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @hide-inactive
+        }
+
+        action native-set-value (
+            action: setValue
+            settings {
+                value: N
+            }
+            affectedElements {
+                selectionType: items
+                items: P1000_SELECT_CLIENT_SHOW_INACTIVE
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction move-and-trigger-show-hide-buttons (
+        name: Move and Trigger Show/Hide Buttons
+        execution {
+            sequence: 40
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("#ADD_CLIENT").insertAfter("#SELECT_CLIENT_SEARCH_fr_search");
+                    $("#HIDE_INACTIVE").insertAfter("#SELECT_CLIENT_SEARCH_fr_search");
+                    $("#SHOW_INACTIVE").insertAfter("#SELECT_CLIENT_SEARCH_fr_search");
+                    $('#P1000_SELECT_CLIENT_SHOW_INACTIVE').trigger('change');
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction select-client-report-refresh (
+        name: Select Client Report Refresh
+        execution {
+            sequence: 60
+        }
+        when {
+            event: apexafterrefresh
+            selectionType: region
+            region: @select-client-report
+        }
+
+        action set-row-colors (
+            name: Set Row Colors
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $('.lts-bg-color').each(function() {
+                        $(this).parents('tr').children('td').addClass( $(this).attr('class') ) ;
+                        $(this).parents('tr').children('td').removeClass('lts-bg-color') ;
+                        $(this).parents('tr').addClass('lts-bg-color') ;
+                        $(this).parents('tr').attr('href', $(this).attr('href'));
+                        $(this).parents('tr').children('td').on('click', function(event){event.preventDefault();apex.navigation.redirect($(this).parents('tr').attr('href'))});
+                        $('#' + $(this).parents('td').attr('headers')).hide();
+                        $(this).parents('td').hide();
+                        $(this).removeClass();
+                    });
+                    
+                    $('.lts-alert-class').each(function() {
+                        $(this).parents('td').removeClass(function (index, className) {
+                            return (className.match (/(^|\s)u-color-\S+/g) || []).join(' ');
+                        });
+                        $(this).removeClass('lts-alert-class');
+                        $(this).parents('td').addClass( $(this).attr('class') ) ;
+                        $(this).remove();
+                    });
+                    
+                    
+                    ```
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction set-row-colors (
+        name: Set Row Colors
+        execution {
+            sequence: 10
+        }
+        when {
+            event: ready
+        }
+
+        action refresh-report (
+            name: Refresh Report
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @select-client-report
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction show-hide-buttons (
+        name: Show/Hide Buttons
+        execution {
+            sequence: 20
+        }
+        when {
+            selectionType: items
+            items: P1000_SELECT_CLIENT_SHOW_INACTIVE
+        }
+        clientSideCondition {
+            type: item=value
+            item: P1000_SELECT_CLIENT_SHOW_INACTIVE
+            value: Y
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: null;
+                itemsToSubmit: P1000_SELECT_CLIENT_SHOW_INACTIVE
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action native-execute-plsql-code-2 (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: null;
+                itemsToSubmit: P1000_SELECT_CLIENT_SHOW_INACTIVE
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: button
+                button: @hide-inactive
+            }
+            execution {
+                sequence: 40
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+        action native-hide-2 (
+            action: hide
+            affectedElements {
+                selectionType: button
+                button: @show-inactive
+            }
+            execution {
+                sequence: 50
+                fireOnInit: false
+            }
+        )
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @select-client-report
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action native-refresh-2 (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @select-client-report
+            }
+            execution {
+                sequence: 20
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: button
+                button: @hide-inactive
+            }
+            execution {
+                sequence: 40
+                fireOnInit: false
+            }
+        )
+
+        action native-show-2 (
+            action: show
+            affectedElements {
+                selectionType: button
+                button: @show-inactive
+            }
+            execution {
+                sequence: 30
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction show-inactive (
+        name: Show Inactive
+        execution {
+            sequence: 30
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @show-inactive
+        }
+
+        action native-set-value (
+            action: setValue
+            settings {
+                value: Y
+            }
+            affectedElements {
+                selectionType: items
+                items: P1000_SELECT_CLIENT_SHOW_INACTIVE
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction show-report-region (
+        name: Show Report Region
+        execution {
+            sequence: 70
+        }
+        when {
+            event: ready
+        }
+    )
+
+    process clear-current-client (
+        name: Clear CURRENT_CLIENT
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                :CURRENT_CLIENT := NULL;
+                :CURRENT_CLIENT_NAME := NULL;
+                ```
+        }
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 5603900301972661
+        }
+    )
+
+    process reset-pagination (
+        name: Reset Pagination
+        type: resetPagination
+        execution {
+            sequence: 10
+        }
+        advanced {
+            executionMappingIdentifier: 5603112717972660
+        }
+        serverSideCondition {
+            type: requestIsContainedInValue
+            value: GO,P1000_REPORT_SEARCH,RESET
+        }
+    )
+
+    branch (
+        name: Go To Page 1000
+        execution {
+            sequence: 10
+        }
+        behavior {
+            target: {
+                page: 1000
+                action: resetPagination
+                successMessage: false
+            }
+        }
+    )
+
+)
+

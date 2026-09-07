@@ -1,0 +1,16 @@
+{
+  "app" : {
+    "id" : 1050,
+    "databaseSession" : {
+      "parsingSchema" : "PEDS_MSTR"
+    },
+    "runtime" : {
+      "debugging" : true
+    }
+  },
+  "subscription" : {
+    "masterApps" : {
+      "100" : 100
+    }
+  }
+}

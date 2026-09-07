@@ -1,0 +1,378 @@
+page 6 (
+    name: SS Home
+    title: SS Home
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region activity-review (
+        name: ACTIVITY REVIEW
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT
+                    act.act_id,
+                    act_therapist,
+                    i.first_name||' '||i.last_name client,
+                    act_date,
+                    act_units,
+                    act_activity,
+                    act_note,
+                    NULL edit_link,
+                    NULL print_link
+                FROM activity act
+                    INNER JOIN intake i ON act.case_number = i.case_number
+                WHERE act_needs_review = 'Y'
+                
+                
+                ```
+        }
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+            cssClasses: [
+                col-sm-12
+                col-md-10
+                col-lg-8
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: lts_settings.is_app_admin
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+
+        column ACT_ACTIVITY (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            heading {
+                heading: ACTIVITY
+                alignment: center
+            }
+            layout {
+                sequence: 6
+            }
+            security {
+                escapeSpecialChars: false
+            }
+        )
+
+        column ACT_DATE (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: DATE
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+        )
+
+        column ACT_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 1
+            }
+            link {
+                target: {
+                    page: 1201
+                    items: {
+                        P1201_ACT_ID: #ACT_ID#
+                        P1201_IS_REVIEW: Y
+                        P1201_FROM_PAGE: 1
+                    }
+                    action: resetPagination
+                }
+                linkText: <span aria-hidden="true" class="fa fa-glasses"></span>
+            }
+        )
+
+        column ACT_NOTE (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            heading {
+                heading: DETAILS
+                alignment: center
+            }
+            layout {
+                sequence: 7
+            }
+            serverSideCondition {
+                type: never
+            }
+        )
+
+        column ACT_THERAPIST (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            heading {
+                heading: THERAPIST
+                alignment: center
+            }
+            layout {
+                sequence: 2
+            }
+        )
+
+        column ACT_UNITS (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: UNITS
+                alignment: center
+            }
+            layout {
+                sequence: 5
+            }
+            security {
+                escapeSpecialChars: false
+            }
+        )
+
+        column CLIENT (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: CLIENT
+                alignment: center
+            }
+            layout {
+                sequence: 3
+            }
+        )
+
+        column EDIT_LINK (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 8
+            }
+            link {
+                target: {
+                    page: 1201
+                    items: {
+                        P1201_ACT_ID: #ACT_ID#
+                        P1201_FROM_PAGE: 1
+                    }
+                    clearCache: 1201
+                }
+                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+            }
+        )
+
+        column PRINT_LINK (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 9
+            }
+            link {
+                target: {
+                    type: url
+                    url: &REPORT_URL./pdfreport.aspx?report=activity.rpt&prompt1=0&prompt2=0&prompt3=#ACT_ID#&prompt4=1/1/2000&prompt5=1/1/2000
+                }
+                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkAttributes: target="_blank"
+            }
+        )
+
+    )
+
+    region home (
+        name: HOME
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+            cssClasses: [
+                col-sm-12
+                col-md-10
+                col-lg-8
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+    )
+
+    pageItem P6_MODE (
+        type: radioGroup
+        label {
+            label: Mode
+            alignment: left
+        }
+        settings {
+            noOfCols: 2
+        }
+        lov {
+            type: sharedComponent
+            lov: @app-mode
+            displayExtraValues: false
+            displayNullValue: false
+        }
+        layout {
+            sequence: 10
+            region: @home
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        default {
+            type: static
+            staticValue: T
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: lts_settings.is_app_admin
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    button print-activity-review (
+        buttonName: PRINT_ACTIVITY_REVIEW
+        label: PRINT ACTIVITY REVIEW
+        layout {
+            sequence: 10
+            region: @activity-review
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    dynamicAction print-activity-review (
+        name: Print Activity Review
+        execution {
+            sequence: 20
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @print-activity-review
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?report=activity.rpt&prompt1=-1&prompt2=0&prompt3=0&prompt4=1/1/2000&prompt5=1/1/2000")
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction set-is-app-admin (
+        name: Set IS_APP_ADMIN
+        execution {
+            sequence: 10
+        }
+        when {
+            selectionType: items
+            items: P6_MODE
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode:
+                    ```plsql
+                    BEGIN
+                        :APP_MODE := :P6_MODE;
+                    END;
+                    ```
+                itemsToSubmit: P6_MODE
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    process clear-current-client (
+        name: Clear CURRENT_CLIENT
+        type: executeCode
+        source {
+            plsqlCode: :CURRENT_CLIENT := NULL
+        }
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 6327354633321929
+        }
+    )
+
+)
+

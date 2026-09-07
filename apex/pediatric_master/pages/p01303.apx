@@ -1,0 +1,284 @@
+page 1303 (
+    name: LATE REASON
+    title: LATE REASON
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @modal-dialog
+        templateOptions: #DEFAULT#
+    }
+    dialog {
+        resizable: false
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region buttons (
+        name: Buttons
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: dialogFooter
+        }
+        appearance {
+            template: @buttons-container
+            templateOptions: #DEFAULT#
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    region late-reason (
+        name: LATE REASON
+        type: form
+        source {
+            location: localDatabase
+            tableName: SESSIONS
+            includeRowidColumn: true
+        }
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    pageItem P1303_DATE_CREATED (
+        type: datePicker
+        label {
+            label: DATE CREATED
+            alignment: left
+        }
+        layout {
+            sequence: 40
+            region: @late-reason
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            formatMask: MM/DD/YYYY HH:MI AM
+            width: 30
+        }
+        source {
+            formRegion: @late-reason
+            column: DATE_CREATED
+            dataType: date
+        }
+        readOnly {
+            type: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1303_DATE_SUBMITTED (
+        type: datePicker
+        label {
+            label: DATE SUBMITTED
+            alignment: left
+        }
+        layout {
+            sequence: 60
+            region: @late-reason
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            formatMask: MM/DD/YYYY HH:MI AM
+            width: 30
+        }
+        source {
+            formRegion: @late-reason
+            column: DATE_SUBMITTED
+            dataType: date
+        }
+        readOnly {
+            type: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1303_DATE_TIME_SESSSION (
+        type: datePicker
+        label {
+            label: DATE SESSION
+            alignment: left
+        }
+        layout {
+            sequence: 10
+            region: @late-reason
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            formatMask: MM/DD/YYYY HH:MI AM
+            width: 30
+        }
+        source {
+            formRegion: @late-reason
+            column: DATE_TIME_SESSION
+            dataType: date
+        }
+        readOnly {
+            type: always
+        }
+    )
+
+    pageItem P1303_LATE_REASON (
+        type: textarea
+        label {
+            label: REASON DOCUMENTATION IS LATE
+            alignment: left
+        }
+        layout {
+            sequence: 80
+            region: @late-reason
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @late-reason
+            column: LATE_REASON
+            dataType: varchar2
+        }
+        readOnly {
+            type: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1303_S_ID (
+        type: hidden
+        layout {
+            sequence: 70
+            region: @late-reason
+            slot: regionBody
+        }
+        source {
+            formRegion: @late-reason
+            column: S_ID
+            dataType: number
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: OK
+        layout {
+            sequence: 10
+            region: @buttons
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    dynamicAction cancel-dialog (
+        name: Cancel Dialog
+        execution {
+            sequence: 10
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @cancel
+        }
+
+        action native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    process close-dialog (
+        name: Close Dialog
+        type: closeDialog
+        settings {
+            showSuccessMessages: false
+        }
+        execution {
+            sequence: 50
+        }
+        advanced {
+            executionMappingIdentifier: 11371557554897419
+        }
+        serverSideCondition {
+            type: requestIsContainedInValue
+            value: CREATE,SAVE,DELETE
+        }
+    )
+
+    process fetch-row-from-sessions (
+        name: Fetch Row from SESSIONS
+        type: formInitialization
+        formRegion: @late-reason
+        execution {
+            sequence: 10
+            point: afterHeader
+        }
+        advanced {
+            executionMappingIdentifier: 11370310655897417
+        }
+    )
+
+    process reset-page (
+        name: reset page
+        type: clearSessionState
+        execution {
+            sequence: 40
+        }
+        advanced {
+            executionMappingIdentifier: 11371175584897419
+        }
+    )
+
+)
+

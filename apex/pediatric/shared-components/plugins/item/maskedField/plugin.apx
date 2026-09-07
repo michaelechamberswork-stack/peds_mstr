@@ -1,0 +1,167 @@
+plugin maskedField (
+    name: Masked Field
+    staticId: COM.ORACLE.APEX.MASKED_FIELD
+    type: item
+    component {
+        supports: pageItems
+        standardAttributes: [
+            visibleWidget
+            standardFormElement
+            sessionStateChangeable
+            readOnlyAttr
+            sourceAttrs
+            elementAttrs
+            widthAttrs
+            encryptSessionStateAttr
+        ]
+    }
+    source {
+        plsqlCode:
+            ```plsql
+            function render_masked_field (
+                p_item                in apex_plugin.t_page_item,
+                p_plugin              in apex_plugin.t_plugin,
+                p_value               in varchar2,
+                p_is_readonly         in boolean,
+                p_is_printer_friendly in boolean )
+                return apex_plugin.t_page_item_render_result
+            is
+                -- It's better to have named variables instead of using the generic ones,
+                -- makes the code more readable
+                l_input_mask  apex_application_page_items.attribute_01%type := p_item.attribute_01;
+                l_placeholder apex_application_page_items.attribute_01%type := nvl(p_item.attribute_02, '_');
+            
+                l_name        varchar2(30);
+                l_result      apex_plugin.t_page_item_render_result;
+            begin
+                if p_is_readonly or p_is_printer_friendly then
+                    -- emit hidden field if necessary
+                    apex_plugin_util.print_hidden_if_readonly (
+                        p_item_name           => p_item.name,
+                        p_value               => p_value,
+                        p_is_readonly         => p_is_readonly,
+                        p_is_printer_friendly => p_is_printer_friendly );
+                    -- emit display span with the value
+                    apex_plugin_util.print_display_only (
+                        p_item_name        => p_item.name,
+                        p_display_value    => p_value,
+                        p_show_line_breaks => false,
+                        p_escape           => true,
+                        p_attributes       => p_item.element_attributes );
+                else
+                    -- Because the page item saves state, we have to call get_input_name_for_page_item
+                    -- which generates the internal hidden p_arg_names field. It will also return the
+                    -- HTML field name which we have to use when we render the HTML input field.
+                    l_name := apex_plugin.get_input_name_for_page_item(false);
+                    sys.htp.prn (
+                        '<input type="text" ' ||
+                        apex_plugin_util.get_element_attributes( p_item, l_name, 'masked_text_field' ) ||
+                        'value="' || apex_escape.html_attribute( p_value )|| '" size="' || p_item.element_width || '" '||
+                        'maxlength="'||p_item.element_max_length||'" />' );
+            
+                    -- Initialize the mask for the page item when the page has been rendered.
+                    -- apex_javascript.add_value and add_attribute are used to make sure that
+                    -- the values are properly escaped.   
+                    apex_javascript.add_onload_code (
+                        p_code => '$( "#' || apex_escape.js_literal( apex_escape.css_selector( p_item.name ), null ) || '" ).mask('||
+                                  apex_javascript.add_value( l_input_mask ) ||
+                                  '{' || apex_javascript.add_attribute( 'placeholder', l_placeholder, true, false ) || '});' );
+            
+                    -- Tell APEX that this field is navigable
+                    l_result.is_navigable := true;
+                end if;
+                return l_result;
+            end render_masked_field;
+            
+            
+            function validate_masked_field (
+                p_item   in     apex_plugin.t_page_item,
+                p_plugin in     apex_plugin.t_plugin,
+                p_value  in     varchar2 )
+                return apex_plugin.t_page_item_validation_result
+            is
+                -- It's better to have a named variable instead of using the generic ones,
+                -- makes the code more readable
+                l_input_mask       apex_application_page_items.attribute_01%type := p_item.attribute_01;
+                
+                l_allowed_char_pos pls_integer;
+                l_allowed_char     varchar2(1);
+                l_current_char     varchar2(1);
+                l_is_valid         boolean;
+                l_result           apex_plugin.t_page_item_validation_result;    
+            begin
+                if p_value is null then return null; end if;
+                
+                -- The first check is to make sure that the entered value is really as long
+                -- as the input mask. If the input mask contains the ? for optional input,
+                -- we just use the values before that, otherwise the entered value has to
+                -- match the length of the input mask.
+                if l_input_mask like '%?%' then
+                    l_is_valid := (length(p_value) >= instr(l_input_mask, '?')-1 and length(p_value) < length(l_input_mask));
+                else
+                    l_is_valid := (length(p_value) = length(l_input_mask));
+                end if;
+            
+                if l_is_valid then
+                    -- Check for each char in the entered value that it complies with the
+                    -- corresponding mask definition in the input mask
+                    l_allowed_char_pos := 0;
+                    for i in 1 .. length(p_value)
+                    loop
+                        l_allowed_char_pos := l_allowed_char_pos+1;
+                        -- skip the "?" mask definition
+                        if substr(l_input_mask, l_allowed_char_pos, 1) = '?' then
+                            l_allowed_char_pos := l_allowed_char_pos+1;
+                        end if;
+                        l_allowed_char := substr(l_input_mask, l_allowed_char_pos, 1);
+                        l_current_char := substr(p_value, i, 1);
+                        l_is_valid     :=
+                            case l_allowed_char
+                              when 'a' /* A-Z,a-z */     then (l_current_char between 'A' and 'Z' or l_current_char between 'a' and 'z')
+                              when '9' /* 0-9 */         then (l_current_char between '0' and '9')
+                              when '*' /* A-Z,a-z,0-9 */ then (l_current_char between 'A' and 'Z' or l_current_char between 'a' and 'z' or l_current_char between '0' and '9')
+                              else     /* filler */           (l_current_char = l_allowed_char)
+                            end;
+                        -- if there is an error we can terminate the loop immediately 
+                        if not l_is_valid then exit; end if;
+                    end loop;
+                end if;
+                -- Do we have to return an error message?
+                if not l_is_valid then
+                    l_result.message := 'Value doesn''t comply with the input mask!';
+                    -- We can leave l_result.display_location blank, in that case the default
+                    -- setting of the plug-in will be used -> that should be the default case
+                end if;
+                return l_result;
+            end validate_masked_field;
+            ```
+    }
+    callbacks {
+        apiInterface: function
+        renderProcedureName: render_masked_field
+        validationProcedureName: validate_masked_field
+    }
+    advanced {
+        substituteAttributeValues: true
+    }
+    javaScript {
+        fileUrls: #PLUGIN_FILES#jquery.maskedinput#MIN#.js
+    }
+    information {
+        version: 5.0
+        aboutUrl: http://apex.oracle.com/plugins/
+        helpText:
+            ```
+            <p>
+            	This plug-in allows a user to easily enter fixed width, formatted data (e.g. dates, phone numbers, SSN).</p>
+            <p>
+            	A mask is defined as a format made up of literals and mask definitions. Any character not in the definitions list below is considered a mask literal and can&rsquo;t be modified by the user.<br />
+            	<br />
+            	For example a mask of &quot;(999) 999-9999&quot; with a placeholder of &quot;#&quot; will be displayed to the user as &quot;(###) ###-####&quot;. As the user types in the value, the hashes will be replaced by the numbers entered and the parenthesis, space, and dash will remain untouched. See help text of<br />
+            	attribute &quot;Input Mask&quot; for valid mask definitions.</p>
+            <p>
+            	The plug-in is based on the jQuery Masked Input Field v1.4.0 plug-in (<a href="http://digitalbush.com/projects/masked-input-plugin/">http://digitalbush.com/projects/masked-input-plugin/</a>)</p>
+            ```
+    }
+)
+

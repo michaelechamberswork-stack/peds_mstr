@@ -1,0 +1,709 @@
+page 1701 (
+    name: PROGRAM
+    alias: PROGRAM
+    title: PROGRAM
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @modal-dialog
+        templateOptions: #DEFAULT#
+    }
+    dialog {
+        resizable: false
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region buttons (
+        name: Buttons
+        type: staticContent
+        layout {
+            sequence: 20
+            slot: dialogFooter
+        }
+        appearance {
+            template: @buttons-container
+            templateOptions: #DEFAULT#
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    region colors (
+        name: COLORS
+        type: cards
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                with color_numbers as (
+                    select rownum color_number
+                    from all_objects
+                    where rownum <= 45
+                )
+                select 
+                    'u-color-'||rownum card_title,
+                    'u-color-'||rownum card_color
+                from color_numbers
+                order by color_number
+                ```
+        }
+        layout {
+            sequence: 30
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes-no-grid
+            templateOptions: #DEFAULT#
+        }
+        advanced {
+            customAttributes: style="display: none;"
+        }
+        componentAppearance {
+            gridColumns: 5
+        }
+        card {
+            cssClasses: &CARD_COLOR!ATTR.
+        }
+        title {
+            column: CARD_TITLE
+        }
+        pagination {
+            type: page
+            showTotalCount: true
+            cardsPerPage: 100
+        }
+
+        action action (
+            type: fullCard
+            layout {
+                sequence: 10
+            }
+            behavior {
+                type: redirectUrl
+                targetUrl: #
+                linkAttributes: onclick="apex.event.trigger(document, 'daSetColor', '&CARD_COLOR!ATTR.');"
+            }
+        )
+
+    )
+
+    region program (
+        name: PROGRAM
+        type: form
+        source {
+            location: localDatabase
+            tableName: PROGRAMS
+        }
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        edit {
+            enabled: true
+            allowedOperations: [
+                add
+                update
+                delete
+            ]
+        }
+    )
+
+    pageItem P1701_ACCT_NUM (
+        type: textField
+        label {
+            label: ACCOUNT #
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 90
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 25
+        }
+        source {
+            formRegion: @program
+            column: ACCT_NUM
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_ADDRESS1 (
+        type: textField
+        label {
+            label: ADDRESS
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 30
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            formRegion: @program
+            column: ADDRESS1
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_ADDRESS2 (
+        type: textField
+        label {
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 40
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+            width: 60
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            formRegion: @program
+            column: ADDRESS2
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_CITY (
+        type: textField
+        label {
+            label: CITY
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 50
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            formRegion: @program
+            column: CITY
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_COLOR_CSS_CODE (
+        type: textField
+        label {
+            label: COLOR
+            alignment: left
+        }
+        layout {
+            sequence: 120
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 20
+        }
+        advanced {
+            cssClasses: &P1701_COLOR_CSS_CODE.
+            postText: <button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" tabindex="-1" onclick="apex.event.trigger(document, 'daOpenColors');"><span class="a-Icon icon-popup-lov"></span></button>
+        }
+        source {
+            formRegion: @program
+            column: COLOR_CSS_CODE
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_COST_NUM (
+        type: textField
+        label {
+            label: COST #
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 80
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 25
+        }
+        source {
+            formRegion: @program
+            column: COST_NUM
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_NAME (
+        type: textField
+        label {
+            label: PROGRAM NAME
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 20
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            formRegion: @program
+            column: NAME
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_NUM_SESSIONS_ALLOWED_PER_MONTH (
+        type: numberField
+        label {
+            label: NUMBER SESSIONS ALLOWED PER MONTH
+            alignment: left
+        }
+        layout {
+            sequence: 110
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            formRegion: @program
+            column: NUM_SESSIONS_ALLOWED_PER_MONTH
+            dataType: number
+        }
+    )
+
+    pageItem P1701_P_ID (
+        type: hidden
+        layout {
+            sequence: 10
+            region: @program
+            slot: regionBody
+        }
+        source {
+            formRegion: @program
+            column: P_ID
+            dataType: number
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+        }
+    )
+
+    pageItem P1701_STATE (
+        type: popupLov
+        label {
+            label: STATE
+            alignment: left
+        }
+        settings {
+            displayAs: modalDialog
+        }
+        lov {
+            type: sharedComponent
+            lov: @states
+        }
+        layout {
+            sequence: 60
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 10
+        }
+        validation {
+            maxLength: 2
+        }
+        source {
+            formRegion: @program
+            column: STATE
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_VEND_NUM (
+        type: textField
+        label {
+            label: VENDOR #
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 100
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 25
+        }
+        source {
+            formRegion: @program
+            column: VEND_NUM
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1701_ZIP (
+        type: textField
+        label {
+            label: ZIP
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 70
+            region: @program
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 15
+        }
+        validation {
+            maxLength: 10
+        }
+        source {
+            formRegion: @program
+            column: ZIP
+            dataType: varchar2
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: Cancel
+        layout {
+            sequence: 10
+            region: @buttons
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    button create (
+        buttonName: CREATE
+        label: Create
+        layout {
+            sequence: 40
+            region: @buttons
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: insert
+        }
+        serverSideCondition {
+            type: itemIsNull
+            item: P1701_P_ID
+        }
+    )
+
+    button delete (
+        buttonName: DELETE
+        label: Delete
+        layout {
+            sequence: 20
+            region: @buttons
+            slot: delete
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            executeValidations: false
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: delete
+            requiresConfirmation: true
+        }
+        confirmation {
+            message: &APP_TEXT$DELETE_MSG!RAW.
+            style: danger
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1701_P_ID
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: Apply Changes
+        layout {
+            sequence: 30
+            region: @buttons
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1701_P_ID
+        }
+    )
+
+    dynamicAction cancel-dialog (
+        name: Cancel Dialog
+        execution {
+            sequence: 10
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @cancel
+        }
+
+        action native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction open-colors (
+        name: Open Colors
+        execution {
+            sequence: 30
+        }
+        when {
+            event: custom
+            customEvent: daOpenColors
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: region
+                region: @colors
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction set-color (
+        name: Set Color
+        execution {
+            sequence: 20
+        }
+        when {
+            event: custom
+            customEvent: daSetColor
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: region
+                region: @colors
+            }
+            execution {
+                sequence: 50
+            }
+        )
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("#P1701_COLOR_CSS_CODE").removeClass(function (index, className) {
+                        return (className.match (/(^|\s)u-color-\S+/g) || []).join(' ');
+                    });
+                    $("#P1701_COLOR_CSS_CODE").addClass(this.data);
+                    
+                    ```
+            }
+            execution {
+                sequence: 40
+                fireOnInit: false
+            }
+        )
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: jsExpression
+                jsExpression: this.data
+            }
+            affectedElements {
+                selectionType: items
+                items: P1701_COLOR_CSS_CODE
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    process close-dialog (
+        name: Close Dialog
+        type: closeDialog
+        execution {
+            sequence: 50
+        }
+        advanced {
+            executionMappingIdentifier: 18217521937398200
+        }
+        serverSideCondition {
+            type: requestIsContainedInValue
+            value: CREATE,SAVE,DELETE
+        }
+    )
+
+    process initialize-form-program (
+        name: Initialize form PROGRAM
+        type: formInitialization
+        formRegion: @program
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 18216705802398198
+        }
+    )
+
+    process process-form-program (
+        name: Process form PROGRAM
+        type: formAutoRowProcessing
+        formRegion: @program
+        execution {
+            sequence: 10
+        }
+        advanced {
+            executionMappingIdentifier: 18217101459398200
+        }
+    )
+
+)
+

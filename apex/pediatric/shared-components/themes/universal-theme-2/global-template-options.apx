@@ -1,0 +1,358 @@
+globalTemplateOption pill (
+    templateType: button
+    name: Inner Button
+    group: @button/button-set
+    sequence: 20
+    appearance {
+        cssClasses: t-Button--pill
+    }
+    advanced {
+        identifier: PILL
+    }
+)
+
+globalTemplateOption pillend (
+    templateType: button
+    name: Last Button
+    group: @button/button-set
+    sequence: 30
+    appearance {
+        cssClasses: t-Button--pillEnd
+    }
+    advanced {
+        identifier: PILLEND
+    }
+)
+
+globalTemplateOption pillstart (
+    templateType: button
+    name: First Button
+    group: @button/button-set
+    sequence: 10
+    appearance {
+        cssClasses: t-Button--pillStart
+    }
+    help {
+        helpText: Use this for the start of a pill button.
+    }
+    advanced {
+        identifier: PILLSTART
+    }
+)
+
+globalTemplateOption large (
+    templateType: button
+    name: Large
+    group: @button/size
+    sequence: 20
+    appearance {
+        cssClasses: t-Button--large
+    }
+    advanced {
+        identifier: LARGE
+    }
+)
+
+globalTemplateOption small (
+    templateType: button
+    name: Small
+    group: @button/size
+    sequence: 10
+    appearance {
+        cssClasses: t-Button--small
+    }
+    advanced {
+        identifier: SMALL
+    }
+)
+
+globalTemplateOption largeleftmargin (
+    templateType: button
+    name: Large Left Margin
+    group: @button/spacing-left
+    sequence: 20
+    appearance {
+        cssClasses: t-Button--gapLeft
+    }
+    advanced {
+        identifier: LARGELEFTMARGIN
+    }
+)
+
+globalTemplateOption smallleftmargin (
+    templateType: button
+    name: Small Left Margin
+    group: @button/spacing-left
+    sequence: 10
+    appearance {
+        cssClasses: t-Button--padLeft
+    }
+    advanced {
+        identifier: SMALLLEFTMARGIN
+    }
+)
+
+globalTemplateOption largerightmargin (
+    templateType: button
+    name: Large Right Margin
+    group: @button/spacing-right
+    sequence: 20
+    appearance {
+        cssClasses: t-Button--gapRight
+    }
+    advanced {
+        identifier: LARGERIGHTMARGIN
+    }
+)
+
+globalTemplateOption smallrightmargin (
+    templateType: button
+    name: Small Right Margin
+    group: @button/spacing-right
+    sequence: 10
+    appearance {
+        cssClasses: t-Button--padRight
+    }
+    advanced {
+        identifier: SMALLRIGHTMARGIN
+    }
+)
+
+globalTemplateOption noui (
+    templateType: button
+    name: Remove UI Decoration
+    group: @button/style
+    sequence: 20
+    appearance {
+        cssClasses: t-Button--noUI
+    }
+    advanced {
+        identifier: NOUI
+    }
+)
+
+globalTemplateOption simple (
+    templateType: button
+    name: Simple
+    group: @button/style
+    sequence: 10
+    appearance {
+        cssClasses: t-Button--simple
+    }
+    advanced {
+        identifier: SIMPLE
+    }
+)
+
+globalTemplateOption danger (
+    templateType: button
+    name: Danger
+    group: @button/type
+    sequence: 30
+    appearance {
+        cssClasses: t-Button--danger
+    }
+    advanced {
+        identifier: DANGER
+    }
+)
+
+globalTemplateOption primary (
+    templateType: button
+    name: Primary
+    group: @button/type
+    sequence: 10
+    appearance {
+        cssClasses: t-Button--primary
+    }
+    advanced {
+        identifier: PRIMARY
+    }
+)
+
+globalTemplateOption success (
+    templateType: button
+    name: Success
+    group: @button/type
+    sequence: 40
+    appearance {
+        cssClasses: t-Button--success
+    }
+    advanced {
+        identifier: SUCCESS
+    }
+)
+
+globalTemplateOption warning (
+    templateType: button
+    name: Warning
+    group: @button/type
+    sequence: 20
+    appearance {
+        cssClasses: t-Button--warning
+    }
+    advanced {
+        identifier: WARNING
+    }
+)
+
+globalTemplateOption stretch (
+    templateType: button
+    name: Stretch
+    group: @button/width
+    sequence: 10
+    appearance {
+        cssClasses: t-Button--stretch
+    }
+    help {
+        helpText: Stretches button to fill container
+    }
+    advanced {
+        identifier: STRETCH
+    }
+)
+
+globalTemplateOption stretch-form-item (
+    templateType: item
+    name: Stretch Form Item
+    sequence: 10
+    appearance {
+        cssClasses: t-Form-fieldContainer--stretchInputs
+    }
+    help {
+        helpText: Stretches the form item to fill its container.
+    }
+    advanced {
+        identifier: STRETCH_FORM_ITEM
+    }
+)
+
+globalTemplateOption large-field (
+    templateType: item
+    name: Large
+    group: @item/size
+    sequence: 10
+    appearance {
+        cssClasses: t-Form-fieldContainer--large
+    }
+    advanced {
+        identifier: LARGE_FIELD
+    }
+)
+
+globalTemplateOption x-large-size (
+    templateType: item
+    name: X Large
+    group: @item/size
+    sequence: 20
+    appearance {
+        cssClasses: t-Form-fieldContainer--xlarge
+    }
+    advanced {
+        identifier: X_LARGE_SIZE
+    }
+)
+
+globalTemplateOption formremovepadding (
+    templateType: region
+    name: Remove Padding
+    group: @region/item-padding
+    sequence: 20
+    appearance {
+        cssClasses: t-Form--noPadding
+    }
+    help {
+        helpText: Removes padding between items.
+    }
+    advanced {
+        identifier: FORMREMOVEPADDING
+    }
+)
+
+globalTemplateOption formslimpadding (
+    templateType: region
+    name: Slim Padding
+    group: @region/item-padding
+    sequence: 10
+    appearance {
+        cssClasses: t-Form--slimPadding
+    }
+    help {
+        helpText: Reduces form item padding to 4px.
+    }
+    advanced {
+        identifier: FORMSLIMPADDING
+    }
+)
+
+globalTemplateOption formsizelarge (
+    templateType: region
+    name: Large
+    group: @region/item-size
+    sequence: 10
+    appearance {
+        cssClasses: t-Form--large
+    }
+    advanced {
+        identifier: FORMSIZELARGE
+    }
+)
+
+globalTemplateOption formsizexlarge (
+    templateType: region
+    name: X Large
+    group: @region/item-size
+    sequence: 20
+    appearance {
+        cssClasses: t-Form--xlarge
+    }
+    advanced {
+        identifier: FORMSIZEXLARGE
+    }
+)
+
+globalTemplateOption stretch-form-fields (
+    templateType: region
+    name: Stretch Form Fields
+    group: @region/item-width
+    sequence: 10
+    appearance {
+        cssClasses: t-Form--stretchInputs
+    }
+    advanced {
+        identifier: STRETCH_FORM_FIELDS
+    }
+)
+
+globalTemplateOption formleftlabels (
+    templateType: region
+    name: Left
+    group: @region/label-alignment
+    sequence: 20
+    appearance {
+        cssClasses: t-Form--leftLabels
+    }
+    help {
+        helpText: Align form labels to left.
+    }
+    advanced {
+        identifier: FORMLEFTLABELS
+    }
+)
+
+globalTemplateOption showformlabelsabove (
+    templateType: region
+    name: Show Form Labels Above
+    group: @region/label-position
+    sequence: 10
+    appearance {
+        cssClasses: t-Form--labelsAbove
+    }
+    help {
+        helpText: Show form labels above input fields.
+    }
+    advanced {
+        identifier: SHOWFORMLABELSABOVE
+    }
+)
+

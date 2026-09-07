@@ -1,0 +1,1722 @@
+page 1201 (
+    name: SESSION
+    title: SESSION
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    javaScript {
+        functionAndGlobalVariableDeclaration: var htmldb_delete_message='"DELETE_CONFIRM_MSG"';
+    }
+    css {
+        inline:
+            ```css
+            .textarea {
+                width: 100%;
+            }
+            ```
+    }
+    readOnly {
+        type: expression
+        plsqlExpression:
+            ```plsql
+            :READ_ONLY_ACCESS = 'Y'
+            OR :P1201_READ_ONLY = 'Y'
+            ```
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region notes (
+        name: NOTES
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT n_id, o_id, intervention, progress, objective
+                FROM notes
+                WHERE s_id = :P1201_S_ID
+                ORDER BY o_id
+                ```
+            pageItemsToSubmit: P1201_S_ID
+        }
+        layout {
+            sequence: 30
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+            cssClasses: [
+                col-sm-12
+                col-md-10
+                col-lg-8
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1201_S_ID
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+        messages {
+            whenNoDataFound: No Data Found
+        }
+
+        column INTERVENTION (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: INTERVENTION
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column N_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 1
+            }
+            link {
+                target: {
+                    page: 1202
+                    items: {
+                        P1202_N_ID: #N_ID#
+                        P1202_READ_ONLY: &P1201_READ_ONLY.
+                    }
+                    clearCache: 1202
+                    action: resetPagination
+                }
+                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column OBJECTIVE (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: OBJECTIVE
+                alignment: center
+            }
+            layout {
+                sequence: 3
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column O_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 2
+            }
+        )
+
+        column PROGRESS (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: PROGRESS
+                alignment: center
+            }
+            layout {
+                sequence: 5
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+    )
+
+    region session (
+        name: SESSION
+        type: form
+        source {
+            location: localDatabase
+            tableName: SESSIONS
+            includeRowidColumn: true
+        }
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+            cssClasses: [
+                col-sm-12
+                col-md-10
+                col-lg-8
+            ]
+        }
+        edit {
+            enabled: true
+            allowedOperations: [
+                add
+                update
+            ]
+        }
+    )
+
+    pageItem P1201_ACTIVITY (
+        type: selectList
+        label {
+            label: ACTIVITY
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @activity
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 170
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 5
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: ACTIVITY
+            dataType: number
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_ACTIVITY_OTHER (
+        type: textField
+        label {
+            label: CONSULTED WITH
+            alignment: left
+        }
+        layout {
+            sequence: 200
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 5
+        }
+        appearance {
+            template: @optional-above-hidden
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            formRegion: @session
+            column: ACTIVITY_OTHER
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_CANCEL_REASON (
+        type: selectList
+        label {
+            label: CANCEL REASON
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @cancel-reason
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 180
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 9
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: CANCEL_REASON
+            dataType: number
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_CASE_NUMBER (
+        type: hidden
+        layout {
+            sequence: 70
+            region: @session
+            slot: regionBody
+        }
+        source {
+            formRegion: @session
+            column: CASE_NUMBER
+            dataType: number
+        }
+        default {
+            type: expression
+            plsqlExpression: :CURRENT_CLIENT
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_COMMENTS (
+        type: textarea
+        label {
+            label: COMMENTS
+            alignment: left
+        }
+        settings {
+            autoHeight: true
+            charCounter: true
+        }
+        layout {
+            sequence: 220
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 85
+            height: 5
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @session
+            column: COMMENTS
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_DATE_SESSION (
+        type: plugin/ltsDateField
+        label {
+            label: DATE
+            alignment: left
+        }
+        layout {
+            sequence: 100
+            region: @session
+            slot: regionBody
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        validation {
+            valueRequired: true
+        }
+        source {
+            formRegion: @session
+            column: DATE_SESSION
+            dataType: date
+        }
+        default {
+            type: expression
+            plsqlExpression: TRUNC(et_sysdate)
+        }
+    )
+
+    pageItem P1201_LAST_SAVED_BY_LEVEL (
+        type: hidden
+        layout {
+            sequence: 60
+            region: @session
+            slot: regionBody
+        }
+        source {
+            formRegion: @session
+            column: LAST_SAVED_BY_LEVEL
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_LATE_REASON (
+        type: textarea
+        label {
+            label: REASON DOCUMENTING IS LATE
+            alignment: left
+        }
+        settings {
+            autoHeight: true
+            charCounter: true
+        }
+        layout {
+            sequence: 90
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 4
+        }
+        validation {
+            valueRequired: true
+            maxLength: 4000
+        }
+        source {
+            formRegion: @session
+            column: LATE_REASON
+            dataType: varchar2
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: documentation_late(:P1201_S_ID)
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_LOCATION (
+        type: selectList
+        label {
+            label: LOCATION
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @location-therapist
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 160
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: LOCATION
+            dataType: number
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_LOCATION_OTHER (
+        type: textField
+        label {
+            label: SERVICE LOCATION
+            alignment: left
+        }
+        layout {
+            sequence: 190
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above-hidden
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            valueRequired: true
+            maxLength: 255
+        }
+        source {
+            formRegion: @session
+            column: LOCATION_OTHER
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_NEXT (
+        type: hidden
+        layout {
+            sequence: 20
+            region: @session
+            slot: regionBody
+        }
+        source {
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_PSC_ID (
+        type: selectList
+        label {
+            label: SERVICE CODE
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @program-service-code
+            displayExtraValues: false
+            displayNullValue: false
+        }
+        layout {
+            sequence: 110
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 5
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: PSC_ID
+            dataType: number
+        }
+        default {
+            type: sqlQuerySingleValue
+            sqlQuerySingleValue:
+                ```sql
+                SELECT min(psc_id)
+                FROM program_service_codes psc
+                    INNER JOIN programs p ON psc.psc_p_id = p.p_id
+                    INNER JOIN clients c ON p.p_id = c.p_id
+                WHERE c.case_number = :CURRENT_CLIENT
+                
+                ```
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_READ_ONLY (
+        type: hidden
+        layout {
+            sequence: 80
+            region: @session
+            slot: regionBody
+        }
+        default {
+            type: static
+            staticValue: N
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_STATUS (
+        type: selectList
+        label {
+            label: STATUS
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @status
+            displayExtraValues: false
+            displayNullValue: false
+        }
+        layout {
+            sequence: 210
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: STATUS
+            dataType: varchar2
+        }
+        default {
+            type: static
+            staticValue: D
+        }
+        readOnly {
+            type: itemIsNull
+            item: P1201_S_ID
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_S_ID (
+        type: hidden
+        layout {
+            sequence: 40
+            region: @session
+            slot: regionBody
+        }
+        source {
+            formRegion: @session
+            column: S_ID
+            dataType: number
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_THERAPIST_ID (
+        type: hidden
+        layout {
+            sequence: 50
+            region: @session
+            slot: regionBody
+        }
+        source {
+            formRegion: @session
+            column: THERAPIST_ID
+            dataType: number
+        }
+        default {
+            type: expression
+            plsqlExpression: :APP_USER_ID
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_TIME_END (
+        type: plugin/clockpicker
+        label {
+            label: END
+            alignment: left
+        }
+        settings {
+            align: left
+            12hMode: true
+            showClockButton: yes
+            suppressMobileKeyboards: yes
+        }
+        layout {
+            sequence: 140
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 5
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            formatMask: HH:MI AM
+            width: 20
+        }
+        validation {
+            valueRequired: true
+        }
+        source {
+            formRegion: @session
+            column: TIME_END
+            dataType: date
+        }
+    )
+
+    pageItem P1201_TIME_LENGTH (
+        type: selectList
+        label {
+            label: LENGTH
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @session-length
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 150
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 9
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: TIME_LENGTH
+            dataType: number
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1201_TIME_START (
+        type: plugin/clockpicker
+        label {
+            label: START
+            alignment: left
+        }
+        settings {
+            align: left
+            12hMode: true
+            showClockButton: yes
+            suppressMobileKeyboards: yes
+        }
+        layout {
+            sequence: 130
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            formatMask: HH:MI AM
+            width: 20
+        }
+        validation {
+            valueRequired: true
+        }
+        source {
+            formRegion: @session
+            column: TIME_START
+            dataType: date
+        }
+    )
+
+    pageItem P1201_VAR (
+        type: hidden
+        settings {
+            valueProtected: false
+        }
+        layout {
+            sequence: 30
+            region: @session
+            slot: regionBody
+        }
+        source {
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    button add-objective (
+        buttonName: ADD_OBJECTIVE
+        label: ADD OBJECTIVE
+        layout {
+            sequence: 10
+            region: @notes
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1101
+                items: {
+                    P1101_CASE_NUMBER: &CURRENT_CLIENT.
+                    FROM_PAGE: &APP_PAGE_ID.
+                }
+                clearCache: 1101
+                action: resetPagination
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :READ_ONLY_ACCESS != 'Y'
+                AND :P1201_READ_ONLY != 'Y'
+                ```
+        }
+    )
+
+    button apply-changes (
+        buttonName: APPLY_CHANGES
+        label: APPLY
+        layout {
+            sequence: 30
+            region: @session
+            slot: change
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            executeValidations: false
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :P1201_S_ID IS NOT NULL
+                AND :READ_ONLY_ACCESS != 'Y'
+                AND :P1201_READ_ONLY != 'Y'
+                ```
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: CANCEL
+        layout {
+            sequence: 40
+            region: @session
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1200
+                clearCache: 1201
+                action: resetPagination
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+    )
+
+    button create (
+        buttonName: CREATE
+        label: OK
+        layout {
+            sequence: 10
+            region: @session
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            executeValidations: false
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: insert
+        }
+        serverSideCondition {
+            type: itemIsNull
+            item: P1201_S_ID
+        }
+    )
+
+    button delete (
+        buttonName: DELETE
+        label: DELETE
+        layout {
+            sequence: 50
+            region: @session
+            slot: delete
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+            executeValidations: false
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :APP_MODE = 'A'
+                AND :P1201_S_ID IS NOT NULL
+                ```
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: OK
+        layout {
+            sequence: 20
+            region: @session
+            slot: change
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            executeValidations: false
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :P1201_S_ID IS NOT NULL
+                AND :READ_ONLY_ACCESS != 'Y'
+                AND :P1201_READ_ONLY != 'Y'
+                ```
+        }
+    )
+
+    dynamicAction calculate-time-length (
+        name: Calculate Time Length
+        execution {
+            sequence: 140
+        }
+        when {
+            selectionType: items
+            items: [
+                P1201_TIME_START
+                P1201_TIME_END
+            ]
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: $("#P1201_TIME_LENGTH").prop("disabled", false);
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action native-javascript-code-2 (
+            action: executeJsCode
+            settings {
+                jsCode: $("#P1201_TIME_LENGTH").prop("disabled", true);
+            }
+            execution {
+                sequence: 30
+            }
+        )
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: plsqlFunctionBody
+                plsqlFunctionBody:
+                    ```plsql
+                    DECLARE
+                        vNum NUMBER;
+                    BEGIN
+                        IF :P1201_TIME_START IS NULL OR :P1201_TIME_END IS NULL THEN
+                            RETURN NULL;
+                        ELSE
+                            /*Minutes*/
+                            vNum := (TO_DATE(:P1201_TIME_END, 'HH:MI AM') - TO_DATE(:P1201_TIME_START, 'HH:MI AM')) * 24 * 60;
+                            
+                            IF MOD(vNum, 15) = 0 THEN
+                                vNum := (vNum / 15) - 1;
+                            ELSE
+                                vNum := vNum / 15;
+                            END IF;
+                            
+                            RETURN TRUNC(vNum);
+                        END IF;
+                    END;
+                    ```
+                itemsToSubmit: [
+                    P1201_TIME_START
+                    P1201_TIME_END
+                ]
+            }
+            affectedElements {
+                selectionType: items
+                items: P1201_TIME_LENGTH
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction delete-session (
+        name: Delete Session
+        execution {
+            sequence: 60
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @delete
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: del.session(:P1201_S_ID);
+                itemsToSubmit: P1201_S_ID
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    apex.navigation.redirect(apex.util.makeApplicationUrl({
+                        appId: $v('pFlowId'),
+                        pageId: 1200,
+                        session: $v('pInstance')
+                    }));
+                    
+                    ```
+            }
+            execution {
+                sequence: 30
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Do you want to delete this session?
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction dialog-close (
+        name: Dialog Close
+        execution {
+            sequence: 130
+        }
+        when {
+            event: apexafterclosedialog
+            selectionType: jsExpression
+            javaScriptExpression: document;
+        }
+
+        action refresh-notes (
+            name: Refresh Notes
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @notes
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction disable-copy (
+        name: Disable Copy
+        execution {
+            sequence: 110
+        }
+        when {
+            event: ready
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :READ_ONLY_ACCESS = 'Y'
+                OR :P1201_READ_ONLY = 'Y'
+                ```
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $(document).bind("contextmenu cut copy",function(e){
+                        e.preventDefault();
+                    });
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction remove-reviewed-from-status (
+        name: Remove Reviewed from Status
+        execution {
+            sequence: 100
+        }
+        when {
+            event: ready
+        }
+        serverSideCondition {
+            type: item=value
+            item: APP_MODE
+            value: T
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: "$(\"#P1201_STATUS option[value|='R']\").remove();"
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction session-cancelled (
+        name: Session Cancelled
+        execution {
+            sequence: 120
+        }
+        when {
+            selectionType: items
+            items: P1201_ACTIVITY
+        }
+        clientSideCondition {
+            type: item=value
+            item: P1201_ACTIVITY
+            value: 10
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: items
+                items: [
+                    P1201_TIME_START
+                    P1201_TIME_END
+                    P1201_TIME_LENGTH
+                    P1201_LOCATION
+                    P1201_LOCATION_OTHER
+                    P1201_ACTIVITY_OTHER
+                ]
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+        action native-hide-2 (
+            action: hide
+            affectedElements {
+                selectionType: items
+                items: P1201_CANCEL_REASON
+            }
+            execution {
+                sequence: 40
+                fireWhenEventResultIs: false
+            }
+        )
+
+        action native-hide-3 (
+            action: hide
+            affectedElements {
+                selectionType: region
+                region: @notes
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: $("#P1201_LOCATION").trigger("change");
+            }
+            execution {
+                sequence: 30
+                fireWhenEventResultIs: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: P1201_CANCEL_REASON
+            }
+            execution {
+                sequence: 30
+            }
+        )
+
+        action native-show-2 (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: [
+                    P1201_TIME_START
+                    P1201_TIME_END
+                    P1201_TIME_LENGTH
+                    P1201_LOCATION
+                ]
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+            }
+        )
+
+        action native-show-3 (
+            action: show
+            affectedElements {
+                selectionType: region
+                region: @notes
+            }
+            execution {
+                sequence: 20
+                fireWhenEventResultIs: false
+            }
+        )
+
+    )
+
+    dynamicAction set-location-other (
+        name: Set Location Other
+        execution {
+            sequence: 90
+        }
+        when {
+            selectionType: items
+            items: P1201_LOCATION
+        }
+        clientSideCondition {
+            type: item>value
+            item: P1201_LOCATION
+            value: 2
+        }
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: jsExpression
+                jsExpression: $("#P1201_LOCATION option:selected").text();
+            }
+            affectedElements {
+                selectionType: items
+                items: P1201_LOCATION_OTHER
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+        action native-set-value-2 (
+            action: setValue
+            settings {
+                value: 2
+            }
+            affectedElements {
+                selectionType: items
+                items: P1201_LOCATION
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+    )
+
+    dynamicAction show-activity-other (
+        name: Show Activity Other
+        execution {
+            sequence: 30
+        }
+        when {
+            selectionType: items
+            items: P1201_ACTIVITY
+        }
+        clientSideCondition {
+            type: item=value
+            item: P1201_ACTIVITY
+            value: 2
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: items
+                items: P1201_ACTIVITY_OTHER
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: P1201_ACTIVITY_OTHER
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction show-activity-other-onload (
+        name: Show Activity Other OnLoad
+        execution {
+            sequence: 50
+        }
+        when {
+            event: ready
+        }
+        serverSideCondition {
+            type: item=value
+            item: P1201_ACTIVITY
+            value: 2
+        }
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: [
+                    P1201_LOCATION_OTHER
+                    P1201_ACTIVITY_OTHER
+                ]
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+    )
+
+    dynamicAction show-location-other (
+        name: Show Location Other
+        execution {
+            sequence: 20
+        }
+        when {
+            selectionType: items
+            items: P1201_LOCATION
+        }
+        clientSideCondition {
+            type: item>value
+            item: P1201_LOCATION
+            value: 1
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: items
+                items: P1201_LOCATION_OTHER
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: P1201_LOCATION_OTHER
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction show-location-other-onload (
+        name: Show Location Other OnLoad
+        execution {
+            sequence: 40
+        }
+        when {
+            event: ready
+        }
+        serverSideCondition {
+            type: item=value
+            item: P1201_LOCATION
+            value: 2
+        }
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: P1201_LOCATION_OTHER
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction validations-and-enable-time-length (
+        name: Validations and Enable Time Length
+        execution {
+            sequence: 80
+        }
+        when {
+            event: apexbeforepagesubmit
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    function callError(item, message) {
+                        apex.message.showErrors([
+                            {
+                                type: "error",
+                                location: [ "page", "inline" ],
+                                pageItem: item,
+                                message: message,
+                                unsafe: false
+                            }
+                        ]);
+                        apex.event.gCancelFlag = true;
+                    }
+                    
+                    var status = $v("P&APP_PAGE_ID._STATUS");
+                    var activty = $v("P&APP_PAGE_ID._ACTIVITY");
+                    var cancelReason = $v("P&APP_PAGE_ID._CANCEL_REASON");
+                    var comments = $v("P&APP_PAGE_ID._COMMENTS");
+                    
+                    apex.message.clearErrors();
+                    
+                    if( status == "S" ) {
+                        if( activty == "10" ) {
+                            if ( cancelReason == "" ) {
+                                callError( "P&APP_PAGE_ID._CANCEL_REASON", "CANCEL REASON is required when ACTIVITY is Session Cancelled" );
+                            }
+                            else if ( cancelReason == "10" && comments == "" ) {
+                                callError( "P&APP_PAGE_ID._COMMENTS", "COMMENTS is required when CANCEL REASON is other" );
+                            }
+                        }
+                    }
+                    
+                    if ( !apex.event.gCancelFlag ) {
+                        $("#P&APP_PAGE_ID._TIME_LENGTH").prop("disabled", false);
+                    }
+                    
+                    ```
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    validation end-must-be-after-start (
+        name: End Must be After Start
+        execution {
+            sequence: 40
+        }
+        validation {
+            type: functionBodyReturningBoolean
+            plsqlFunctionBody:
+                ```plsql
+                IF :P1201_TIME_START IS NULL OR :P1201_TIME_END IS NULL THEN
+                    RETURN TRUE;
+                ELSIF TO_DATE(:P1201_TIME_END, 'HH:MI AM') <= TO_DATE(:P1201_TIME_START, 'HH:MI AM') THEN
+                    RETURN FALSE;
+                ELSE
+                    RETURN TRUE;
+                END IF;
+                ```
+            alwaysExecute: true
+        }
+        error {
+            errorMessage: End Time must be after Start Time
+        }
+    )
+
+    process create-note-entries (
+        name: Create Note Entries
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    vDate DATE;
+                    vCaseNumber NUMBER;
+                BEGIN
+                    SELECT date_session, case_number
+                    INTO vDate, vCaseNumber
+                    FROM sessions
+                    WHERE s_id = :P1201_S_ID;
+                
+                    INSERT INTO notes(s_id, o_id, objective)
+                    SELECT :P1201_S_ID, o_id, objective
+                    FROM objectives
+                    WHERE vDate BETWEEN NVL(start_date, vDate - 1) AND NVL(end_date, vDate + 1)
+                        AND case_number = vCaseNumber
+                        AND o_id NOT IN
+                        (
+                            SELECT o_id
+                            FROM notes
+                            WHERE s_id = :P1201_S_ID
+                        );
+                
+                    COMMIT;
+                END;
+                ```
+        }
+        execution {
+            sequence: 20
+            point: afterHeader
+        }
+        advanced {
+            executionMappingIdentifier: 7457381068655926
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1201_S_ID
+        }
+    )
+
+    process fetch-row-from-sessions (
+        name: Fetch Row from SESSIONS
+        type: formInitialization
+        formRegion: @session
+        execution {
+            sequence: 10
+            point: afterHeader
+        }
+        advanced {
+            executionMappingIdentifier: 7456951970655925
+        }
+    )
+
+    process process-row-of-sessions (
+        name: Process Row of SESSIONS
+        type: formAutoRowProcessing
+        formRegion: @session
+        execution {
+            sequence: 30
+        }
+        successMessage {
+            successMessage: Action Processed.
+        }
+        advanced {
+            executionMappingIdentifier: 7457773000655926
+        }
+    )
+
+    process reset-page (
+        name: reset page
+        type: clearSessionState
+        execution {
+            sequence: 50
+        }
+        advanced {
+            executionMappingIdentifier: 7458540215655927
+        }
+        serverSideCondition {
+            whenButtonPressed: @delete
+        }
+    )
+
+    branch (
+        name: Branch to 1201
+        execution {
+            sequence: 10
+        }
+        behavior {
+            target: {
+                page: 1201
+                items: {
+                    P1201_S_ID: &P1201_S_ID.
+                }
+                action: resetPagination
+            }
+        }
+        serverSideCondition {
+            whenButtonPressed: @create
+        }
+    )
+
+    branch (
+        name: Branch to 1201
+        execution {
+            sequence: 20
+        }
+        behavior {
+            target: {
+                page: 1201
+                items: {
+                    P1201_S_ID: &P1201_S_ID.
+                }
+                action: resetPagination
+            }
+        }
+        serverSideCondition {
+            whenButtonPressed: @apply-changes
+        }
+    )
+
+    branch (
+        name: Branch to 1200
+        execution {
+            sequence: 40
+        }
+        behavior {
+            target: {
+                page: 1200
+                clearCache: 1201
+                action: resetPagination
+            }
+        }
+    )
+
+    branch (
+        name: Go to Session Notes IG
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        behavior {
+            target: {
+                page: 1203
+                items: {
+                    P1203_S_ID: &P1201_S_ID.
+                    P1203_READ_ONLY: &P1201_READ_ONLY.
+                }
+                clearCache: 1203
+            }
+        }
+        serverSideCondition {
+            type: rowsReturned
+            sqlQuery:
+                ```sql
+                select *
+                from sessions
+                where s_id = :P1201_S_ID
+                    and date_session >= to_date('2/1/2026', 'mm/dd/yyyy')
+                ```
+        }
+    )
+
+)
+

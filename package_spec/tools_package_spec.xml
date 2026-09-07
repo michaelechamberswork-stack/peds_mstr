@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="6741ec10fe8ebab415560302cd718d3b08c0a544" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOraclePackageSpec objectName="TOOLS" objectType="PACKAGE_SPEC" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE "%USER_NAME%"."TOOLS" AS
+    function client_original_assessment_date(p_case_number in number) return date;
+    function client_therapist_id(p_case_number in number) return number;
+END TOOLS;
+/]]></n0:source>
+      </n0:createOraclePackageSpec>
+ </changeSet>
+</databaseChangeLog>

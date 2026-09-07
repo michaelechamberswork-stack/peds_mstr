@@ -1,0 +1,31 @@
+appComputation app-mode (
+    itemName: APP_MODE
+    execution {
+        sequence: 10
+    }
+    computation {
+        staticValue: T
+    }
+)
+
+appComputation app-user-id (
+    itemName: APP_USER_ID
+    execution {
+        sequence: 10
+    }
+    computation {
+        type: expression
+        plsqlExpression: lts_user.get_therapist_id();
+    }
+)
+
+appComputation edit-time (
+    itemName: EDIT_TIME
+    execution {
+        sequence: 10
+    }
+    computation {
+        staticValue: 2
+    }
+)
+

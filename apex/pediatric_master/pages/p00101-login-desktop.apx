@@ -1,0 +1,179 @@
+page 101 (
+    name: Login Page
+    alias: LOGIN_DESKTOP
+    title: PEDS MSTR - Log In
+    appearance {
+        pageTemplate: @login
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        warnOnUnsavedChanges: false
+    }
+    security {
+        authentication: public
+        formAutoComplete: false
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+
+    region log-in (
+        name: Log In
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+            cssClasses: [
+                col-sm-12
+                col-md-10
+                col-lg-8
+            ]
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    pageItem P101_PASSWORD (
+        type: password
+        label {
+            label: Password
+            alignment: right
+        }
+        layout {
+            sequence: 20
+            region: @log-in
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional
+            templateOptions: #DEFAULT#
+            width: 40
+        }
+        validation {
+            maxLength: 100
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P101_USERNAME (
+        type: textField
+        label {
+            label: Username
+            alignment: right
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 10
+            region: @log-in
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional
+            templateOptions: #DEFAULT#
+            width: 40
+        }
+        validation {
+            maxLength: 100
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    button login (
+        buttonName: LOGIN
+        label: Log In
+        layout {
+            sequence: 30
+            region: @log-in
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+        }
+    )
+
+    process clear-page-s-cache (
+        name: Clear Page(s) Cache
+        type: clearSessionState
+        execution {
+            sequence: 30
+        }
+        advanced {
+            executionMappingIdentifier: 5588282734479100
+        }
+    )
+
+    process get-username-cookie (
+        name: Get Username Cookie
+        type: executeCode
+        source {
+            plsqlCode: :P101_USERNAME := apex_authentication.get_login_username_cookie;
+        }
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 5588105525479100
+        }
+    )
+
+    process login (
+        name: Login
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                apex_authentication.login(
+                    p_username => :P101_USERNAME,
+                    p_password => :P101_PASSWORD );
+                ```
+        }
+        execution {
+            sequence: 20
+        }
+        advanced {
+            executionMappingIdentifier: 5587992760479097
+        }
+    )
+
+    process set-username-cookie (
+        name: Set Username Cookie
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                apex_authentication.send_login_username_cookie (
+                    p_username => lower(:P101_USERNAME) );
+                ```
+        }
+        execution {
+            sequence: 10
+        }
+        advanced {
+            executionMappingIdentifier: 5588035101479100
+        }
+    )
+
+)
+

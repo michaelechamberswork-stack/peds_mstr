@@ -1,0 +1,12 @@
+event validationerror (
+    name: validationError
+)
+
+event validationinprogress (
+    name: validationInProgress
+)
+
+event validationsuccess (
+    name: validationSuccess
+)
+

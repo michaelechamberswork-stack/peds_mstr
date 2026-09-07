@@ -1,0 +1,444 @@
+page 1101 (
+    name: OBJECTIVE
+    title: OBJECTIVE
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @modal-dialog
+        templateOptions: #DEFAULT#
+    }
+    dialog {
+        resizable: false
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    readOnly {
+        type: item=value
+        item: READ_ONLY_ACCESS
+        value: Y
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region buttons (
+        name: Buttons
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: dialogFooter
+        }
+        appearance {
+            template: @buttons-container
+            templateOptions: #DEFAULT#
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    region objective (
+        name: OBJECTIVE
+        type: form
+        source {
+            location: localDatabase
+            tableName: OBJECTIVES
+            includeRowidColumn: true
+        }
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        edit {
+            enabled: true
+            allowedOperations: [
+                add
+                update
+            ]
+        }
+    )
+
+    pageItem P1101_CASE_NUMBER (
+        type: hidden
+        layout {
+            sequence: 30
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: CASE_NUMBER
+            dataType: number
+        }
+        default {
+            type: expression
+            plsqlExpression: :CURRENT_CLIENT
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1101_END_DATE (
+        type: plugin/ltsDateField
+        label {
+            label: END DATE
+            alignment: left
+        }
+        layout {
+            sequence: 60
+            region: @objective
+            slot: regionBody
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @objective
+            column: END_DATE
+            dataType: date
+        }
+    )
+
+    pageItem P1101_LAST_SAVED_BY_LEVEL (
+        type: hidden
+        layout {
+            sequence: 20
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: LAST_SAVED_BY_LEVEL
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1101_OBJECTIVE (
+        type: textarea
+        label {
+            label: OBJECTIVE
+            alignment: left
+        }
+        layout {
+            sequence: 40
+            region: @objective
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @objective
+            column: OBJECTIVE
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1101_O_ID (
+        type: hidden
+        layout {
+            sequence: 10
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: O_ID
+            dataType: number
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1101_START_DATE (
+        type: plugin/ltsDateField
+        label {
+            label: START DATE
+            alignment: left
+        }
+        layout {
+            sequence: 50
+            region: @objective
+            slot: regionBody
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @objective
+            column: START_DATE
+            dataType: date
+        }
+        default {
+            type: expression
+            plsqlExpression: TRUNC(et_sysdate)
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: CANCEL
+        layout {
+            sequence: 20
+            region: @buttons
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    button create (
+        buttonName: CREATE
+        label: OK
+        layout {
+            sequence: 50
+            region: @buttons
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: insert
+        }
+        serverSideCondition {
+            type: itemIsNull
+            item: P1101_O_ID
+        }
+    )
+
+    button delete (
+        buttonName: DELETE
+        label: DELETE
+        layout {
+            sequence: 30
+            region: @buttons
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :APP_MODE = 'A'
+                AND :P1101_O_ID IS NOT NULL
+                ```
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: OK
+        layout {
+            sequence: 40
+            region: @buttons
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :P1101_O_ID IS NOT NULL
+                AND :READ_ONLY_ACCESS != 'Y'
+                ```
+        }
+    )
+
+    dynamicAction cancel-dialog (
+        name: Cancel Dialog
+        execution {
+            sequence: 10
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @cancel
+        }
+
+        action native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction delete-objective (
+        name: Delete Objective
+        execution {
+            sequence: 20
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @delete
+        }
+
+        action native-submit-page (
+            action: submitPage
+            settings {
+                requestButtonName: DELETE_OBJECTIVE
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Delete this objective?
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    process delete-objective (
+        name: Delete Objective
+        type: executeCode
+        source {
+            plsqlCode: del.objective(:P1101_O_ID);
+        }
+        execution {
+            sequence: 40
+        }
+        advanced {
+            executionMappingIdentifier: 7042118146246905
+        }
+        serverSideCondition {
+            whenButtonPressed: @delete
+        }
+    )
+
+    process fetch-row-from-objectives (
+        name: Fetch Row from OBJECTIVES
+        type: formInitialization
+        formRegion: @objective
+        execution {
+            sequence: 10
+            point: afterHeader
+        }
+        advanced {
+            executionMappingIdentifier: 5847164447860923
+        }
+    )
+
+    process process-row-of-objectives (
+        name: Process Row of OBJECTIVES
+        type: formAutoRowProcessing
+        formRegion: @objective
+        target {
+            returnPksAfterInsert: false
+        }
+        execution {
+            sequence: 30
+        }
+        successMessage {
+            successMessage: Action Processed.
+        }
+        advanced {
+            executionMappingIdentifier: 5847594348860924
+        }
+    )
+
+    branch (
+        name: Go To Objectives
+        execution {
+            sequence: 10
+        }
+        behavior {
+            target: {
+                page: 1100
+                clearCache: 1101
+                action: resetPagination
+            }
+        }
+        serverSideCondition {
+            type: item=value
+            item: FROM_PAGE
+            value: 1100
+        }
+    )
+
+    branch (
+        name: Go To Session
+        execution {
+            sequence: 20
+        }
+        behavior {
+            target: {
+                page: 1201
+                clearCache: 1101
+                action: resetPagination
+            }
+        }
+        serverSideCondition {
+            type: item=value
+            item: FROM_PAGE
+            value: 1201
+        }
+    )
+
+)
+

@@ -1,0 +1,483 @@
+page 1202 (
+    name: NOTES
+    title: NOTES
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @modal-dialog
+        templateOptions: #DEFAULT#
+    }
+    dialog {
+        resizable: false
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    readOnly {
+        type: expression
+        plsqlExpression:
+            ```plsql
+            :READ_ONLY_ACCESS = 'Y'
+            OR :P1202_READ_ONLY = 'Y'
+            ```
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region buttons (
+        name: Buttons
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: dialogFooter
+        }
+        appearance {
+            template: @buttons-container
+            templateOptions: #DEFAULT#
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    region notes (
+        name: NOTES
+        type: form
+        source {
+            location: localDatabase
+            tableName: NOTES
+            includeRowidColumn: true
+        }
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        edit {
+            enabled: true
+            allowedOperations: update
+        }
+    )
+
+    pageItem P1202_INTERVENTION (
+        type: textarea
+        label {
+            label: INTERVENTION
+            alignment: left
+        }
+        layout {
+            sequence: 80
+            region: @notes
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @notes
+            column: INTERVENTION
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1202_LAST_SAVED_BY_LEVEL (
+        type: hidden
+        layout {
+            sequence: 50
+            region: @notes
+            slot: regionBody
+        }
+        source {
+            formRegion: @notes
+            column: LAST_SAVED_BY_LEVEL
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1202_N_ID (
+        type: hidden
+        layout {
+            sequence: 20
+            region: @notes
+            slot: regionBody
+        }
+        source {
+            formRegion: @notes
+            column: N_ID
+            dataType: number
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1202_OBJECTIVE (
+        type: textarea
+        label {
+            label: OBJECTIVE
+            alignment: left
+        }
+        layout {
+            sequence: 70
+            region: @notes
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @notes
+            column: OBJECTIVE
+            dataType: varchar2
+        }
+        readOnly {
+            type: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1202_O_ID (
+        type: hidden
+        layout {
+            sequence: 30
+            region: @notes
+            slot: regionBody
+        }
+        source {
+            formRegion: @notes
+            column: O_ID
+            dataType: number
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1202_PROGRESS (
+        type: textarea
+        label {
+            label: PROGRESS
+            alignment: left
+        }
+        layout {
+            sequence: 90
+            region: @notes
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @notes
+            column: PROGRESS
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1202_READ_ONLY (
+        type: hidden
+        layout {
+            sequence: 60
+            region: @notes
+            slot: regionBody
+        }
+        source {
+            type: staticValue
+            staticValue: N
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1202_S_ID (
+        type: hidden
+        layout {
+            sequence: 40
+            region: @notes
+            slot: regionBody
+        }
+        source {
+            formRegion: @notes
+            column: S_ID
+            dataType: number
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: CANCEL
+        layout {
+            sequence: 20
+            region: @buttons
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    button delete (
+        buttonName: DELETE
+        label: DELETE
+        layout {
+            sequence: 10
+            region: @buttons
+            slot: delete
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: :APP_MODE = 'A'
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: OK
+        layout {
+            sequence: 30
+            region: @buttons
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :P1202_N_ID IS NOT NULL
+                AND :READ_ONLY_ACCESS != 'Y'
+                AND :P1202_READ_ONLY != 'Y'
+                ```
+        }
+    )
+
+    dynamicAction cancel-dialog (
+        name: Cancel Dialog
+        execution {
+            sequence: 10
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @cancel
+        }
+
+        action native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction delete-objective (
+        name: Delete Objective
+        execution {
+            sequence: 20
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @delete
+        }
+
+        action native-submit-page (
+            action: submitPage
+            settings {
+                requestButtonName: DELETE_NOTE
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Delete the objective from this session?
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction disable-copy (
+        name: Disable Copy
+        execution {
+            sequence: 30
+        }
+        when {
+            event: ready
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :READ_ONLY_ACCESS = 'Y'
+                OR :P1202_READ_ONLY = 'Y'
+                ```
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $(document).bind("contextmenu cut copy",function(e){
+                        e.preventDefault();
+                    });
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    process close-dialog (
+        name: Close Dialog
+        type: closeDialog
+        execution {
+            sequence: 60
+        }
+        advanced {
+            executionMappingIdentifier: 31812558112647834
+        }
+    )
+
+    process delete-note (
+        name: Delete Note
+        type: executeCode
+        source {
+            plsqlCode: del.note(:P1202_N_ID);
+        }
+        execution {
+            sequence: 40
+        }
+        advanced {
+            executionMappingIdentifier: 7042023154246904
+        }
+        serverSideCondition {
+            type: request=Value
+            value: DELETE_NOTE
+        }
+    )
+
+    process fetch-row-from-notes (
+        name: Fetch Row from NOTES
+        type: formInitialization
+        formRegion: @notes
+        execution {
+            sequence: 10
+            point: afterHeader
+        }
+        advanced {
+            executionMappingIdentifier: 6296837895820705
+        }
+    )
+
+    process process-row-of-notes (
+        name: Process Row of NOTES
+        type: formAutoRowProcessing
+        formRegion: @notes
+        target {
+            returnPksAfterInsert: false
+        }
+        execution {
+            sequence: 30
+        }
+        successMessage {
+            successMessage: Action Processed.
+        }
+        advanced {
+            executionMappingIdentifier: 6297231865820706
+        }
+    )
+
+    process reset-page (
+        name: reset page
+        type: clearSessionState
+        execution {
+            sequence: 50
+        }
+        advanced {
+            executionMappingIdentifier: 6297665299820706
+        }
+    )
+
+)
+

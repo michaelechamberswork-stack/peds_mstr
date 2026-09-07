@@ -1,0 +1,30 @@
+file ajax-loader.gif (
+    mimeType: image/gif
+    charSet: utf-8
+)
+
+file apexmailgun.css (
+    mimeType: text/css
+    charSet: utf-8
+)
+
+file apexmailgun.js (
+    mimeType: text/javascript
+    charSet: utf-8
+)
+
+file apexmailgun.min.js (
+    mimeType: text/javascript
+    charSet: utf-8
+)
+
+file mailgun_validator.js (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+
+file mailgun_validator.min.js (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+

@@ -1,0 +1,60 @@
+appItem APP_MODE (
+    security {
+        escapeSpecialChars: false
+    }
+)
+
+appItem APP_USER_ID (
+    security {
+        escapeSpecialChars: false
+    }
+)
+
+appItem CURRENT_CLIENT (
+    security {
+        sessionStateProtection: checksumRequiredSessionLevel
+        escapeSpecialChars: false
+    }
+)
+
+appItem CURRENT_CLIENT_NAME (
+    security {
+        sessionStateProtection: checksumRequiredSessionLevel
+        escapeSpecialChars: false
+    }
+)
+
+appItem EDIT_TIME (
+    security {
+        escapeSpecialChars: false
+    }
+)
+
+appItem FROM_PAGE (
+    security {
+        sessionStateProtection: checksumRequiredSessionLevel
+        escapeSpecialChars: false
+    }
+)
+
+appItem RD_ID (
+    security {
+        sessionStateProtection: checksumRequiredSessionLevel
+        escapeSpecialChars: false
+    }
+)
+
+appItem READ_ONLY_ACCESS (
+    security {
+        sessionStateProtection: checksumRequiredSessionLevel
+        escapeSpecialChars: false
+    }
+)
+
+appItem SR_ID (
+    security {
+        sessionStateProtection: checksumRequiredSessionLevel
+        escapeSpecialChars: false
+    }
+)
+

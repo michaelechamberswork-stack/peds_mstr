@@ -1,0 +1,15 @@
+appProcess download-resource-document (
+    name: DOWNLOAD_RESOURCE_DOCUMENT
+    type: executeCode
+    source {
+        plsqlCode: lts_tools.download_resource_document(:RD_ID);
+    }
+    execution {
+        sequence: 1
+        point: ajaxCallback
+    }
+    security {
+        authorizationScheme: mustNotBePublicUser
+    }
+)
+

@@ -1,0 +1,28 @@
+authorization app-access (
+    name: APP_ACCESS
+    type: plSqlFunctionBody
+    settings {
+        plsqlFunctionBody: RETURN access_to_application;
+    }
+    error {
+        errorMessage: &APP_USER. does not have access to this application.
+    }
+    advanced {
+        evaluationType: perSession
+    }
+)
+
+authorization peds-signature (
+    name: PEDS_SIGNATURE
+    type: plSqlFunctionBody
+    settings {
+        plsqlFunctionBody: RETURN :APP_USER IN ('SCHWABK', 'WALCOTTE');
+    }
+    error {
+        errorMessage: :APP_USER does not have access to signatures.
+    }
+    advanced {
+        evaluationType: perSession
+    }
+)
+

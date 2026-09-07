@@ -1,0 +1,379 @@
+customAttribute attribute_01 (
+    apexlangName: theme
+    attribute: 1
+    name: Theme
+    scope: app
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 10
+    }
+    default {
+        value: DEFAULT
+    }
+
+    entry default (
+        sequence: 10
+        display: Default
+        return: DEFAULT
+    )
+
+    entry twitterBootstrap (
+        sequence: 20
+        display: Twitter Bootstrap
+        return: BOOTSTRAP
+    )
+
+)
+
+customAttribute attribute_01 (
+    apexlangName: messageType
+    attribute: 1
+    name: Message Type
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 10
+    }
+    default {
+        value: DIALOG
+    }
+
+    entry dialog (
+        sequence: 10
+        display: Dialog
+        return: DIALOG
+    )
+
+    entry notification (
+        sequence: 20
+        display: Notification
+        return: NOTIFICATION
+    )
+
+)
+
+customAttribute attribute_02 (
+    apexlangName: okButtonLabel
+    attribute: 2
+    name: OK Button Label
+    scope: app
+    appearance {
+        sequence: 20
+    }
+    builder {
+        translatable: true
+        displayWidth: 15
+    }
+)
+
+customAttribute attribute_02 (
+    apexlangName: dialogType
+    attribute: 2
+    name: Dialog Type
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 20
+    }
+    default {
+        value: ALERT
+    }
+    dependingOn {
+        attribute: @attribute_01/component
+        conditionType: =
+        value: DIALOG
+    }
+
+    entry alert (
+        sequence: 10
+        display: Alert
+        return: ALERT
+    )
+
+    entry confirm (
+        sequence: 20
+        display: Confirm
+        return: CONFIRM
+    )
+
+    entry prompt (
+        sequence: 30
+        display: Prompt
+        return: PROMPT
+    )
+
+)
+
+customAttribute attribute_03 (
+    apexlangName: cancelButtonLabel
+    attribute: 3
+    name: Cancel Button Label
+    scope: app
+    appearance {
+        sequence: 30
+    }
+    builder {
+        translatable: true
+        displayWidth: 15
+    }
+)
+
+customAttribute attribute_03 (
+    apexlangName: notificationType
+    attribute: 3
+    name: Notification Type
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 30
+    }
+    default {
+        value: STANDARD
+    }
+    dependingOn {
+        attribute: @attribute_01/component
+        conditionType: =
+        value: NOTIFICATION
+    }
+
+    entry error (
+        sequence: 30
+        display: Error
+        return: ERROR
+    )
+
+    entry standard (
+        sequence: 10
+        display: Standard
+        return: STANDARD
+    )
+
+    entry success (
+        sequence: 20
+        display: Success
+        return: SUCCESS
+    )
+
+)
+
+customAttribute attribute_04 (
+    apexlangName: message
+    attribute: 4
+    name: Message
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 40
+    }
+    builder {
+        translatable: true
+    }
+    help {
+        helpText:
+            ```
+            <p>The following substitution syntax is available:</p>
+            
+            <ul>
+              <li>Static substitution: replaces a placeholder during rendering of the page - e.g. &amp;P30_PROMPT_RESULT.</li>
+              <li>Dynamic substitution: replaces a placeholder with the current value of the browser - e.g. #P30_PROMPT_RESULT#</li>
+            </ul>
+            ```
+    }
+)
+
+customAttribute attribute_05 (
+    apexlangName: defaultValue
+    attribute: 5
+    name: Default Value
+    appearance {
+        sequence: 50
+    }
+    builder {
+        translatable: true
+    }
+    dependingOn {
+        attribute: @attribute_02/component
+        conditionType: =
+        value: PROMPT
+    }
+    help {
+        helpText:
+            ```
+            <p>The following substitution syntax is available:</p>
+            
+            <ul>
+              <li>Static substitution: replaces a placeholder during rendering of the page - e.g. &amp;P30_PROMPT_RESULT.</li>
+              <li>Dynamic substitution: replaces a placeholder with the current value of the browser - e.g. #P30_PROMPT_RESULT#</li>
+            </ul>
+            ```
+    }
+)
+
+customAttribute attribute_06 (
+    apexlangName: returnValueIntoItem
+    attribute: 6
+    name: Return Value Into Item
+    type: pageItem
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 60
+    }
+    dependingOn {
+        attribute: @attribute_02/component
+        conditionType: =
+        value: PROMPT
+    }
+    help {
+        helpText: The value entered in the prompt box will be returned in the item you select.
+    }
+)
+
+customAttribute attribute_07 (
+    apexlangName: okButtonLabel2
+    attribute: 7
+    name: OK Button Label
+    appearance {
+        sequence: 70
+    }
+    builder {
+        translatable: true
+        displayWidth: 15
+    }
+    dependingOn {
+        attribute: @attribute_01/component
+        conditionType: =
+        value: DIALOG
+    }
+)
+
+customAttribute attribute_08 (
+    apexlangName: cancelButtonLabel2
+    attribute: 8
+    name: Cancel Button Label
+    appearance {
+        sequence: 80
+    }
+    builder {
+        translatable: true
+        displayWidth: 15
+    }
+    dependingOn {
+        attribute: @attribute_02/component
+        conditionType: !=
+        value: ALERT
+    }
+)
+
+customAttribute attribute_09 (
+    apexlangName: buttonOrder
+    attribute: 9
+    name: Button Order
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 90
+    }
+    default {
+        value: DEFAULT
+    }
+    dependingOn {
+        attribute: @attribute_02/component
+        conditionType: inList
+        list: [
+            CONFIRM
+            PROMPT
+        ]
+    }
+
+    entry cancelOk (
+        sequence: 10
+        display: Cancel - OK
+        return: DEFAULT
+    )
+
+    entry okCancel (
+        sequence: 20
+        display: OK - Cancel
+        return: REVERSE
+    )
+
+)
+
+customAttribute attribute_10 (
+    apexlangName: buttonFocus
+    attribute: 10
+    name: Button Focus
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 100
+    }
+    default {
+        value: OK
+    }
+    dependingOn {
+        attribute: @attribute_02/component
+        conditionType: inList
+        list: [
+            CONFIRM
+            PROMPT
+        ]
+    }
+
+    entry cancel (
+        sequence: 20
+        display: Cancel
+        return: CANCEL
+    )
+
+    entry none (
+        sequence: 30
+        display: None
+        return: NONE
+    )
+
+    entry ok (
+        sequence: 10
+        display: OK
+        return: OK
+    )
+
+)
+
+customAttribute attribute_11 (
+    apexlangName: delayInMilliseconds
+    attribute: 11
+    name: Delay in Milliseconds
+    type: integer
+    appearance {
+        sequence: 110
+    }
+    builder {
+        displayWidth: 10
+    }
+    dependingOn {
+        attribute: @attribute_01/component
+        conditionType: =
+        value: NOTIFICATION
+    }
+    help {
+        helpText: The default delay is 5000 milliseconds. Enter 0 if you want to display a sticky notification.
+    }
+)
+

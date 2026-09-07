@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="91307f5e8d8f6d41673e143eaa7d87d39578efeb" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleFunction objectName="SESSIONS_THIS_MONTH" objectType="FUNCTION" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."SESSIONS_THIS_MONTH" (p_case_number IN NUMBER)
+    RETURN NUMBER
+IS
+    l_num_sessions   NUMBER;
+BEGIN
+    select count(*)
+    into l_num_sessions
+    from sessions
+    where 1 = 1
+        and trunc(date_session, 'month') = trunc(sysdate, 'month')
+        and case_number = p_case_number
+        and activity != 10;
+
+    RETURN l_num_sessions;
+END sessions_this_month;
+/]]></n0:source>
+      </n0:createOracleFunction>
+ </changeSet>
+</databaseChangeLog>

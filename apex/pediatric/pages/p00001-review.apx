@@ -1,0 +1,896 @@
+page 1 (
+    name: Session Review
+    alias: REVIEW
+    title: Session Review
+    appearance {
+        pageTemplate: @minimal-no-navigation
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    javaScript {
+        functionAndGlobalVariableDeclaration:
+            ```javascript-browser
+            function setCanvasSize()
+            {   
+                // maximum variables
+            	var mw = 500; 	// maximum width
+            	var mh = 250; 	// maximum height
+            	var ph = 0.5; 	// percentage height to width
+            	var pw = 2; 	// percentage width to height
+            	
+            	// object variables
+            	var $c = $("#CREATE_SIG_signature_canvas");                                 // canvas object
+                var $d = $("#CREATE_SIG_signature");                                        // canvas div object
+            	var $w = $(window); 						                                // window object
+            	var $b = $("#SIG_SAVE");					                                // save button object
+            
+            	// variables
+            	var h = $(".t-Header-branding").height();			                        // header height
+            	var dtb = $b.offset().top + $b.height() - $c.offset().top - $c.height(); 	// distance between canvas and save button
+            	var innerHeightSpace = $w.height() - ( h + dtb );		                    // height available within screen
+            	
+            	// let's see if we're in portrait or landscape
+            	if( $w.width() > $w.height() )
+                {
+                    // landscape
+            		// let's determine the height with a maximum height of mh
+            		if( $w.height() - h - dtb < mh )
+            		{
+                        resizeCanvas( ($w.height() - h - dtb) * pw, $w.height() - h - dtb )
+            		}
+            		else
+            		{
+                        resizeCanvas( mw, mh );
+            		}
+                    
+                    // scroll to the canvas
+                    $("html, body").animate({ scrollTop: $c.offset().top - h - 10 }, 0);
+                }
+            	else
+            	{
+                    // portrait
+            		// let's determine the width with a maximum width of mw
+            		if( $w.width() - ( $c.offset().left * 2 ) < mw )
+            		{
+                        resizeCanvas( $w.width() - ( $c.offset().left * 2 ), ( $w.width() - ( $c.offset().left * 2 ) ) * ph );
+            		}
+            		else
+            		{
+                        resizeCanvas( mw, mh );
+            		}
+            	}
+                
+                // let's make sure the canvas div is large enough
+                if( $c.width() > $d.width() )
+                    $(".div-expand").attr( "class", "div-expand" );
+            }
+            
+            function resizeCanvas( newWidth, newHeight )
+            {
+                // get source canvas
+                var srcCanvas = document.getElementById("CREATE_SIG_signature_canvas");
+            
+                // duplicate source to a temp canvas
+                var tmpCanvas = document.createElement("canvas");
+                tmpCanvas.width = newWidth;
+                tmpCanvas.height = newHeight;
+            
+                var tmpCtx = tmpCanvas.getContext('2d');
+                
+                // draw the source canvas onto the temp canvas at the new size
+                tmpCtx.drawImage( srcCanvas, 0, 0, newWidth, newHeight );
+                
+                // resize source canvas
+                srcCanvas.width = newWidth;
+                srcCanvas.height = newHeight;
+                
+                // draw tmp canvas back to source canvas
+                var srcCtx = srcCanvas.getContext('2d');
+                srcCtx.drawImage( tmpCanvas, 0, 0 ); 
+            }
+            
+            function setCanvasBackgroundWhite()
+            {
+                // get source canvas
+                var srcCanvas = document.getElementById("CREATE_SIG_signature_canvas");
+            
+                // create a temp canvas
+                var tmpCanvas = document.createElement("canvas");
+                tmpCanvas.width = srcCanvas.width;
+                tmpCanvas.height = srcCanvas.height;
+            
+                var tmpCtx = tmpCanvas.getContext('2d');
+            
+                // create a rectangle with the desired color
+                tmpCtx.fillStyle = "#FFFFFF";
+                tmpCtx.fillRect( 0, 0, srcCanvas.width, srcCanvas.height );
+            
+                // draw the source canvas onto the tmp canvas
+                tmpCtx.drawImage( srcCanvas, 0, 0 );
+            
+                // draw tmp canvas back to source canvas
+                srcCtx = srcCanvas.getContext('2d');
+                srcCtx.drawImage( tmpCanvas, 0, 0 );    
+            }
+            ```
+    }
+    security {
+        authentication: public
+        formAutoComplete: false
+    }
+
+    region content-holder (
+        name: Content Holder
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+            columnCssClasses: [
+                col-sm-12
+                col-md-10
+                col-lg-8
+                div-expand
+            ]
+        }
+        appearance {
+            template: @blank-with-attributes-no-grid
+            templateOptions: #DEFAULT#
+        }
+        advanced {
+            htmlDomId: CONTENT_HOLDER
+            regionDisplaySelector: true
+        }
+        serverSideCondition {
+            type: rowsReturned
+            sqlQuery:
+                ```sql
+                SELECT *
+                FROM 
+                    case_folder_session_det cfsd
+                        INNER JOIN session_review sr ON cfsd.case_number = sr.case_number
+                            AND cfsd.session_month = sr.sr_date
+                WHERE
+                    sr.signature_request_hash = :P1_HASH
+                    AND sr.reviewer_signature IS NULL
+                ```
+        }
+    )
+
+    region create-signature (
+        name: Create Signature
+        type: plugin/apexSignature
+        layout {
+            sequence: 20
+            parentRegion: @content-holder
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: CREATE_SIG
+        }
+        settings {
+            width: 500
+            height: 250
+            penColor: black
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    l_clob CLOB;
+                    l_blob BLOB;
+                    l_filename VARCHAR2(100);
+                    l_token VARCHAR2(32000);
+                BEGIN
+                    -- build CLOB from f01 30k Array
+                    dbms_lob.createtemporary(l_clob,
+                                           FALSE,
+                                           dbms_lob.session);
+                
+                    FOR i IN 1 .. apex_application.g_f01.count LOOP
+                        l_token := wwv_flow.g_f01(i);
+                  
+                        IF length(l_token) > 0 THEN
+                            dbms_lob.writeappend(
+                                l_clob,
+                                length(l_token),
+                                l_token);
+                        END IF;
+                    END LOOP;
+                  --
+                  -- convert base64 CLOB to BLOB (mimetype: image/png)
+                  l_blob := apex_web_service.clobbase642blob(p_clob => l_clob);
+                  --
+                  -- create own collection (here starts custom part (for example a Insert statement))
+                  UPDATE session_review
+                  SET reviewer_signature = l_blob,
+                      reviewer_date = et_sysdate
+                  WHERE signature_request_hash = :P1_HASH;
+                  
+                  signature_request_complete(:P1_HASH);
+                END;
+                ```
+            clearButtonJquerySelector: #SIG_CLEAR
+            saveButtonJquerySelector: #SIG_SAVE
+            showWaitspinner: true
+            logging: false
+        }
+    )
+
+    region hidden-items (
+        name: Hidden Items
+        type: staticContent
+        layout {
+            sequence: 30
+            slot: afterHeader
+            startNewRow: false
+            newColumn: false
+        }
+    )
+
+    region sessions (
+        name: Sessions
+        type: interactiveGrid
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT 
+                    cfsd.case_number, 
+                    cfsd.case_number_assigned, 
+                    cfsd.date_session, 
+                    TO_CHAR(cfsd.time_start, 'FMHH')||':'||TO_CHAR(cfsd.time_start, 'MI AM') time_start, 
+                    TO_CHAR(cfsd.time_end, 'FMHH')||':'||TO_CHAR(cfsd.time_end, 'MI AM') time_end
+                FROM 
+                    case_folder_session_det cfsd
+                        INNER JOIN session_review sr ON cfsd.case_number = sr.case_number
+                            AND cfsd.session_month = sr.sr_date
+                WHERE
+                    sr.signature_request_hash = :P1_HASH
+                    and activity_type = 'Direct'
+                
+                ```
+        }
+        layout {
+            sequence: 20
+            parentRegion: @content-holder
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--hiddenOverflow
+            ]
+        }
+        advanced {
+            htmlDomId: SESSIONS
+        }
+        componentAppearance {
+            showNullValuesAs: -
+        }
+        toolbar {
+            show: false
+        }
+        enableUsersTo {
+            flashback: false
+            defineChartView: false
+            download: false
+        }
+        advanced {
+            savedReportMappingIdentifier: 6491362187951880
+        }
+
+        savedReport 129072 (
+            visibility: primary
+            view {
+                default: grid
+            }
+            singleRowView {
+                displayedColumns: true
+            }
+
+            displayColumn (
+                column: @CASE_NUMBER
+                layout {
+                    sequence: 1
+                }
+            )
+
+            displayColumn (
+                column: @CASE_NUMBER_ASSIGNED
+                layout {
+                    sequence: 2
+                }
+            )
+
+            displayColumn (
+                column: @DATE_SESSION
+                layout {
+                    sequence: 3
+                }
+            )
+
+            displayColumn (
+                column: @TIME_START
+                layout {
+                    sequence: 7
+                }
+            )
+
+            displayColumn (
+                column: @TIME_END
+                layout {
+                    sequence: 8
+                }
+            )
+
+            sort (
+                column: @DATE_SESSION
+                sort {
+                    nulls: last
+                    sequence: 1
+                }
+            )
+
+        )
+
+        column CASE_NUMBER (
+            type: hidden
+            layout {
+                sequence: 10
+            }
+            source {
+                databaseColumn: CASE_NUMBER
+                dataType: number
+            }
+            exportPrinting {
+                includeInExportPrint: false
+            }
+        )
+
+        column CASE_NUMBER_ASSIGNED (
+            type: hidden
+            layout {
+                sequence: 20
+            }
+            source {
+                databaseColumn: CASE_NUMBER_ASSIGNED
+                dataType: varchar2
+            }
+            exportPrinting {
+                includeInExportPrint: false
+            }
+        )
+
+        column DATE_SESSION (
+            type: datePickerJquery
+            heading {
+                heading: Date Session
+                alignment: center
+            }
+            layout {
+                sequence: 30
+                columnAlignment: center
+            }
+            source {
+                databaseColumn: DATE_SESSION
+                dataType: date
+            }
+            columnFilter {
+                enabled: false
+            }
+            exportPrinting {
+                includeInExportPrint: false
+            }
+            enableUsersTo {
+                sort: false
+                hide: false
+            }
+        )
+
+        column TIME_END (
+            type: datePickerJquery
+            heading {
+                heading: Time End
+                alignment: center
+            }
+            layout {
+                sequence: 50
+                columnAlignment: center
+            }
+            validation {
+                maxLength: 8
+            }
+            source {
+                databaseColumn: TIME_END
+                dataType: varchar2
+            }
+            columnFilter {
+                performanceImpactingOperators: [
+                    contains
+                    startsWith
+                    caseInsensitive
+                    regexp
+                ]
+            }
+        )
+
+        column TIME_START (
+            type: datePickerJquery
+            heading {
+                heading: Time Start
+                alignment: center
+            }
+            layout {
+                sequence: 40
+                columnAlignment: center
+            }
+            validation {
+                maxLength: 8
+            }
+            source {
+                databaseColumn: TIME_START
+                dataType: varchar2
+            }
+            columnFilter {
+                performanceImpactingOperators: [
+                    contains
+                    startsWith
+                    caseInsensitive
+                    regexp
+                ]
+            }
+        )
+
+    )
+
+    pageItem P1_HASH (
+        type: hidden
+        layout {
+            sequence: 20
+            region: @hidden-items
+            slot: regionBody
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    button clear (
+        buttonName: CLEAR
+        label: CLEAR
+        layout {
+            sequence: 30
+            region: @create-signature
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            htmlDomId: SIG_CLEAR
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: SAVE
+        layout {
+            sequence: 10
+            region: @create-signature
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            htmlDomId: SIG_SAVE
+            customAttributes: style="display: none;"
+        }
+    )
+
+    button save-signature (
+        buttonName: SAVE_SIGNATURE
+        label: SAVE
+        layout {
+            sequence: 20
+            region: @create-signature
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    dynamicAction delete-signature (
+        name: Delete Signature
+        execution {
+            sequence: 50
+        }
+        when {
+            event: custom
+            customEvent: DeleteSignature
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: remove_reviewer_signature;
+            }
+            execution {
+                sequence: 30
+                fireOnInit: false
+            }
+        )
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: region
+                region: @sessions
+            }
+            execution {
+                sequence: 40
+                fireOnInit: false
+            }
+        )
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @sessions
+            }
+            execution {
+                sequence: 50
+                fireOnInit: false
+            }
+        )
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: jsExpression
+                jsExpression: this.data;
+            }
+            affectedElements {
+                selectionType: items
+                items: P1_DEL_SIGNATURE
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: region
+                region: @sessions
+            }
+            execution {
+                sequence: 70
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Remove signature?
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction error (
+        name: Error
+        execution {
+            sequence: 80
+        }
+        when {
+            event: region/plugin-apexSignature/apexsignature-error-db
+            selectionType: region
+            region: @create-signature
+        }
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                message: Error saving signature
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction hide-region-headers (
+        name: Hide Region Headers
+        execution {
+            sequence: 30
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $(".t-Region-header:contains(Sessions)").hide();
+                    
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction invalid-url (
+        name: Invalid URL
+        execution {
+            sequence: 140
+        }
+        when {
+            event: ready
+        }
+        clientSideCondition {
+            type: jsExpression
+            javaScriptExpression: $("#CONTENT_HOLDER").length == 0
+        }
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                message: The link you selected is no longer valid
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction resize (
+        name: Resize
+        execution {
+            sequence: 100
+        }
+        when {
+            event: resize
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: "setTimeout(function(){setCanvasSize()}, 50);"
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction saved-sig (
+        name: Saved Sig
+        execution {
+            sequence: 90
+        }
+        when {
+            event: region/plugin-apexSignature/apexsignature-saved-db
+            selectionType: region
+            region: @create-signature
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: region
+                region: @content-holder
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                message: Signature Saved
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction select-report-month (
+        name: Select Report Month
+        execution {
+            sequence: 10
+        }
+        when {
+            event: custom
+            customEvent: ReportMonthSelected
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: NULL;
+            }
+            execution {
+                sequence: 40
+                fireOnInit: false
+            }
+        )
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: region
+                region: @sessions
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @sessions
+            }
+            execution {
+                sequence: 50
+                fireOnInit: false
+            }
+        )
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: jsExpression
+                jsExpression: this.data;
+            }
+            affectedElements {
+                selectionType: items
+                items: P1_REPORT_MONTH
+            }
+            execution {
+                sequence: 30
+                fireOnInit: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: region
+                region: @sessions
+            }
+            execution {
+                sequence: 90
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction set-background-white (
+        name: Set Background White
+        execution {
+            sequence: 130
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @save-signature
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    setCanvasBackgroundWhite();
+                    $("#SIG_SAVE").click();
+                    ```
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    process create-session-review-entries (
+        name: Create Session Review Entries
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                INSERT INTO session_review(sr_date, case_number)
+                SELECT DISTINCT TRUNC(date_session, 'MM'), case_number
+                FROM sessions
+                WHERE case_number = :CURRENT_CLIENT
+                    AND TRUNC(date_session, 'MM') NOT IN
+                    (
+                        SELECT sr_date
+                        FROM session_review
+                        WHERE case_number = :CURRENT_CLIENT
+                    );
+                ```
+        }
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 2470850141835852
+        }
+    )
+
+    process remove-extra-characters-from-hash (
+        name: Remove Extra Characters from Hash
+        type: executeCode
+        source {
+            plsqlCode: :P1_HASH := REPLACE(REPLACE(:P1_HASH, CHR(10)), CHR(13));
+        }
+        execution {
+            sequence: 20
+            point: beforeRegions
+        }
+        advanced {
+            executionMappingIdentifier: 1842182891032720
+        }
+    )
+
+)
+

@@ -1,0 +1,44 @@
+plugin apexItemsWithApexButton (
+    name: APEX Items with APEX Button
+    staticId: APEX.ITEMS.WITH.BUTTONS
+    type: dynamicAction
+    component {
+        standardAttributes: forButton
+    }
+    source {
+        plsqlCode:
+            ```plsql
+            FUNCTION F_RENDER (
+                P_DYNAMIC_ACTION   IN APEX_PLUGIN.T_DYNAMIC_ACTION,
+                P_PLUGIN           IN APEX_PLUGIN.T_PLUGIN
+            ) RETURN APEX_PLUGIN.T_DYNAMIC_ACTION_RENDER_RESULT AS
+                VR_RESULT         APEX_PLUGIN.T_DYNAMIC_ACTION_RENDER_RESULT;
+            BEGIN
+                VR_RESULT.JAVASCRIPT_FUNCTION   := 'function () { 
+                    var btn = $("#" + $(this)[0].action.affectedButtonId);
+                    var divCon = $("#' || APEX_ESCAPE.HTML_ATTRIBUTE( P_DYNAMIC_ACTION.ATTRIBUTE_01 ) || '").closest(".t-Form-itemWrapper");
+                    btn.appendTo(divCon);
+                    btn.addClass("a-Button a-Button--calendar");
+                    btn.css("min-width", "unset");
+                    btn.css("margin-inline-start", "unset");
+                }';
+            
+                RETURN VR_RESULT;
+            END;
+            ```
+    }
+    callbacks {
+        apiInterface: function
+        renderProcedureName: F_RENDER
+    }
+    advanced {
+        category: style
+        substituteAttributeValues: true
+    }
+    information {
+        version: 1.2.4
+        aboutUrl: https://github.com/RonnyWeiss/APEX-Items-with-APEX-Buttons
+        helpText: This plug-in is used to move one or more APEX Button behind a Page Item. This is like the Plug-in "Textfield with Buttons" but you can use APEX Buttons, so you have full APEX Button and Theme Support. E.g. you got an Dialog Close Event when Close Dialog on Button Click.
+    }
+)
+

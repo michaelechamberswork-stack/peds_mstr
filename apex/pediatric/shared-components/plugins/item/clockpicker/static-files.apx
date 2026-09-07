@@ -1,0 +1,25 @@
+file "css/bootstrap-clockpicker.min.css" (
+    mimeType: text/css
+    charSet: utf-8
+)
+
+file "css/bootstrap.min.css" (
+    mimeType: text/css
+    charSet: utf-8
+)
+
+file "js/apexclockpicker.js" (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+
+file "js/apexclockpicker.min.js" (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+
+file "js/bootstrap-clockpicker.min.js" (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+

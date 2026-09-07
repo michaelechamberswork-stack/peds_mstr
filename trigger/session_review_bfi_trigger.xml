@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="c5ec1c1e24ec3963c66a1c39d4fbf8a73f49ad27" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleTrigger objectName="SESSION_REVIEW_BFI" objectType="TRIGGER" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE TRIGGER "%USER_NAME%"."SESSION_REVIEW_BFI" 
+BEFORE INSERT
+ON PEDS_MSTR.SESSION_REVIEW
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+    :new.sr_id := NVL(:new.sr_id, session_review_seq.nextval);
+END;
+
+/
+]]></n0:source>
+      </n0:createOracleTrigger>
+ </changeSet>
+</databaseChangeLog>

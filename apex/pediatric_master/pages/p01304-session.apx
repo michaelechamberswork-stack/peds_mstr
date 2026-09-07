@@ -1,0 +1,1834 @@
+page 1304 (
+    name: SESSION
+    alias: SESSION
+    title: SESSION
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @modal-dialog
+        templateOptions: #DEFAULT#
+    }
+    dialog {
+        resizable: false
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    javaScript {
+        functionAndGlobalVariableDeclaration: var htmldb_delete_message='"DELETE_CONFIRM_MSG"';
+    }
+    css {
+        inline:
+            ```css
+            .textarea {
+                width: 100%;
+            }
+            ```
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region buttons (
+        name: BUTTONS
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: dialogFooter
+        }
+        appearance {
+            template: @buttons-container
+            templateOptions: #DEFAULT#
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+    )
+
+    region narrative (
+        name: narrative
+        type: staticContent
+        layout {
+            sequence: 40
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes-no-grid
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    region notes (
+        name: NOTES
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT n_id, o_id, intervention, objective, objective_met--, objective_worked_on
+                FROM notes
+                WHERE s_id = :P1304_S_ID
+                    and (objective_worked_on = 'Y' or intervention is not null)
+                ORDER BY o_id
+                ```
+        }
+        layout {
+            sequence: 30
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1304_S_ID
+        }
+        config {
+            buildOption: @excluded
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+        messages {
+            whenNoDataFound: No Data Found
+        }
+
+        column INTERVENTION (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: INTERVENTION
+                alignment: center
+            }
+            layout {
+                sequence: 40
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column N_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 10
+            }
+            link {
+                target: {
+                    page: 1302
+                    items: {
+                        P1302_N_ID: #N_ID#
+                    }
+                    clearCache: 1302
+                    action: resetPagination
+                }
+                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+            }
+            sorting {
+                sortable: false
+            }
+            serverSideCondition {
+                type: item!=value
+                item: P1304_REVIEW
+                value: Y
+            }
+        )
+
+        column OBJECTIVE (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: OBJECTIVE
+                alignment: center
+            }
+            layout {
+                sequence: 30
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column OBJECTIVE_MET (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: Objective Met
+            }
+            layout {
+                sequence: 50
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column O_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 20
+            }
+        )
+
+    )
+
+    region notes-2 (
+        name: NOTES
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT 
+                    n_id, 
+                    o_id, 
+                    intervention, 
+                    CASE 
+                        WHEN LENGTH(OBJECTIVE) <= 40 THEN OBJECTIVE
+                        WHEN INSTR(SUBSTR(OBJECTIVE, 1, 40), ' ', -1) > 0 THEN
+                            SUBSTR(OBJECTIVE, 1, INSTR(SUBSTR(OBJECTIVE, 1, 40), ' ', -1) - 1) || '...'
+                        ELSE 
+                            SUBSTR(OBJECTIVE, 1, 40) || '...'
+                        END OBJECTIVE,
+                    objective_met, 
+                    objective full_objective
+                FROM notes
+                WHERE s_id = :P1304_S_ID
+                    and (objective_worked_on = 'Y' or intervention is not null)
+                ORDER BY o_id
+                ```
+        }
+        layout {
+            sequence: 20
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1304_S_ID
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+        messages {
+            whenNoDataFound: No Data Found
+        }
+
+        column FULL_OBJECTIVE (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 25
+            }
+        )
+
+        column INTERVENTION (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: INTERVENTION
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column N_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 1
+            }
+            link {
+                target: {
+                    page: 1302
+                    items: {
+                        P1302_N_ID: #N_ID#
+                    }
+                    clearCache: 1302
+                    action: resetPagination
+                }
+                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+            }
+            sorting {
+                sortable: false
+            }
+            serverSideCondition {
+                type: item!=value
+                item: P1304_REVIEW
+                value: Y
+            }
+        )
+
+        column OBJECTIVE (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: OBJECTIVE
+                alignment: center
+            }
+            layout {
+                sequence: 3
+            }
+            columnFormatting {
+                htmlExpression: <span title="#FULL_OBJECTIVE#" onclick="apex.event.trigger(document, 'daShowObjective', #N_ID#);">#OBJECTIVE#</span>
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column OBJECTIVE_MET (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: Objective Met
+            }
+            layout {
+                sequence: 15
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column O_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 2
+            }
+        )
+
+    )
+
+    region session (
+        name: SESSION
+        type: form
+        source {
+            location: localDatabase
+            tableName: SESSIONS
+            includeRowidColumn: true
+        }
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        edit {
+            enabled: true
+            allowedOperations: [
+                add
+                update
+                delete
+            ]
+        }
+    )
+
+    pageItem P1304_ACTIVITY (
+        type: selectList
+        label {
+            label: ACTIVITY
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @activity
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 140
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 5
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: ACTIVITY
+            dataType: number
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_ACTIVITY_OTHER (
+        type: textField
+        label {
+            label: CONSULTED WITH
+            alignment: left
+        }
+        layout {
+            sequence: 170
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 5
+        }
+        appearance {
+            template: @optional-above-hidden
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            valueRequired: true
+            maxLength: 255
+        }
+        source {
+            formRegion: @session
+            column: ACTIVITY_OTHER
+            dataType: varchar2
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_CANCEL_REASON (
+        type: selectList
+        label {
+            label: CANCEL REASON
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @cancel-reason
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 150
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: CANCEL_REASON
+            dataType: number
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_CASE_NUMBER (
+        type: hidden
+        layout {
+            sequence: 40
+            region: @session
+            slot: regionBody
+        }
+        source {
+            formRegion: @session
+            column: CASE_NUMBER
+            dataType: number
+        }
+        default {
+            type: expression
+            plsqlExpression: :CURRENT_CLIENT
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_COMMENTS (
+        type: textarea
+        label {
+            label: COMMENTS
+            alignment: left
+        }
+        layout {
+            sequence: 190
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 85
+            height: 5
+        }
+        validation {
+            maxLength: 4000
+        }
+        advanced {
+            cssClasses: lts-textarea-display
+        }
+        source {
+            formRegion: @session
+            column: COMMENTS
+            dataType: varchar2
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_DATE_CREATED (
+        type: datePicker
+        label {
+            label: DATE CREATED
+            alignment: left
+        }
+        layout {
+            sequence: 60
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            formatMask: MM/DD/YYYY HH:MI AM
+            width: 30
+        }
+        source {
+            formRegion: @session
+            column: DATE_CREATED
+            dataType: date
+        }
+        readOnly {
+            type: always
+        }
+    )
+
+    pageItem P1304_DATE_SESSION (
+        type: plugin/ltsDateField
+        label {
+            label: DATE
+            alignment: left
+        }
+        layout {
+            sequence: 70
+            region: @session
+            slot: regionBody
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        validation {
+            valueRequired: true
+        }
+        source {
+            formRegion: @session
+            column: DATE_SESSION
+            dataType: date
+        }
+        default {
+            type: expression
+            plsqlExpression: TRUNC(et_sysdate)
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+    )
+
+    pageItem P1304_LATE_REASON (
+        type: textarea
+        label {
+            label: REASON DOCUMENTATION IS LATE
+            alignment: left
+        }
+        layout {
+            sequence: 50
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+            height: 5
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @session
+            column: LATE_REASON
+            dataType: varchar2
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: documentation_late(:P1304_S_ID)
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_LOCATION (
+        type: selectList
+        label {
+            label: LOCATION
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @location-therapist
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 130
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: LOCATION
+            dataType: number
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_LOCATION_OTHER (
+        type: textField
+        label {
+            label: SERVICE LOCATION
+            alignment: left
+        }
+        layout {
+            sequence: 160
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above-hidden
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            valueRequired: true
+            maxLength: 255
+        }
+        source {
+            formRegion: @session
+            column: LOCATION_OTHER
+            dataType: varchar2
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_NARRATIVE (
+        type: textarea
+        label {
+            label: Narrative
+            alignment: left
+        }
+        settings {
+            autoHeight: true
+        }
+        layout {
+            sequence: 210
+            region: @narrative
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+            height: 3
+        }
+        validation {
+            maxLength: 4000
+        }
+        advanced {
+            cssClasses: lts-textarea-display
+        }
+        source {
+            formRegion: @session
+            column: NARRATIVE
+            dataType: varchar2
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+    )
+
+    pageItem P1304_PSC_ID (
+        type: selectList
+        label {
+            label: SERVICE CODE
+            alignment: left
+        }
+        lov {
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT psc_description d, psc_id r
+                FROM program_service_codes psc
+                    INNER JOIN programs p ON psc.psc_p_id = p.p_id
+                    INNER JOIN clients c ON p.p_id = c.p_id
+                WHERE c.case_number = :P1304_CASE_NUMBER
+                ```
+        }
+        layout {
+            sequence: 90
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: PSC_ID
+            dataType: number
+        }
+        security {
+            authorizationScheme: @peds-signature
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_REVIEW (
+        type: hidden
+        layout {
+            sequence: 20
+            region: @session
+            slot: regionBody
+        }
+        default {
+            type: static
+            staticValue: N
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_STATUS (
+        type: selectList
+        label {
+            label: STATUS
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @status
+            displayExtraValues: false
+            displayNullValue: false
+        }
+        layout {
+            sequence: 180
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: STATUS
+            dataType: varchar2
+        }
+        default {
+            type: static
+            staticValue: D
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_S_ID (
+        type: hidden
+        layout {
+            sequence: 30
+            region: @session
+            slot: regionBody
+        }
+        source {
+            formRegion: @session
+            column: S_ID
+            dataType: number
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_THERAPIST_ID (
+        type: selectList
+        label {
+            label: THERAPIST
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @therapists
+        }
+        layout {
+            sequence: 80
+            region: @session
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: THERAPIST_ID
+            dataType: number
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_TIME_END (
+        type: plugin/ltsTimeField
+        label {
+            label: END
+            alignment: left
+        }
+        layout {
+            sequence: 110
+            region: @session
+            slot: regionBody
+            startNewRow: false
+            column: 5
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            formatMask: HH:MI AM
+        }
+        source {
+            formRegion: @session
+            column: TIME_END
+            dataType: date
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+    )
+
+    pageItem P1304_TIME_LENGTH (
+        type: selectList
+        label {
+            label: LENGTH
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @session-length
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 120
+            region: @session
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 9
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            formRegion: @session
+            column: TIME_LENGTH
+            dataType: number
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1304_TIME_START (
+        type: plugin/ltsTimeField
+        label {
+            label: START
+            alignment: left
+        }
+        layout {
+            sequence: 100
+            region: @session
+            slot: regionBody
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            formatMask: HH:MI AM
+        }
+        source {
+            formRegion: @session
+            column: TIME_START
+            dataType: date
+        }
+        readOnly {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: CANCEL
+        layout {
+            sequence: 10
+            region: @buttons
+            slot: previous
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+            executeValidations: false
+        }
+    )
+
+    button delete (
+        buttonName: DELETE
+        label: DELETE
+        layout {
+            sequence: 20
+            region: @buttons
+            slot: delete
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+            executeValidations: false
+        }
+        serverSideCondition {
+            type: functionBody
+            plsqlFunctionBody:
+                ```plsql
+                DECLARE
+                    vNum NUMBER;
+                BEGIN
+                
+                    IF :P1304_S_ID IS NULL OR :APP_MODE = 'T' OR :P1304_REVIEW = 'Y' THEN
+                        RETURN FALSE;
+                    END IF;
+                
+                    SELECT COUNT(*)
+                    INTO vNum
+                    FROM notes
+                    WHERE s_id = :P1304_S_ID;
+                    
+                    RETURN vNum = 0;
+                END;
+                ```
+        }
+    )
+
+    button reviewed (
+        buttonName: REVIEWED
+        label: REVIEWED
+        layout {
+            sequence: 50
+            region: @buttons
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+            executeValidations: false
+        }
+        serverSideCondition {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: OK
+        layout {
+            sequence: 40
+            region: @buttons
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            executeValidations: false
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :P1304_S_ID IS NOT NULL
+                AND
+                :P1304_REVIEW != 'Y'
+                ```
+        }
+    )
+
+    dynamicAction calculate-time-length (
+        name: Calculate Time Length
+        execution {
+            sequence: 70
+        }
+        when {
+            selectionType: items
+            items: [
+                P1304_TIME_END
+                P1304_TIME_START
+            ]
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: $("#P1304_TIME_LENGTH").prop("disabled", false);
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action native-javascript-code-2 (
+            action: executeJsCode
+            settings {
+                jsCode: $("#P1304_TIME_LENGTH").prop("disabled", true);
+            }
+            execution {
+                sequence: 30
+            }
+        )
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: plsqlFunctionBody
+                plsqlFunctionBody:
+                    ```plsql
+                    DECLARE
+                        vNum NUMBER;
+                    BEGIN
+                        IF :P1304_TIME_START IS NULL OR :P1304_TIME_END IS NULL THEN
+                            RETURN NULL;
+                        ELSE
+                            /*Minutes*/
+                            vNum := (TO_DATE(:P1304_TIME_END, 'HH:MI AM') - TO_DATE(:P1304_TIME_START, 'HH:MI AM')) * 24 * 60;
+                            
+                            IF MOD(vNum, 15) = 0 THEN
+                                vNum := (vNum / 15) - 1;
+                            ELSE
+                                vNum := vNum / 15;
+                            END IF;
+                            
+                            RETURN TRUNC(vNum);
+                        END IF;
+                    END;
+                    ```
+                itemsToSubmit: [
+                    P1304_TIME_START
+                    P1304_TIME_END
+                ]
+            }
+            affectedElements {
+                selectionType: items
+                items: P1304_TIME_LENGTH
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction cancel (
+        name: Cancel
+        execution {
+            sequence: 100
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @cancel
+        }
+
+        action native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction comments-read-only (
+        name: Comments Read Only
+        execution {
+            sequence: 130
+        }
+        when {
+            event: ready
+        }
+        clientSideCondition {
+            type: item=value
+            item: P1304_REVIEW
+            value: Y
+        }
+        config {
+            buildOption: @excluded
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("#P1304_COMMENTS").attr('disabled', 'disabled');
+                    $("#P1304_COMMENTS").height($("#P1304_COMMENTS").scrollHeight);
+                    $("#P1304_NARRATIVE").attr('disabled', 'disabled');
+                    
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction delete-session (
+        name: Delete Session
+        execution {
+            sequence: 60
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @delete
+        }
+
+        action native-submit-page (
+            action: submitPage
+            settings {
+                requestButtonName: DELETE
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Do you want to delete this session?
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction new (
+        name: New
+        execution {
+            sequence: 120
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @reviewed
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode:
+                    ```plsql
+                    UPDATE sessions
+                    SET status = 'R'
+                    WHERE s_id = :P1304_S_ID;
+                    ```
+                itemsToSubmit: P1304_S_ID
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action native-submit-page (
+            action: submitPage
+            settings {
+                requestButtonName: REVIEWED
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction remove-reviewed-from-status (
+        name: Remove Reviewed from Status
+        execution {
+            sequence: 110
+        }
+        when {
+            event: ready
+        }
+        serverSideCondition {
+            type: item!=value
+            item: P1304_STATUS
+            value: R
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: "$(\"#P1304_STATUS option[value|='R']\").remove();"
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction session-cancelled (
+        name: Session Cancelled
+        execution {
+            sequence: 140
+        }
+        when {
+            selectionType: items
+            items: P1304_ACTIVITY
+        }
+        clientSideCondition {
+            type: item=value
+            item: P1304_ACTIVITY
+            value: 10
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: items
+                items: P1304_CANCEL_REASON
+            }
+            execution {
+                sequence: 40
+                fireWhenEventResultIs: false
+            }
+        )
+
+        action native-hide-2 (
+            action: hide
+            affectedElements {
+                selectionType: region
+                region: @notes-2
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+        action native-hide-3 (
+            action: hide
+            affectedElements {
+                selectionType: items
+                items: [
+                    P1304_TIME_START
+                    P1304_TIME_END
+                    P1304_TIME_LENGTH
+                    P1304_LOCATION
+                    P1304_LOCATION_OTHER
+                    P1304_ACTIVITY_OTHER
+                ]
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: $("#P&APP_PAGE_ID._LOCATION").trigger("change");
+            }
+            execution {
+                sequence: 30
+                fireWhenEventResultIs: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: P1304_CANCEL_REASON
+            }
+            execution {
+                sequence: 30
+            }
+        )
+
+        action native-show-2 (
+            action: show
+            affectedElements {
+                selectionType: region
+                region: @notes-2
+            }
+            execution {
+                sequence: 20
+                fireWhenEventResultIs: false
+            }
+        )
+
+        action native-show-3 (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: [
+                    P1304_TIME_START
+                    P1304_TIME_END
+                    P1304_TIME_LENGTH
+                    P1304_LOCATION
+                ]
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+            }
+        )
+
+    )
+
+    dynamicAction set-location-other (
+        name: Set Location Other
+        execution {
+            sequence: 90
+        }
+        when {
+            selectionType: items
+            items: P1304_LOCATION
+        }
+        clientSideCondition {
+            type: item>value
+            item: P1304_LOCATION
+            value: 2
+        }
+
+        action native-set-value (
+            action: setValue
+            settings {
+                value: 2
+            }
+            affectedElements {
+                selectionType: items
+                items: P1304_LOCATION
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+        action native-set-value-2 (
+            action: setValue
+            settings {
+                type: jsExpression
+                jsExpression: $("#P1304_LOCATION option:selected").text();
+            }
+            affectedElements {
+                selectionType: items
+                items: P1304_LOCATION_OTHER
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction show-activity-other (
+        name: Show Activity Other
+        execution {
+            sequence: 30
+        }
+        when {
+            selectionType: items
+            items: P1304_ACTIVITY
+        }
+        clientSideCondition {
+            type: item=value
+            item: P1304_ACTIVITY
+            value: 2
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: items
+                items: P1304_ACTIVITY_OTHER
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: P1304_ACTIVITY_OTHER
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction show-activity-other-onload (
+        name: Show Activity Other OnLoad
+        execution {
+            sequence: 50
+        }
+        when {
+            event: ready
+        }
+        serverSideCondition {
+            type: item=value
+            item: P1304_ACTIVITY
+            value: 2
+        }
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: [
+                    P1304_LOCATION_OTHER
+                    P1304_ACTIVITY_OTHER
+                ]
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+    )
+
+    dynamicAction show-location-other (
+        name: Show Location Other
+        execution {
+            sequence: 20
+        }
+        when {
+            selectionType: items
+            items: P1304_LOCATION
+        }
+        clientSideCondition {
+            type: item>value
+            item: P1304_LOCATION
+            value: 1
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: items
+                items: P1304_LOCATION_OTHER
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+            }
+        )
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: P1304_LOCATION_OTHER
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction show-location-other-onload (
+        name: Show Location Other OnLoad
+        execution {
+            sequence: 40
+        }
+        when {
+            event: ready
+        }
+        serverSideCondition {
+            type: item=value
+            item: P1304_LOCATION
+            value: 2
+        }
+
+        action native-show (
+            action: show
+            affectedElements {
+                selectionType: items
+                items: P1304_LOCATION_OTHER
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction validations-and-enable-time-length (
+        name: Validations and Enable Time Length
+        execution {
+            sequence: 150
+        }
+        when {
+            event: apexbeforepagesubmit
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    function callError(item, message) {
+                        apex.message.showErrors([
+                            {
+                                type: "error",
+                                location: [ "page", "inline" ],
+                                pageItem: item,
+                                message: message,
+                                unsafe: false
+                            }
+                        ]);
+                        apex.event.gCancelFlag = true;
+                    }
+                    
+                    var status = $v("P&APP_PAGE_ID._STATUS");
+                    var activty = $v("P&APP_PAGE_ID._ACTIVITY");
+                    var cancelReason = $v("P&APP_PAGE_ID._CANCEL_REASON");
+                    var comments = $v("P&APP_PAGE_ID._COMMENTS");
+                    
+                    apex.message.clearErrors();
+                    
+                    if( status == "S" ) {
+                        if( activty == "10" ) {
+                            if ( cancelReason == "" ) {
+                                callError( "P&APP_PAGE_ID._CANCEL_REASON", "CANCEL REASON is required when ACTIVITY is Session Cancelled" );
+                            }
+                            else if ( cancelReason == "10" && comments == "" ) {
+                                callError( "P&APP_PAGE_ID._COMMENTS", "COMMENTS is required when CANCEL REASON is other" );
+                            }
+                        }
+                    }
+                    
+                    if ( !apex.event.gCancelFlag ) {
+                        $("#P&APP_PAGE_ID._TIME_LENGTH").prop("disabled", false);
+                    }
+                    
+                    ```
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    validation end-must-be-after-start (
+        name: End Must be After Start
+        execution {
+            sequence: 40
+        }
+        validation {
+            type: functionBodyReturningBoolean
+            plsqlFunctionBody:
+                ```plsql
+                IF :P1304_TIME_START IS NULL OR :P1304_TIME_END IS NULL THEN
+                    RETURN TRUE;
+                ELSIF TO_DATE(:P1304_TIME_END, 'HH:MI AM') <= TO_DATE(:P1304_TIME_START, 'HH:MI AM') THEN
+                    RETURN FALSE;
+                ELSE
+                    RETURN TRUE;
+                END IF;
+                ```
+            alwaysExecute: true
+        }
+        error {
+            errorMessage: End Time must be after Start Time
+        }
+    )
+
+    process create-note-entries (
+        name: Create Note Entries
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    vDate DATE;
+                    vCaseNumber NUMBER;
+                BEGIN
+                    SELECT date_session, case_number
+                    INTO vDate, vCaseNumber
+                    FROM sessions
+                    WHERE s_id = :P1304_S_ID;
+                
+                    INSERT INTO notes(s_id, o_id, objective)
+                    SELECT :P1304_S_ID, o_id, objective
+                    FROM objectives
+                    WHERE vDate BETWEEN NVL(start_date, vDate - 1) AND NVL(end_date, vDate + 1)
+                        AND case_number = vCaseNumber
+                        AND o_id NOT IN
+                        (
+                            SELECT o_id
+                            FROM notes
+                            WHERE s_id = :P1304_S_ID
+                        );
+                
+                    COMMIT;
+                END;
+                ```
+        }
+        execution {
+            sequence: 20
+            point: afterHeader
+        }
+        advanced {
+            executionMappingIdentifier: 191139145543572856
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1304_S_ID
+        }
+    )
+
+    process fetch-row-from-sessions (
+        name: Fetch Row from SESSIONS
+        type: formInitialization
+        formRegion: @session
+        execution {
+            sequence: 10
+            point: afterHeader
+        }
+        advanced {
+            executionMappingIdentifier: 191137457566572872
+        }
+    )
+
+    process process-row-of-sessions (
+        name: Process Row of SESSIONS
+        type: formAutoRowProcessing
+        formRegion: @session
+        execution {
+            sequence: 30
+        }
+        successMessage {
+            successMessage: Action Processed.
+        }
+        advanced {
+            executionMappingIdentifier: 191137868191572870
+        }
+    )
+
+    process reset-page (
+        name: reset page
+        type: clearSessionState
+        execution {
+            sequence: 50
+        }
+        advanced {
+            executionMappingIdentifier: 191138725287572856
+        }
+        serverSideCondition {
+            whenButtonPressed: @delete
+        }
+    )
+
+    branch (
+        name: Goto Page 1
+        execution {
+            sequence: 10
+        }
+        behavior {
+            target: {
+                page: 1
+            }
+        }
+    )
+
+)
+

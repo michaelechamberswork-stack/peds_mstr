@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="824b889f101e7ccd91d37f0857e3da9bc2a921bb" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOraclePackageBody objectName="DEL" objectType="PACKAGE_BODY" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE BODY "%USER_NAME%"."DEL" as
+    PROCEDURE NOTE(NID IN NUMBER)
+    AS
+    BEGIN
+        INSERT INTO deleted_notes
+        SELECT *
+        FROM notes
+        WHERE n_id = nid;
+
+        DELETE FROM notes
+        WHERE n_id = nid;
+    END;
+
+    PROCEDURE OBJECTIVE(OID IN NUMBER)
+    AS
+    BEGIN
+        INSERT INTO deleted_objectives
+        SELECT *
+        FROM objectives
+        WHERE o_id = oid;
+
+        DELETE FROM objectives
+        WHERE o_id = oid;
+    END;
+
+    PROCEDURE SESSION(SID IN NUMBER)
+    AS
+    BEGIN
+        INSERT INTO deleted_notes
+        SELECT *
+        FROM notes
+        WHERE s_id = sid;
+
+        DELETE FROM notes
+        WHERE s_id = sid;
+
+        INSERT INTO deleted_sessions
+        SELECT *
+        FROM sessions
+        WHERE s_id = sid;
+
+        DELETE FROM sessions
+        WHERE s_id = sid;
+    END;
+end;
+/]]></n0:source>
+      </n0:createOraclePackageBody>
+ </changeSet>
+</databaseChangeLog>

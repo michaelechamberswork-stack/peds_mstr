@@ -1,0 +1,57 @@
+customAttribute attribute_01 (
+    apexlangName: inputMask
+    attribute: 1
+    name: Input Mask
+    validation {
+        required: true
+        maxLength: 40
+    }
+    appearance {
+        sequence: 10
+    }
+    builder {
+        displayWidth: 40
+    }
+    default {
+        value: (999) 999-9999
+    }
+    help {
+        helpText:
+            ```
+            An input mask is defined by a format made up of mask literals and mask definitions. Any character not in the definitions list
+            below is considered a mask literal and can�t be modified by the user. For example a mask of "(999) 999-9999" with a placeholder of "#" will be displayed to the user as "(###) ###-####". As the user types in the value, the hashes will be replaced by the numbers entered and the parenthesis, space, and dash will remain untouched.
+             
+            The following mask definitions are predefined:
+            <ul>
+            <li>a - Represents an alpha character (A-Z,a-z)</li>
+            <li>9 - Represents a numeric character (0-9)</li>
+            <li>* - Represents an alphanumeric character (A-Z,a-z,0-9)</li>
+            <li>? - Anything listed after "?" within the mask is considered optional user input. A common example for this is phone number + optional extension. The mask for that would be "(999) 999-9999? x999999"</li>
+            </ul>
+            
+            ```
+    }
+)
+
+customAttribute attribute_02 (
+    apexlangName: placeholder
+    attribute: 2
+    name: Placeholder
+    validation {
+        required: true
+        maxLength: 1
+    }
+    appearance {
+        sequence: 20
+    }
+    builder {
+        displayWidth: 1
+    }
+    default {
+        value: _
+    }
+    help {
+        helpText: The placeholder is displayed for all enterable characters (mask definitions) in the input field.
+    }
+)
+

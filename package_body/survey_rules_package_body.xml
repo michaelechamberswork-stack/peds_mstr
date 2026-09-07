@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="c2f370825df19750f4c5661368aa326372f15e11" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOraclePackageBody objectName="SURVEY_RULES" objectType="PACKAGE_BODY" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE BODY "%USER_NAME%"."SURVEY_RULES" as
+    function days_to_next_survey(p_case_number in number) return number
+    as
+    begin
+        null;
+    end;
+    
+    function last_survey(p_case_number in number) return date
+    as
+    begin
+        null;
+    end;
+
+    function next_survey(p_case_number in number) return date
+    as
+    begin
+        null;
+    end;
+end survey_rules;
+/]]></n0:source>
+      </n0:createOraclePackageBody>
+ </changeSet>
+</databaseChangeLog>

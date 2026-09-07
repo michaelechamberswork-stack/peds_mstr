@@ -1,0 +1,968 @@
+page 1001 (
+    name: CLIENT
+    title: CLIENT
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    readOnly {
+        type: item=value
+        item: READ_ONLY_ACCESS
+        value: Y
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region client (
+        name: CLIENT
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+            cssClasses: [
+                col-sm-12
+                col-md-10
+                col-lg-8
+            ]
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    pageItem P1001_ACTIVE (
+        type: radioGroup
+        label {
+            label: ACTIVE
+            alignment: left
+        }
+        settings {
+            noOfCols: 2
+        }
+        lov {
+            type: sharedComponent
+            lov: @yes-no
+            displayExtraValues: false
+            displayNullValue: false
+        }
+        layout {
+            sequence: 50
+            region: @client
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: ACTIVE
+            used: always
+        }
+        default {
+            type: static
+            staticValue: Y
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_ADDRESS_LINE_1 (
+        type: textField
+        label {
+            label: ADDRESS
+            alignment: left
+        }
+        layout {
+            sequence: 140
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 120
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: ADDRESS_LINE_1
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_ADDRESS_LINE_2 (
+        type: textField
+        label {
+            alignment: left
+        }
+        layout {
+            sequence: 150
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @no-label
+            templateOptions: #DEFAULT#
+            width: 120
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: ADDRESS_LINE_2
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_CASE_MANAGER (
+        type: textField
+        label {
+            label: CASE MANAGER
+            alignment: left
+        }
+        layout {
+            sequence: 260
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 75
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: CASE_MANAGER
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_CASE_NUMBER (
+        type: hidden
+        layout {
+            sequence: 30
+            region: @client
+            slot: regionBody
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: CASE_NUMBER
+            used: always
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_CASE_NUMBER_ASSIGNED (
+        type: textField
+        label {
+            label: CASE NUMBER
+            alignment: left
+        }
+        layout {
+            sequence: 20
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: CASE_NUMBER_ASSIGNED
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_CITY (
+        type: textField
+        label {
+            label: CITY
+            alignment: left
+        }
+        layout {
+            sequence: 160
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: CITY
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_DATE_END (
+        type: plugin/ltsDateField
+        label {
+            label: END DATE
+            alignment: left
+        }
+        layout {
+            sequence: 130
+            region: @client
+            slot: regionBody
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: DATE_END
+            used: always
+        }
+    )
+
+    pageItem P1001_DATE_START (
+        type: plugin/ltsDateField
+        label {
+            label: START DATE
+            alignment: left
+        }
+        layout {
+            sequence: 120
+            region: @client
+            slot: regionBody
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: DATE_START
+            used: always
+        }
+    )
+
+    pageItem P1001_DOB (
+        type: plugin/ltsDateField
+        label {
+            label: DATE OF BIRTH
+            alignment: left
+        }
+        layout {
+            sequence: 190
+            region: @client
+            slot: regionBody
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: DOB
+            used: always
+        }
+    )
+
+    pageItem P1001_FIRST_NAME (
+        type: textField
+        label {
+            label: FIRST NAME
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 100
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: FIRST_NAME
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_LAST_NAME (
+        type: textField
+        label {
+            label: LAST NAME
+            alignment: left
+        }
+        settings {
+            trimSpaces: none
+        }
+        layout {
+            sequence: 110
+            region: @client
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: LAST_NAME
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_LAST_SAVED_BY_LEVEL (
+        type: hidden
+        layout {
+            sequence: 40
+            region: @client
+            slot: regionBody
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: LAST_SAVED_BY_LEVEL
+            used: always
+            postCalculationComputation: therapist_level(:APP_USER)
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_PARENT_1_FIRST_NAME (
+        type: textField
+        label {
+            label: PARENT</br>FIRST NAME
+            alignment: left
+        }
+        layout {
+            sequence: 200
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: PARENT_1_FIRST_NAME
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_PARENT_1_LAST_NAME (
+        type: textField
+        label {
+            label: PARENT</br>LAST NAME
+            alignment: left
+        }
+        layout {
+            sequence: 210
+            region: @client
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: PARENT_1_LAST_NAME
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_PARENT_2_FIRST_NAME (
+        type: textField
+        label {
+            label: PARENT</br>FIRST NAME
+            alignment: left
+        }
+        layout {
+            sequence: 230
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: PARENT_2_FIRST_NAME
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_PARENT_2_LAST_NAME (
+        type: textField
+        label {
+            label: PARENT</br>LAST NAME
+            alignment: left
+        }
+        layout {
+            sequence: 240
+            region: @client
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: PARENT_2_LAST_NAME
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_PHONE_1 (
+        type: plugin/maskedField
+        label {
+            label: PARENT</br>PHONE
+            alignment: left
+        }
+        layout {
+            sequence: 220
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 25
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: PHONE_1
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_PHONE_2 (
+        type: plugin/maskedField
+        label {
+            label: PARENT</br>PHONE
+            alignment: left
+        }
+        layout {
+            sequence: 250
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 30
+        }
+        validation {
+            maxLength: 25
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: PHONE_2
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_P_ID (
+        type: selectList
+        label {
+            label: PROGRAM
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @program
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 70
+            region: @client
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: P_ID
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_STATE (
+        type: textField
+        label {
+            label: STATE
+            alignment: left
+        }
+        layout {
+            sequence: 170
+            region: @client
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 5
+        }
+        validation {
+            maxLength: 255
+        }
+        advanced {
+            postText: <a href="f?p=&APP_ID.:2001:&APP_SESSION.::::RF:P1001_STATE" class="a-Button a-Button--popupLOV"><span class="a-Icon icon-popup-lov"></span></a>
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: STATE
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_THERAPIST_ID (
+        type: selectList
+        label {
+            label: ASSIGNED THERAPIST
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @therapists
+            displayExtraValues: false
+        }
+        layout {
+            sequence: 60
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: THERAPIST_ID
+            used: always
+        }
+        serverSideCondition {
+            type: item=value
+            item: APP_MODE
+            value: A
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_THERAPIST_READONLY_IDS (
+        type: shuttle
+        label {
+            label: READ ONLY ACCESS
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @read-only-list
+        }
+        layout {
+            sequence: 80
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 5
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: THERAPIST_READONLY_IDS
+            used: always
+        }
+        serverSideCondition {
+            type: item=value
+            item: APP_MODE
+            value: A
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_THERAPIST_STUDENT_IDS (
+        type: shuttle
+        label {
+            label: STUDENT ACCESS
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @students
+        }
+        layout {
+            sequence: 90
+            region: @client
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            height: 5
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: THERAPIST_STUDENT_IDS
+            used: always
+        }
+        serverSideCondition {
+            type: item=value
+            item: APP_MODE
+            value: A
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1001_ZIP (
+        type: textField
+        label {
+            label: ZIP
+            alignment: left
+        }
+        layout {
+            sequence: 180
+            region: @client
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 6
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 10
+        }
+        validation {
+            maxLength: 25
+        }
+        source {
+            type: databaseColumn
+            databaseColumn: ZIP
+            used: always
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    button cancel-create (
+        buttonName: CANCEL_CREATE
+        label: CANCEL
+        layout {
+            sequence: 10
+            region: @client
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1000
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        serverSideCondition {
+            type: itemIsNull
+            item: CURRENT_CLIENT
+        }
+    )
+
+    button cancel-save (
+        buttonName: CANCEL_SAVE
+        label: CANCEL
+        layout {
+            sequence: 20
+            region: @client
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1001
+                items: {
+                    P1001_CASE_NUMBER: &P1001_CASE_NUMBER.
+                }
+                clearCache: 1001
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        serverSideCondition {
+            type: itemIsNotNullAndNotZero
+            item: CURRENT_CLIENT
+        }
+    )
+
+    button create (
+        buttonName: CREATE
+        label: APPLY
+        layout {
+            sequence: 40
+            region: @client
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: insert
+        }
+        serverSideCondition {
+            type: itemIsNull
+            item: P1001_CASE_NUMBER
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: APPLY
+        layout {
+            sequence: 30
+            region: @client
+            slot: change
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression:
+                ```plsql
+                :P1001_CASE_NUMBER IS NOT NULL
+                AND :READ_ONLY_ACCESS != 'Y'
+                ```
+        }
+    )
+
+    process fetch-row-from-clients (
+        name: Fetch Row from CLIENTS
+        type: autoRowFetch
+        source {
+            tableName: CLIENTS
+            pkColumn: CASE_NUMBER
+            pkItem: CURRENT_CLIENT
+        }
+        execution {
+            sequence: 10
+            point: afterHeader
+        }
+        advanced {
+            executionMappingIdentifier: 5675290387394982
+        }
+    )
+
+    process process-row-of-clients (
+        name: Process Row of CLIENTS
+        type: autoRowProcessing
+        target {
+            tableName: CLIENTS
+            pkColumn: CASE_NUMBER
+            pkItem: P1001_CASE_NUMBER
+            supportedOperations: [
+                insert
+                update
+            ]
+        }
+        execution {
+            sequence: 30
+        }
+        successMessage {
+            successMessage: Action Processed.
+        }
+        advanced {
+            executionMappingIdentifier: 5675680845394982
+        }
+    )
+
+    branch (
+        name: Go To Page 1001
+        execution {
+            sequence: 1
+        }
+        behavior {
+            target: {
+                page: 1001
+                items: {
+                    P1001_CASE_NUMBER: &P1001_CASE_NUMBER.
+                }
+                clearCache: 1001
+            }
+        }
+    )
+
+)
+

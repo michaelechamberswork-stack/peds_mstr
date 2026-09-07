@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="44701ab0f7793ec7e83b8e4089bd187aec1fe529" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOraclePackageBody objectName="TOOLS" objectType="PACKAGE_BODY" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE BODY "%USER_NAME%"."TOOLS" AS
+    function client_original_assessment_date(p_case_number in number) return date
+    as
+        l_assessment_date date;
+    begin
+        select min(assessment_date)
+        into l_assessment_date
+        from clients
+            join assessment using (case_number)
+        where case_number = p_case_number;
+
+        return l_assessment_date;
+    exception
+        when others then
+            return null;
+    end;
+
+    function client_therapist_id(p_case_number in number) return number
+    as
+        l_therapist_id number;
+    begin
+        select therapist_id
+        into l_therapist_id
+        from clients
+        where case_number = p_case_number;
+
+        return l_therapist_id;
+    exception
+        when others then
+            return null;
+    end;
+END TOOLS;
+/]]></n0:source>
+      </n0:createOraclePackageBody>
+ </changeSet>
+</databaseChangeLog>

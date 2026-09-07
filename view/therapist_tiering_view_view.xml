@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="13cda29dddb147d9d86391c6b88a33a002c72fcf" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createSxmlObject objectName="THERAPIST_TIERING_VIEW" objectType="VIEW" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>%USER_NAME%</SCHEMA>
+   <NAME>THERAPIST_TIERING_VIEW</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>THERAPIST</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>WEEK_OF_SESSION_MONTH</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>WEEK_OF_SESSION_YEAR</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>WEEK_OF_SESSION</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>NUM_CLIENTS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>NUM_SESSIONS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
+   <SUBQUERY>with tier_data_raw as (
+    select case_number, trunc(date_session, 'IW') week_of_session,
+        trim( to_char(trunc(date_session, 'IW'), 'Month') ) week_of_session_month,
+        to_number(to_char(trunc(date_session, 'IW'), 'yyyy')) week_of_session_year, 
+        nvl(s.therapist_id, c.therapist_id) therapist_id
+    from sessions s
+    join clients c using (case_number)
+),
+tier_data_grouped as (
+    select therapist_id,
+        week_of_session_month,
+        week_of_session_year,
+        week_of_session,
+        count( distinct(case_number) ) num_clients,
+        count(*) num_sessions
+    from tier_data_raw
+    group by therapist_id, week_of_session_month, week_of_session_year, week_of_session
+)
+select upper( last_name || ', ' || first_name ) therapist,
+    week_of_session_month,
+    week_of_session_year,
+    week_of_session,
+    num_clients,
+    num_sessions
+from tier_data_grouped
+join therapists on id = therapist_id</SUBQUERY>
+</VIEW>]]></n0:source>
+      </n0:createSxmlObject>
+ </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,438 @@
+page 1221 (
+    name: SEND SIGNATURE REQUEST
+    title: SEND SIGNATURE REQUEST
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @modal-dialog
+        templateOptions: #DEFAULT#
+    }
+    dialog {
+        resizable: false
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    javaScript {
+        functionAndGlobalVariableDeclaration: var htmldb_delete_message='"DELETE_CONFIRM_MSG"';
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region buttons (
+        name: Buttons
+        type: staticContent
+        layout {
+            sequence: 20
+            slot: dialogFooter
+        }
+        appearance {
+            template: @buttons-container
+            templateOptions: #DEFAULT#
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    region create-form (
+        name: Create Form
+        type: form
+        source {
+            location: localDatabase
+            tableName: SESSION_REVIEW
+        }
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        edit {
+            enabled: true
+            allowedOperations: [
+                add
+                update
+                delete
+            ]
+        }
+    )
+
+    pageItem P1221_READY_TO_SEND (
+        type: hidden
+        layout {
+            sequence: 70
+            region: @create-form
+            slot: regionBody
+        }
+        default {
+            type: static
+            staticValue: No
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1221_SIGNATURE_REQUEST_EMAIL (
+        type: textField
+        label {
+            label: Signature Request Email
+            alignment: left
+        }
+        layout {
+            sequence: 50
+            region: @create-form
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+        }
+        validation {
+            maxLength: 255
+        }
+        source {
+            formRegion: @create-form
+            column: SIGNATURE_REQUEST_EMAIL
+            dataType: varchar2
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1221_SR_ID (
+        type: hidden
+        layout {
+            sequence: 40
+            region: @create-form
+            slot: regionBody
+        }
+        source {
+            formRegion: @create-form
+            column: SR_ID
+            dataType: number
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1221_VERIFY_EMAIL (
+        type: textField
+        label {
+            label: Verify Email
+            alignment: left
+        }
+        layout {
+            sequence: 60
+            region: @create-form
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: Cancel
+        layout {
+            sequence: 20
+            region: @buttons
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: SEND
+        layout {
+            sequence: 30
+            region: @buttons
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    dynamicAction cancel-dialog (
+        name: Cancel Dialog
+        execution {
+            sequence: 10
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @cancel
+        }
+
+        action native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction send-notifications (
+        name: Send Notifications
+        execution {
+            sequence: 70
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @save
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: apex.event.trigger(document, "test_email", "");
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction test-email (
+        name: test email
+        execution {
+            sequence: 80
+        }
+        when {
+            event: custom
+            customEvent: test_email
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+        clientSideCondition {
+            type: itemIsNotNull
+            item: P1221_SIGNATURE_REQUEST_EMAIL
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: apex.event.trigger(document, "test_verify_email", "");
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                messageType: notification
+                notificationType: error
+                message: Email must be entered
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction test-emails-match (
+        name: test emails match
+        execution {
+            sequence: 100
+        }
+        when {
+            event: custom
+            customEvent: test_emails_match
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+        clientSideCondition {
+            type: jsExpression
+            javaScriptExpression: $v("P1221_SIGNATURE_REQUEST_EMAIL") == $v("P1221_VERIFY_EMAIL")
+        }
+
+        action native-dialog-close (
+            action: closeDialog
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: send_signature_request(:SR_ID, :P1221_SIGNATURE_REQUEST_EMAIL);
+                itemsToSubmit: P1221_SIGNATURE_REQUEST_EMAIL
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                messageType: notification
+                notificationType: error
+                message: Emails do not match
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction test-verify-email (
+        name: test verify email
+        execution {
+            sequence: 90
+        }
+        when {
+            event: custom
+            customEvent: test_verify_email
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+        clientSideCondition {
+            type: itemIsNotNull
+            item: P1221_VERIFY_EMAIL
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: apex.event.trigger(document, "test_emails_match", "");
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                messageType: notification
+                notificationType: error
+                message: Verify email must be entered
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction validate-email-format (
+        name: Validate Email Format
+        execution {
+            sequence: 20
+        }
+        when {
+            event: ready
+        }
+
+        action plugin-com-mailgun-email-validator (
+            action: plugin/mailgunEmailValidator
+            affectedElements {
+                selectionType: items
+                items: [
+                    P1221_SIGNATURE_REQUEST_EMAIL
+                    P1221_VERIFY_EMAIL
+                ]
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    process close-dialog (
+        name: Close Dialog
+        type: closeDialog
+        settings {
+            showSuccessMessages: false
+        }
+        execution {
+            sequence: 50
+        }
+        advanced {
+            executionMappingIdentifier: 2517065115955045
+        }
+        serverSideCondition {
+            type: requestIsContainedInValue
+            value: CREATE,SAVE,DELETE
+        }
+    )
+
+    process initialize-form-create-form (
+        name: Initialize form Create Form
+        type: formInitialization
+        formRegion: @create-form
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 2516222063955041
+        }
+    )
+
+    process process-form-create-form (
+        name: Process form Create Form
+        type: formAutoRowProcessing
+        formRegion: @create-form
+        execution {
+            sequence: 10
+        }
+        advanced {
+            executionMappingIdentifier: 2516630082955043
+        }
+    )
+
+)
+

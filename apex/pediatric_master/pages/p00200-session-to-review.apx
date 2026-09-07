@@ -1,0 +1,338 @@
+page 200 (
+    name: Session To Review
+    alias: SESSION-TO-REVIEW
+    title: Session To Review
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region sessions (
+        name: SESSIONS
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region sessions-to-be-reviewed (
+        name: SESSIONS TO BE REVIEWED
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT DISTINCT
+                    s_id,
+                    therapist_id,
+                    first_name||' '||last_name client,
+                    date_session,
+                    time_length,
+                    CASE WHEN late_reason IS NOT NULL THEN
+                        '<a href="'||APEX_UTIL.PREPARE_URL('f?p=&APP_ID.:1303:&APP_SESSION.::NO:RP,1303:P1303_S_ID:'||s_id)||'"><img src="#IMAGE_PREFIX#menu/pin_32.gif" width="20px" height="20px" alt="Late" /></a>'
+                    ELSE
+                        NULL
+                    END late,
+                    NULL edit_link,
+                    NULL print_link
+                FROM case_folder
+                WHERE status = 'S'
+                ```
+        }
+        layout {
+            sequence: 20
+            parentRegion: @sessions
+            slot: regionBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: lts_settings.is_app_admin
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+
+        column CLIENT (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: CLIENT
+                alignment: center
+            }
+            layout {
+                sequence: 2
+            }
+        )
+
+        column DATE_SESSION (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: SESSION
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+        )
+
+        column EDIT_LINK (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 7
+            }
+            link {
+                target: {
+                    page: 1301
+                    items: {
+                        P1301_S_ID: #S_ID#
+                        FROM_PAGE: 1
+                    }
+                    clearCache: 1301
+                }
+                linkText: <span aria-hidden="true" class="fa fa-pencil"></span>
+            }
+        )
+
+        column LATE (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            heading {
+                heading: LATE
+                alignment: center
+            }
+            layout {
+                sequence: 6
+            }
+            serverSideCondition {
+                type: rowsReturned
+                sqlQuery:
+                    ```sql
+                    SELECT *
+                    FROM case_folder
+                    WHERE status = 'S'
+                        AND late_reason IS NOT NULL
+                    ```
+            }
+            security {
+                escapeSpecialChars: false
+            }
+        )
+
+        column PRINT_LINK (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 8
+            }
+            link {
+                target: {
+                    type: url
+                    url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=#S_ID#&prompt3=N&prompt4=1/1/1900&prompt5=1/1/9999
+                }
+                linkText: <span aria-hidden="true" class="fa fa-print"></span>
+                linkAttributes: target="_blank"
+            }
+        )
+
+        column S_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 1
+            }
+            link {
+                target: {
+                    page: 1301
+                    items: {
+                        P1301_S_ID: #S_ID#
+                        P1301_REVIEW: Y
+                    }
+                    clearCache: 1301
+                    action: resetPagination
+                }
+                linkText: <span aria-hidden="true" class="fa fa-glasses"></span>
+            }
+        )
+
+        column THERAPIST_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: THERAPIST
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @therapists
+            }
+            layout {
+                sequence: 3
+            }
+        )
+
+        column TIME_LENGTH (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: LENGTH
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @session-length
+            }
+            layout {
+                sequence: 5
+            }
+        )
+
+    )
+
+    region sessions-to-be-reviewed-facet (
+        name: SESSIONS TO BE REVIEWED FACET
+        type: facetedSearch
+        source {
+            filteredRegion: @sessions-to-be-reviewed
+        }
+        layout {
+            sequence: 20
+            parentRegion: @sessions
+            slot: regionBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        settings {
+            compactNosThreshold: 10000
+            displayChartForTopNValues: 10
+        }
+
+        facet P200_CLIENT (
+            type: checkboxGroup
+            label {
+                label: CLIENT
+            }
+            lov {
+                type: sqlQuery
+                sqlQuery:
+                    ```sql
+                    SELECT DISTINCT
+                        first_name||' '||last_name client_display,
+                        first_name||' '||last_name client_return
+                    FROM case_folder
+                    WHERE status = 'S'
+                    ```
+            }
+            layout {
+                sequence: 20
+            }
+            listEntries {
+                maxDisplayedEntries: 7
+            }
+            source {
+                databaseColumn: CLIENT
+            }
+        )
+
+        facet P200_SEARCH (
+            type: search
+            label {
+                label: SEARCH
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+        facet P200_THERAPIST (
+            type: checkboxGroup
+            label {
+                label: THERAPIST
+            }
+            lov {
+                type: sharedComponent
+                lov: @therapists
+            }
+            layout {
+                sequence: 30
+            }
+            listEntries {
+                maxDisplayedEntries: 7
+            }
+            source {
+                databaseColumn: THERAPIST_ID
+                dataType: number
+            }
+        )
+
+    )
+
+    button print-activity-review (
+        buttonName: PRINT_ACTIVITY_REVIEW
+        label: PRINT ACTIVITY REVIEW
+        layout {
+            sequence: 10
+            region: @sessions
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            customAttributes: target="_blank"
+        }
+    )
+
+)
+

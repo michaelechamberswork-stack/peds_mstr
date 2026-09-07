@@ -1,0 +1,710 @@
+page 2 (
+    name: Session Review Copy
+    alias: SESSION-REVIEW-COPY
+    title: Session Review Copy
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    javaScript {
+        functionAndGlobalVariableDeclaration:
+            ```javascript-browser
+            function setCanvasSize()
+            {   
+                // maximum variables
+            	var mw = 500; 	// maximum width
+            	var mh = 250; 	// maximum height
+            	var ph = 0.5; 	// percentage height to width
+            	var pw = 2; 	// percentage width to height
+            	
+            	// object variables
+            	var $c = $("#CREATE_SIG_signature_canvas");                                 // canvas object
+                var $d = $("#CREATE_SIG_signature");                                        // canvas div object
+            	var $w = $(window); 						                                // window object
+            	var $b = $("#SIG_SAVE");					                                // save button object
+            
+            	// variables
+            	var h = $(".t-Header-branding").height();			                        // header height
+            	var dtb = $b.offset().top + $b.height() - $c.offset().top - $c.height(); 	// distance between canvas and save button
+            	var innerHeightSpace = $w.height() - ( h + dtb );		                    // height available within screen
+            	
+            	// let's see if we're in portrait or landscape
+            	if( $w.width() > $w.height() )
+                {
+                    // landscape
+            		// let's determine the height with a maximum height of mh
+            		if( $w.height() - h - dtb < mh )
+            		{
+                        resizeCanvas( ($w.height() - h - dtb) * pw, $w.height() - h - dtb )
+            		}
+            		else
+            		{
+                        resizeCanvas( mw, mh );
+            		}
+                    
+                    // scroll to the canvas
+                    $("html, body").animate({ scrollTop: $c.offset().top - h - 10 }, 0);
+                }
+            	else
+            	{
+                    // portrait
+            		// let's determine the width with a maximum width of mw
+            		if( $w.width() - ( $c.offset().left * 2 ) < mw )
+            		{
+                        resizeCanvas( $w.width() - ( $c.offset().left * 2 ), ( $w.width() - ( $c.offset().left * 2 ) ) * ph );
+            		}
+            		else
+            		{
+                        resizeCanvas( mw, mh );
+            		}
+            	}
+                
+                // let's make sure the canvas div is large enough
+                if( $c.width() > $d.width() )
+                    $(".div-expand").attr( "class", "div-expand" );
+            }
+            
+            function resizeCanvas( newWidth, newHeight )
+            {
+                // get source canvas
+                var srcCanvas = document.getElementById("CREATE_SIG_signature_canvas");
+            
+                // duplicate source to a temp canvas
+                var tmpCanvas = document.createElement("canvas");
+                tmpCanvas.width = newWidth;
+                tmpCanvas.height = newHeight;
+            
+                var tmpCtx = tmpCanvas.getContext('2d');
+                
+                // draw the source canvas onto the temp canvas at the new size
+                tmpCtx.drawImage( srcCanvas, 0, 0, newWidth, newHeight );
+                
+                // resize source canvas
+                srcCanvas.width = newWidth;
+                srcCanvas.height = newHeight;
+                
+                // draw tmp canvas back to source canvas
+                var srcCtx = srcCanvas.getContext('2d');
+                srcCtx.drawImage( tmpCanvas, 0, 0 ); 
+            }
+            
+            function setCanvasBackgroundWhite()
+            {
+                // get source canvas
+                var srcCanvas = document.getElementById("CREATE_SIG_signature_canvas");
+            
+                // create a temp canvas
+                var tmpCanvas = document.createElement("canvas");
+                tmpCanvas.width = srcCanvas.width;
+                tmpCanvas.height = srcCanvas.height;
+            
+                var tmpCtx = tmpCanvas.getContext('2d');
+            
+                // create a rectangle with the desired color
+                tmpCtx.fillStyle = "#FFFFFF";
+                tmpCtx.fillRect( 0, 0, srcCanvas.width, srcCanvas.height );
+            
+                // draw the source canvas onto the tmp canvas
+                tmpCtx.drawImage( srcCanvas, 0, 0 );
+            
+                // draw tmp canvas back to source canvas
+                srcCtx = srcCanvas.getContext('2d');
+                srcCtx.drawImage( tmpCanvas, 0, 0 );    
+            }
+            ```
+    }
+    security {
+        formAutoComplete: false
+    }
+
+    region create-signature (
+        name: Create Signature
+        type: plugin/apexSignature
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: CREATE_SIG
+        }
+        settings {
+            width: 500
+            height: 250
+            penColor: black
+            plsqlCode:
+                ```plsql
+                DECLARE
+                    l_clob CLOB;
+                    l_blob BLOB;
+                    l_filename VARCHAR2(100);
+                    l_token VARCHAR2(32000);
+                BEGIN
+                    -- build CLOB from f01 30k Array
+                    dbms_lob.createtemporary(l_clob,
+                                           FALSE,
+                                           dbms_lob.session);
+                
+                    FOR i IN 1 .. apex_application.g_f01.count LOOP
+                        l_token := wwv_flow.g_f01(i);
+                  
+                        IF length(l_token) > 0 THEN
+                            dbms_lob.writeappend(
+                                l_clob,
+                                length(l_token),
+                                l_token);
+                        END IF;
+                    END LOOP;
+                  --
+                  -- convert base64 CLOB to BLOB (mimetype: image/png)
+                  l_blob := apex_web_service.clobbase642blob(p_clob => l_clob);
+                  --
+                  -- create own collection (here starts custom part (for example a Insert statement))
+                  UPDATE session_review
+                  SET reviewer_signature = l_blob,
+                      reviewer_date = et_sysdate
+                  WHERE case_number = :CURRENT_CLIENT
+                      AND sr_date = :P2_REPORT_MONTH;      
+                END;
+                ```
+            clearButtonJquerySelector: #SIG_CLEAR
+            saveButtonJquerySelector: #SIG_SAVE
+            showWaitspinner: true
+            logging: false
+        }
+    )
+
+    region view-signature (
+        name: View Signature
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT
+                    sr_id,
+                    reviewer_date,
+                    NVL2(reviewer_signature, 'YES', 'NO') has_signature,
+                    NULL del_signature
+                FROM
+                    session_review
+                WHERE
+                    case_number = :CURRENT_CLIENT
+                    AND sr_date = TO_DATE(:P2_REPORT_MONTH, 'MM/DD/YYYY')
+                ```
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: VIEW_SIG
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: nextAndPreviousLinks
+        }
+
+        column DEL_SIGNATURE (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            type: link
+            heading {
+                heading: Del Signature
+                alignment: center
+            }
+            layout {
+                sequence: 1
+            }
+            link {
+                target: {
+                    type: url
+                    url: javascript: apex.event.trigger(document, 'DeleteSignature', #SR_ID#);
+                }
+                linkText: <img src="#IMAGE_PREFIX#alert_error.gif" class="apex-edit-view" alt="">
+            }
+        )
+
+        column HAS_SIGNATURE (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+        )
+
+        column REVIEWER_DATE (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            heading {
+                heading: Reviewer Date
+                alignment: center
+            }
+            layout {
+                sequence: 2
+            }
+        )
+
+        column SR_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: displayImage
+            heading {
+                heading: Sr Id
+                alignment: center
+            }
+            layout {
+                sequence: 3
+            }
+            blobAttributes {
+                tableName: SESSION_REVIEW
+                blobColumn: REVIEWER_SIGNATURE
+                primaryKeyColumn1: SR_ID
+            }
+        )
+
+    )
+
+    button clear (
+        buttonName: CLEAR
+        label: CLEAR
+        layout {
+            sequence: 50
+            region: @create-signature
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            htmlDomId: SIG_CLEAR
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: SAVE
+        layout {
+            sequence: 10
+            region: @create-signature
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            htmlDomId: SIG_SAVE
+            customAttributes: style="display: none;"
+        }
+    )
+
+    button save-signature (
+        buttonName: SAVE_SIGNATURE
+        label: SAVE
+        layout {
+            sequence: 20
+            region: @create-signature
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    button signature-request (
+        buttonName: SIGNATURE_REQUEST
+        label: SIGNATURE REQUEST
+        layout {
+            sequence: 30
+            region: @create-signature
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1221
+                clearCache: 1221
+                action: resetPagination
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        advanced {
+            htmlDomId: SIGNATURE_REQUEST
+        }
+    )
+
+    dynamicAction delete-signature (
+        name: Delete Signature
+        execution {
+            sequence: 50
+        }
+        when {
+            event: custom
+            customEvent: DeleteSignature
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: remove_reviewer_signature;
+            }
+            execution {
+                sequence: 30
+                fireOnInit: false
+            }
+        )
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @view-signature
+            }
+            execution {
+                sequence: 60
+                fireOnInit: false
+            }
+        )
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: jsExpression
+                jsExpression: this.data;
+            }
+            affectedElements {
+                selectionType: items
+                items: P2_DEL_SIGNATURE
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Remove signature?
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction error (
+        name: Error
+        execution {
+            sequence: 80
+        }
+        when {
+            event: region/plugin-apexSignature/apexsignature-error-db
+            selectionType: region
+            region: @create-signature
+        }
+
+        action plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                message: Error saving signature
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction hide-region-headers (
+        name: Hide Region Headers
+        execution {
+            sequence: 30
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $(".t-Region-header:contains(Sessions)").hide();
+                    $(".t-Region-header:contains(Signature)").hide();
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction resize (
+        name: Resize
+        execution {
+            sequence: 100
+        }
+        when {
+            event: resize
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: "setTimeout(function(){setCanvasSize()}, 50);"
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction saved-sig (
+        name: Saved Sig
+        execution {
+            sequence: 90
+        }
+        when {
+            event: region/plugin-apexSignature/apexsignature-saved-db
+            selectionType: region
+            region: @create-signature
+        }
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @view-signature
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction select-report-month (
+        name: Select Report Month
+        execution {
+            sequence: 10
+        }
+        when {
+            event: custom
+            customEvent: ReportMonthSelected
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode:
+                    ```plsql
+                    SELECT sr_id
+                    INTO :SR_ID
+                    FROM session_review
+                    WHERE sr_date = :P2_REPORT_MONTH
+                        AND case_number = :CURRENT_CLIENT;
+                    ```
+                itemsToSubmit: CURRENT_CLIENT
+            }
+            execution {
+                sequence: 40
+                fireOnInit: false
+            }
+        )
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @view-signature
+            }
+            execution {
+                sequence: 70
+                fireOnInit: false
+            }
+        )
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: jsExpression
+                jsExpression: this.data;
+            }
+            affectedElements {
+                selectionType: items
+                items: P2_REPORT_MONTH
+            }
+            execution {
+                sequence: 30
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction set-background-white (
+        name: Set Background White
+        execution {
+            sequence: 130
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @save-signature
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    setCanvasBackgroundWhite();
+                    $("#SIG_SAVE").click();
+                    ```
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction view-signature-refreshed (
+        name: View Signature Refreshed
+        execution {
+            sequence: 40
+        }
+        when {
+            event: apexafterrefresh
+            selectionType: region
+            region: @view-signature
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: "setTimeout(function(){setCanvasSize()}, 50);"
+            }
+            execution {
+                sequence: 30
+                fireOnInit: false
+            }
+        )
+
+        action native-javascript-code-2 (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("#VIEW_SIG").hide();
+                    $("#CREATE_SIG").hide();
+                    
+                    console.log($("td[headers='HAS_SIGNATURE']").html());
+                    
+                    if($("td[headers='HAS_SIGNATURE']").html() == "YES")
+                        $("#VIEW_SIG").show();
+                    else
+                        $("#CREATE_SIG").show();
+                    
+                    $("table[summary='View Signature']").find("thead").hide();
+                    $("td[headers='HAS_SIGNATURE']").hide();
+                    
+                    ```
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    process create-session-review-entries (
+        name: Create Session Review Entries
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                INSERT INTO session_review(sr_date, case_number)
+                SELECT DISTINCT TRUNC(date_session, 'MM'), case_number
+                FROM sessions
+                WHERE case_number = :CURRENT_CLIENT
+                    AND TRUNC(date_session, 'MM') NOT IN
+                    (
+                        SELECT sr_date
+                        FROM session_review
+                        WHERE case_number = :CURRENT_CLIENT
+                    );
+                ```
+        }
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 9951832896995017
+        }
+    )
+
+)
+

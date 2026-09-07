@@ -1,0 +1,1483 @@
+page 1 (
+    name: Home
+    title: Home
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region billing (
+        name: BILLING
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @inline-dialog
+            templateOptions: [
+                #DEFAULT#
+                js-dialog-size600x400
+            ]
+        }
+    )
+
+    region billing-2 (
+        name: BILLING
+        type: staticContent
+        layout {
+            sequence: 50
+            parentRegion: @selector
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+    )
+
+    region billing-report (
+        name: BILLING REPORT
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT
+                     case_number,
+                     case_number_assigned,
+                     client,
+                     session_month,
+                     therapist,
+                     print_link
+                FROM (
+                        SELECT
+                            case_number, 
+                            case_number_assigned, b.last_name || ', ' || b.first_name client, 
+                            TRUNC(date_session, 'MONTH') session_month, 
+                            t.last_name || ', ' || t.first_name therapist,
+                            NULL print_link
+                        FROM case_folder_billing b 
+                            LEFT JOIN therapists t ON b.therapist_id = t.id
+                        WHERE s_id IN (
+                                        SELECT MAX(s_id)
+                                        FROM case_folder_billing
+                                        GROUP BY case_number, TRUNC(date_session, 'MONTH')
+                                       )
+                    )
+                ORDER BY session_month DESC, therapist, client
+                ```
+        }
+        layout {
+            sequence: 40
+            parentRegion: @billing-2
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+
+        column CASE_NUMBER (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 1
+            }
+        )
+
+        column CASE_NUMBER_ASSIGNED (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 2
+            }
+        )
+
+        column CLIENT (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: CLIENT
+                alignment: center
+            }
+            layout {
+                sequence: 3
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column PRINT_LINK (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 6
+            }
+            link {
+                target: {
+                    type: url
+                    url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=#CASE_NUMBER#&prompt2=#SESSION_MONTH#&prompt3=A
+                }
+                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkAttributes: target="_blank"
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column SESSION_MONTH (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: MONTH
+                alignment: center
+            }
+            layout {
+                sequence: 5
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column THERAPIST (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: THERAPIST
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+    )
+
+    region billing-search (
+        name: BILLING SEARCH
+        type: smartFilters
+        source {
+            filteredRegion: @billing-report
+        }
+        layout {
+            sequence: 10
+            parentRegion: @billing-2
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        settings {
+            compactNosThreshold: 10000
+        }
+
+        filter P1_SEARCH_BILLING (
+            type: search
+            label {
+                label: Search Billing
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+    )
+
+    region home (
+        name: HOME
+        type: staticContent
+        layout {
+            sequence: 30
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region selector (
+        name: SELECTOR
+        type: regionDisplaySelector
+        layout {
+            sequence: 40
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        security {
+            authorizationScheme: @is-app-admin
+        }
+        settings {
+            displayRegionIcons: true
+            includeShowAll: false
+        }
+    )
+
+    region sessions-reviewed (
+        name: SESSIONS REVIEWED
+        type: staticContent
+        layout {
+            sequence: 80
+            parentRegion: @selector
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+    )
+
+    region sessions-reviewed-report (
+        name: SESSIONS REVIEWED REPORT
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT DISTINCT
+                    s_id,
+                    therapist_id,
+                    first_name||' '||last_name client,
+                    session_start date_session,
+                    time_length,
+                    NULL edit_link,
+                    NULL print_link,
+                    TRUNC(session_start, 'MONTH') sdate,
+                    LAST_DAY(session_start) edate,
+                    NULL print_month
+                FROM case_folder
+                WHERE status = 'R'
+                ```
+        }
+        layout {
+            sequence: 20
+            parentRegion: @sessions-reviewed
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+
+        column CLIENT (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: CLIENT
+                alignment: center
+            }
+            layout {
+                sequence: 3
+            }
+        )
+
+        column DATE_SESSION (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: SESSION
+                alignment: center
+            }
+            layout {
+                sequence: 5
+            }
+            appearance {
+                formatMask: MM/DD/YYYY HH:MI AM
+            }
+        )
+
+        column EDATE (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 10
+            }
+        )
+
+        column EDIT_LINK (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 7
+            }
+            link {
+                target: {
+                    page: 1301
+                    items: {
+                        P1301_S_ID: #S_ID#
+                        FROM_PAGE: 1
+                        P1301_REVIEW: N
+                    }
+                    clearCache: 1301
+                }
+                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+            }
+        )
+
+        column PRINT_LINK (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 8
+            }
+            link {
+                target: {
+                    type: url
+                    url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=#S_ID#&prompt3=N&prompt4=1/1/1900&prompt5=1/1/9999
+                }
+                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkAttributes: target="_blank"
+            }
+        )
+
+        column PRINT_MONTH (
+            reportColumnQueryId: 10
+            derivedColumn: N
+            type: link
+            heading {
+                heading: MONTH
+                alignment: center
+            }
+            layout {
+                sequence: 1
+            }
+            link {
+                target: {
+                    type: url
+                    url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=0&prompt3=M&prompt4=#SDATE#&prompt5=#EDATE#
+                }
+                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkAttributes: target="_blank"
+            }
+        )
+
+        column SDATE (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 9
+            }
+        )
+
+        column S_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 2
+            }
+        )
+
+        column THERAPIST_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: THERAPIST
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @therapists
+            }
+            layout {
+                sequence: 4
+            }
+        )
+
+        column TIME_LENGTH (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: LENGTH
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @session-length
+            }
+            layout {
+                sequence: 6
+            }
+        )
+
+    )
+
+    region sessions-reviewed-search (
+        name: SESSIONS REVIEWED SEARCH
+        type: smartFilters
+        source {
+            filteredRegion: @sessions-reviewed-report
+        }
+        layout {
+            sequence: 10
+            parentRegion: @sessions-reviewed
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        settings {
+            compactNosThreshold: 10000
+        }
+
+        filter P1_SEARCH_SESSIONS_REVIEWED (
+            type: search
+            label {
+                label: Search Sessions Reviewed
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+    )
+
+    region sessions-to-be-reviewed (
+        name: SESSIONS TO BE REVIEWED
+        type: staticContent
+        layout {
+            sequence: 60
+            parentRegion: @selector
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+    )
+
+    region sessions-to-be-reviewed-report (
+        name: SESSIONS TO BE REVIEWED REPORT
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT DISTINCT
+                    s_id,
+                    therapist_id,
+                    first_name||' '||last_name client,
+                    date_session,
+                    time_length,
+                    CASE WHEN late_reason IS NOT NULL THEN
+                        '<a href="'||APEX_UTIL.PREPARE_URL('f?p=&APP_ID.:1303:&APP_SESSION.::NO:RP,1303:P1303_S_ID:'||s_id)||'"><img src="#IMAGE_PREFIX#menu/pin_32.gif" width="20px" height="20px" alt="Late" /></a>'
+                    ELSE
+                        NULL
+                    END late,
+                    NULL edit_link,
+                    NULL print_link
+                FROM case_folder
+                WHERE status = 'S'
+                ```
+        }
+        layout {
+            sequence: 30
+            parentRegion: @sessions-to-be-reviewed
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+
+        column CLIENT (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: CLIENT
+                alignment: center
+            }
+            layout {
+                sequence: 2
+            }
+        )
+
+        column DATE_SESSION (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: SESSION
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+        )
+
+        column EDIT_LINK (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 7
+            }
+            link {
+                target: {
+                    page: 1301
+                    items: {
+                        P1301_S_ID: #S_ID#
+                        FROM_PAGE: 1
+                        P1301_REVIEW: N
+                    }
+                    clearCache: 1301
+                }
+                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+            }
+        )
+
+        column LATE (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            heading {
+                heading: LATE
+                alignment: center
+            }
+            layout {
+                sequence: 6
+            }
+            serverSideCondition {
+                type: rowsReturned
+                sqlQuery:
+                    ```sql
+                    SELECT *
+                    FROM case_folder
+                    WHERE status = 'S'
+                        AND late_reason IS NOT NULL
+                    ```
+            }
+            security {
+                escapeSpecialChars: false
+            }
+        )
+
+        column PRINT_LINK (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 8
+            }
+            link {
+                target: {
+                    type: url
+                    url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=#S_ID#&prompt3=N&prompt4=1/1/1900&prompt5=1/1/9999
+                }
+                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkAttributes: target="_blank"
+            }
+        )
+
+        column S_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 1
+            }
+            link {
+                target: {
+                    page: 1301
+                    items: {
+                        P1301_S_ID: #S_ID#
+                        P1301_REVIEW: Y
+                    }
+                    clearCache: 1301
+                    action: resetPagination
+                }
+                linkText: <span aria-hidden="true" class="fa fa-glasses"></span>
+            }
+        )
+
+        column THERAPIST_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: THERAPIST
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @therapists
+            }
+            layout {
+                sequence: 3
+            }
+        )
+
+        column TIME_LENGTH (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: LENGTH
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @session-length
+            }
+            layout {
+                sequence: 5
+            }
+        )
+
+    )
+
+    region sessions-to-be-reviewed-search (
+        name: SESSIONS TO BE REVIEWED SEARCH
+        type: smartFilters
+        source {
+            filteredRegion: @sessions-to-be-reviewed-report
+        }
+        layout {
+            sequence: 10
+            parentRegion: @sessions-to-be-reviewed
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        settings {
+            compactNosThreshold: 10000
+        }
+
+        filter P1_SEARCH_SESSIONS_TO_BE_REVIEWED (
+            type: search
+            label {
+                label: Search Sessions To Be Reviewed
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+    )
+
+    region sessions-to-be-submitted (
+        name: SESSIONS TO BE SUBMITTED
+        type: staticContent
+        layout {
+            sequence: 70
+            parentRegion: @selector
+            slot: subRegions
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            regionDisplaySelector: true
+        }
+    )
+
+    region sessions-to-be-submitted-report (
+        name: SESSIONS TO BE SUBMITTED REPORT
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT DISTINCT
+                    s_id,
+                    therapist_id,
+                    first_name||' '||last_name client,
+                    session_start date_session,
+                    time_length,
+                    NULL edit_link,
+                    NULL print_link
+                FROM case_folder
+                WHERE status = 'D'
+                ```
+        }
+        layout {
+            sequence: 20
+            parentRegion: @sessions-to-be-submitted
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: lts_settings.is_app_admin
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+            showNullValuesAs: -
+        }
+        pagination {
+            type: setPaginationSelectList
+        }
+
+        column CLIENT (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: CLIENT
+                alignment: center
+            }
+            layout {
+                sequence: 2
+            }
+        )
+
+        column DATE_SESSION (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: SESSION
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+            appearance {
+                formatMask: MM/DD/YYYY HH:MI AM
+            }
+        )
+
+        column EDIT_LINK (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 6
+            }
+            link {
+                target: {
+                    page: 1301
+                    items: {
+                        P1301_S_ID: #S_ID#
+                        FROM_PAGE: 1
+                        P1301_REVIEW: N
+                    }
+                    clearCache: 1301
+                }
+                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+            }
+        )
+
+        column PRINT_LINK (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            type: link
+            heading {
+                alignment: center
+            }
+            layout {
+                sequence: 7
+            }
+            link {
+                target: {
+                    type: url
+                    url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=#S_ID#&prompt3=N&prompt4=1/1/1900&prompt5=1/1/9999
+                }
+                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkAttributes: target="_blank"
+            }
+        )
+
+        column S_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 1
+            }
+        )
+
+        column THERAPIST_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: THERAPIST
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @therapists
+            }
+            layout {
+                sequence: 3
+            }
+        )
+
+        column TIME_LENGTH (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: LENGTH
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @session-length
+            }
+            layout {
+                sequence: 5
+            }
+        )
+
+    )
+
+    region sessions-to-be-submitted-search (
+        name: SESSIONS TO BE SUBMITTED SEARCH
+        type: smartFilters
+        source {
+            filteredRegion: @sessions-to-be-submitted-report
+        }
+        layout {
+            sequence: 10
+            parentRegion: @sessions-to-be-submitted
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        settings {
+            compactNosThreshold: 10000
+        }
+
+        filter P1_SEARCH_SESSIONS_TO_BE_SUBMITTED (
+            type: search
+            label {
+                label: Search Sessions To Be Submitted
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+    )
+
+    pageItem P1_CURRENT_MONTH (
+        type: hidden
+        layout {
+            sequence: 10
+            region: @billing-report
+            slot: regionBody
+        }
+        default {
+            type: expression
+            plsqlExpression: TO_CHAR(et_sysdate, 'MM/DD/YY')
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1_MODE (
+        type: radioGroup
+        label {
+            label: Mode
+            alignment: left
+        }
+        settings {
+            noOfCols: 2
+        }
+        lov {
+            type: sharedComponent
+            lov: @app-mode
+            displayExtraValues: false
+            displayNullValue: false
+        }
+        layout {
+            sequence: 10
+            region: @home
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        default {
+            type: static
+            staticValue: T
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: lts_settings.is_app_admin
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    pageItem P1_PREVIOUS_MONTH (
+        type: hidden
+        layout {
+            sequence: 20
+            region: @billing-report
+            slot: regionBody
+        }
+        default {
+            type: expression
+            plsqlExpression: TO_CHAR(ADD_MONTHS(et_sysdate, -1), 'MM/DD/YY')
+        }
+        security {
+            encryptSessionState: false
+        }
+    )
+
+    button billing-current-month (
+        buttonName: BILLING_CURRENT_MONTH
+        label: "CURRENT MONTH "
+        layout {
+            sequence: 10
+            region: @billing
+            slot: regionBody
+        }
+        appearance {
+            buttonTemplate: @text-with-icon
+            templateOptions: [
+                #DEFAULT#
+                t-Button--iconLeft
+            ]
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            customAttributes: target="_blank"
+        }
+    )
+
+    button billing-current-month-with-notes (
+        buttonName: BILLING_CURRENT_MONTH_WITH_NOTES
+        label: CURRENT MONTH  WITH NOTES
+        layout {
+            sequence: 50
+            region: @billing
+            slot: regionBody
+        }
+        appearance {
+            buttonTemplate: @text-with-icon
+            templateOptions: [
+                #DEFAULT#
+                t-Button--iconLeft
+            ]
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            customAttributes: target="_blank"
+        }
+    )
+
+    button billing-previous-month (
+        buttonName: BILLING_PREVIOUS_MONTH
+        label: PREVIOUS MONTH
+        layout {
+            sequence: 30
+            region: @billing
+            slot: regionBody
+            startNewRow: false
+        }
+        appearance {
+            buttonTemplate: @text-with-icon
+            templateOptions: [
+                #DEFAULT#
+                t-Button--iconLeft
+            ]
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            customAttributes: target="_blank"
+        }
+    )
+
+    button billing-previous-month-with-notes (
+        buttonName: BILLING_PREVIOUS_MONTH_WiTH_NOTES
+        label: PREVIOUS MONTH WITH NOTES
+        layout {
+            sequence: 60
+            region: @billing
+            slot: regionBody
+            startNewRow: false
+        }
+        appearance {
+            buttonTemplate: @text-with-icon
+            templateOptions: [
+                #DEFAULT#
+                t-Button--iconLeft
+            ]
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            customAttributes: target="_blank"
+        }
+    )
+
+    button print-activity-review (
+        buttonName: PRINT_ACTIVITY_REVIEW
+        label: PRINT ACTIVITY REVIEW
+        layout {
+            sequence: 10
+            region: @sessions-to-be-reviewed-report
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            customAttributes: target="_blank"
+        }
+    )
+
+    button print-current-month-billing (
+        buttonName: PRINT_CURRENT_MONTH_BILLING
+        label: PRINT CURRENT MONTH BILLING
+        layout {
+            sequence: 20
+            region: @billing-report
+            slot: aboveBox
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            customAttributes: target="_blank"
+        }
+        serverSideCondition {
+            type: never
+        }
+    )
+
+    button print-previous-month-billing (
+        buttonName: PRINT_PREVIOUS_MONTH_BILLING
+        label: PRINT PREVIOUS MONTH BILLING
+        layout {
+            sequence: 40
+            region: @billing-report
+            slot: aboveBox
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+        advanced {
+            customAttributes: target="_blank"
+        }
+        serverSideCondition {
+            type: never
+        }
+    )
+
+    button test (
+        buttonName: TEST
+        label: Test
+        layout {
+            sequence: 10
+            region: @billing-report
+            slot: aboveBox
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+            icon: fa-print
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    dynamicAction billing-current-month (
+        name: Billing Current Month
+        execution {
+            sequence: 60
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @billing-current-month
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction billing-current-month-with-notes (
+        name: Billing Current Month With Notes
+        execution {
+            sequence: 80
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @billing-current-month-with-notes
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoicewithsessionnotes.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction billing-previous-month (
+        name: Billing Previous Month
+        execution {
+            sequence: 70
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @billing-previous-month
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction billing-previous-month-with-notes (
+        name: Billing Previous Month With Notes
+        execution {
+            sequence: 90
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @billing-previous-month-with-notes
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoicewithsessionnotes.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction open-print-region (
+        name: Open Print Region
+        execution {
+            sequence: 50
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @test
+        }
+
+        action native-open-region (
+            action: openRegion
+            affectedElements {
+                selectionType: region
+                region: @billing
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction print-current-month-billing (
+        name: Print Current Month Billing
+        execution {
+            sequence: 30
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @print-current-month-billing
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction print-previous-billing-month (
+        name: Print Previous Billing Month
+        execution {
+            sequence: 40
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @print-previous-month-billing
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction print-session-review (
+        name: Print Session Review
+        execution {
+            sequence: 20
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @print-activity-review
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=0&prompt3=Y&prompt4=1/1/1900&prompt5=1/1/9999")
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction set-app-mode (
+        name: Set App Mode
+        execution {
+            sequence: 10
+        }
+        when {
+            selectionType: items
+            items: P1_MODE
+        }
+
+        action native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: :APP_MODE := :P1_MODE;
+                itemsToSubmit: P1_MODE
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+)
+

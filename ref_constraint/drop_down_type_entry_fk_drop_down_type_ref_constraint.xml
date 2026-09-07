@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="30d1553a0c00d7cc2577892ae9bb9f72ff7dbe80" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleRefConstraint objectName="DROP_DOWN_TYPE_ENTRY_FK_DROP_DOWN_TYPE" objectType="REF_CONSTRAINT" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[ALTER TABLE "%USER_NAME%"."DROP_DOWN_TYPE_ENTRY" ADD CONSTRAINT "DROP_DOWN_TYPE_ENTRY_FK_DROP_DOWN_TYPE" FOREIGN KEY ("DROP_DOWN_TYPE_ID")
+	  REFERENCES "%USER_NAME%"."DROP_DOWN_TYPE" ("DROP_DOWN_TYPE_ID") ENABLE;]]></n0:source>
+      </n0:createOracleRefConstraint>
+ </changeSet>
+</databaseChangeLog>

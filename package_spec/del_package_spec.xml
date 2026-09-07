@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="0d6b9e96d655bdf04b1734b567c47984ae55d677" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOraclePackageSpec objectName="DEL" objectType="PACKAGE_SPEC" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE "%USER_NAME%"."DEL" AS
+    PROCEDURE NOTE(NID IN NUMBER);
+    PROCEDURE OBJECTIVE(OID IN NUMBER);
+    PROCEDURE SESSION(SID IN NUMBER);
+END;
+/]]></n0:source>
+      </n0:createOraclePackageSpec>
+ </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="628d4dfa04cda16e72c7b6f050ffdd6d6d03ae91" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleTrigger objectName="OBJECTIVES_BFI" objectType="TRIGGER" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE TRIGGER "%USER_NAME%"."OBJECTIVES_BFI" 
+BEFORE INSERT
+ON PEDS_MSTR.OBJECTIVES
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+    :new.o_id := NVL(:new.o_id, objectives_seq.nextval);
+END;
+
+/
+]]></n0:source>
+      </n0:createOracleTrigger>
+ </changeSet>
+</databaseChangeLog>

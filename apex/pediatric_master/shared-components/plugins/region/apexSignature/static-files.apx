@@ -1,0 +1,20 @@
+file "js/apexsignature.js" (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+
+file "js/apexsignature.min.js" (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+
+file "js/signature_pad.js" (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+
+file "js/signature_pad.min.js" (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+

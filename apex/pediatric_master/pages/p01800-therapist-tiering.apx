@@ -1,0 +1,294 @@
+page 1800 (
+    name: Therapist Tiering
+    alias: THERAPIST-TIERING
+    title: Therapist Tiering
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region therapist-tiering (
+        name: Therapist Tiering
+        type: classicReport
+        source {
+            location: localDatabase
+            tableName: THERAPIST_TIERING_WEEK
+        }
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: TIERING_SEARCH
+        }
+        reportLayout {
+            numberOfRows: 50
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+        }
+        pagination {
+            type: nextAndPreviousLinks
+        }
+
+        column DERIVED$01 (
+            reportColumnQueryId: 8
+            derivedColumn: Y
+            type: link
+            heading {
+                heading: &nbsp;
+            }
+            layout {
+                sequence: 10
+            }
+            link {
+                target: {
+                    page: 1801
+                    items: {
+                        P1801_THERAPIST_ID: #THERAPIST_ID#
+                    }
+                    clearCache: 1801
+                }
+                linkText: <span class="fa fa-sitemap-vertical" aria-hidden="true"></span>
+            }
+            sorting {
+                sortable: false
+            }
+        )
+
+        column NUM_CLIENTS (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            heading {
+                heading: #CLIENTS
+            }
+            layout {
+                sequence: 70
+            }
+        )
+
+        column NUM_SESSIONS (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            heading {
+                heading: #SESSION
+            }
+            layout {
+                sequence: 80
+            }
+        )
+
+        column THERAPIST (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            heading {
+                heading: THERAPIST
+            }
+            layout {
+                sequence: 30
+            }
+        )
+
+        column THERAPIST_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 20
+            }
+        )
+
+        column TIER (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            heading {
+                heading: Tier
+                alignment: end
+            }
+            layout {
+                sequence: 90
+                columnAlignment: end
+            }
+        )
+
+        column WEEK_OF_SESSION (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: SESSION WEEK
+            }
+            layout {
+                sequence: 60
+            }
+        )
+
+        column WEEK_OF_SESSION_MONTH (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: MONTH
+            }
+            layout {
+                sequence: 40
+            }
+        )
+
+        column WEEK_OF_SESSION_YEAR (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: YEAR
+            }
+            layout {
+                sequence: 50
+            }
+        )
+
+    )
+
+    region therapist-tiering-search (
+        name: THERAPIST_TIERING_SEARCH
+        type: smartFilters
+        source {
+            filteredRegion: @therapist-tiering
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @blank-with-attributes-no-grid
+            templateOptions: #DEFAULT#
+        }
+        advanced {
+            htmlDomId: TIERING_FILTER
+        }
+        settings {
+            compactNosThreshold: 10000
+        }
+
+        filter P1800_SEARCH (
+            type: search
+            label {
+                label: Search
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+        filter P1800_THERAPIST (
+            type: checkboxGroup
+            label {
+                label: THERAPIST
+            }
+            lov {
+                type: distinctValues
+            }
+            layout {
+                sequence: 20
+            }
+            listEntries {
+                sortByTopCounts: false
+            }
+            suggestions {
+                type: dynamic
+            }
+            source {
+                databaseColumn: THERAPIST
+            }
+        )
+
+        filter P1800_WEEK_OF_SESSION_MONTH (
+            type: checkboxGroup
+            label {
+                label: MONTH
+            }
+            lov {
+                type: distinctValues
+            }
+            layout {
+                sequence: 30
+            }
+            listEntries {
+                sortByTopCounts: false
+            }
+            suggestions {
+                type: dynamic
+            }
+            source {
+                databaseColumn: WEEK_OF_SESSION_MONTH
+            }
+        )
+
+        filter P1800_WEEK_OF_SESSION_YEAR (
+            type: checkboxGroup
+            label {
+                label: YEAR
+            }
+            lov {
+                type: distinctValues
+            }
+            layout {
+                sequence: 40
+            }
+            listEntries {
+                sortByTopCounts: false
+            }
+            suggestions {
+                type: dynamic
+            }
+            source {
+                databaseColumn: WEEK_OF_SESSION_YEAR
+            }
+        )
+
+    )
+
+    dynamicAction refresh-report (
+        name: Refresh Report
+        execution {
+            sequence: 10
+        }
+        when {
+            event: apexafterclosecanceldialog
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @therapist-tiering
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+)
+

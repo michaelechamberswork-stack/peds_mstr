@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="6050326bf774290b75c40d14f6c833c848e5099e" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleJob objectName="MV_RF$J_0_S_73790" objectType="JOB" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[
+BEGIN 
+dbms_scheduler.create_job('MV_RF$J_0_S_73790',
+job_type=>'PLSQL_BLOCK', job_action=>
+'dbms_refresh.refresh(''PEDS_MSTR.CASE_FOLDER_MVIEW'');'
+, number_of_arguments=>0,
+start_date=>TO_TIMESTAMP_TZ('27-FEB-2026 05.30.10.000000000 PM -05:00','DD-MON-RRRR HH.MI.SSXFF AM TZR','NLS_DATE_LANGUAGE=english'), repeat_interval=> 
+'sysdate + (1 / 96) '
+, end_date=>NULL,
+job_class=>'MEDIUM', enabled=>FALSE, auto_drop=>TRUE,comments=>
+'dbms_refresh: submit_sch_job'
+);
+sys.dbms_scheduler.set_attribute('MV_RF$J_0_S_73790','NLS_ENV','NLS_LANGUAGE=''AMERICAN'' NLS_TERRITORY=''AMERICA'' NLS_CURRENCY=''$'' NLS_ISO_CURRENCY=''AMERICA'' NLS_NUMERIC_CHARACTERS=''.,'' NLS_CALENDAR=''GREGORIAN'' NLS_DATE_FORMAT=''DD-MON-RR'' NLS_DATE_LANGUAGE=''AMERICAN'' NLS_SORT=''BINARY'' NLS_TIME_FORMAT=''HH.MI.SSXFF AM'' NLS_TIMESTAMP_FORMAT=''DD-MON-RR HH.MI.SSXFF AM'' NLS_TIME_TZ_FORMAT=''HH.MI.SSXFF AM TZR'' NLS_TIMESTAMP_TZ_FORMAT=''DD-MON-RR HH.MI.SSXFF AM TZR'' NLS_DUAL_CURRENCY=''$'' NLS_COMP=''BINARY'' NLS_LENGTH_SEMANTICS=''BYTE'' NLS_NCHAR_CONV_EXCP=''FALSE''');
+dbms_scheduler.enable('MV_RF$J_0_S_73790');
+COMMIT; 
+END; 
+/ ]]></n0:source>
+      </n0:createOracleJob>
+ </changeSet>
+</databaseChangeLog>

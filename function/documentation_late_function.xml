@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="03fd08a7b605358de27507525cfd08f9adc335f4" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleFunction objectName="DOCUMENTATION_LATE" objectType="FUNCTION" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."DOCUMENTATION_LATE" (P_SID NUMBER) RETURN BOOLEAN
+AS
+    vBool BOOLEAN DEFAULT FALSE;
+BEGIN
+    FOR c IN (
+        SELECT
+            TO_NUMBER(NVL(date_submitted, et_sysdate) - (time_end + (date_session - TRUNC(time_end, 'DD')))) * 24 hrs
+        FROM sessions
+        WHERE s_id = p_sid
+        )
+    LOOP
+        IF c.hrs > 48 THEN
+            vBool := TRUE;
+        END IF;
+    END LOOP;
+
+    RETURN vBool;
+END DOCUMENTATION_LATE;
+/]]></n0:source>
+      </n0:createOracleFunction>
+ </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,338 @@
+page 1204 (
+    name: OBJECTIVE
+    alias: OBJECTIVE
+    title: OBJECTIVE
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @drawer
+        templateOptions: [
+            #DEFAULT#
+            js-dialog-class-t-Drawer--pullOutEnd
+        ]
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region buttons (
+        name: Buttons
+        type: staticContent
+        layout {
+            sequence: 20
+            slot: dialogFooter
+        }
+        appearance {
+            template: @buttons-container
+            templateOptions: #DEFAULT#
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    region objective (
+        name: OBJECTIVE
+        type: form
+        source {
+            location: localDatabase
+            tableName: NOTES
+        }
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        edit {
+            enabled: true
+            allowedOperations: [
+                add
+                update
+                delete
+            ]
+        }
+    )
+
+    pageItem P1204_CREATED_BY (
+        type: hidden
+        layout {
+            sequence: 80
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: CREATED_BY
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1204_CREATED_ON (
+        type: hidden
+        layout {
+            sequence: 90
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: CREATED_ON
+            dataType: date
+        }
+    )
+
+    pageItem P1204_INTERVENTION (
+        type: hidden
+        layout {
+            sequence: 30
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: INTERVENTION
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1204_LAST_SAVED_BY_LEVEL (
+        type: hidden
+        layout {
+            sequence: 70
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: LAST_SAVED_BY_LEVEL
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1204_N_ID (
+        type: hidden
+        layout {
+            sequence: 10
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: N_ID
+            dataType: number
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+        }
+    )
+
+    pageItem P1204_OBJECTIVE (
+        type: displayOnly
+        label {
+            label: Objective
+            alignment: left
+        }
+        layout {
+            sequence: 60
+            region: @objective
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @objective
+            column: OBJECTIVE
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1204_OBJECTIVE_MET (
+        type: hidden
+        layout {
+            sequence: 140
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: OBJECTIVE_MET
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1204_OBJECTIVE_WORKED_ON (
+        type: hidden
+        layout {
+            sequence: 130
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: OBJECTIVE_WORKED_ON
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1204_O_ID (
+        type: hidden
+        layout {
+            sequence: 20
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: O_ID
+            dataType: number
+        }
+    )
+
+    pageItem P1204_PROGRESS (
+        type: hidden
+        layout {
+            sequence: 40
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: PROGRESS
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1204_ROW_VERSION (
+        type: hidden
+        layout {
+            sequence: 120
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: ROW_VERSION
+            dataType: number
+        }
+    )
+
+    pageItem P1204_S_ID (
+        type: hidden
+        layout {
+            sequence: 50
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: S_ID
+            dataType: number
+        }
+    )
+
+    pageItem P1204_UPDATED_BY (
+        type: hidden
+        layout {
+            sequence: 100
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: UPDATED_BY
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1204_UPDATED_ON (
+        type: hidden
+        layout {
+            sequence: 110
+            region: @objective
+            slot: regionBody
+        }
+        source {
+            formRegion: @objective
+            column: UPDATED_ON
+            dataType: date
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: Cancel
+        layout {
+            sequence: 10
+            region: @buttons
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    dynamicAction cancel-dialog (
+        name: Cancel Dialog
+        execution {
+            sequence: 10
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @cancel
+        }
+
+        action native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    process close-dialog (
+        name: Close Dialog
+        type: closeDialog
+        execution {
+            sequence: 50
+        }
+        advanced {
+            executionMappingIdentifier: 188417228809229369
+        }
+        serverSideCondition {
+            type: requestIsContainedInValue
+            value: CREATE,SAVE,DELETE
+        }
+    )
+
+    process initialize-form-objective (
+        name: Initialize form OBJECTIVE
+        type: formInitialization
+        formRegion: @objective
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 188416407583229369
+        }
+    )
+
+)
+

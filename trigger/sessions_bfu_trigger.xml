@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="45be92258380633ebc0f06ba1fcddc971019d4b8" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleTrigger objectName="SESSIONS_BFU" objectType="TRIGGER" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE TRIGGER "%USER_NAME%"."SESSIONS_BFU" 
+BEFORE UPDATE
+ON PEDS_MSTR.SESSIONS
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+    IF :new.status = 'S' AND :old.status != 'S' THEN
+        :new.date_submitted := et_sysdate;
+    END IF;
+END SESSIONS_BFU;
+/
+]]></n0:source>
+      </n0:createOracleTrigger>
+ </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,163 @@
+page 1603 (
+    name: copy_type_group
+    alias: COPY-TYPE-GROUP
+    title: copy type group
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @modal-dialog
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region copy-type-group (
+        name: copy type group
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    pageItem P1603_DROP_DOWN_TYPE_ID (
+        type: popupLov
+        label {
+            label: from type
+            alignment: left
+        }
+        lov {
+            type: sharedComponent
+            lov: @drop-down-type-type-name
+            displayExtraValues: false
+            displayNullValue: false
+        }
+        layout {
+            sequence: 10
+            region: @copy-type-group
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: [
+                #DEFAULT#
+                t-Form-fieldContainer--stretchInputs
+            ]
+            width: 30
+        }
+        validation {
+            valueRequired: true
+        }
+    )
+
+    pageItem P1603_NEW_TYPE (
+        type: textField
+        label {
+            label: to type
+            alignment: left
+        }
+        layout {
+            sequence: 20
+            region: @copy-type-group
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: [
+                #DEFAULT#
+                t-Form-fieldContainer--stretchInputs
+            ]
+            width: 30
+        }
+        validation {
+            valueRequired: true
+        }
+    )
+
+    button copy (
+        buttonName: copy
+        label: Copy
+        layout {
+            sequence: 30
+            region: @copy-type-group
+            slot: regionBody
+            startNewRow: false
+            column: 11
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: [
+                #DEFAULT#
+                t-Button--stretch
+            ]
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+        }
+        advanced {
+            customAttributes: style="margin-top: 24px;"
+        }
+    )
+
+    validation unique-type (
+        name: Unique Type
+        execution {
+            sequence: 10
+        }
+        validation {
+            type: noRowsReturned
+            sqlQuery:
+                ```sql
+                select *
+                from drop_down_type
+                where upper(type_name) = upper(:P1603_NEW_TYPE)
+                ```
+        }
+        error {
+            errorMessage: Type already exists
+        }
+    )
+
+    process close-modal (
+        name: Close Modal
+        type: closeDialog
+        execution {
+            sequence: 20
+        }
+        advanced {
+            executionMappingIdentifier: 105612832061078236
+        }
+    )
+
+    process copy-type-and-entries (
+        name: copy type and entries
+        type: executeCode
+        source {
+            plsqlCode: copy_type_group(:P1603_DROP_DOWN_TYPE_ID, :P1603_NEW_TYPE);
+        }
+        execution {
+            sequence: 10
+        }
+        advanced {
+            executionMappingIdentifier: 105612646105078234
+        }
+    )
+
+)
+

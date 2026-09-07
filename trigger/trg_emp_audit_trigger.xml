@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="0a18ad9a7e35a89f1735bd175a897d50041a64c0" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleTrigger objectName="TRG_EMP_AUDIT" objectType="TRIGGER" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE TRIGGER "%USER_NAME%"."TRG_EMP_AUDIT" 
+            BEFORE INSERT OR UPDATE ON PEDS_MSTR.EMP
+            FOR EACH ROW
+        BEGIN
+            -- For INSERT operations
+            IF INSERTING THEN
+                :NEW.created_by := COALESCE(SYS_CONTEXT('APEX$SESSION','APP_USER'), USER);
+                :NEW.created_on := SYSDATE;
+                :NEW.updated_by := COALESCE(SYS_CONTEXT('APEX$SESSION','APP_USER'), USER);
+                :NEW.updated_on := SYSDATE;
+                :NEW.row_version := 1;
+            END IF;
+            
+            -- For UPDATE operations
+            IF UPDATING THEN
+                -- Preserve original created values
+                :NEW.created_by := :OLD.created_by;
+                :NEW.created_on := :OLD.created_on;
+                -- Update the modified values
+                :NEW.updated_by := COALESCE(SYS_CONTEXT('APEX$SESSION','APP_USER'), USER);
+                :NEW.updated_on := SYSDATE;
+                :NEW.row_version := NVL(:OLD.row_version, 0) + 1;
+            END IF;
+        END;
+/
+]]></n0:source>
+      </n0:createOracleTrigger>
+ </changeSet>
+</databaseChangeLog>

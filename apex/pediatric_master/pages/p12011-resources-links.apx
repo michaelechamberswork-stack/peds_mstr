@@ -1,0 +1,229 @@
+page 12011 (
+    name: RESOURCES LINKS
+    alias: RESOURCES-LINKS
+    title: RESOURCES LINKS
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+        warnOnUnsavedChanges: false
+    }
+    advanced {
+        reloadOnSubmit: always
+    }
+    help {
+        helpText: No help is available for this page.
+    }
+
+    region resources (
+        name: RESOURCES
+        type: interactiveReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                SELECT
+                    rd_id,
+                    description,
+                    applications,
+                    keywords,
+                    lastupdated,
+                    url
+                FROM resources
+                WHERE url is not null
+                AND INSTR(':'||app_ids||':', ':'||:APP_ID||':') > 0
+                
+                ```
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @interactive-report
+            templateOptions: #DEFAULT#
+        }
+        componentAppearance {
+            showNullValuesAs: -
+        }
+        pagination {
+            type: rowRangesXToY
+        }
+        performance {
+            maxRowsToProcess: 1000000
+        }
+        messages {
+            whenNoDataFound: No data found.
+            whenMoreDataFound: The maximum row count for this report is #MAX_ROW_COUNT# rows.  Please apply a filter to reduce the number of records in your query.
+        }
+        searchBar {
+            rowsPerPageSelector: true
+        }
+        actionsMenu {
+            rowsPerPage: false
+            savePublicReport: true
+        }
+        advanced {
+            savedReportMappingIdentifier: 237247274466385619
+        }
+
+        column APPLICATIONS (
+            type: hidden
+            heading {
+                heading: APPLICATIONS
+            }
+            layout {
+                sequence: 41
+            }
+            source {
+                dataType: STRING
+            }
+            advanced {
+                endUserAlias: C
+            }
+        )
+
+        column DESCRIPTION (
+            type: link
+            heading {
+                heading: DESCRIPTION
+                alignment: center
+            }
+            layout {
+                sequence: 31
+            }
+            link {
+                target: {
+                    type: url
+                    url: #URL#
+                }
+                linkText: #DESCRIPTION#
+                linkAttributes: target="_blank"
+            }
+            source {
+                dataType: STRING
+            }
+            advanced {
+                endUserAlias: F
+            }
+        )
+
+        column KEYWORDS (
+            type: plainTextBasedOnLov
+            heading {
+                heading: KEYWORDS
+                alignment: center
+            }
+            lov {
+                lov: @applications
+            }
+            layout {
+                sequence: 51
+            }
+            source {
+                dataType: STRING
+            }
+            advanced {
+                endUserAlias: D
+            }
+        )
+
+        column LASTUPDATED (
+            type: plainText
+            heading {
+                heading: LAST UPDATED
+                alignment: center
+            }
+            layout {
+                sequence: 61
+            }
+            appearance {
+                formatMask: MM/DD/YYYY HH:MI AM
+            }
+            source {
+                dataType: DATE
+            }
+            advanced {
+                endUserAlias: E
+            }
+        )
+
+        column RD_ID (
+            type: hidden
+            heading {
+                heading: -
+            }
+            layout {
+                sequence: 1
+            }
+            source {
+                dataType: NUMBER
+            }
+            advanced {
+                endUserAlias: A
+            }
+            security {
+                escapeSpecialChars: false
+            }
+        )
+
+        column URL (
+            type: hidden
+            heading {
+                heading: URL
+            }
+            layout {
+                sequence: 81
+            }
+            source {
+                dataType: STRING
+            }
+            advanced {
+                endUserAlias: I
+            }
+        )
+
+        page {
+            borderWidth: 0.5
+            borderColor: #666666
+        }
+
+        savedReport 107803 (
+            visibility: primaryDefault
+            view {
+                rowsPerPage: 50
+            }
+
+            displayColumn APPLICATIONS (
+                sequence: 3
+            )
+
+            displayColumn DESCRIPTION (
+                sequence: 2
+            )
+
+            displayColumn KEYWORDS (
+                sequence: 4
+            )
+
+            displayColumn LASTUPDATED (
+                sequence: 5
+            )
+
+            displayColumn RD_ID (
+                sequence: 1
+            )
+
+            displayColumn URL (
+                sequence: 6
+            )
+
+        )
+
+    )
+
+)
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="d2b5abe5f9ea1f3557d30966efdfaa6797090cff" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleProcedure objectName="REMOVE_REVIEWER_SIGNATURE" objectType="PROCEDURE" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PROCEDURE "%USER_NAME%"."REMOVE_REVIEWER_SIGNATURE" 
+AS
+BEGIN
+    UPDATE session_review
+    SET reviewer_signature = NULL,
+        reviewer_date = NULL
+    WHERE sr_id = v('P1220_DEL_SIGNATURE');
+END;
+/]]></n0:source>
+      </n0:createOracleProcedure>
+ </changeSet>
+</databaseChangeLog>

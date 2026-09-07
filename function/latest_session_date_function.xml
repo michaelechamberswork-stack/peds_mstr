@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="879de767535d73f5d324d0651d55816ebd5cc8a1" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleFunction objectName="LATEST_SESSION_DATE" objectType="FUNCTION" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."LATEST_SESSION_DATE" (CASE_NUM NUMBER) RETURN DATE
+AS
+    vDate DATE;
+BEGIN
+    SELECT MAX(date_session)
+    INTO vDate
+    FROM sessions
+    WHERE case_number = case_num;
+
+    RETURN vDate;
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN NULL;
+END LATEST_SESSION_DATE;
+/]]></n0:source>
+      </n0:createOracleFunction>
+ </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,488 @@
+page 1400 (
+    name: SURVEYS
+    alias: SURVEYS
+    title: SURVEYS
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region survey (
+        name: SURVEY
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region survey-report (
+        name: SURVEY REPORT
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select SURVEY_ID,
+                       CASE_NUMBER,
+                       THERAPIST_ID,
+                       DATE_REVIEW,
+                       PRESENT_FOR_REVIEW,
+                       OVERVIEW_GOALS_SKILLS_WORKED_ON,
+                       CLIENT_HIGHLIGHTS_OF_THERAPY_1,
+                       CLIENT_HIGHLIGHTS_OF_THERAPY_2,
+                       CLIENT_HIGHLIGHTS_OF_THERAPY_3,
+                       GOAL_SKILL_CONTINUE_WORKING,
+                       NEW_AREAS_WORK_ON,
+                       UPDATED_GOALS_MOVING_FORWARD_1,
+                       UPDATED_GOALS_MOVING_FORWARD_2,
+                       UPDATED_GOALS_MOVING_FORWARD_3,
+                       BARRIERS,
+                       ACTION_PLAN_THERAPIST,
+                       ACTION_PLAN_FAMILY,
+                       ACTION_PLAN_CHILD,
+                       DISCHARGE_PLAN,
+                       CASE WHEN MOD(ROWNUM, 2) = 1 THEN 'u-color-12' ELSE 'u-color-16' END COLOR_CSS_CODE
+                  from SURVEY_6_MONTH
+                where case_number = :CURRENT_CLIENT
+                ```
+        }
+        layout {
+            sequence: 20
+            parentRegion: @survey
+            slot: regionBody
+        }
+        appearance {
+            template: @interactive-report
+            templateOptions: #DEFAULT#
+        }
+        reportLayout {
+            numberOfRows: 50
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+        }
+        pagination {
+            type: nextAndPreviousLinks
+        }
+        performance {
+            maxRowsToProcess: 500
+        }
+        messages {
+            whenNoDataFound: no data found
+        }
+
+        column ACTION_PLAN_CHILD (
+            reportColumnQueryId: 18
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 18
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column ACTION_PLAN_FAMILY (
+            reportColumnQueryId: 17
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 17
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column ACTION_PLAN_THERAPIST (
+            reportColumnQueryId: 16
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 16
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column BARRIERS (
+            reportColumnQueryId: 15
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 15
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column CASE_NUMBER (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 2
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column CLIENT_HIGHLIGHTS_OF_THERAPY_1 (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 7
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column CLIENT_HIGHLIGHTS_OF_THERAPY_2 (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 8
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column CLIENT_HIGHLIGHTS_OF_THERAPY_3 (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 9
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column COLOR_CSS_CODE (
+            reportColumnQueryId: 20
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 29
+            }
+        )
+
+        column DATE_REVIEW (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: Date of Review
+                alignment: center
+            }
+            layout {
+                sequence: 4
+            }
+        )
+
+        column DISCHARGE_PLAN (
+            reportColumnQueryId: 19
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 19
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column GOAL_SKILL_CONTINUE_WORKING (
+            reportColumnQueryId: 10
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 10
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column NEW_AREAS_WORK_ON (
+            reportColumnQueryId: 11
+            derivedColumn: N
+            heading {
+                heading: New Areas To Work On
+            }
+            layout {
+                sequence: 11
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column OVERVIEW_GOALS_SKILLS_WORKED_ON (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 6
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PRESENT_FOR_REVIEW (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: individuals Present For Review
+                alignment: center
+            }
+            layout {
+                sequence: 5
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column SURVEY_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                heading: Survey Id
+            }
+            layout {
+                sequence: 0
+            }
+            link {
+                target: {
+                    page: 1401
+                    items: {
+                        P1401_SURVEY_ID: #SURVEY_ID#
+                    }
+                    clearCache: 1401
+                }
+                linkText: #SURVEY_ID#
+                linkAttributes: class="lts-bg-color #COLOR_CSS_CODE#"
+            }
+        )
+
+        column THERAPIST_ID (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: Therapist
+                alignment: center
+            }
+            lov {
+                type: sharedComponent
+                lov: @therapists-all
+            }
+            layout {
+                sequence: 3
+                columnAlignment: end
+            }
+        )
+
+        column UPDATED_GOALS_MOVING_FORWARD_1 (
+            reportColumnQueryId: 12
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 12
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column UPDATED_GOALS_MOVING_FORWARD_2 (
+            reportColumnQueryId: 13
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 13
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column UPDATED_GOALS_MOVING_FORWARD_3 (
+            reportColumnQueryId: 14
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 14
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+    )
+
+    region survey-search (
+        name: SURVEY SEARCH
+        type: smartFilters
+        source {
+            filteredRegion: @survey-report
+        }
+        layout {
+            sequence: 10
+            parentRegion: @survey
+            slot: regionBody
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: SURVEY_SEARCH
+        }
+        settings {
+            compactNosThreshold: 10000
+        }
+
+        filter P1400_SEARCH (
+            type: search
+            label {
+                label: Search
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+    )
+
+    button add-survey (
+        buttonName: ADD_SURVEY
+        label: ADD SURVEY
+        layout {
+            sequence: 10
+            region: @survey
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1401
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        advanced {
+            htmlDomId: ADD_SURVEY
+        }
+    )
+
+    dynamicAction after-report-refresh (
+        name: After Report Refresh
+        execution {
+            sequence: 30
+        }
+        when {
+            event: apexafterrefresh
+            selectionType: region
+            region: @survey-report
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: setLtsReportSettings();
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction move-buttons (
+        name: Move Buttons
+        execution {
+            sequence: 10
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: $("#ADD_SURVEY").insertAfter("#SURVEY_SEARCH_fr_search");
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction refresh-report (
+        name: Refresh Report
+        execution {
+            sequence: 20
+        }
+        when {
+            event: ready
+        }
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @survey-report
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+)
+

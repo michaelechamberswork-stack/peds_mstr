@@ -1,0 +1,20 @@
+file alertify.bootstrap.css (
+    mimeType: text/css
+)
+
+file alertify.core.css (
+    mimeType: text/css
+)
+
+file alertify.default.css (
+    mimeType: text/css
+)
+
+file alertify.min.js (
+    mimeType: text/javascript
+)
+
+file apex.alertify.js (
+    mimeType: text/javascript
+)
+

@@ -1,0 +1,271 @@
+customAttribute attribute_01 (
+    apexlangName: placement
+    attribute: 1
+    name: Placement
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 10
+    }
+    default {
+        value: bottom
+    }
+    help {
+        helpText:
+            ```
+            <strong>Placement:</strong><br>
+            - bottom (default)<br>
+            - top <br>
+            ```
+    }
+
+    entry bottom (
+        sequence: 10
+        display: Bottom
+        return: bottom
+    )
+
+    entry top (
+        sequence: 20
+        display: Top
+        return: top
+    )
+
+)
+
+customAttribute attribute_02 (
+    apexlangName: align
+    attribute: 2
+    name: Align
+    type: selectList
+    appearance {
+        sequence: 20
+    }
+    default {
+        value: left
+    }
+    help {
+        helpText:
+            ```
+            <strong>Placement:</strong><br>
+            - Left (default)<br>
+            - Right <br>
+            ```
+    }
+
+    entry left (
+        sequence: 10
+        display: Left
+        return: left
+    )
+
+    entry right (
+        sequence: 20
+        display: Right
+        return: right
+    )
+
+)
+
+customAttribute attribute_03 (
+    apexlangName: autoclose
+    attribute: 3
+    name: Autoclose
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 30
+    }
+    default {
+        value: true
+    }
+    help {
+        helpText:
+            ```
+            <strong>Autoclose:</strong><br>
+            - True (default)<br>
+            - False <br>
+            ```
+    }
+
+    entry false (
+        sequence: 20
+        display: False
+        return: false
+    )
+
+    entry true (
+        sequence: 10
+        display: True
+        return: true
+    )
+
+)
+
+customAttribute attribute_04 (
+    apexlangName: doneButtonText
+    attribute: 4
+    name: Done Button Text
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 40
+    }
+    builder {
+        translatable: true
+    }
+    default {
+        value: Done
+    }
+    help {
+        helpText:
+            ```
+            <strong>Done Button Text:</strong><br>
+            When set to "autoclose false" a done button to close is displayed. Enter the displayed text.
+            ```
+    }
+)
+
+customAttribute attribute_05 (
+    apexlangName: 12hMode
+    attribute: 5
+    name: 12h mode
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 35
+    }
+    default {
+        value: false
+    }
+    help {
+        helpText: Choose if 12h mode (am/pm) is on or off.
+    }
+
+    entry false (
+        sequence: 20
+        display: False
+        return: false
+    )
+
+    entry true (
+        sequence: 10
+        display: True
+        return: true
+    )
+
+)
+
+customAttribute attribute_06 (
+    apexlangName: suppressMobileKeyboards
+    attribute: 6
+    name: Suppress Mobile Keyboards
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 60
+    }
+    default {
+        value: 0
+    }
+    help {
+        helpText:
+            ```
+            Suppress the default behavior on mobile devices to fade out the soft keyboard.<br>
+            If set to Yes no keyboard is shown on mobile devices, but the possibility to enter free text is also suppressed.
+            ```
+    }
+
+    entry no (
+        sequence: 20
+        display: No
+        return: 0
+        help {
+            helpText: Default: Don´t suppress soft keyboards and free text inputs
+        }
+    )
+
+    entry yes (
+        sequence: 10
+        display: Yes
+        return: 1
+        help {
+            helpText: Suppress soft keyboards and free text input
+        }
+    )
+
+)
+
+customAttribute attribute_07 (
+    apexlangName: showClockButton
+    attribute: 7
+    name: Show clock button
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 45
+    }
+    default {
+        value: 0
+    }
+    help {
+        helpText: Choose if a small button with clock icon is shown on right side of item
+    }
+
+    entry no (
+        sequence: 20
+        display: No
+        return: 0
+    )
+
+    entry yes (
+        sequence: 10
+        display: Yes
+        return: 1
+    )
+
+)
+
+customAttribute attribute_08 (
+    apexlangName: logging
+    attribute: 8
+    name: Logging
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 80
+    }
+    default {
+        value: false
+    }
+    help {
+        helpText: Whether to log events in the console.
+    }
+
+    entry false (
+        sequence: 20
+        display: False
+        return: false
+    )
+
+    entry true (
+        sequence: 10
+        display: True
+        return: true
+    )
+
+)
+

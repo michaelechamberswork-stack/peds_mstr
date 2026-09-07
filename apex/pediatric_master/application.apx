@@ -1,0 +1,98 @@
+app PEDIATRIC_MASTER (
+    name: PEDIATRIC MASTER
+    version: release 1.0
+    logo {
+        type: text
+        text: PEDIATRIC MASTER
+    }
+    navigation {
+        homeUrl: {
+            page: 1
+        }
+        loginUrl: {
+            page: LOGIN_DESKTOP
+        }
+    }
+    navigationMenu {
+        listTemplate: @side-navigation-menu
+        templateOptions: [
+            #DEFAULT#
+            js-defaultCollapsed
+            js-navCollapsed--hidden
+            t-TreeNav--classic
+        ]
+        list: @desktop-navigation-menu
+    }
+    navigationBar {
+        list: @desktop-navigation-bar
+        listTemplate: @navigation-bar
+        templateOptions: #DEFAULT#
+    }
+    userInterface {
+        currentTheme: @universal-theme
+        globalPage: 0
+    }
+    appFormatMasks {
+        date: MM/DD/YYYY
+        dateTime: HH:MI AM
+        timestamp: MM/DD/YYYY HH:MI AM
+    }
+    javaScript {
+        fileUrls: #WORKSPACE_FILES#js/lts#MIN#.js
+        includeLegacyJavascript: 18
+        includeJqueryMigrate: true
+    }
+    css {
+        fileUrls: #WORKSPACE_FILES#css/lts#MIN#.css
+    }
+    authentication {
+        scheme: @lts-login
+        publicUser: APEX_PUBLIC_USER
+    }
+    authorization {
+        sourceForRoleOrGroupSchemes: authenticationScheme
+    }
+    security {
+        referrerPolicy: strictOriginWhenCrossOrigin
+    }
+    sessionStateProtection {
+        bookmarkHashFunction: sha1
+        checksumSalt: 2AF77A7D2A6EF8D1CB140FAC1F42FA1839DBE6C205FF9B4F84E68FEE4428F338
+        acceptPre202UrlChecksums: false
+    }
+    sessionManagement {
+        sessionStateCommits: immediate
+    }
+    globalization {
+        documentDirection: leftToRight
+        languageDerivedFrom: notTranslated
+    }
+    progressiveWebApp {
+        enable: false
+    }
+    rowSearch {
+        tokenize: false
+    }
+    reportPrinting {
+        type: useInstanceSettings
+    }
+    runtime {
+        compatibilityMode: 21.2
+        accessibleReadOnlyItems: false
+    }
+    advanced {
+        passEcid: false
+        modernizeApp: true
+    }
+
+    substitution REPORT_URL (
+        value {
+            staticValue: https://reports.life-ts.com
+        }
+    )
+
+    substitution DEV (
+    )
+
+)
+

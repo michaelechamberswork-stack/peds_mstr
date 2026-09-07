@@ -1,0 +1,12 @@
+event apexsignature-cleared (
+    name: Signature cleared
+)
+
+event apexsignature-error-db (
+    name: Signature saved to DB Error
+)
+
+event apexsignature-saved-db (
+    name: Signature saved to DB
+)
+

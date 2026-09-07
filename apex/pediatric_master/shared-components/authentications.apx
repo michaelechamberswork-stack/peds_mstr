@@ -1,0 +1,26 @@
+authentication lts-login (
+    name: LTS_LOGIN
+    type: custom
+    settings {
+        authFunctionName: lts_user.login_therapist
+    }
+    sessionNotValid {
+        redirectTo: url
+        invalidSessionUrl: {
+            type: url
+            url: /ords/r/lts/life_ts/login_desktop
+        }
+    }
+    postLogout {
+        redirectTo: url
+        url: /ords/r/lts/life_ts
+    }
+    sessionSharing {
+        type: custom
+        cookieName: LTS
+    }
+    subscription {
+        master: @/100/lts-login
+    }
+)
+

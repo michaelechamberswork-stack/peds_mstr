@@ -1,0 +1,164 @@
+page 1700 (
+    name: PROGRAMS
+    alias: PROGRAMS
+    title: PROGRAMS
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region breadcrumb (
+        name: Breadcrumb
+        type: breadcrumb
+        source {
+            breadcrumb: @breadcrumb
+        }
+        layout {
+            sequence: 10
+            slot: breadcrumbBar
+        }
+        appearance {
+            template: @title-bar
+            templateOptions: [
+                #DEFAULT#
+                t-BreadcrumbRegion--useBreadcrumbTitle
+            ]
+        }
+        componentAppearance {
+            breadcrumbTemplate: @breadcrumb
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    region programs (
+        name: PROGRAMS
+        type: cards
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select P_ID,
+                       NAME,
+                       ADDRESS1,
+                       ADDRESS2,
+                       CITY,
+                       STATE,
+                       ZIP,
+                       COST_NUM,
+                       ACCT_NUM,
+                       VEND_NUM,
+                       NUM_SESSIONS_ALLOWED_PER_MONTH,
+                       COLOR_CSS_CODE card_color
+                  from PROGRAMS
+                ```
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @blank-with-attributes-no-grid
+            templateOptions: #DEFAULT#
+        }
+        componentAppearance {
+            layout: float
+        }
+        card {
+            cssClasses: &CARD_COLOR!ATTR.
+            primaryKeyColumn1: P_ID
+        }
+        title {
+            column: NAME
+        }
+        body {
+            column: CITY
+        }
+
+        action action (
+            type: fullCard
+            layout {
+                sequence: 10
+            }
+            behavior {
+                target: {
+                    page: 1701
+                    items: {
+                        P1701_P_ID: &P_ID.
+                    }
+                    clearCache: 1701
+                }
+            }
+        )
+
+    )
+
+    pageItem P1700_ORDER_BY (
+        type: selectList
+        label {
+            label: Order By
+            alignment: right
+        }
+        lov {
+            type: staticValues
+            staticValues: STATIC2:Name;NAME,City;CITY
+            displayExtraValues: false
+            displayNullValue: false
+        }
+        layout {
+            sequence: 10
+            region: @programs
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional
+            templateOptions: #DEFAULT#
+            height: 1
+        }
+        validation {
+            valueRequired: true
+        }
+        advanced {
+            warnOnUnsavedChanges: ignore
+        }
+        default {
+            type: static
+            staticValue: NAME
+        }
+    )
+
+    dynamicAction refresh-report (
+        name: Refresh Report
+        execution {
+            sequence: 10
+        }
+        when {
+            event: apexafterclosecanceldialog
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @programs
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+)
+

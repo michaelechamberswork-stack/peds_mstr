@@ -1,0 +1,393 @@
+list desktop-navigation-bar (
+    name: Desktop Navigation Bar
+
+    entry log-out (
+        label: Log Out
+        layout {
+            sequence: 10
+        }
+        isCurrent {
+            type: never
+        }
+        link {
+            target: {
+                type: url
+                url: &LOGOUT_URL.
+            }
+        }
+    )
+
+)
+
+list desktop-navigation-menu (
+    name: Desktop Navigation Menu
+
+    entry applications (
+        label: APPLICATIONS
+        icon {
+            imageIconCssClasses: fa-tablet
+        }
+        layout {
+            sequence: 10
+        }
+        link {
+            target: {
+                type: otherApp
+                app: life_ts
+                page: 1
+            }
+        }
+    )
+
+    entry assessment (
+        label: ASSESSMENT
+        icon {
+            imageIconCssClasses: fa-table
+        }
+        layout {
+            sequence: 45
+        }
+        isCurrent {
+            type: pages
+            pages: 1500
+        }
+        link {
+            target: {
+                page: 1500
+            }
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: CURRENT_CLIENT
+        }
+    )
+
+    entry case-folder (
+        label: CASE FOLDER
+        icon {
+            imageIconCssClasses: fa-folder-file
+        }
+        layout {
+            sequence: 25
+        }
+        isCurrent {
+            type: pages
+            pages: 1900
+        }
+        link {
+            target: {
+                page: 1900
+            }
+        }
+        security {
+            authorizationScheme: @is-app-admin
+        }
+    )
+
+    entry client (
+        label: CLIENT
+        icon {
+            imageIconCssClasses: fa-user
+        }
+        layout {
+            sequence: 40
+        }
+        isCurrent {
+            type: pages
+            pages: 1001
+        }
+        link {
+            target: {
+                page: 1001
+            }
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: CURRENT_CLIENT
+        }
+    )
+
+    entry documents (
+        label: DOCUMENTS
+        layout {
+            sequence: 81
+            parentEntry: @resources
+        }
+        isCurrent {
+            type: pages
+            pages: 12010
+        }
+        link {
+            target: {
+                page: 12010
+            }
+        }
+    )
+
+    entry drop-down-entries (
+        label: drop down entries
+        icon {
+            imageIconCssClasses: fa-database-application
+        }
+        layout {
+            sequence: 210
+            parentEntry: @settings
+        }
+        link {
+            target: {
+                page: 1600
+            }
+        }
+    )
+
+    entry home (
+        label: HOME
+        icon {
+            imageIconCssClasses: fa-home
+        }
+        layout {
+            sequence: 20
+        }
+        isCurrent {
+            type: pages
+            pages: 1
+        }
+        link {
+            target: {
+                page: 1
+            }
+        }
+    )
+
+    entry links (
+        label: LINKS
+        layout {
+            sequence: 82
+            parentEntry: @resources
+        }
+        isCurrent {
+            type: pages
+            pages: 12011
+        }
+        link {
+            target: {
+                page: 12011
+            }
+        }
+    )
+
+    entry objectives (
+        label: OBJECTIVES
+        icon {
+            imageIconCssClasses: fa-list-ol
+        }
+        layout {
+            sequence: 50
+        }
+        isCurrent {
+            type: pages
+            pages: 1100
+        }
+        link {
+            target: {
+                page: 1100
+            }
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: CURRENT_CLIENT
+        }
+    )
+
+    entry programs (
+        label: PROGRAMS
+        icon {
+            imageIconCssClasses: fa-cards
+        }
+        layout {
+            sequence: 220
+            parentEntry: @settings
+        }
+        isCurrent {
+            type: pages
+            pages: 1700
+        }
+        link {
+            target: {
+                page: 1700
+            }
+        }
+    )
+
+    entry resources (
+        label: RESOURCES
+        icon {
+            imageIconCssClasses: fa-book
+        }
+        layout {
+            sequence: 80
+        }
+        isCurrent {
+            type: pages
+            pages: 12000
+        }
+    )
+
+    entry select-client (
+        label: SELECT CLIENT
+        icon {
+            imageIconCssClasses: fa-users
+        }
+        layout {
+            sequence: 30
+        }
+        isCurrent {
+            type: pages
+            pages: 1000
+        }
+        link {
+            target: {
+                page: 1000
+            }
+        }
+    )
+
+    entry session-review (
+        label: SESSION REVIEW
+        icon {
+            imageIconCssClasses: "fa-clipboard-chart "
+        }
+        layout {
+            sequence: 70
+        }
+        isCurrent {
+            type: pages
+            pages: 1220
+        }
+        link {
+            target: {
+                page: 1220
+                clearCache: 1220
+            }
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: CURRENT_CLIENT
+        }
+    )
+
+    entry session-to-review (
+        label: SESSION TO REVIEW
+        icon {
+            imageIconCssClasses: fa-thumbs-o-up
+        }
+        layout {
+            sequence: 110
+        }
+        isCurrent {
+            type: pages
+            pages: 200
+        }
+        link {
+            target: {
+                page: 200
+            }
+        }
+        security {
+            authorizationScheme: @is-app-admin
+        }
+    )
+
+    entry sessions (
+        label: SESSIONS
+        icon {
+            imageIconCssClasses: fa-clipboard
+        }
+        layout {
+            sequence: 60
+        }
+        isCurrent {
+            type: pages
+            pages: [
+                1200
+                1201
+                1201
+            ]
+        }
+        link {
+            target: {
+                page: 1200
+            }
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: CURRENT_CLIENT
+        }
+    )
+
+    entry settings (
+        label: SETTINGS
+        icon {
+            imageIconCssClasses: fa-ai-sparkle-generate-list
+        }
+        layout {
+            sequence: 200
+        }
+        security {
+            authorizationScheme: @is-app-admin
+        }
+    )
+
+    entry survey (
+        label: SURVEY
+        icon {
+            imageIconCssClasses: fa-table-chart
+        }
+        layout {
+            sequence: 75
+        }
+        isCurrent {
+            type: pages
+            pages: [
+                1400
+                1401
+            ]
+        }
+        link {
+            target: {
+                page: 1400
+            }
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: CURRENT_CLIENT
+        }
+    )
+
+    entry therapist-tiering (
+        label: THERAPIST TIERING
+        icon {
+            imageIconCssClasses: fa-sitemap-vertical
+        }
+        layout {
+            sequence: 130
+        }
+        isCurrent {
+            type: pages
+            pages: [
+                1800
+                1801
+            ]
+        }
+        link {
+            target: {
+                page: 1800
+            }
+        }
+        security {
+            authorizationScheme: @is-app-admin
+        }
+    )
+
+)
+

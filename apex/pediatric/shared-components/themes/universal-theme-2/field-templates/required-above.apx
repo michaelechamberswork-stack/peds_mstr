@@ -1,0 +1,34 @@
+fieldTemplate required-above (
+    name: Required - Above
+    templateClass: requiredLabel
+    label {
+        before:
+            ```html
+            <div class="t-Form-labelContainer">
+              <label for="#CURRENT_ITEM_NAME#" id="#LABEL_ID#" class="t-Form-label">
+            ```
+        after:
+            ```html
+             <span class="u-VisuallyHidden">(#VALUE_REQUIRED#)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span> #HELP_TEMPLATE#
+            </div>
+            ```
+    }
+    item {
+        before: <div class="t-Form-inputContainer">
+        after: #ERROR_TEMPLATE#</div>
+    }
+    help {
+        invoke: <button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="#CURRENT_ITEM_ID#" title="#CURRENT_ITEM_HELP_LABEL#" aria-label="#CURRENT_ITEM_HELP_LABEL#" tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button>
+    }
+    error {
+        errorTemplate: <span class="t-Form-error">#ERROR_MESSAGE#</span>
+    }
+    fieldContainer {
+        beforeLabelAndItem: <div class="t-Form-fieldContainer t-Form-fieldContainer--stacked #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#">
+        afterLabelAndItem: </div>
+    }
+    advanced {
+        identifier: REQUIRED_ABOVE
+    }
+)
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="b7bc1485284aaa221005d3ed3847a099a62d6de6" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleProcedure objectName="SIGNATURE_REQUEST_COMPLETE" objectType="PROCEDURE" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PROCEDURE "%USER_NAME%"."SIGNATURE_REQUEST_COMPLETE" (pHASH VARCHAR2)
+AS
+    email LTS_EMAIL := LTS_EMAIL();
+    vName VARCHAR2(255);
+    vDate DATE;
+BEGIN
+    SELECT last_name||', '||first_name, sr_date
+    INTO vName, vDate
+    FROM session_review
+        INNER JOIN clients ON session_review.case_number = clients.case_number
+    WHERE signature_request_hash = pHASH;         
+
+    email.subject := 'Signature Request Completed: '||vName||' '||TO_CHAR(vDate, 'MM/YYYY');
+    email.add_to_address('kristine.schwab@life-ts.com');
+    email.send_email();
+EXCEPTION
+    WHEN OTHERS THEN
+        BEGIN
+            email := LTS_EMAIL();
+            email.subject := 'Signature Request Completed: Notification Error ';
+            email.add_to_address('michael.e.chambers@gmail.com');
+            email.send_email();
+        EXCEPTION
+            WHEN OTHERS THEN
+                NULL;
+        END;
+END SIGNATURE_REQUEST_COMPLETE;
+/]]></n0:source>
+      </n0:createOracleProcedure>
+ </changeSet>
+</databaseChangeLog>

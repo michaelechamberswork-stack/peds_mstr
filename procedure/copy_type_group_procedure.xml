@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="0946cc9c06a9730edde3bc624612d9900447ec6e" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleProcedure objectName="COPY_TYPE_GROUP" objectType="PROCEDURE" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PROCEDURE "%USER_NAME%"."COPY_TYPE_GROUP" (p_drop_down_type_id in number, p_type_name in varchar2)
+as
+    l_drop_down_type_id number;
+begin
+    insert into drop_down_type(type_name)
+    values (p_type_name)
+    returning drop_down_type_id
+    into l_drop_down_type_id;
+        
+    insert into drop_down_type_entry(drop_down_type_id, entry, value, extra)
+    select l_drop_down_type_id, entry, value, extra
+    from drop_down_type_entry
+    where drop_down_type_id = p_drop_down_type_id;
+    
+    commit;
+end copy_type_group;
+/]]></n0:source>
+      </n0:createOracleProcedure>
+ </changeSet>
+</databaseChangeLog>

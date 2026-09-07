@@ -1,0 +1,433 @@
+page 1602 (
+    name: entry type
+    alias: ENTRY-TYPE
+    title: entry type
+    appearance {
+        pageMode: modalDialog
+        dialogTemplate: @modal-dialog
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region buttons (
+        name: Buttons
+        type: staticContent
+        layout {
+            sequence: 20
+            slot: dialogFooter
+        }
+        appearance {
+            template: @buttons-container
+            templateOptions: #DEFAULT#
+        }
+        settings {
+            outputAs: text
+        }
+    )
+
+    region create-type (
+        name: create type
+        type: form
+        source {
+            location: localDatabase
+            tableName: DROP_DOWN_TYPE
+        }
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        edit {
+            enabled: true
+            allowedOperations: [
+                add
+                update
+                delete
+            ]
+        }
+    )
+
+    pageItem P1602_CREATED_BY (
+        type: displayOnly
+        label {
+            label: Created By
+            alignment: left
+        }
+        layout {
+            sequence: 40
+            region: @create-type
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @create-type
+            column: CREATED_BY
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1602_CREATED_ON (
+        type: displayOnly
+        label {
+            label: Created On
+            alignment: left
+        }
+        layout {
+            sequence: 50
+            region: @create-type
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @create-type
+            column: CREATED_ON
+            dataType: date
+        }
+    )
+
+    pageItem P1602_DROP_DOWN_TYPE_ID (
+        type: hidden
+        layout {
+            sequence: 10
+            region: @create-type
+            slot: regionBody
+        }
+        source {
+            formRegion: @create-type
+            column: DROP_DOWN_TYPE_ID
+            dataType: number
+            queryOnly: true
+            primaryKey: true
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+        }
+    )
+
+    pageItem P1602_ROW_VERSION (
+        type: displayOnly
+        label {
+            label: Row Version
+            alignment: left
+        }
+        layout {
+            sequence: 80
+            region: @create-type
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @create-type
+            column: ROW_VERSION
+            dataType: number
+        }
+    )
+
+    pageItem P1602_TYPE_DESCRIPTION (
+        type: textarea
+        label {
+            label: Type Description
+            alignment: left
+        }
+        layout {
+            sequence: 30
+            region: @create-type
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 60
+            height: 4
+        }
+        validation {
+            maxLength: 4000
+        }
+        source {
+            formRegion: @create-type
+            column: TYPE_DESCRIPTION
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1602_TYPE_NAME (
+        type: textField
+        label {
+            label: Type Name
+            alignment: left
+        }
+        layout {
+            sequence: 20
+            region: @create-type
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+            width: 32
+        }
+        validation {
+            maxLength: 100
+        }
+        source {
+            formRegion: @create-type
+            column: TYPE_NAME
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1602_UPDATED_BY (
+        type: displayOnly
+        label {
+            label: Updated By
+            alignment: left
+        }
+        layout {
+            sequence: 60
+            region: @create-type
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @create-type
+            column: UPDATED_BY
+            dataType: varchar2
+        }
+    )
+
+    pageItem P1602_UPDATED_ON (
+        type: displayOnly
+        label {
+            label: Updated On
+            alignment: left
+        }
+        layout {
+            sequence: 70
+            region: @create-type
+            slot: regionBody
+            alignment: left
+            startNewRow: false
+            column: 4
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+        source {
+            formRegion: @create-type
+            column: UPDATED_ON
+            dataType: date
+        }
+    )
+
+    button cancel (
+        buttonName: CANCEL
+        label: Cancel
+        layout {
+            sequence: 10
+            region: @buttons
+            slot: close
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: definedByDynamicAction
+        }
+    )
+
+    button create (
+        buttonName: CREATE
+        label: Create
+        layout {
+            sequence: 40
+            region: @buttons
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: insert
+        }
+        serverSideCondition {
+            type: itemIsNull
+            item: P1602_DROP_DOWN_TYPE_ID
+        }
+    )
+
+    button delete (
+        buttonName: DELETE
+        label: Delete
+        layout {
+            sequence: 20
+            region: @buttons
+            slot: delete
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            executeValidations: false
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: delete
+            requiresConfirmation: true
+        }
+        confirmation {
+            message: &APP_TEXT$DELETE_MSG!RAW.
+            style: danger
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1602_DROP_DOWN_TYPE_ID
+        }
+    )
+
+    button save (
+        buttonName: SAVE
+        label: Apply Changes
+        layout {
+            sequence: 30
+            region: @buttons
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+            databaseAction: update
+        }
+        serverSideCondition {
+            type: itemIsNotNull
+            item: P1602_DROP_DOWN_TYPE_ID
+        }
+    )
+
+    dynamicAction cancel-dialog (
+        name: Cancel Dialog
+        execution {
+            sequence: 10
+        }
+        when {
+            event: click
+            selectionType: button
+            button: @cancel
+        }
+
+        action native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction set-text-fields (
+        name: set text fields 100%
+        execution {
+            sequence: 20
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("input[type='text']:not([id*='_DATE_'])").each(function() {
+                        $(this).parent().css('width', '100%');
+                        $(this).css('width', '100%');
+                    });
+                    
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    process close-dialog (
+        name: Close Dialog
+        type: closeDialog
+        execution {
+            sequence: 50
+        }
+        advanced {
+            executionMappingIdentifier: 118537037707316876
+        }
+        serverSideCondition {
+            type: requestIsContainedInValue
+            value: CREATE,SAVE,DELETE
+        }
+    )
+
+    process initialize-form-create-type (
+        name: Initialize form create type
+        type: formInitialization
+        formRegion: @create-type
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 118536279275316876
+        }
+    )
+
+    process process-form-create-type (
+        name: Process form create type
+        type: formAutoRowProcessing
+        formRegion: @create-type
+        execution {
+            sequence: 10
+        }
+        advanced {
+            executionMappingIdentifier: 118536629521316876
+        }
+    )
+
+)
+

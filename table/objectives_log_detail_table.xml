@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="63c428e839d2a5ec64cf674391128185c0d3e79b" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createSxmlObject objectName="OBJECTIVES_LOG_DETAIL" objectType="TABLE" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[
+  <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>%USER_NAME%</SCHEMA>
+   <NAME>OBJECTIVES_LOG_DETAIL</NAME>
+   <RELATIONAL_TABLE>
+      <COL_LIST>
+         <COL_LIST_ITEM>
+            <NAME>OLD_ID</NAME>
+            <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>OL_ID</NAME>
+            <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>FIELD_CHANGED</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>255</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>OLD_VALUE</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>4000</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>NEW_VALUE</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>4000</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>CREATED_BY</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>255</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <DEFAULT>COALESCE(SYS_CONTEXT('APEX$SESSION','APP_USER'), USER)</DEFAULT>
+            <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>CREATED_ON</NAME>
+            <DATATYPE>DATE</DATATYPE>
+            <DEFAULT>SYSDATE</DEFAULT>
+            <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>UPDATED_BY</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>255</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <DEFAULT>COALESCE(SYS_CONTEXT('APEX$SESSION','APP_USER'), USER)</DEFAULT>
+            <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>UPDATED_ON</NAME>
+            <DATATYPE>DATE</DATATYPE>
+            <DEFAULT>SYSDATE</DEFAULT>
+            <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>ROW_VERSION</NAME>
+            <DATATYPE>NUMBER</DATATYPE>
+            <DEFAULT>1</DEFAULT>
+            <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
+         </COL_LIST_ITEM>
+      </COL_LIST>
+      <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+      <PHYSICAL_PROPERTIES>
+         <HEAP_TABLE>
+            <SEGMENT_ATTRIBUTES>
+               <SEGMENT_CREATION_DEFERRED></SEGMENT_CREATION_DEFERRED>
+               <PCTFREE>10</PCTFREE>
+               <PCTUSED>40</PCTUSED>
+               <INITRANS>10</INITRANS>
+               <MAXTRANS>255</MAXTRANS>
+               <TABLESPACE>DATA</TABLESPACE>
+               <LOGGING>Y</LOGGING>
+            </SEGMENT_ATTRIBUTES>
+            <COMPRESS>N</COMPRESS>
+         </HEAP_TABLE>
+      </PHYSICAL_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
+   </RELATIONAL_TABLE>
+</TABLE>]]></n0:source>
+      </n0:createSxmlObject>
+ </changeSet>
+</databaseChangeLog>

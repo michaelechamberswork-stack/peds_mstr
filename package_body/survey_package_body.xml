@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="c49c6ef47a3f1d2f7de94eb20b3e34750d631ed8" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOraclePackageBody objectName="SURVEY" objectType="PACKAGE_BODY" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE BODY "%USER_NAME%"."SURVEY" as
+    function days_to_next_survey(p_case_number in number) return number
+    as
+    begin
+        return next_survey(p_case_number) - trunc(sysdate);
+    end;
+    
+    function last_survey(p_case_number in number) return date
+    as
+        l_last_survey date;
+    begin
+        select coalesce(max(date_review), max(assessment_date), max(date_start), trunc(sysdate))
+        into l_last_survey
+        from clients
+            left join assessment using (case_number)
+            left join survey_6_month using (case_number)
+        where case_number = p_case_number;
+        
+        return l_last_survey; 
+    end;
+
+    function next_survey(p_case_number in number) return date
+    as
+    begin
+        return add_months(last_survey(p_case_number), g_months_between_surveys);
+    end;
+    
+    function notification_flag (p_case_number in number) return varchar2
+    as
+        l_days_to_next_survey number := days_to_next_survey(p_case_number);
+    begin
+        return case 
+                when l_days_to_next_survey > g_days_before_survey_warning then 
+                    '<span aria-hidden="true" order="1" class="fa fa-meeting-room fam-clock fam-is-success fa-lg"></span>'
+                when l_days_to_next_survey > 0 then
+                    '<span aria-hidden="true" order="2" class="fa fa-meeting-room fam-clock fam-is-warning fa-lg"></span>'
+                when l_days_to_next_survey > g_date_survey_late then
+                    '<span aria-hidden="true" order="3" class="fa fa-meeting-room fam-clock fam-is-danger fa-lg"></span>'
+                else
+                    '<span aria-hidden="true" order="4" class="fa fa-anim-flash fa-meeting-room fam-clock fam-is-danger fa-lg"></span>'
+                end;
+    end;
+end survey;
+/]]></n0:source>
+      </n0:createOraclePackageBody>
+ </changeSet>
+</databaseChangeLog>

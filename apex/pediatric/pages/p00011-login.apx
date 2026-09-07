@@ -1,0 +1,253 @@
+page 11 (
+    name: Login Page
+    alias: LOGIN
+    title: PEDIATRIC SESSION REVIEW - Log In
+    appearance {
+        pageTemplate: @login
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        warnOnUnsavedChanges: false
+    }
+    security {
+        authentication: public
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region pediatric-session-review (
+        name: PEDIATRIC SESSION REVIEW
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: contentBody
+        }
+        appearance {
+            template: @login
+            templateOptions: #DEFAULT#
+        }
+        image {
+            fileUrl: #APP_FILES#icons/app-icon-512.png
+        }
+    )
+
+    pageItem P11_PASSWORD (
+        type: password
+        label {
+            label: Password
+            alignment: right
+        }
+        layout {
+            sequence: 20
+            region: @pediatric-session-review
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @hidden
+            templateOptions: #DEFAULT#
+            icon: fa-key
+            width: 40
+            valuePlaceholder: Password
+        }
+        validation {
+            maxLength: 100
+        }
+        advanced {
+            customAttributes: autocomplete="current-password"
+        }
+        sessionState {
+            storage: request
+        }
+    )
+
+    pageItem P11_REMEMBER (
+        type: checkbox
+        label {
+            label: Remember username
+            alignment: right
+        }
+        layout {
+            sequence: 30
+            region: @pediatric-session-review
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @hidden
+            templateOptions: #DEFAULT#
+        }
+        serverSideCondition {
+            type: expression
+            plsqlExpression: apex_authentication.persistent_cookies_enabled
+        }
+    )
+
+    pageItem P11_USERNAME (
+        type: textField
+        label {
+            label: Username
+            alignment: right
+        }
+        layout {
+            sequence: 10
+            region: @pediatric-session-review
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @hidden
+            templateOptions: #DEFAULT#
+            icon: fa-user
+            width: 40
+            valuePlaceholder: Username
+        }
+        validation {
+            maxLength: 100
+        }
+        advanced {
+            customAttributes: autocomplete="username"
+        }
+        sessionState {
+            storage: request
+        }
+    )
+
+    button login (
+        buttonName: LOGIN
+        label: Sign In
+        layout {
+            sequence: 40
+            region: @pediatric-session-review
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            warnOnUnsavedChanges: doNotCheck
+        }
+    )
+
+    process clear-page-s-cache (
+        name: Clear Page(s) Cache
+        type: clearSessionState
+        execution {
+            sequence: 30
+        }
+        advanced {
+            executionMappingIdentifier: 8597479738386127
+        }
+    )
+
+    process get-username-cookie (
+        name: Get Username Cookie
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                :P11_USERNAME := apex_authentication.get_login_username_cookie;
+                :P11_REMEMBER := case when :P11_USERNAME is not null then 'Y' end;
+                ```
+        }
+        execution {
+            sequence: 10
+            point: beforeHeader
+        }
+        advanced {
+            executionMappingIdentifier: 8597093332386126
+        }
+    )
+
+    process login (
+        name: Login
+        type: invokeApi
+        invoke {
+            package: APEX_AUTHENTICATION
+            procedureOrFunction: LOGIN
+        }
+        execution {
+            sequence: 20
+        }
+        advanced {
+            executionMappingIdentifier: 8593771594386111
+        }
+
+        parameter p_password (
+            value {
+                type: item
+                item: P11_PASSWORD
+            }
+            advanced {
+                displaySequence: 2
+            }
+        )
+
+        parameter p_set_persistent_auth (
+            parameter {
+                dataType: boolean
+                hasDefault: true
+            }
+            value {
+                type: apiDefault
+            }
+            advanced {
+                displaySequence: 3
+            }
+        )
+
+        parameter p_username (
+            value {
+                type: item
+                item: P11_USERNAME
+            }
+            advanced {
+                displaySequence: 1
+            }
+        )
+
+    )
+
+    process set-username-cookie (
+        name: Set Username Cookie
+        type: invokeApi
+        invoke {
+            package: APEX_AUTHENTICATION
+            procedureOrFunction: SEND_LOGIN_USERNAME_COOKIE
+        }
+        execution {
+            sequence: 10
+        }
+        advanced {
+            executionMappingIdentifier: 8595602530386122
+        }
+
+        parameter p_consent (
+            parameter {
+                dataType: boolean
+            }
+            value {
+                type: item
+                item: P11_REMEMBER
+            }
+            advanced {
+                displaySequence: 2
+            }
+        )
+
+        parameter p_username (
+            value {
+                type: expression
+                plsqlExpression: lower( :P11_USERNAME )
+            }
+            advanced {
+                displaySequence: 1
+            }
+        )
+
+    )
+
+)
+

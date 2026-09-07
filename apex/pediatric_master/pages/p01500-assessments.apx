@@ -1,0 +1,1020 @@
+page 1500 (
+    name: ASSESSMENTS
+    alias: ASSESSMENTS
+    title: ASSESSMENT
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region assessment (
+        name: ASSESSMENT
+        type: classicReport
+        source {
+            location: localDatabase
+            tableName: ASSESSMENT
+            whereClause: case_number = :CURRENT_CLIENT
+        }
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        serverSideCondition {
+            type: rowsReturned
+            sqlQuery:
+                ```sql
+                select *
+                from assessment
+                where case_number = :CURRENT_CLIENT
+                ```
+        }
+        reportLayout {
+            numberOfRows: 50
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+        }
+        pagination {
+            type: nextAndPreviousLinks
+        }
+        performance {
+            maxRowsToProcess: 500
+        }
+        messages {
+            whenNoDataFound: NO ASSESSMENT FOUND.
+        }
+
+        column ASSESSMENT_DATE (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            heading {
+                heading: Assessment Date
+            }
+            layout {
+                sequence: 0
+            }
+        )
+
+        column CASE_NUMBER (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            layout {
+                sequence: 0
+            }
+            link {
+                target: {
+                    page: 1501
+                    items: {
+                        P1501_CASE_NUMBER: #CASE_NUMBER#
+                        P1501_ASSESSMENT_DATE: #ASSESSMENT_DATE#
+                    }
+                    clearCache: 1501
+                }
+                linkText: <span aria-hidden="true" class="fa fa-file-o"></span>
+            }
+        )
+
+        column EDUCATION_GRADE (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            heading {
+                heading: Education Grade
+            }
+            layout {
+                sequence: 6
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column LEISURE_INTERESTS_CREATIVE_ACT (
+            reportColumnQueryId: 16
+            derivedColumn: N
+            heading {
+                heading: Leisure Interests Creative Act
+            }
+            layout {
+                sequence: 16
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column LEISURE_INTERESTS_OUTDOOR_ACT (
+            reportColumnQueryId: 17
+            derivedColumn: N
+            heading {
+                heading: Leisure Interests Outdoor Act
+            }
+            layout {
+                sequence: 17
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column LEISURE_INTERESTS_PHYSICAL_ACT (
+            reportColumnQueryId: 15
+            derivedColumn: N
+            heading {
+                heading: Leisure Interests Physical Act
+            }
+            layout {
+                sequence: 15
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column LEISURE_INTERESTS_SENSORY_ACT (
+            reportColumnQueryId: 19
+            derivedColumn: N
+            heading {
+                heading: Leisure Interests Sensory Act
+            }
+            layout {
+                sequence: 19
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column LEISURE_INTERESTS_SIBLING_ACT (
+            reportColumnQueryId: 18
+            derivedColumn: N
+            heading {
+                heading: Leisure Interests Sibling Act
+            }
+            layout {
+                sequence: 18
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column LEISURE_INTERESTS_SOCIAL_GROUP_ACT (
+            reportColumnQueryId: 14
+            derivedColumn: N
+            heading {
+                heading: Leisure Interests Social Group Act
+            }
+            layout {
+                sequence: 14
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column LEISURE_INTERESTS_SOLITARY_ACT (
+            reportColumnQueryId: 20
+            derivedColumn: N
+            heading {
+                heading: Leisure Interests Solitary Act
+            }
+            layout {
+                sequence: 20
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column LIVING_ARRANGEMENTS (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: Living Arrangements
+            }
+            layout {
+                sequence: 5
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column MEDICAL_DIAGNOSIS (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: Medical Diagnosis
+            }
+            layout {
+                sequence: 3
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PERSONAL_SOCIAL_SKILLS (
+            reportColumnQueryId: 13
+            derivedColumn: N
+            heading {
+                heading: Personal Social Skills
+            }
+            layout {
+                sequence: 13
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_ACTIVITY_ENDURANCE (
+            reportColumnQueryId: 11
+            derivedColumn: N
+            heading {
+                heading: Physical Skills Activity Endurance
+            }
+            layout {
+                sequence: 11
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_BALANCE (
+            reportColumnQueryId: 12
+            derivedColumn: N
+            heading {
+                heading: Physical Skills Balance
+            }
+            layout {
+                sequence: 12
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_FINE_MOTOR (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            heading {
+                heading: Physical Skills Fine Motor
+            }
+            layout {
+                sequence: 9
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_GROSS_MOTOR (
+            reportColumnQueryId: 10
+            derivedColumn: N
+            heading {
+                heading: Physical Skills Gross Motor
+            }
+            layout {
+                sequence: 10
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_HEARING (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            heading {
+                heading: Physical Skills Hearing
+            }
+            layout {
+                sequence: 8
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_VISION (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            heading {
+                heading: Physical Skills Vision
+            }
+            layout {
+                sequence: 7
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column SIBLING_NAMES (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: Sibling Names
+            }
+            layout {
+                sequence: 4
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+    )
+
+    region assessment-v (
+        name: ASSESSMENT v2022
+        type: classicReport
+        source {
+            location: localDatabase
+            tableName: ASSESSMENT_2022
+            whereClause: case_number = :CURRENT_CLIENT
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: ASSESSMENT_V2022
+        }
+        reportLayout {
+            numberOfRows: 50
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+        }
+        pagination {
+            type: nextAndPreviousLinks
+        }
+        performance {
+            maxRowsToProcess: 500
+        }
+        messages {
+            whenNoDataFound: NO ASSESSMENT FOUND.
+        }
+
+        column ASSESSMENT_DATE (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            heading {
+                heading: Assessment Date
+            }
+            layout {
+                sequence: 20
+            }
+        )
+
+        column CASE_NUMBER (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            layout {
+                sequence: 10
+            }
+            link {
+                target: {
+                    page: 1502
+                    items: {
+                        P1502_CASE_NUMBER: #CASE_NUMBER#
+                        P1502_ASSESSMENT_DATE: #ASSESSMENT_DATE#
+                    }
+                    clearCache: 1502
+                }
+                linkText: <span aria-hidden="true" class="fa fa-pencil"></span>
+            }
+        )
+
+        column CHILDS_INFORMATION_MEDICAL_DIAGNOSIS (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 140
+            }
+        )
+
+        column CHILDS_INFORMATION_SIBLING_NAMES (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 150
+            }
+        )
+
+        column CREATED_BY (
+            reportColumnQueryId: 52
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 560
+            }
+        )
+
+        column CREATED_ON (
+            reportColumnQueryId: 53
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 570
+            }
+        )
+
+        column LEISURE_INTERESTS_ADDITIONAL_NOTES (
+            reportColumnQueryId: 39
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 430
+            }
+        )
+
+        column LEISURE_INTERESTS_ARTS_CRAFTS (
+            reportColumnQueryId: 26
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 300
+            }
+        )
+
+        column LEISURE_INTERESTS_CARDS_GAMES (
+            reportColumnQueryId: 27
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 310
+            }
+        )
+
+        column LEISURE_INTERESTS_COMMUNITY_INVOLVEMENT (
+            reportColumnQueryId: 29
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 330
+            }
+        )
+
+        column LEISURE_INTERESTS_COOKING_BAKING (
+            reportColumnQueryId: 28
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 320
+            }
+        )
+
+        column LEISURE_INTERESTS_EXCERCISE_SPORTS (
+            reportColumnQueryId: 30
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 340
+            }
+        )
+
+        column LEISURE_INTERESTS_MUSIC (
+            reportColumnQueryId: 32
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 360
+            }
+        )
+
+        column LEISURE_INTERESTS_OUTDOOR_ACTIVITIES (
+            reportColumnQueryId: 33
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 370
+            }
+        )
+
+        column LEISURE_INTERESTS_PEER_SIBLING_PLAY (
+            reportColumnQueryId: 38
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 420
+            }
+        )
+
+        column LEISURE_INTERESTS_PETS_ANIMALS (
+            reportColumnQueryId: 31
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 350
+            }
+        )
+
+        column LEISURE_INTERESTS_PUZZLES_TRIVIA (
+            reportColumnQueryId: 34
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 380
+            }
+        )
+
+        column LEISURE_INTERESTS_READING_WRITING (
+            reportColumnQueryId: 35
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 390
+            }
+        )
+
+        column LEISURE_INTERESTS_SPIRITUAL_RELIGIOUS (
+            reportColumnQueryId: 36
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 400
+            }
+        )
+
+        column LEISURE_INTERESTS_TECHNOLOGY (
+            reportColumnQueryId: 37
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 410
+            }
+        )
+
+        column LIFESTYLE_ROUTINES_COMMUNITY_SUPPORT_THERAPIES (
+            reportColumnQueryId: 10
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 210
+            }
+        )
+
+        column LIFESTYLE_ROUTINES_EDUCATION_GRADE (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 170
+            }
+        )
+
+        column LIFESTYLE_ROUTINES_EDUCATION_IEP_PLAN (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 190
+            }
+        )
+
+        column LIFESTYLE_ROUTINES_EDUCATION_SCHOOL (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 180
+            }
+        )
+
+        column LIFESTYLE_ROUTINES_EDUCATION_SCHOOL_INFORMATION (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 200
+            }
+        )
+
+        column LIFESTYLE_ROUTINES_LIVING_ARRANGEMENTS (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 160
+            }
+        )
+
+        column PERSONAL_SOCIAL_SKILLS (
+            reportColumnQueryId: 21
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 130
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PERSONAL_SOCIAL_SKILLS_KNOWN_TRIGGERS (
+            reportColumnQueryId: 25
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 290
+            }
+        )
+
+        column PERSONAL_SOCIAL_SKILLS_SELF_HARMING (
+            reportColumnQueryId: 23
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 270
+            }
+        )
+
+        column PERSONAL_SOCIAL_SKILLS_SUBSTANCE_ABUSE (
+            reportColumnQueryId: 24
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 280
+            }
+        )
+
+        column PERSONAL_SOCIAL_SKILLS_SUICIDAL (
+            reportColumnQueryId: 22
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 260
+            }
+        )
+
+        column PHYSICAL_SKILLS_ACTIVITY_ENDURANCE (
+            reportColumnQueryId: 17
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 110
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_BALANCE (
+            reportColumnQueryId: 18
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 120
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_COGNITIVE (
+            reportColumnQueryId: 20
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 250
+            }
+        )
+
+        column PHYSICAL_SKILLS_FINE_MOTOR (
+            reportColumnQueryId: 15
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 90
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_GROSS_MOTOR (
+            reportColumnQueryId: 16
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 100
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_HEARING (
+            reportColumnQueryId: 12
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 80
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column PHYSICAL_SKILLS_LANGUAGE (
+            reportColumnQueryId: 14
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 230
+            }
+        )
+
+        column PHYSICAL_SKILLS_MOBILITY (
+            reportColumnQueryId: 13
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 220
+            }
+        )
+
+        column PHYSICAL_SKILLS_SENSORY (
+            reportColumnQueryId: 19
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 240
+            }
+        )
+
+        column PHYSICAL_SKILLS_VISION (
+            reportColumnQueryId: 11
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 70
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column ROW_VERSION (
+            reportColumnQueryId: 56
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 600
+            }
+        )
+
+        column TREATMENT_PLAN_CLIENT_STATED_GOAL (
+            reportColumnQueryId: 41
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 450
+            }
+        )
+
+        column TREATMENT_PLAN_COMMENTS (
+            reportColumnQueryId: 51
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 550
+            }
+        )
+
+        column TREATMENT_PLAN_COMMUNITY_RESOURCES_NEEDED (
+            reportColumnQueryId: 50
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 540
+            }
+        )
+
+        column TREATMENT_PLAN_DELIVERY_METHODS (
+            reportColumnQueryId: 49
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 530
+            }
+        )
+
+        column TREATMENT_PLAN_LEISURE_EDUCATION (
+            reportColumnQueryId: 47
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 510
+            }
+        )
+
+        column TREATMENT_PLAN_PRESENTING_PROBLEM_DIAGNOSIS (
+            reportColumnQueryId: 40
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 440
+            }
+        )
+
+        column TREATMENT_PLAN_RECREATION_PARTICIPATION (
+            reportColumnQueryId: 48
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 520
+            }
+        )
+
+        column TREATMENT_PLAN_RECREATION_THERAPY_GOAL (
+            reportColumnQueryId: 42
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 460
+            }
+        )
+
+        column TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_COGNITIVE_SKILLS (
+            reportColumnQueryId: 44
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 480
+            }
+        )
+
+        column TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_PHYSICAL_SKILLS (
+            reportColumnQueryId: 45
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 490
+            }
+        )
+
+        column TREATMENT_PLAN_RECREATION_THERAPY_OBJECTIVES_SOCIALIZATION_EMOTIONAL_SKILLS (
+            reportColumnQueryId: 46
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 500
+            }
+        )
+
+        column TREATMENT_PLAN_WILL_PARTICIPATE (
+            reportColumnQueryId: 43
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 470
+            }
+        )
+
+        column UPDATED_BY (
+            reportColumnQueryId: 54
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 580
+            }
+        )
+
+        column UPDATED_ON (
+            reportColumnQueryId: 55
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 590
+            }
+        )
+
+    )
+
+    button new-assessment (
+        buttonName: NEW_ASSESSMENT
+        label: NEW ASSESSMENT
+        layout {
+            sequence: 10
+            region: @assessment
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1501
+                items: {
+                    P1501_NEW_ASSESSMENT: Y
+                }
+                clearCache: 1501
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        config {
+            buildOption: @excluded
+        }
+    )
+
+    button new-assessment-v (
+        buttonName: NEW_ASSESSMENT_v2022
+        label: NEW ASSESSMENT
+        layout {
+            sequence: 10
+            region: @assessment-v
+            slot: create
+        }
+        appearance {
+            buttonTemplate: @text
+            hot: true
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1502
+                items: {
+                    P1502_CASE_NUMBER: &CURRENT_CLIENT.
+                }
+                clearCache: 1502
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        advanced {
+            htmlDomId: NEW_ASSESSMENT_V2022
+            customAttributes: style="display: none;"
+        }
+    )
+
+    dynamicAction move-button (
+        name: move button
+        execution {
+            sequence: 10
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("#NEW_ASSESSMENT_V2022").insertAfter("#ASSESSMENT_V2022_heading");
+                    $("#NEW_ASSESSMENT_V2022").show();
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+)
+

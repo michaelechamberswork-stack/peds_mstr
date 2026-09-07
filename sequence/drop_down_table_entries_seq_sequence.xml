@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="86ad8831a26ac39351109573b9a1cc4adc843cfc" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createSxmlObject objectName="DROP_DOWN_TABLE_ENTRIES_SEQ" objectType="SEQUENCE" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[
+  <SEQUENCE xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>%USER_NAME%</SCHEMA>
+   <NAME>DROP_DOWN_TABLE_ENTRIES_SEQ</NAME>
+   <START_WITH>780</START_WITH>
+   <INCREMENT>1</INCREMENT>
+   <MINVALUE>100</MINVALUE>
+   <MAXVALUE>9999999999999999999999999999</MAXVALUE>
+   <CACHE>0</CACHE>
+   <ORDER></ORDER>
+   <SCALE>NOSCALE</SCALE>
+</SEQUENCE>]]></n0:source>
+      </n0:createSxmlObject>
+ </changeSet>
+</databaseChangeLog>

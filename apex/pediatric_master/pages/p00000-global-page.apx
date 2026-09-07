@@ -1,0 +1,158 @@
+page 0 (
+    name: Global Page
+    appearance {
+        templateOptions: #DEFAULT#
+    }
+
+    region show-objective-drawer (
+        name: Show Objective Drawer
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @inline-popup
+            templateOptions: [
+                #DEFAULT#
+                js-dialog-size600x400
+            ]
+        }
+        advanced {
+            htmlDomId: SHOW_OBJECTIVE_DRAWER
+        }
+    )
+
+    pageItem P0_N_ID (
+        type: hidden
+        settings {
+            valueProtected: false
+        }
+        layout {
+            sequence: 30
+            slot: body
+        }
+    )
+
+    pageItem P0_OBJECTIVE (
+        type: displayOnly
+        label {
+            label: Objective
+            alignment: left
+        }
+        settings {
+            sendOnPageSubmit: false
+        }
+        layout {
+            sequence: 10
+            region: @show-objective-drawer
+            slot: regionBody
+            alignment: left
+        }
+        appearance {
+            template: @optional-above
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    dynamicAction set-textarea-to (
+        name: set textarea to 100%
+        execution {
+            sequence: 10
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("textarea").each(function() {
+                        $(this).parent().css('width', '100%');
+                        $(this).css('width', '100%');
+                    });
+                    
+                    
+                    //$("input[type='text']").each(function() {
+                    //    $(this).parent().css('width', '100%');
+                    //    $(this).css('width', '100%');
+                    //});
+                    
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction show-objective (
+        name: Show Objective
+        execution {
+            sequence: 20
+        }
+        when {
+            event: custom
+            customEvent: daShowObjective
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-open-region (
+            action: openRegion
+            affectedElements {
+                selectionType: region
+                region: @show-objective-drawer
+            }
+            execution {
+                sequence: 40
+                fireOnInit: false
+            }
+        )
+
+        action native-set-value (
+            action: setValue
+            settings {
+                type: sqlQuery
+                sqlQuery:
+                    ```sql
+                    select objective
+                    from notes
+                    where n_id = :P0_N_ID
+                    ```
+                itemsToSubmit: P0_N_ID
+                escapeSpecialChars: false
+            }
+            affectedElements {
+                selectionType: items
+                items: P0_OBJECTIVE
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+        action native-set-value-2 (
+            action: setValue
+            settings {
+                type: jsExpression
+                jsExpression: this.data;
+            }
+            affectedElements {
+                selectionType: items
+                items: P0_N_ID
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+)
+

@@ -1,0 +1,134 @@
+plugin ltsDateField (
+    name: LTS Date Field
+    staticId: COM.LIFE-TS.PLUGINS.DATE_FIELD
+    type: item
+    component {
+        supports: pageItems
+        standardAttributes: [
+            visibleWidget
+            standardFormElement
+            sessionStateChangeable
+            readOnlyAttr
+            sourceAttrs
+            formatMaskDateOnly
+        ]
+    }
+    source {
+        plsqlCode:
+            ```plsql
+            FUNCTION LTS_DATE_FIELD_RENDER(
+                P_ITEM                IN APEX_PLUGIN.T_PAGE_ITEM,
+                P_PLUGIN              IN APEX_PLUGIN.T_PLUGIN,
+                P_VALUE               IN VARCHAR2,
+                P_IS_READONLY         IN BOOLEAN,
+                P_IS_PRINTER_FRIENDLY IN BOOLEAN
+                ) RETURN APEX_PLUGIN.T_PAGE_ITEM_RENDER_RESULT
+            AS
+                v_return APEX_PLUGIN.T_PAGE_ITEM_RENDER_RESULT;
+                v_page_item_name VARCHAR2(30);
+                v_html VARCHAR(4000); 
+                v_jquery VARCHAR2(4000);
+            BEGIN
+                IF APEX_APPLICATION.G_DEBUG THEN
+                    APEX_PLUGIN_UTIL.DEBUG_PAGE_ITEM(
+                        p_plugin => p_plugin,
+                        p_page_item => p_item,            
+                        p_value => p_value,
+                        p_is_readonly => p_is_readonly,
+                        p_is_printer_friendly => p_is_printer_friendly);
+                END IF;
+                        
+                IF p_is_readonly OR p_is_printer_friendly THEN
+                    APEX_PLUGIN_UTIL.PRINT_HIDDEN_IF_READONLY(
+                        p_item_name => p_item.name,
+                        p_value => p_value,
+                        p_is_readonly => p_is_readonly,
+                        p_is_printer_friendly => p_is_printer_friendly);
+                    APEX_PLUGIN_UTIL.PRINT_DISPLAY_ONLY(
+                        p_item_name => p_item.name,
+                        p_display_value => p_value,
+                        p_show_line_breaks => FALSE,
+                        p_escape => TRUE,
+                        p_attributes => p_item.element_attributes);    
+                ELSE
+                    v_page_item_name := APEX_PLUGIN.GET_INPUT_NAME_FOR_PAGE_ITEM(p_is_multi_value => FALSE);
+                    
+                    v_html := '<div id="%ID%_DIV">';
+                    
+                    v_html := v_html||'<input type="hidden" name="%NAME%" id="%ID%" value="%DATE%">';
+                    v_html := v_html||'<input type="text" size="2" maxlength="2" id="%ID%_MONTH" value="%MONTH%">';
+                    v_html := v_html||'/';
+                    v_html := v_html||'<input type="text" size="2" maxlength="2" id="%ID%_DAY" value="%DAY%">';
+                    v_html := v_html||'/';
+                    v_html := v_html||'<input type="text" size="4" maxlength="4" id="%ID%_YEAR" value="%YEAR%">';
+                    v_html := v_html||'<span id="%ID%_ERROR" class="t-Form-error"></span>';
+                    v_html := v_html||'</div>';
+            
+                    v_jquery := '$("#%ID%_DIV").on("keydown", "input", function(e) {';
+                    v_jquery := v_jquery||'  -1 !== $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) || /65|67|86|88/.test(e.keyCode) && (!0 === e.ctrlKey || !0 === e.metaKey) || 35 <= e.keyCode && 40 >= e.keyCode || (e.shiftKey || 48 > e.keyCode || 57 < e.keyCode) && (96 > e.keyCode || 105 < e.keyCode) && e.preventDefault()';
+                    v_jquery := v_jquery||'});';
+                    v_jquery := v_jquery||'$("#%ID%_DIV").on("change", "input", function(e) {';
+                    v_jquery := v_jquery||'    lts_date_field_update($("#%ID%"), $("#%ID%_MONTH"), $("#%ID%_DAY"), $("#%ID%_YEAR"), $("#%ID%_ERROR"));';
+                    v_jquery := v_jquery||'    $("#%ID%").trigger("lts_date_change");';
+                    v_jquery := v_jquery||'});';
+                    
+                    v_html := REPLACE(v_html, '%ID%', p_item.name);
+                    v_html := REPLACE(v_html, '%NAME%', v_page_item_name);
+                    v_jquery := REPLACE(v_jquery, '%ID%', p_item.name);
+                    IF p_value IS NOT NULL THEN
+                        v_html := REPLACE(v_html, '%DATE%', TO_CHAR(TO_DATE(p_value, 'MM/DD/YYYY'), 'MM/DD/YYYY'));
+                        v_html := REPLACE(v_html, '%MONTH%', TO_CHAR(TO_DATE(p_value, 'MM/DD/YYYY'), 'MM'));
+                        v_html := REPLACE(v_html, '%DAY%', TO_CHAR(TO_DATE(p_value, 'MM/DD/YYYY'), 'DD'));
+                        v_html := REPLACE(v_html, '%YEAR%', TO_CHAR(TO_DATE(p_value, 'MM/DD/YYYY'), 'YYYY'));
+                    ELSE
+                        v_html := REPLACE(v_html, '%DATE%', '');
+                        v_html := REPLACE(v_html, '%MONTH%', '');
+                        v_html := REPLACE(v_html, '%DAY%', '');
+                        v_html := REPLACE(v_html, '%YEAR%', '');
+                    END IF;
+            
+                    HTP.P(v_html);        
+                    
+                    APEX_JAVASCRIPT.ADD_ONLOAD_CODE(p_code => v_jquery);
+                END IF;
+                
+                RETURN v_return;
+            END;
+            
+            FUNCTION LTS_DATE_FIELD_VALIDATE(
+                P_ITEM                IN APEX_PLUGIN.T_PAGE_ITEM,
+                P_PLUGIN              IN APEX_PLUGIN.T_PLUGIN,
+                P_VALUE               IN VARCHAR2
+                ) RETURN APEX_PLUGIN.T_PAGE_ITEM_VALIDATION_RESULT
+            AS
+                v_return APEX_PLUGIN.T_PAGE_ITEM_VALIDATION_RESULT;
+            BEGIN
+                IF p_value = '1/1/0001' THEN
+                    APEX_UTIL.SET_SESSION_STATE(p_item.name, NULL);
+                    v_return.message := 'Invalid Date';
+                ELSIF TO_NUMBER(TO_CHAR(TO_DATE(p_value, 'MM/DD/YYYY'), 'YYYY')) < 1000 THEN
+                    v_return.message := 'Year must be 4 digits';
+                END IF;
+            
+                RETURN v_return;
+            END;
+            
+            
+            ```
+    }
+    callbacks {
+        apiInterface: function
+        renderProcedureName: lts_date_field_render
+        validationProcedureName: lts_date_field_validate
+    }
+    advanced {
+        substituteAttributeValues: true
+    }
+    javaScript {
+        fileUrls: #PLUGIN_FILES#lts_date_field.js
+    }
+    information {
+        version: 1.0
+    }
+)
+

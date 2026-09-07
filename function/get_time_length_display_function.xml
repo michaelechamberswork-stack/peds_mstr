@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="52d49f8411f32d87884c22043f15607ea11540ba" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleFunction objectName="GET_TIME_LENGTH_DISPLAY" objectType="FUNCTION" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."GET_TIME_LENGTH_DISPLAY" (p_time_length_id number)
+    return varchar2 
+as
+    l_time_length_display session_length.time_length_display%type;
+begin
+    select time_length_display
+    into l_time_length_display
+    from session_length
+    where to_number(time_length_id) = p_time_length_id;
+    
+    return l_time_length_display;
+    
+exception
+    when others then
+        return null;
+end;
+/]]></n0:source>
+      </n0:createOracleFunction>
+ </changeSet>
+</databaseChangeLog>

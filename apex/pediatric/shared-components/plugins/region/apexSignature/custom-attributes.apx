@@ -1,0 +1,348 @@
+customAttribute attribute_01 (
+    apexlangName: width
+    attribute: 1
+    name: Width
+    type: number
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 10
+    }
+    default {
+        value: 600
+    }
+    help {
+        helpText: Width of signature area
+    }
+)
+
+customAttribute attribute_02 (
+    apexlangName: height
+    attribute: 2
+    name: Height
+    type: number
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 20
+    }
+    default {
+        value: 400
+    }
+    help {
+        helpText: Height of signature area
+    }
+)
+
+customAttribute attribute_03 (
+    apexlangName: lineMinwidth
+    attribute: 3
+    name: Line minWidth
+    type: number
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 30
+    }
+    default {
+        value: 0.5
+    }
+    help {
+        helpText: Minimum width of a line. Defaults to 0.5
+    }
+)
+
+customAttribute attribute_04 (
+    apexlangName: lineMaxwidth
+    attribute: 4
+    name: Line maxWidth
+    type: number
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 40
+    }
+    default {
+        value: 2.5
+    }
+    help {
+        helpText: Maximum width of a line. Defaults to 2.5
+    }
+)
+
+customAttribute attribute_05 (
+    apexlangName: backgroundColor
+    attribute: 5
+    name: Background Color
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 50
+    }
+    default {
+        value: rgba(0,0,0,0)
+    }
+    help {
+        helpText: Background color of signature area. Defaults to "rgba(0,0,0,0)"
+    }
+    examples {
+        examples:
+            ```
+            rgba(0,0,0,0) - transparent black<br>
+            rgb(255,255,255) - opaque white<br>
+            #FFFFFF - white<br>
+            red
+            ```
+    }
+)
+
+customAttribute attribute_06 (
+    apexlangName: penColor
+    attribute: 6
+    name: Pen color
+    appearance {
+        sequence: 60
+    }
+    default {
+        value: black
+    }
+    help {
+        helpText: Color used to draw the lines. Defaults to "black"
+    }
+    examples {
+        examples:
+            ```
+            black<br>
+            #FFFFFF<br>
+            red
+            ```
+    }
+)
+
+customAttribute attribute_07 (
+    apexlangName: plsqlCode
+    attribute: 7
+    name: PLSQL Code
+    type: plsqlCode
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 70
+    }
+    default {
+        value:
+            ```
+            DECLARE
+              --
+              l_collection_name VARCHAR2(100);
+              l_clob            CLOB;
+              l_blob            BLOB;
+              l_filename        VARCHAR2(100);
+              l_mime_type       VARCHAR2(100);
+              l_token           VARCHAR2(32000);
+              --
+            BEGIN
+              -- get defaults
+              l_filename  := 'signature_' ||
+                             to_char(et_sysdate,
+                                     'YYYYMMDDHH24MISS') || '.png';
+              l_mime_type := 'image/png';
+              -- build CLOB from f01 30k Array
+              dbms_lob.createtemporary(l_clob,
+                                       FALSE,
+                                       dbms_lob.session);
+            
+              FOR i IN 1 .. apex_application.g_f01.count LOOP
+                l_token := wwv_flow.g_f01(i);
+              
+                IF length(l_token) > 0 THEN
+                  dbms_lob.writeappend(l_clob,
+                                       length(l_token),
+                                       l_token);
+                END IF;
+              END LOOP;
+              --
+              -- convert base64 CLOB to BLOB (mimetype: image/png)
+              l_blob := apex_web_service.clobbase642blob(p_clob => l_clob);
+              --
+              -- create own collection (here starts custom part (for example a Insert statement))
+              -- collection name
+              l_collection_name := 'APEX_SIGNATURE';
+              -- check if exist
+              IF NOT
+                  apex_collection.collection_exists(p_collection_name => l_collection_name) THEN
+                apex_collection.create_collection(l_collection_name);
+              END IF;
+              -- add collection member (only if BLOB not null)
+              IF dbms_lob.getlength(lob_loc => l_blob) IS NOT NULL THEN
+                apex_collection.add_member(p_collection_name => l_collection_name,
+                                           p_c001            => l_filename, -- filename
+                                           p_c002            => l_mime_type, -- mime_type
+                                           p_d001            => et_sysdate, -- date created
+                                           p_blob001         => l_blob); -- BLOB img content
+              END IF;
+              --
+            END;
+            ```
+    }
+    help {
+        helpText:
+            ```
+            PLSQL code which saves the resulting image to database tables or collections.<br>
+            Default to Collection "APEX_SIGNATURE".<br>
+            Column c001 => filename<br>
+            Column c002 => mime_type<br>
+            Column d001 => date created<br>
+            Column blob001 => BLOB of image<br>
+            ```
+    }
+    examples {
+        examples:
+            ```
+            SELECT c001    AS filename,<br>
+                   c002    AS mime_type,<br>
+                   d001    AS date_created,<br>
+                   blob001 AS img_content<br>
+              FROM apex_collections<br>
+             WHERE collection_name = 'APEX_SIGNATURE';
+            ```
+    }
+)
+
+customAttribute attribute_08 (
+    apexlangName: logging
+    attribute: 8
+    name: Logging
+    type: selectList
+    appearance {
+        sequence: 130
+    }
+    default {
+        value: false
+    }
+    help {
+        helpText: Whether to log events in the console.
+    }
+
+    entry false (
+        sequence: 20
+        display: False
+        return: false
+    )
+
+    entry true (
+        sequence: 10
+        display: True
+        return: true
+    )
+
+)
+
+customAttribute attribute_09 (
+    apexlangName: clearButtonJquerySelector
+    attribute: 9
+    name: Clear Button JQuery Selector
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 90
+    }
+    help {
+        helpText:
+            ```
+            JQuery Selector to identify the "Clear Button" to clear signature area.<br>
+            This selector is internally used for "onclick" event.
+            ```
+    }
+    examples {
+        examples:
+            ```
+            #MY_BUTTON_STATIC_ID<br>
+            .my_button_class<br>
+            ```
+    }
+)
+
+customAttribute attribute_10 (
+    apexlangName: saveButtonJquerySelector
+    attribute: 10
+    name: Save Button JQuery Selector
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 100
+    }
+    help {
+        helpText:
+            ```
+            JQuery Selector to identify the "Save Button" to save signature into Database.<br>
+            This selector is internally used for "onclick" event.
+            ```
+    }
+    examples {
+        examples:
+            ```
+            #MY_BUTTON_STATIC_ID<br>
+            .my_button_class<br>
+            ```
+    }
+)
+
+customAttribute attribute_11 (
+    apexlangName: saveEmptySignatureAlertText
+    attribute: 11
+    name: Save empty Signature Alert text
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 110
+    }
+    default {
+        value: Signature must have a value
+    }
+    help {
+        helpText: Alert text when a User tries to save a empty signature.
+    }
+)
+
+customAttribute attribute_12 (
+    apexlangName: showWaitspinner
+    attribute: 12
+    name: Show WaitSpinner
+    type: selectList
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 120
+    }
+    default {
+        value: false
+    }
+    help {
+        helpText: Show/Hide wait spinner when saving image into database
+    }
+
+    entry false (
+        sequence: 20
+        display: False
+        return: false
+    )
+
+    entry true (
+        sequence: 10
+        display: True
+        return: true
+    )
+
+)
+

@@ -1,0 +1,568 @@
+page 1600 (
+    name: drop down entries
+    alias: DROP-DOWN-ENTRIES
+    title: drop down entries
+    appearance {
+        pageTemplate: @standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    security {
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region drop-down-entries (
+        name: drop down entries
+        title: drop down entries
+        type: staticContent
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--scrollBody
+            ]
+        }
+    )
+
+    region drop-down-entries-report (
+        name: drop down entries report
+        type: classicReport
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select DROP_DOWN_TYPE_ENTRY_ID,
+                       DROP_DOWN_TYPE_ID,
+                       ENTRY,
+                       VALUE,
+                       ORDER_BY,
+                       EXTRA,
+                       CREATED_BY,
+                       CREATED_ON,
+                       UPDATED_BY,
+                       UPDATED_ON,
+                       ROW_VERSION,
+                       NULL COLOR_CSS_CODE 
+                       --CASE WHEN MOD(ROWNUM, 2) = 1 THEN 'u-color-12' ELSE 'u-color-16' END COLOR_CSS_CODE
+                  from DROP_DOWN_TYPE_ENTRY
+                ```
+        }
+        layout {
+            sequence: 20
+            parentRegion: @drop-down-entries
+            slot: subRegions
+            startNewRow: false
+            newColumn: false
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--noPadding
+                t-Region--hideHeader
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: drop_down_entries_report
+        }
+        reportLayout {
+            numberOfRows: 50
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+                t-Report--inline
+                t-Report--hideNoPagination
+            ]
+        }
+        pagination {
+            type: nextAndPreviousLinks
+        }
+        performance {
+            maxRowsToProcess: 500
+        }
+        messages {
+            whenNoDataFound: no data found
+        }
+
+        column COLOR_CSS_CODE (
+            reportColumnQueryId: 12
+            derivedColumn: N
+            heading {
+                heading: Color Css Code
+            }
+            layout {
+                sequence: 21
+            }
+        )
+
+        column CREATED_BY (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            heading {
+                heading: Created By
+            }
+            layout {
+                sequence: 7
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column CREATED_ON (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            heading {
+                heading: Created On
+            }
+            layout {
+                sequence: 8
+            }
+            appearance {
+                formatMask: SINCE
+            }
+        )
+
+        column DROP_DOWN_TYPE_ENTRY_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                heading: Drop Down Type Entry Id
+            }
+            layout {
+                sequence: 0
+            }
+            link {
+                target: {
+                    page: 1601
+                    items: {
+                        P1601_DROP_DOWN_TYPE_ENTRY_ID: #DROP_DOWN_TYPE_ENTRY_ID#
+                    }
+                    clearCache: 1601
+                }
+                linkText: #DROP_DOWN_TYPE_ENTRY_ID#
+                linkAttributes: class="lts-bg-color #COLOR_CSS_CODE#"
+            }
+        )
+
+        column DROP_DOWN_TYPE_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: plainTextBasedOnLov
+            heading {
+                heading: Drop Down Type
+            }
+            lov {
+                type: sharedComponent
+                lov: @drop-down-type-type-name
+            }
+            layout {
+                sequence: 2
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column ENTRY (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: Entry
+            }
+            layout {
+                sequence: 3
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column EXTRA (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            heading {
+                heading: Extra
+            }
+            layout {
+                sequence: 6
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column ORDER_BY (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: Order By
+                alignment: end
+            }
+            layout {
+                sequence: 5
+                columnAlignment: end
+            }
+            appearance {
+                formatMask: 999G999G999G999G999G999G999G999G999G990
+            }
+        )
+
+        column ROW_VERSION (
+            reportColumnQueryId: 11
+            derivedColumn: N
+            heading {
+                heading: Row Version
+                alignment: end
+            }
+            layout {
+                sequence: 11
+                columnAlignment: end
+            }
+            appearance {
+                formatMask: 999G999G999G999G999G999G999G999G999G990
+            }
+        )
+
+        column UPDATED_BY (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            heading {
+                heading: Updated By
+            }
+            layout {
+                sequence: 9
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column UPDATED_ON (
+            reportColumnQueryId: 10
+            derivedColumn: N
+            heading {
+                heading: Updated On
+            }
+            layout {
+                sequence: 10
+            }
+            appearance {
+                formatMask: SINCE
+            }
+        )
+
+        column VALUE (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: Value
+            }
+            layout {
+                sequence: 4
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+    )
+
+    region drop-down-entries-search (
+        name: drop down entries search
+        type: smartFilters
+        source {
+            filteredRegion: @drop-down-entries-report
+        }
+        layout {
+            sequence: 10
+            parentRegion: @drop-down-entries
+            slot: subRegions
+            startNewRow: false
+        }
+        appearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
+                t-Region--scrollBody
+            ]
+        }
+        advanced {
+            htmlDomId: drop_down_entries_search
+        }
+        settings {
+            compactNosThreshold: 10000
+        }
+
+        filter P1600_DROP_DOWN_TYPE_ID (
+            type: checkboxGroup
+            label {
+                label: drop down type
+            }
+            lov {
+                type: sharedComponent
+                lov: @drop-down-type-type-name
+            }
+            layout {
+                sequence: 20
+            }
+            suggestions {
+                type: dynamic
+            }
+            source {
+                databaseColumn: DROP_DOWN_TYPE_ID
+            }
+        )
+
+        filter P1600_ENTRY (
+            type: checkboxGroup
+            label {
+                label: Entry
+            }
+            lov {
+                type: distinctValues
+            }
+            layout {
+                sequence: 30
+            }
+            suggestions {
+                type: dynamic
+            }
+            source {
+                databaseColumn: ENTRY
+            }
+        )
+
+        filter P1600_SEARCH (
+            type: search
+            label {
+                label: Search
+            }
+            layout {
+                sequence: 10
+            }
+        )
+
+    )
+
+    button copy-type-group (
+        buttonName: copy_type_group
+        label: Copy Type Group
+        layout {
+            sequence: 30
+            region: @drop-down-entries
+            slot: regionBody
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1603
+                clearCache: 1603
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        advanced {
+            htmlDomId: copy_type_group
+            customAttributes: style="display: none;"
+        }
+    )
+
+    button create-entry (
+        buttonName: create_entry
+        label: Create Entry
+        layout {
+            sequence: 10
+            region: @drop-down-entries
+            slot: regionBody
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1601
+                clearCache: 1601
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        advanced {
+            htmlDomId: create_entry
+            customAttributes: style="display: none;"
+        }
+    )
+
+    button create-type (
+        buttonName: create_type
+        label: Create Type
+        layout {
+            sequence: 20
+            region: @drop-down-entries
+            slot: regionBody
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: #DEFAULT#
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1602
+                clearCache: 1602
+            }
+            warnOnUnsavedChanges: doNotCheck
+        }
+        advanced {
+            htmlDomId: create_type
+            customAttributes: style="display: none;"
+        }
+    )
+
+    dynamicAction move-buttons (
+        name: Move Buttons
+        execution {
+            sequence: 30
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $("#copy_type_group").insertAfter("#drop_down_entries_search_fr_search");
+                    $("#create_type").insertAfter("#drop_down_entries_search_fr_search");
+                    $("#create_entry").insertAfter("#drop_down_entries_search_fr_search");
+                    $("#copy_type_group").show();
+                    $("#create_type").show();
+                    $("#create_entry").show();
+                    
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction refresh-report (
+        name: Refresh Report
+        execution {
+            sequence: 40
+        }
+        when {
+            event: apexafterclosedialog
+            selectionType: jsExpression
+            javaScriptExpression: document
+        }
+
+        action native-refresh (
+            action: refresh
+            affectedElements {
+                selectionType: region
+                region: @drop-down-entries-report
+            }
+            execution {
+                sequence: 10
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction select-drop-down-entries-report-refresh (
+        name: Select Drop Down Entries Report Refresh
+        execution {
+            sequence: 10
+        }
+        when {
+            event: apexafterrefresh
+            selectionType: region
+            region: @drop-down-entries
+        }
+
+        action set-row-colors (
+            name: Set Row Colors
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $('.lts-bg-color:first').parents('table tbody').children('tr:even').children('td').addClass('u-color-16');
+                    $('.lts-bg-color:first').parents('table tbody').children('tr:odd').children('td').addClass('u-color-12');
+                    
+                    $('.lts-bg-color').each(function() {
+                        $(this).parents('tr').children('td').addClass( $(this).attr('class') ) ;
+                        $(this).parents('tr').children('td').removeClass('lts-bg-color') ;
+                        $(this).parents('tr').addClass('lts-bg-color') ;
+                        $(this).parents('tr').attr('href', $(this).attr('href'));
+                        $(this).parents('tr').children('td').on('click', function(event){event.preventDefault();apex.navigation.redirect($(this).parents('tr').attr('href'))});
+                        $('#' + $(this).parents('td').attr('headers')).hide();
+                        $(this).parents('td').hide();
+                        $(this).removeClass();
+                    });
+                    
+                    $('.lts-alert-class').each(function() {
+                        $(this).parents('td').removeClass(function (index, className) {
+                            return (className.match (/(^|\s)u-color-\S+/g) || []).join(' ');
+                        });
+                        $(this).removeClass('lts-alert-class');
+                        $(this).parents('td').addClass( $(this).attr('class') ) ;
+                        $(this).remove();
+                    });
+                    
+                    
+                    ```
+            }
+            execution {
+                sequence: 20
+                fireOnInit: false
+            }
+        )
+
+    )
+
+    dynamicAction set-row-colors (
+        name: Set Row Colors
+        execution {
+            sequence: 20
+        }
+        when {
+            event: ready
+        }
+
+        action refresh-report (
+            name: Refresh Report
+            action: refresh
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+)
+

@@ -1,0 +1,13 @@
+customAttribute attribute_01 (
+    apexlangName: itemWhereTheButtonIsAdded
+    attribute: 1
+    name: Item where the button is added
+    type: pageItem
+    validation {
+        required: true
+    }
+    appearance {
+        sequence: 10
+    }
+)
+
