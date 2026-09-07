@@ -3,7 +3,7 @@ page 1900 (
     alias: CASE-FOLDER
     title: Case Folder
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -83,7 +83,7 @@ page 1900 (
             slot: body
         }
         appearance {
-            template: @interactive-report
+            template: @/interactive-report
             templateOptions: #DEFAULT#
         }
         pagination {
@@ -92,6 +92,13 @@ page 1900 (
         messages {
             whenNoDataFound: No data found.
             whenMoreDataFound: The maximum row count for this report is #MAX_ROW_COUNT# rows.  Please apply a filter to reduce the number of records in your query.
+        }
+        searchBar {
+            rowsPerPageSelector: true
+        }
+        actionsMenu {
+            rowsPerPage: false
+            savePublicReport: true
         }
         advanced {
             savedReportMappingIdentifier: 66321935452209261

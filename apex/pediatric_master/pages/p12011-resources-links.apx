@@ -3,7 +3,7 @@ page 12011 (
     alias: RESOURCES-LINKS
     title: RESOURCES LINKS
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -43,7 +43,7 @@ page 12011 (
             slot: body
         }
         appearance {
-            template: @interactive-report
+            template: @/interactive-report
             templateOptions: #DEFAULT#
         }
         componentAppearance {

@@ -3,7 +3,7 @@ page 1221 (
     title: SEND SIGNATURE REQUEST
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        dialogTemplate: @/modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -28,7 +28,7 @@ page 1221 (
             slot: dialogFooter
         }
         appearance {
-            template: @buttons-container
+            template: @/buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -48,7 +48,7 @@ page 1221 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -90,7 +90,7 @@ page 1221 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
         }
@@ -139,7 +139,7 @@ page 1221 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
         }
@@ -157,12 +157,20 @@ page 1221 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
+
+        triggerAction native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button save (
@@ -174,55 +182,21 @@ page 1221 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
-        }
-    )
-
-    dynamicAction cancel-dialog (
-        name: Cancel Dialog
-        execution {
-            sequence: 10
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @cancel
+            action: triggerAction
         }
 
-        action native-dialog-cancel (
-            action: cancelDialog
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction send-notifications (
-        name: Send Notifications
-        execution {
-            sequence: 70
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @save
-        }
-
-        action native-javascript-code (
+        triggerAction native-javascript-code (
             action: executeJsCode
             settings {
                 jsCode: apex.event.trigger(document, "test_email", "");
             }
             execution {
                 sequence: 10
-                fireOnInit: false
             }
         )
 

@@ -1,8 +1,5 @@
 page 0 (
     name: Global Page
-    appearance {
-        templateOptions: #DEFAULT#
-    }
 
     region show-objective-drawer (
         name: Show Objective Drawer
@@ -12,7 +9,7 @@ page 0 (
             slot: body
         }
         appearance {
-            template: @inline-popup
+            template: @/inline-popup
             templateOptions: [
                 #DEFAULT#
                 js-dialog-size600x400
@@ -50,7 +47,7 @@ page 0 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
     )

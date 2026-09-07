@@ -3,7 +3,7 @@ page 1101 (
     title: OBJECTIVE
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        dialogTemplate: @/modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -36,7 +36,7 @@ page 1101 (
             slot: dialogFooter
         }
         appearance {
-            template: @buttons-container
+            template: @/buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -57,7 +57,7 @@ page 1101 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -102,7 +102,7 @@ page 1101 (
             slot: regionBody
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -142,7 +142,7 @@ page 1101 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -191,7 +191,7 @@ page 1101 (
             slot: regionBody
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -214,12 +214,20 @@ page 1101 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
+
+        triggerAction native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button create (
@@ -231,7 +239,7 @@ page 1101 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -254,11 +262,11 @@ page 1101 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         serverSideCondition {
             type: expression
@@ -268,6 +276,28 @@ page 1101 (
                 AND :P1101_O_ID IS NOT NULL
                 ```
         }
+
+        triggerAction native-submit-page (
+            action: submitPage
+            settings {
+                requestButtonName: DELETE_OBJECTIVE
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+        triggerAction plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Delete this objective?
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button save (
@@ -279,7 +309,7 @@ page 1101 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -295,63 +325,6 @@ page 1101 (
                 AND :READ_ONLY_ACCESS != 'Y'
                 ```
         }
-    )
-
-    dynamicAction cancel-dialog (
-        name: Cancel Dialog
-        execution {
-            sequence: 10
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @cancel
-        }
-
-        action native-dialog-cancel (
-            action: cancelDialog
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction delete-objective (
-        name: Delete Objective
-        execution {
-            sequence: 20
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @delete
-        }
-
-        action native-submit-page (
-            action: submitPage
-            settings {
-                requestButtonName: DELETE_OBJECTIVE
-            }
-            execution {
-                sequence: 20
-                fireOnInit: false
-            }
-        )
-
-        action plugin-be-ctb-alertify (
-            action: plugin/alertify
-            settings {
-                dialogType: confirm
-                message: Delete this objective?
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
     )
 
     process delete-objective (

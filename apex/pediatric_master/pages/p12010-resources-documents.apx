@@ -3,7 +3,7 @@ page 12010 (
     alias: RESOURCES-DOCUMENTS
     title: RESOURCES DOCUMENTS
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -44,7 +44,7 @@ page 12010 (
             slot: body
         }
         appearance {
-            template: @interactive-report
+            template: @/interactive-report
             templateOptions: #DEFAULT#
         }
         componentAppearance {

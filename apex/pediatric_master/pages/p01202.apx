@@ -3,7 +3,7 @@ page 1202 (
     title: NOTES
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        dialogTemplate: @/modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -39,7 +39,7 @@ page 1202 (
             slot: dialogFooter
         }
         appearance {
-            template: @buttons-container
+            template: @/buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -60,7 +60,7 @@ page 1202 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -82,7 +82,7 @@ page 1202 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -149,7 +149,7 @@ page 1202 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -200,7 +200,7 @@ page 1202 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -260,12 +260,20 @@ page 1202 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
+
+        triggerAction native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button delete (
@@ -277,16 +285,38 @@ page 1202 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         serverSideCondition {
             type: expression
             plsqlExpression: :APP_MODE = 'A'
         }
+
+        triggerAction native-submit-page (
+            action: submitPage
+            settings {
+                requestButtonName: DELETE_NOTE
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+        triggerAction plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Delete the objective from this session?
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button save (
@@ -298,7 +328,7 @@ page 1202 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -315,63 +345,6 @@ page 1202 (
                 AND :P1202_READ_ONLY != 'Y'
                 ```
         }
-    )
-
-    dynamicAction cancel-dialog (
-        name: Cancel Dialog
-        execution {
-            sequence: 10
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @cancel
-        }
-
-        action native-dialog-cancel (
-            action: cancelDialog
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction delete-objective (
-        name: Delete Objective
-        execution {
-            sequence: 20
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @delete
-        }
-
-        action native-submit-page (
-            action: submitPage
-            settings {
-                requestButtonName: DELETE_NOTE
-            }
-            execution {
-                sequence: 20
-                fireOnInit: false
-            }
-        )
-
-        action plugin-be-ctb-alertify (
-            action: plugin/alertify
-            settings {
-                dialogType: confirm
-                message: Delete the objective from this session?
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
     )
 
     dynamicAction disable-copy (

@@ -2,7 +2,7 @@ page 1 (
     name: Home
     title: Home
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -24,7 +24,7 @@ page 1 (
             slot: body
         }
         appearance {
-            template: @inline-dialog
+            template: @/inline-dialog
             templateOptions: [
                 #DEFAULT#
                 js-dialog-size600x400
@@ -41,7 +41,7 @@ page 1 (
             slot: subRegions
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -91,16 +91,18 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
                 t-Region--scrollBody
             ]
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Report--stretch
                 t-Report--altRowsDefault
                 t-Report--rowHighlight
             ]
@@ -152,13 +154,14 @@ page 1 (
             }
             layout {
                 sequence: 6
+                columnAlignment: center
             }
             link {
                 target: {
                     type: url
                     url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=#CASE_NUMBER#&prompt2=#SESSION_MONTH#&prompt3=A
                 }
-                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkText: <span class="fa fa-print" aria-hidden="true"></span>
                 linkAttributes: target="_blank"
             }
             sorting {
@@ -210,9 +213,10 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
                 t-Region--scrollBody
             ]
         }
@@ -240,7 +244,7 @@ page 1 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -256,7 +260,7 @@ page 1 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -280,7 +284,7 @@ page 1 (
             slot: subRegions
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -320,14 +324,15 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
                 t-Region--scrollBody
             ]
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -385,6 +390,7 @@ page 1 (
             }
             layout {
                 sequence: 7
+                columnAlignment: center
             }
             link {
                 target: {
@@ -396,7 +402,7 @@ page 1 (
                     }
                     clearCache: 1301
                 }
-                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+                linkText: <span aria-hidden="true" class="fa fa-pencil"></span>
             }
         )
 
@@ -409,13 +415,14 @@ page 1 (
             }
             layout {
                 sequence: 8
+                columnAlignment: center
             }
             link {
                 target: {
                     type: url
                     url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=#S_ID#&prompt3=N&prompt4=1/1/1900&prompt5=1/1/9999
                 }
-                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkText: <span class="fa fa-print" aria-hidden="true"></span>
                 linkAttributes: target="_blank"
             }
         )
@@ -430,13 +437,14 @@ page 1 (
             }
             layout {
                 sequence: 1
+                columnAlignment: center
             }
             link {
                 target: {
                     type: url
                     url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=0&prompt3=M&prompt4=#SDATE#&prompt5=#EDATE#
                 }
-                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkText: <span class="fa fa-print" aria-hidden="true"></span>
                 linkAttributes: target="_blank"
             }
         )
@@ -507,9 +515,10 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
                 t-Region--scrollBody
             ]
         }
@@ -538,7 +547,7 @@ page 1 (
             slot: subRegions
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -564,7 +573,7 @@ page 1 (
                     date_session,
                     time_length,
                     CASE WHEN late_reason IS NOT NULL THEN
-                        '<a href="'||APEX_UTIL.PREPARE_URL('f?p=&APP_ID.:1303:&APP_SESSION.::NO:RP,1303:P1303_S_ID:'||s_id)||'"><img src="#IMAGE_PREFIX#menu/pin_32.gif" width="20px" height="20px" alt="Late" /></a>'
+                        '<a href="'||APEX_UTIL.PREPARE_URL('f?p=&APP_ID.:1303:&APP_SESSION.::NO:RP,1303:P1303_S_ID:'||s_id)||'"><span aria-hidden="true" class="fa fa-clock-o fam-warning fam-is-danger"></span></a>'
                     ELSE
                         NULL
                     END late,
@@ -580,14 +589,15 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
                 t-Region--scrollBody
             ]
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -633,6 +643,7 @@ page 1 (
             }
             layout {
                 sequence: 7
+                columnAlignment: center
             }
             link {
                 target: {
@@ -644,7 +655,7 @@ page 1 (
                     }
                     clearCache: 1301
                 }
-                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+                linkText: <span aria-hidden="true" class="fa fa-pencil"></span>
             }
         )
 
@@ -657,6 +668,7 @@ page 1 (
             }
             layout {
                 sequence: 6
+                columnAlignment: center
             }
             serverSideCondition {
                 type: rowsReturned
@@ -682,13 +694,14 @@ page 1 (
             }
             layout {
                 sequence: 8
+                columnAlignment: center
             }
             link {
                 target: {
                     type: url
                     url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=#S_ID#&prompt3=N&prompt4=1/1/1900&prompt5=1/1/9999
                 }
-                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkText: <span class="fa fa-print" aria-hidden="true"></span>
                 linkAttributes: target="_blank"
             }
         )
@@ -702,6 +715,7 @@ page 1 (
             }
             layout {
                 sequence: 1
+                columnAlignment: center
             }
             link {
                 target: {
@@ -713,7 +727,7 @@ page 1 (
                     clearCache: 1301
                     action: resetPagination
                 }
-                linkText: <span aria-hidden="true" class="fa fa-glasses"></span>
+                linkText: <span aria-hidden="true" class="fa fa-eye"></span>
             }
         )
 
@@ -765,9 +779,10 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
                 t-Region--scrollBody
             ]
         }
@@ -796,7 +811,7 @@ page 1 (
             slot: subRegions
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -833,9 +848,10 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
                 t-Region--scrollBody
             ]
         }
@@ -844,7 +860,7 @@ page 1 (
             plsqlExpression: lts_settings.is_app_admin
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -893,6 +909,7 @@ page 1 (
             }
             layout {
                 sequence: 6
+                columnAlignment: center
             }
             link {
                 target: {
@@ -904,7 +921,7 @@ page 1 (
                     }
                     clearCache: 1301
                 }
-                linkText: <img src="#IMAGE_PREFIX#app_ui/img/icons/apex-edit-pencil.png" class="apex-edit-pencil" alt="">
+                linkText: <span aria-hidden="true" class="fa fa-pencil"></span>
             }
         )
 
@@ -917,13 +934,14 @@ page 1 (
             }
             layout {
                 sequence: 7
+                columnAlignment: center
             }
             link {
                 target: {
                     type: url
                     url: &REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=#S_ID#&prompt3=N&prompt4=1/1/1900&prompt5=1/1/9999
                 }
-                linkText: <img src="#IMAGE_PREFIX#menu/printer_64.gif" alt="" height="20px" width="20px">
+                linkText: <span class="fa fa-print" aria-hidden="true"></span>
                 linkAttributes: target="_blank"
             }
         )
@@ -985,9 +1003,10 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
+                t-Region--removeHeader js-removeLandmark
                 t-Region--scrollBody
             ]
         }
@@ -1045,7 +1064,7 @@ page 1 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         default {
@@ -1086,7 +1105,7 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @text-with-icon
+            buttonTemplate: @/text-with-icon
             templateOptions: [
                 #DEFAULT#
                 t-Button--iconLeft
@@ -1094,11 +1113,22 @@ page 1 (
             icon: fa-print
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             customAttributes: target="_blank"
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button billing-current-month-with-notes (
@@ -1110,7 +1140,7 @@ page 1 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @text-with-icon
+            buttonTemplate: @/text-with-icon
             templateOptions: [
                 #DEFAULT#
                 t-Button--iconLeft
@@ -1118,11 +1148,22 @@ page 1 (
             icon: fa-print
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             customAttributes: target="_blank"
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoicewithsessionnotes.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button billing-previous-month (
@@ -1135,7 +1176,7 @@ page 1 (
             startNewRow: false
         }
         appearance {
-            buttonTemplate: @text-with-icon
+            buttonTemplate: @/text-with-icon
             templateOptions: [
                 #DEFAULT#
                 t-Button--iconLeft
@@ -1143,11 +1184,22 @@ page 1 (
             icon: fa-print
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             customAttributes: target="_blank"
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
     )
 
     button billing-previous-month-with-notes (
@@ -1160,7 +1212,7 @@ page 1 (
             startNewRow: false
         }
         appearance {
-            buttonTemplate: @text-with-icon
+            buttonTemplate: @/text-with-icon
             templateOptions: [
                 #DEFAULT#
                 t-Button--iconLeft
@@ -1168,11 +1220,22 @@ page 1 (
             icon: fa-print
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             customAttributes: target="_blank"
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoicewithsessionnotes.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button print-activity-review (
@@ -1184,16 +1247,27 @@ page 1 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
             icon: fa-print
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             customAttributes: target="_blank"
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=0&prompt3=Y&prompt4=1/1/1900&prompt5=1/1/9999")
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button print-current-month-billing (
@@ -1205,12 +1279,12 @@ page 1 (
             slot: aboveBox
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
             icon: fa-print
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             customAttributes: target="_blank"
@@ -1218,6 +1292,17 @@ page 1 (
         serverSideCondition {
             type: never
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button print-previous-month-billing (
@@ -1229,12 +1314,12 @@ page 1 (
             slot: aboveBox
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
             icon: fa-print
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             customAttributes: target="_blank"
@@ -1242,6 +1327,17 @@ page 1 (
         serverSideCondition {
             type: never
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button test (
@@ -1253,123 +1349,15 @@ page 1 (
             slot: aboveBox
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
             icon: fa-print
         }
         behavior {
-            action: definedByDynamicAction
-        }
-    )
-
-    dynamicAction billing-current-month (
-        name: Billing Current Month
-        execution {
-            sequence: 60
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @billing-current-month
+            action: triggerAction
         }
 
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction billing-current-month-with-notes (
-        name: Billing Current Month With Notes
-        execution {
-            sequence: 80
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @billing-current-month-with-notes
-        }
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoicewithsessionnotes.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction billing-previous-month (
-        name: Billing Previous Month
-        execution {
-            sequence: 70
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @billing-previous-month
-        }
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
-            }
-            execution {
-                sequence: 20
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction billing-previous-month-with-notes (
-        name: Billing Previous Month With Notes
-        execution {
-            sequence: 90
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @billing-previous-month-with-notes
-        }
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoicewithsessionnotes.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction open-print-region (
-        name: Open Print Region
-        execution {
-            sequence: 50
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @test
-        }
-
-        action native-open-region (
+        triggerAction native-open-region (
             action: openRegion
             affectedElements {
                 selectionType: region
@@ -1377,79 +1365,6 @@ page 1 (
             }
             execution {
                 sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction print-current-month-billing (
-        name: Print Current Month Billing
-        execution {
-            sequence: 30
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @print-current-month-billing
-        }
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_CURRENT_MONTH.&prompt3=A");
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction print-previous-billing-month (
-        name: Print Previous Billing Month
-        execution {
-            sequence: 40
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @print-previous-month-billing
-        }
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/invoice.rpt&prompt1=-1&prompt2=&P1_PREVIOUS_MONTH.&prompt3=A")
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction print-session-review (
-        name: Print Session Review
-        execution {
-            sequence: 20
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @print-activity-review
-        }
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode: window.open("&REPORT_URL./pdfreport.aspx?&DEV.report=peds_mstr/session.rpt&prompt1=0&prompt2=0&prompt3=Y&prompt4=1/1/1900&prompt5=1/1/9999")
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
             }
         )
 

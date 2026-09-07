@@ -4,7 +4,7 @@ page 1601 (
     title: drop down entry
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        dialogTemplate: @/modal-dialog
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -23,7 +23,7 @@ page 1601 (
             slot: dialogFooter
         }
         appearance {
-            template: @buttons-container
+            template: @/buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -43,7 +43,7 @@ page 1601 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -69,7 +69,7 @@ page 1601 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -94,7 +94,7 @@ page 1601 (
             column: 4
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -142,7 +142,7 @@ page 1601 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -169,7 +169,7 @@ page 1601 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
         }
@@ -197,7 +197,7 @@ page 1601 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
         }
@@ -224,7 +224,7 @@ page 1601 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -252,7 +252,7 @@ page 1601 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -275,7 +275,7 @@ page 1601 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -300,7 +300,7 @@ page 1601 (
             column: 4
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -323,7 +323,7 @@ page 1601 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -347,12 +347,20 @@ page 1601 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
+
+        triggerAction native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button create (
@@ -364,7 +372,7 @@ page 1601 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -387,7 +395,7 @@ page 1601 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -415,7 +423,7 @@ page 1601 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -427,27 +435,6 @@ page 1601 (
             type: itemIsNotNull
             item: P1601_DROP_DOWN_TYPE_ENTRY_ID
         }
-    )
-
-    dynamicAction cancel-dialog (
-        name: Cancel Dialog
-        execution {
-            sequence: 10
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @cancel
-        }
-
-        action native-dialog-cancel (
-            action: cancelDialog
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
     )
 
     dynamicAction set-text-fields (

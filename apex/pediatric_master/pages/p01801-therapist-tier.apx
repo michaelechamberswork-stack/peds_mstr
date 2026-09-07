@@ -4,7 +4,7 @@ page 1801 (
     title: Therapist Tier
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @drawer
+        dialogTemplate: @/drawer
         templateOptions: [
             #DEFAULT#
             js-dialog-class-t-Drawer--pullOutEnd
@@ -30,7 +30,7 @@ page 1801 (
             slot: dialogFooter
         }
         appearance {
-            template: @buttons-container
+            template: @/buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -50,7 +50,7 @@ page 1801 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -80,7 +80,7 @@ page 1801 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -111,7 +111,7 @@ page 1801 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -134,12 +134,20 @@ page 1801 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
+
+        triggerAction native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button save (
@@ -151,7 +159,7 @@ page 1801 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -159,27 +167,6 @@ page 1801 (
             warnOnUnsavedChanges: doNotCheck
             databaseAction: update
         }
-    )
-
-    dynamicAction cancel-dialog (
-        name: Cancel Dialog
-        execution {
-            sequence: 10
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @cancel
-        }
-
-        action native-dialog-cancel (
-            action: cancelDialog
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
     )
 
     process add-therapist-tier-entry (

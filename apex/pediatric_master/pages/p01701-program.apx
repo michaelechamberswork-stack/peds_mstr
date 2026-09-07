@@ -4,7 +4,7 @@ page 1701 (
     title: PROGRAM
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        dialogTemplate: @/modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -26,7 +26,7 @@ page 1701 (
             slot: dialogFooter
         }
         appearance {
-            template: @buttons-container
+            template: @/buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -59,7 +59,7 @@ page 1701 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes-no-grid
+            template: @/blank-with-attributes-no-grid
             templateOptions: #DEFAULT#
         }
         advanced {
@@ -106,7 +106,7 @@ page 1701 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -135,7 +135,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -165,7 +165,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
         }
@@ -224,7 +224,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -251,7 +251,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -285,7 +285,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -315,7 +315,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
         }
@@ -342,7 +342,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -394,7 +394,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 10
         }
@@ -424,7 +424,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -454,7 +454,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 15
         }
@@ -477,12 +477,20 @@ page 1701 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
+
+        triggerAction native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button create (
@@ -494,7 +502,7 @@ page 1701 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -517,7 +525,7 @@ page 1701 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -545,7 +553,7 @@ page 1701 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -557,27 +565,6 @@ page 1701 (
             type: itemIsNotNull
             item: P1701_P_ID
         }
-    )
-
-    dynamicAction cancel-dialog (
-        name: Cancel Dialog
-        execution {
-            sequence: 10
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @cancel
-        }
-
-        action native-dialog-cancel (
-            action: cancelDialog
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
     )
 
     dynamicAction open-colors (

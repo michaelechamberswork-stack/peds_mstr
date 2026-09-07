@@ -2,7 +2,7 @@ page 1000 (
     name: SELECT CLIENT
     title: SELECT CLIENT
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -24,7 +24,7 @@ page 1000 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -43,7 +43,7 @@ page 1000 (
             newColumn: false
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -145,11 +145,11 @@ page 1000 (
             slot: subRegions
         }
         appearance {
-            template: @interactive-report
+            template: @/interactive-report
             templateOptions: #DEFAULT#
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -335,7 +335,7 @@ page 1000 (
             slot: subRegions
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -411,11 +411,11 @@ page 1000 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             htmlDomId: HIDE_INACTIVE
@@ -423,6 +423,21 @@ page 1000 (
         security {
             authorizationScheme: @is-admin
         }
+
+        triggerAction native-set-value (
+            action: setValue
+            settings {
+                value: N
+            }
+            affectedElements {
+                selectionType: items
+                items: P1000_SELECT_CLIENT_SHOW_INACTIVE
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button show-inactive (
@@ -434,11 +449,11 @@ page 1000 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
         advanced {
             htmlDomId: SHOW_INACTIVE
@@ -446,23 +461,11 @@ page 1000 (
         security {
             authorizationScheme: @is-admin
         }
-    )
 
-    dynamicAction hide-inactive (
-        name: Hide Inactive
-        execution {
-            sequence: 50
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @hide-inactive
-        }
-
-        action native-set-value (
+        triggerAction native-set-value (
             action: setValue
             settings {
-                value: N
+                value: Y
             }
             affectedElements {
                 selectionType: items
@@ -470,7 +473,6 @@ page 1000 (
             }
             execution {
                 sequence: 10
-                fireOnInit: false
             }
         )
 
@@ -685,34 +687,6 @@ page 1000 (
             execution {
                 sequence: 30
                 fireWhenEventResultIs: false
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction show-inactive (
-        name: Show Inactive
-        execution {
-            sequence: 30
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @show-inactive
-        }
-
-        action native-set-value (
-            action: setValue
-            settings {
-                value: Y
-            }
-            affectedElements {
-                selectionType: items
-                items: P1000_SELECT_CLIENT_SHOW_INACTIVE
-            }
-            execution {
-                sequence: 10
                 fireOnInit: false
             }
         )

@@ -3,7 +3,7 @@ page 1500 (
     alias: ASSESSMENTS
     title: ASSESSMENT
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -27,7 +27,7 @@ page 1500 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -46,7 +46,7 @@ page 1500 (
             numberOfRows: 50
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -361,7 +361,7 @@ page 1500 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -374,7 +374,7 @@ page 1500 (
             numberOfRows: 50
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -941,7 +941,7 @@ page 1500 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -970,7 +970,7 @@ page 1500 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }

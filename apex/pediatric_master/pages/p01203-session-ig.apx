@@ -3,7 +3,7 @@ page 1203 (
     alias: SESSION-IG
     title: SESSION
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -93,7 +93,7 @@ page 1203 (
             slot: subRegions
         }
         appearance {
-            template: @interactive-report
+            template: @/interactive-report
             templateOptions: #DEFAULT#
         }
         advanced {
@@ -535,7 +535,7 @@ page 1203 (
             newColumn: false
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -553,7 +553,7 @@ page 1203 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -593,7 +593,7 @@ page 1203 (
             column: 5
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -659,7 +659,7 @@ page 1203 (
             column: 9
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -711,7 +711,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 85
             height: 5
@@ -741,7 +741,7 @@ page 1203 (
             slot: regionBody
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         validation {
@@ -809,7 +809,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             cssClasses: lts-hidden
             height: 4
@@ -846,7 +846,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -904,7 +904,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -955,7 +955,7 @@ page 1203 (
             column: 5
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -1016,7 +1016,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -1088,7 +1088,7 @@ page 1203 (
             column: 5
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             formatMask: HH:MI AM
         }
@@ -1119,7 +1119,7 @@ page 1203 (
             column: 9
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -1145,7 +1145,7 @@ page 1203 (
             slot: regionBody
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             formatMask: HH:MI AM
         }
@@ -1186,7 +1186,7 @@ page 1203 (
             slot: change
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -1214,7 +1214,7 @@ page 1203 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -1237,7 +1237,7 @@ page 1203 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -1261,17 +1261,58 @@ page 1203 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
             executeValidations: false
         }
         serverSideCondition {
             type: expression
             plsqlExpression: :P1203_S_ID IS NOT NULL AND (:P1203_STATUS = 'D' OR :APP_MODE = 'A')
         }
+
+        triggerAction native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode: del.session(:P1203_S_ID);
+                itemsToSubmit: P1203_S_ID
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    apex.navigation.redirect(apex.util.makeApplicationUrl({
+                        appId: $v('pFlowId'),
+                        pageId: 1200,
+                        session: $v('pInstance')
+                    }));
+                    
+                    ```
+            }
+            execution {
+                sequence: 30
+            }
+        )
+
+        triggerAction plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Do you want to delete this session?
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button save (
@@ -1283,7 +1324,7 @@ page 1203 (
             slot: change
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -1398,62 +1439,6 @@ page 1203 (
             }
             execution {
                 sequence: 40
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction delete-session (
-        name: Delete Session
-        execution {
-            sequence: 100
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @delete
-        }
-
-        action native-execute-plsql-code (
-            action: executeServerSideCode
-            settings {
-                plsqlCode: del.session(:P1203_S_ID);
-                itemsToSubmit: P1203_S_ID
-            }
-            execution {
-                sequence: 20
-                fireOnInit: false
-            }
-        )
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode:
-                    ```javascript-browser
-                    apex.navigation.redirect(apex.util.makeApplicationUrl({
-                        appId: $v('pFlowId'),
-                        pageId: 1200,
-                        session: $v('pInstance')
-                    }));
-                    
-                    ```
-            }
-            execution {
-                sequence: 30
-                fireOnInit: false
-            }
-        )
-
-        action plugin-be-ctb-alertify (
-            action: plugin/alertify
-            settings {
-                dialogType: confirm
-                message: Do you want to delete this session?
-            }
-            execution {
-                sequence: 10
                 fireOnInit: false
             }
         )
@@ -1591,7 +1576,10 @@ page 1203 (
         )
 
         action native-hide-3 (
-            action: hide
+            action: executeJsCode
+            settings {
+                jsCode: apex.region("NOTES_IG").element.hide();
+            }
             execution {
                 sequence: 20
             }
@@ -1626,7 +1614,10 @@ page 1203 (
         )
 
         action native-show-2 (
-            action: show
+            action: executeJsCode
+            settings {
+                jsCode: apex.region("NOTES_IG").element.show();
+            }
             execution {
                 sequence: 20
                 fireWhenEventResultIs: false
@@ -1915,10 +1906,22 @@ page 1203 (
                     var activty = $v("P&APP_PAGE_ID._ACTIVITY");
                     var cancelReason = $v("P&APP_PAGE_ID._CANCEL_REASON");
                     var comments = $v("P&APP_PAGE_ID._COMMENTS");
+                    var dateSession = $v("P&APP_PAGE_ID._DATE_SESSION");
+                    var timeStart = $v("P&APP_PAGE_ID._TIME_START");
+                    var timeEnd = $v("P&APP_PAGE_ID._TIME_END");
                     
                     apex.message.clearErrors();
                     
                     if( status == "S" ) {
+                        if ( dateSession == "" ) {
+                            callError( "P&APP_PAGE_ID._DATE_SESSION", "DATE is required when STATUS is Submitted" );
+                        }
+                        if ( timeStart == "" ) {
+                            callError( "P&APP_PAGE_ID._TIME_START", "START is required when STATUS is Submitted" );
+                        }
+                        if ( timeEnd == "" ) {
+                            callError( "P&APP_PAGE_ID._TIME_END", "END is required when STATUS is Submitted" );
+                        }
                         if( activty == "10" ) {
                             if ( cancelReason == "" ) {
                                 callError( "P&APP_PAGE_ID._CANCEL_REASON", "CANCEL REASON is required when ACTIVITY is Session Cancelled" );

@@ -3,7 +3,7 @@ page 2 (
     alias: SESSION-REVIEW-COPY
     title: Session Review Copy
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -128,7 +128,7 @@ page 2 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -208,7 +208,7 @@ page 2 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -218,7 +218,7 @@ page 2 (
             htmlDomId: VIEW_SIG
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -302,7 +302,7 @@ page 2 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -322,7 +322,7 @@ page 2 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -344,13 +344,28 @@ page 2 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    setCanvasBackgroundWhite();
+                    $("#SIG_SAVE").click();
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button signature-request (
@@ -362,7 +377,7 @@ page 2 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -595,34 +610,6 @@ page 2 (
             }
             execution {
                 sequence: 30
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction set-background-white (
-        name: Set Background White
-        execution {
-            sequence: 130
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @save-signature
-        }
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode:
-                    ```javascript-browser
-                    setCanvasBackgroundWhite();
-                    $("#SIG_SAVE").click();
-                    ```
-            }
-            execution {
-                sequence: 10
                 fireOnInit: false
             }
         )

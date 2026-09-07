@@ -3,7 +3,7 @@ page 1303 (
     title: LATE REASON
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        dialogTemplate: @/modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -31,7 +31,7 @@ page 1303 (
             slot: dialogFooter
         }
         appearance {
-            template: @buttons-container
+            template: @/buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -52,7 +52,7 @@ page 1303 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -70,7 +70,7 @@ page 1303 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             formatMask: MM/DD/YYYY HH:MI AM
             width: 30
@@ -101,7 +101,7 @@ page 1303 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             formatMask: MM/DD/YYYY HH:MI AM
             width: 30
@@ -132,7 +132,7 @@ page 1303 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             formatMask: MM/DD/YYYY HH:MI AM
             width: 30
@@ -160,7 +160,7 @@ page 1303 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -209,30 +209,17 @@ page 1303 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
-        }
-    )
-
-    dynamicAction cancel-dialog (
-        name: Cancel Dialog
-        execution {
-            sequence: 10
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @cancel
+            action: triggerAction
         }
 
-        action native-dialog-cancel (
+        triggerAction native-dialog-cancel (
             action: cancelDialog
             execution {
                 sequence: 10
-                fireOnInit: false
             }
         )
 

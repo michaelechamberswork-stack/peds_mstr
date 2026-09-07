@@ -2,7 +2,7 @@ page 1220 (
     name: Session Review
     title: Session Review
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -128,7 +128,7 @@ page 1220 (
             slot: subRegions
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -226,7 +226,7 @@ page 1220 (
             ]
         }
         appearance {
-            template: @interactive-report
+            template: @/interactive-report
             templateOptions: #DEFAULT#
         }
         advanced {
@@ -236,7 +236,7 @@ page 1220 (
             numberOfRows: 6
         }
         componentAppearance {
-            template: @media-list
+            template: @/media-list
             templateOptions: [
                 #DEFAULT#
                 t-MediaList--stack
@@ -321,7 +321,7 @@ page 1220 (
             slot: subRegions
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -569,7 +569,7 @@ page 1220 (
             slot: subRegions
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -579,7 +579,7 @@ page 1220 (
             htmlDomId: VIEW_SIG
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -708,7 +708,7 @@ page 1220 (
             slot: close
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -728,7 +728,7 @@ page 1220 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -750,13 +750,28 @@ page 1220 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
         }
+
+        triggerAction native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    setCanvasBackgroundWhite();
+                    $("#SIG_SAVE").click();
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button signature-request (
@@ -768,7 +783,7 @@ page 1220 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -1140,34 +1155,6 @@ page 1220 (
             }
             execution {
                 sequence: 90
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction set-background-white (
-        name: Set Background White
-        execution {
-            sequence: 130
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @save-signature
-        }
-
-        action native-javascript-code (
-            action: executeJsCode
-            settings {
-                jsCode:
-                    ```javascript-browser
-                    setCanvasBackgroundWhite();
-                    $("#SIG_SAVE").click();
-                    ```
-            }
-            execution {
-                sequence: 10
                 fireOnInit: false
             }
         )

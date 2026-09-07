@@ -3,7 +3,7 @@ page 200 (
     alias: SESSION-TO-REVIEW
     title: Session To Review
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -22,7 +22,7 @@ page 200 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -61,7 +61,7 @@ page 200 (
             slot: regionBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         serverSideCondition {
@@ -69,7 +69,7 @@ page 200 (
             plsqlExpression: lts_settings.is_app_admin
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -245,7 +245,7 @@ page 200 (
             slot: regionBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         settings {
@@ -322,7 +322,7 @@ page 200 (
             slot: next
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
             icon: fa-print
         }

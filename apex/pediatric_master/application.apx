@@ -14,18 +14,18 @@ app PEDIATRIC_MASTER (
         }
     }
     navigationMenu {
-        listTemplate: @side-navigation-menu
+        listTemplate: @/side-navigation-menu
         templateOptions: [
             #DEFAULT#
             js-defaultCollapsed
-            js-navCollapsed--hidden
+            js-navCollapsed--default
             t-TreeNav--classic
         ]
         list: @desktop-navigation-menu
     }
     navigationBar {
         list: @desktop-navigation-bar
-        listTemplate: @navigation-bar
+        listTemplate: @/navigation-bar
         templateOptions: #DEFAULT#
     }
     userInterface {
@@ -77,21 +77,16 @@ app PEDIATRIC_MASTER (
         type: useInstanceSettings
     }
     runtime {
-        compatibilityMode: 21.2
         accessibleReadOnlyItems: false
     }
     advanced {
         passEcid: false
-        modernizeApp: true
     }
 
     substitution REPORT_URL (
         value {
             staticValue: https://reports.life-ts.com
         }
-    )
-
-    substitution DEV (
     )
 
 )

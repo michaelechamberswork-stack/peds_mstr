@@ -3,7 +3,7 @@ page 1301 (
     title: SESSION
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        dialogTemplate: @/modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -42,7 +42,7 @@ page 1301 (
             slot: dialogFooter
         }
         appearance {
-            template: @buttons-container
+            template: @/buttons-container
             templateOptions: #DEFAULT#
         }
         advanced {
@@ -69,7 +69,7 @@ page 1301 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         advanced {
@@ -80,7 +80,7 @@ page 1301 (
             item: P1301_S_ID
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -195,7 +195,7 @@ page 1301 (
             slot: contentBody
         }
         appearance {
-            template: @blank-with-attributes
+            template: @/blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -228,7 +228,7 @@ page 1301 (
             column: 5
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -303,7 +303,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -355,7 +355,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 85
             height: 5
@@ -386,7 +386,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             formatMask: MM/DD/YYYY HH:MI AM
             width: 30
@@ -413,7 +413,7 @@ page 1301 (
             slot: regionBody
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
         }
         validation {
@@ -448,7 +448,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -493,7 +493,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -572,7 +572,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -622,7 +622,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -681,7 +681,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -716,7 +716,7 @@ page 1301 (
             column: 5
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             formatMask: HH:MI AM
             width: 30
@@ -756,7 +756,7 @@ page 1301 (
             column: 9
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -794,7 +794,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @optional-above
+            template: @/optional-above
             templateOptions: #DEFAULT#
             formatMask: HH:MI AM
             width: 30
@@ -823,13 +823,21 @@ page 1301 (
             slot: previous
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
             executeValidations: false
         }
+
+        triggerAction native-dialog-cancel (
+            action: cancelDialog
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button delete (
@@ -841,11 +849,11 @@ page 1301 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
             executeValidations: false
         }
         serverSideCondition {
@@ -869,6 +877,28 @@ page 1301 (
                 END;
                 ```
         }
+
+        triggerAction native-submit-page (
+            action: submitPage
+            settings {
+                requestButtonName: DELETE
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
+        triggerAction plugin-be-ctb-alertify (
+            action: plugin/alertify
+            settings {
+                dialogType: confirm
+                message: Do you want to delete this session?
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
     )
 
     button reviewed (
@@ -880,12 +910,12 @@ page 1301 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
         behavior {
-            action: definedByDynamicAction
+            action: triggerAction
             executeValidations: false
         }
         serverSideCondition {
@@ -893,6 +923,33 @@ page 1301 (
             item: P1301_REVIEW
             value: Y
         }
+
+        triggerAction native-execute-plsql-code (
+            action: executeServerSideCode
+            settings {
+                plsqlCode:
+                    ```plsql
+                    UPDATE sessions
+                    SET status = 'R'
+                    WHERE s_id = :P1301_S_ID;
+                    ```
+                itemsToSubmit: P1301_S_ID
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+        triggerAction native-submit-page (
+            action: submitPage
+            settings {
+                requestButtonName: REVIEWED
+            }
+            execution {
+                sequence: 20
+            }
+        )
+
     )
 
     button save (
@@ -904,7 +961,7 @@ page 1301 (
             slot: create
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -1000,27 +1057,6 @@ page 1301 (
 
     )
 
-    dynamicAction cancel (
-        name: Cancel
-        execution {
-            sequence: 100
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @cancel
-        }
-
-        action native-dialog-cancel (
-            action: cancelDialog
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
     dynamicAction comments-read-only (
         name: Comments Read Only
         execution {
@@ -1042,83 +1078,6 @@ page 1301 (
             }
             execution {
                 sequence: 10
-            }
-        )
-
-    )
-
-    dynamicAction delete-session (
-        name: Delete Session
-        execution {
-            sequence: 60
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @delete
-        }
-
-        action native-submit-page (
-            action: submitPage
-            settings {
-                requestButtonName: DELETE
-            }
-            execution {
-                sequence: 20
-                fireOnInit: false
-            }
-        )
-
-        action plugin-be-ctb-alertify (
-            action: plugin/alertify
-            settings {
-                dialogType: confirm
-                message: Do you want to delete this session?
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-    )
-
-    dynamicAction new (
-        name: New
-        execution {
-            sequence: 120
-        }
-        when {
-            event: click
-            selectionType: button
-            button: @reviewed
-        }
-
-        action native-execute-plsql-code (
-            action: executeServerSideCode
-            settings {
-                plsqlCode:
-                    ```plsql
-                    UPDATE sessions
-                    SET status = 'R'
-                    WHERE s_id = :P1301_S_ID;
-                    ```
-                itemsToSubmit: P1301_S_ID
-            }
-            execution {
-                sequence: 10
-                fireOnInit: false
-            }
-        )
-
-        action native-submit-page (
-            action: submitPage
-            settings {
-                requestButtonName: REVIEWED
-            }
-            execution {
-                sequence: 20
-                fireOnInit: false
             }
         )
 
@@ -1476,10 +1435,22 @@ page 1301 (
                     var activty = $v("P&APP_PAGE_ID._ACTIVITY");
                     var cancelReason = $v("P&APP_PAGE_ID._CANCEL_REASON");
                     var comments = $v("P&APP_PAGE_ID._COMMENTS");
+                    var dateSession = $v("P&APP_PAGE_ID._DATE_SESSION");
+                    var timeStart = $v("P&APP_PAGE_ID._TIME_START");
+                    var timeEnd = $v("P&APP_PAGE_ID._TIME_END");
                     
                     apex.message.clearErrors();
                     
                     if( status == "S" ) {
+                        if ( dateSession == "" ) {
+                            callError( "P&APP_PAGE_ID._DATE_SESSION", "DATE is required when STATUS is Submitted" );
+                        }
+                        if ( timeStart == "" ) {
+                            callError( "P&APP_PAGE_ID._TIME_START", "START is required when STATUS is Submitted" );
+                        }
+                        if ( timeEnd == "" ) {
+                            callError( "P&APP_PAGE_ID._TIME_END", "END is required when STATUS is Submitted" );
+                        }
                         if( activty == "10" ) {
                             if ( cancelReason == "" ) {
                                 callError( "P&APP_PAGE_ID._CANCEL_REASON", "CANCEL REASON is required when ACTIVITY is Session Cancelled" );

@@ -3,7 +3,7 @@ page 1600 (
     alias: DROP-DOWN-ENTRIES
     title: drop down entries
     appearance {
-        pageTemplate: @standard
+        pageTemplate: @/standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -23,7 +23,7 @@ page 1600 (
             slot: body
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -63,11 +63,11 @@ page 1600 (
             newColumn: false
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--noPadding
-                t-Region--hideHeader
+                t-Region--hideHeader js-addHiddenHeadingRoleDesc
                 t-Region--scrollBody
             ]
         }
@@ -78,7 +78,7 @@ page 1600 (
             numberOfRows: 50
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -296,7 +296,7 @@ page 1600 (
             startNewRow: false
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -370,7 +370,7 @@ page 1600 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -396,7 +396,7 @@ page 1600 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -422,7 +422,7 @@ page 1600 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -557,6 +557,10 @@ page 1600 (
         action refresh-report (
             name: Refresh Report
             action: refresh
+            affectedElements {
+                selectionType: region
+                region: @drop-down-entries-report
+            }
             execution {
                 sequence: 10
             }

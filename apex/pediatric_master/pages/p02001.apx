@@ -3,7 +3,7 @@ page 2001 (
     title: STATE
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        dialogTemplate: @/modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -28,7 +28,7 @@ page 2001 (
             slot: contentBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -67,7 +67,7 @@ page 2001 (
             slot: contentBody
         }
         appearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -83,7 +83,7 @@ page 2001 (
             item: P2001_ROWS
         }
         componentAppearance {
-            template: @standard
+            template: @/standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -152,7 +152,7 @@ page 2001 (
             labelColumnSpan: 1
         }
         appearance {
-            template: @optional
+            template: @/optional
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -183,7 +183,7 @@ page 2001 (
             labelColumnSpan: 1
         }
         appearance {
-            template: @optional
+            template: @/optional
             templateOptions: #DEFAULT#
         }
         source {
@@ -221,7 +221,7 @@ page 2001 (
             startNewRow: false
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -240,7 +240,7 @@ page 2001 (
             newColumn: false
         }
         appearance {
-            buttonTemplate: @text
+            buttonTemplate: @/text
             templateOptions: #DEFAULT#
         }
         behavior {
