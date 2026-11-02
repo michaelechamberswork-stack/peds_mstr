@@ -40,7 +40,7 @@ plugin comments (
                       INITIALS:=#AVATAR_INITIALS#
                       SIZE:=t-Avatar--xs
                       SHAPE:=#AVATAR_SHAPE#
-                      CSS_CLASSES:=u-color
+                      CSS_CLASSES:=#AVATAR_CSS_CLASSES#
                       LINK:=#AVATAR_LINK#
                       LINK_ATTR:=#AVATAR_LINK_ATTR#
                     {apply THEME$AVATAR/}
@@ -65,9 +65,21 @@ plugin comments (
             <ul class="t-Comments{if ?STYLE/} #STYLE#{endif/} {if APPLY_THEME_COLORS/} u-colors{endif/} #APEX$COMPONENT_CSS_CLASSES#">#APEX$ROWS#</ul>
             
             ```
+        reportGroup:
+            ```html
+            <li class="t-Comments-groupItem" #APEX$GROUP_IDENTIFICATION#>
+              {if ?GROUP_TITLE/}
+              <div class="t-Comments-groupHeader">
+                {if ?GROUP_ICON/}<span class="t-Comments-groupIcon #GROUP_ICON#" aria-hidden="true"></span>{endif/}
+                <h2 class="t-Comments-groupTitle" id="#APEX$DOM_ID#_heading">#GROUP_TITLE#</h2>
+              </div>
+              {endif/}
+              <ul class="t-Comments-groupItems">#APEX$ROWS#</ul>
+            </li>
+            ```
         reportRow:
             ```html
-            <li class="t-Comments-item" #APEX$ROW_IDENTIFICATION#>#APEX$PARTIAL#</li>
+            <li class="t-Comments-item {if ?ALIGNMENT/}t-Comments-item--#ALIGNMENT#{endif/}" #APEX$ROW_IDENTIFICATION#>#APEX$PARTIAL#</li>
             
             ```
         numberOfLazyLoadingSkeletons: 3
@@ -78,14 +90,14 @@ plugin comments (
             regionTemplateAttr
         ]
     }
+    source {
+        sampleData: tasks
+    }
     advanced {
         quickPick: true
     }
     information {
         helpText: Display user comments and status updates. Supports avatars. Available for a single row or as a report with multiple rows.
-    }
-    subscription {
-        master: @/8842/templateComponent/comments/universal-theme
     }
 )
 

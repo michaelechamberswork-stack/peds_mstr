@@ -2,43 +2,11 @@ buttonTemplate text-w-null-label-above (
     name: Text w/ NULL Label Above
     templateClass: button
     button {
-        normal:
-            ```html
-            <div class="col ">
-                <div class="t-Form-fieldContainer t-Form-fieldContainer--stacked  ">
-                    <div class="t-Form-labelContainer">
-                        &nbsp;
-                    </div>
-                    <div class="t-Form-inputContainer">
-                        <button onclick="#JAVASCRIPT#" class="t-Button #BUTTON_CSS_CLASSES#" type="button" #BUTTON_ATTRIBUTES# id="#BUTTON_ID#">
-                            <span class="t-Button-label">
-                                #LABEL#
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            ```
-        hot:
-            ```html
-            <div class="col ">
-                <div class="t-Form-fieldContainer t-Form-fieldContainer--stacked  ">
-                    <div class="t-Form-labelContainer">
-                        &nbsp;
-                    </div>
-                    <div class="t-Form-inputContainer">
-                        <button onclick="#JAVASCRIPT#" class="t-Button t-Button--hot #BUTTON_CSS_CLASSES#" type="button" #BUTTON_ATTRIBUTES# id="#BUTTON_ID#">
-                            <span class="t-Button-label">
-                                #LABEL#
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            ```
+        normal: "<div class=\"t-Form-fieldContainer t-Form-fieldContainer--stacked\"><div class=\"t-Form-labelContainer\">&nbsp;</div><div class=\"t-Form-fieldContainer\"><button class=\"t-Button #BUTTON_CSS_CLASSES#\" type=\"button\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# id=\"#DOM_ID#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Button-label\">#LABEL#</span></button></div></div>"
+        hot: "<div class=\"t-Form-fieldContainer t-Form-fieldContainer--stacked\"><div class=\"t-Form-labelContainer\">&nbsp;</div><div class=\"t-Form-FieldContainer\"><button class=\"t-Button t-Button--hot #BUTTON_CSS_CLASSES#\" type=\"button\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# id=\"#DOM_ID#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Button-label\">#LABEL#</span></button></div></div>"
     }
-    advanced {
-        identifier: TEXT_W/_NULL_LABEL_ABOVE
+    subscription {
+        master: @/100/universal-theme/text-w-null-label-above
     }
 )
 

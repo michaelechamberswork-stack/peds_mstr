@@ -5,14 +5,8 @@ buttonTemplate text-with-icon (
         preset: t-Button--iconLeft
     }
     button {
-        normal: <button class="t-Button t-Button--icon #BUTTON_CSS_CLASSES#" #BUTTON_ATTRIBUTES# #ONCLICK# type="button" id="#BUTTON_ID#"><span class="t-Icon t-Icon--left #ICON_CSS_CLASSES#" aria-hidden="true"></span><span class="t-Button-label">#LABEL#</span><span class="t-Icon t-Icon--right #ICON_CSS_CLASSES#" aria-hidden="true"></span></button>
-        hot: <button class="t-Button t-Button--icon #BUTTON_CSS_CLASSES# t-Button--hot" #BUTTON_ATTRIBUTES# #ONCLICK# type="button" id="#BUTTON_ID#"><span class="t-Icon t-Icon--left #ICON_CSS_CLASSES#" aria-hidden="true"></span><span class="t-Button-label">#LABEL#</span><span class="t-Icon t-Icon--right #ICON_CSS_CLASSES#" aria-hidden="true"></span></button>
-    }
-    advanced {
-        identifier: TEXT_WITH_ICON
-    }
-    subscription {
-        master: @text-with-icon
+        normal: "<button class=\"t-Button t-Button--icon #BUTTON_CSS_CLASSES#\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# type=\"button\" id=\"#DOM_ID#\" data-otel-labeL=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Icon t-Icon--left #ICON_CSS_CLASSES#\" aria-hidden=\"true\"></span><span class=\"t-Button-label\">#LABEL#</span><span class=\"t-Icon t-Icon--right #ICON_CSS_CLASSES#\" aria-hidden=\"true\"></span></button>"
+        hot: "<button class=\"t-Button t-Button--icon #BUTTON_CSS_CLASSES# t-Button--hot\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# type=\"button\" id=\"#DOM_ID#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Icon t-Icon--left #ICON_CSS_CLASSES#\" aria-hidden=\"true\"></span><span class=\"t-Button-label\">#LABEL#</span><span class=\"t-Icon t-Icon--right #ICON_CSS_CLASSES#\" aria-hidden=\"true\"></span></button>"
     }
 
     templateOption hide-icon-on-desktop (
@@ -24,9 +18,6 @@ buttonTemplate text-with-icon (
         help {
             helpText: This template options hides the button icon on large screens.
         }
-        advanced {
-            identifier: HIDE_ICON_ON_DESKTOP
-        }
     )
 
     templateOption hide-label-on-mobile (
@@ -37,9 +28,6 @@ buttonTemplate text-with-icon (
         }
         help {
             helpText: This template options hides the button label on small screens.
-        }
-        advanced {
-            identifier: HIDE_LABEL_ON_MOBILE
         }
     )
 
@@ -53,9 +41,6 @@ buttonTemplate text-with-icon (
         help {
             helpText: The icon will animate to the right or left on button hover or focus.
         }
-        advanced {
-            identifier: PUSH
-        }
     )
 
     templateOption spin (
@@ -68,9 +53,6 @@ buttonTemplate text-with-icon (
         help {
             helpText: The icon will spin on button hover or focus.
         }
-        advanced {
-            identifier: SPIN
-        }
     )
 
     templateOption lefticon (
@@ -80,9 +62,6 @@ buttonTemplate text-with-icon (
         appearance {
             cssClasses: t-Button--iconLeft
         }
-        advanced {
-            identifier: LEFTICON
-        }
     )
 
     templateOption righticon (
@@ -91,9 +70,6 @@ buttonTemplate text-with-icon (
         sequence: 20
         appearance {
             cssClasses: t-Button--iconRight
-        }
-        advanced {
-            identifier: RIGHTICON
         }
     )
 

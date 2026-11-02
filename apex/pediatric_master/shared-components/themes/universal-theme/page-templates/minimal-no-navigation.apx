@@ -5,9 +5,8 @@ pageTemplate minimal-no-navigation (
         header:
             ```html
             <!DOCTYPE html>
-            <html class="no-js #RTL_CLASS# page-&APP_PAGE_ID. app-&APP_ALIAS." lang="&BROWSER_LANGUAGE." #TEXT_DIRECTION#>
+            <html class="no-js #RTL_CLASS# page-&APP_PAGE_ID!ATTR. app-&APP_ALIAS!ATTR." lang="&BROWSER_LANGUAGE!ATTR." #TEXT_DIRECTION#>
             <head>
-              <meta http-equiv="x-ua-compatible" content="IE=edge" />
               <meta charset="utf-8">
               <title>#TITLE#</title>
               #APEX_CSS#
@@ -18,9 +17,14 @@ pageTemplate minimal-no-navigation (
               #PAGE_CSS#  
               #FAVICONS#
               #HEAD#
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+              <meta name="app-version" content="&APP_VERSION!ATTR." />
+              <meta name="app-tenant-id" content="&APP_TENANT_ID!ATTR." />
+              <meta name="app-alias" content="&APP_ALIAS!ATTR." />
+              <meta name="app-page-alias" content="&APP_PAGE_ALIAS!ATTR." />
             </head>
             <body class="t-PageBody t-PageBody--hideLeft t-PageBody--hideActions no-anim #PAGE_CSS_CLASSES# t-PageBody--noNav t-PageTemplate--minimal" #TEXT_DIRECTION# #ONLOAD# id="t_PageBody">
+            <noscript class="t-PageBody-noScript">&APP_TEXT$APEX_PAGE_NOSCRIPT.</noscript>
             <a href="#main" id="t_Body_skipToContent">&APP_TEXT$UI_PAGE_SKIP_TO_CONTENT.</a>
             #FORM_OPEN#
             <header class="t-Header" id="t_Header" role="banner">
@@ -97,7 +101,7 @@ pageTemplate minimal-no-navigation (
               <div class="t-Alert t-Alert--defaultIcons t-Alert--success t-Alert--horizontal t-Alert--page t-Alert--colorBG" id="t_Alert_Success" role="region" aria-labelledby="page_success_id">
                 <div class="t-Alert-wrap">
                   <div class="t-Alert-icon">
-                    <span class="t-Icon" role="img" aria-label='&"APP_TEXT$APEX.TASK.EVENT.ACTION.SUCCESS"!HTML.'></span>
+                    <span class="t-Icon" role="img" aria-label="&"APP_TEXT$APEX.SUCCESS"!ATTR."></span>
                   </div>
                   <div class="t-Alert-content">
                     <div class="t-Alert-header">
@@ -138,7 +142,7 @@ pageTemplate minimal-no-navigation (
               <div class="t-Alert t-Alert--defaultIcons t-Alert--warning t-Alert--horizontal t-Alert--page t-Alert--colorBG" id="t_Alert_Notification" role="region" aria-labelledby="page_warning_id">
                 <div class="t-Alert-wrap">
                   <div class="t-Alert-icon">
-                    <span class="t-Icon" role="img" aria-label='&"APP_TEXT$WARNING"!HTML.'></span>
+                    <span class="t-Icon" role="img" aria-label="&"APP_TEXT$WARNING"!ATTR."></span>
                   </div>
                   <div class="t-Alert-content">
                     <div class="t-Alert-header">
@@ -183,7 +187,7 @@ pageTemplate minimal-no-navigation (
             <div class="t-Alert t-Alert--danger t-Alert--wizard t-Alert--defaultIcons">
               <div class="t-Alert-wrap">
                 <div class="t-Alert-icon">
-                  <span class="t-Icon"></span>
+                  <span class="t-Icon" role="img" aria-label="&"APP_TEXT$WARNING"!ATTR."></span>
                 </div>
                 <div class="t-Alert-content">
                   <div class="t-Alert-body">
@@ -199,12 +203,6 @@ pageTemplate minimal-no-navigation (
             </div>
             ```
     }
-    advanced {
-        identifier: MINIMAL_NO_NAVIGATION
-    }
-    subscription {
-        master: @minimal-no-navigation
-    }
 
     templateOption sticky-header-on-mobile (
         name: Sticky Header on Mobile
@@ -214,9 +212,6 @@ pageTemplate minimal-no-navigation (
         }
         help {
             helpText: This will position the contents of the Breadcrumb Bar region position so it sticks to the top of the screen for small screens.
-        }
-        advanced {
-            identifier: STICKY_HEADER_ON_MOBILE
         }
     )
 

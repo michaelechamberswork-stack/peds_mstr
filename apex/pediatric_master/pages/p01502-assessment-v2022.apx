@@ -3,7 +3,7 @@ page 1502 (
     alias: ASSESSMENT-V2022
     title: ASSESSMENT v2022
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -23,7 +23,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -40,7 +40,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -61,7 +61,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
             cssClasses: lts-hidden
         }
@@ -84,7 +84,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -101,7 +101,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -119,7 +119,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -137,7 +137,7 @@ page 1502 (
             columnSpan: 3
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -152,7 +152,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -169,7 +169,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -187,7 +187,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -204,7 +204,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -222,7 +222,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -239,7 +239,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -257,7 +257,7 @@ page 1502 (
             columnSpan: 3
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -273,7 +273,7 @@ page 1502 (
             newColumn: false
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -294,7 +294,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -311,7 +311,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -328,7 +328,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -347,7 +347,7 @@ page 1502 (
             newColumn: false
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -368,7 +368,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -385,7 +385,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -402,7 +402,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -419,7 +419,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -438,7 +438,7 @@ page 1502 (
             columnSpan: 3
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -453,7 +453,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -470,7 +470,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -487,7 +487,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -506,7 +506,7 @@ page 1502 (
             columnSpan: 3
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -521,7 +521,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -539,7 +539,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -555,7 +555,7 @@ page 1502 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -578,7 +578,7 @@ page 1502 (
             columnSpan: 3
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -592,7 +592,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -609,7 +609,7 @@ page 1502 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -628,7 +628,7 @@ page 1502 (
             newColumn: false
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -650,7 +650,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -670,7 +670,7 @@ page 1502 (
             slot: regionBody
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         validation {
@@ -718,7 +718,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 5
@@ -746,7 +746,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 5
@@ -801,7 +801,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -828,7 +828,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -855,7 +855,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -882,7 +882,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -909,7 +909,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -936,7 +936,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -963,7 +963,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -990,7 +990,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1017,7 +1017,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1044,7 +1044,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1071,7 +1071,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1098,7 +1098,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1125,7 +1125,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1152,7 +1152,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1180,7 +1180,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -1207,7 +1207,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -1245,7 +1245,7 @@ page 1502 (
             column: 7
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1273,7 +1273,7 @@ page 1502 (
             column: 4
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -1300,7 +1300,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -1327,7 +1327,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1361,7 +1361,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1390,7 +1390,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1429,7 +1429,7 @@ page 1502 (
             column: 3
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1466,7 +1466,7 @@ page 1502 (
             column: 5
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1501,7 +1501,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1534,7 +1534,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1570,7 +1570,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1606,7 +1606,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1642,7 +1642,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1678,7 +1678,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1714,7 +1714,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1750,7 +1750,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1786,7 +1786,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1822,7 +1822,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1858,7 +1858,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -1900,7 +1900,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1927,7 +1927,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1954,7 +1954,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -1988,7 +1988,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -2021,7 +2021,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -2050,7 +2050,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -2077,7 +2077,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -2109,7 +2109,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -2142,7 +2142,7 @@ page 1502 (
             ]
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -2169,7 +2169,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -2201,7 +2201,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -2230,7 +2230,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -2262,7 +2262,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -2295,7 +2295,7 @@ page 1502 (
             ]
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -2327,7 +2327,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -2356,7 +2356,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -2391,7 +2391,7 @@ page 1502 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: [
                 #DEFAULT#
                 t-Form-fieldContainer--radioButtonGroup
@@ -2444,7 +2444,7 @@ page 1502 (
             slot: close
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -2465,7 +2465,7 @@ page 1502 (
             slot: create
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -2489,7 +2489,7 @@ page 1502 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -2518,7 +2518,7 @@ page 1502 (
             slot: change
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }

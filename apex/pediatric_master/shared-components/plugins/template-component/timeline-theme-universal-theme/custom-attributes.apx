@@ -20,7 +20,7 @@ customAttribute APPLY_THEME_COLORS (
 )
 
 customAttribute AVATAR_DESCRIPTION (
-    apexlangName: description2
+    apexlangName: description
     attribute: 9
     name: Description
     security {
@@ -32,6 +32,11 @@ customAttribute AVATAR_DESCRIPTION (
     }
     builder {
         translatable: true
+    }
+    dependingOn {
+        attribute: @DISPLAY_AVATAR/component
+        conditionType: =
+        value: Y
     }
     help {
         helpText: Enter a short description of the image/icon or select a source column from the quick pick options. This will be used as title & alt text for the avatar image/icon.
@@ -91,13 +96,12 @@ customAttribute AVATAR_IMAGE (
             ```
             <p>Use the Media popup dialog to select a source for the avatar image.</p>
             
-            <p>Available options include:
+            <p>Available options include:</p>
             <ul>
             <li>URL</li>
             <li>BLOB Column</li>
             <li>URL Column</li>
             </ul>
-            </p>
             ```
     }
 )
@@ -116,6 +120,9 @@ customAttribute AVATAR_INITIALS (
     appearance {
         attributeGroup: @avatar
         sequence: 100
+    }
+    default {
+        sampleDataValue: INITIALS
     }
     dependingOn {
         attribute: @AVATAR_TYPE/component
@@ -206,7 +213,6 @@ customAttribute AVATAR_TYPE (
     }
     default {
         value: icon
-        sampleDataValue: icon
     }
     dependingOn {
         attribute: @DISPLAY_AVATAR/component
@@ -238,7 +244,7 @@ customAttribute AVATAR_TYPE (
 )
 
 customAttribute BADGE_ICON (
-    apexlangName: icon2
+    apexlangName: icon
     attribute: 16
     name: Icon
     type: icon
@@ -248,9 +254,6 @@ customAttribute BADGE_ICON (
     appearance {
         attributeGroup: @badge
         sequence: 160
-    }
-    default {
-        sampleDataValue: fa-check-circle-o
     }
     dependingOn {
         attribute: @DISPLAY_BADGE/component
@@ -278,6 +281,9 @@ customAttribute BADGE_LABEL (
     }
     builder {
         translatable: true
+    }
+    default {
+        sampleDataValue: Status
     }
     dependingOn {
         attribute: @DISPLAY_BADGE/component
@@ -312,7 +318,7 @@ customAttribute BADGE_LABEL_DISPLAY (
 )
 
 customAttribute BADGE_SHAPE (
-    apexlangName: shape2
+    apexlangName: shape
     attribute: 19
     name: Shape
     type: selectList
@@ -372,9 +378,6 @@ customAttribute BADGE_STATE (
     appearance {
         attributeGroup: @badge
         sequence: 150
-    }
-    default {
-        sampleDataValue: is-removed
     }
     dependingOn {
         attribute: @DISPLAY_BADGE/component
@@ -440,7 +443,7 @@ customAttribute BADGE_VALUE (
         sequence: 140
     }
     default {
-        sampleDataValue: Closed
+        sampleDataValue: STATUS
     }
     supports {
         dataTypes: [
@@ -473,7 +476,7 @@ customAttribute DATE (
         sequence: 20
     }
     default {
-        sampleDataValue: 1 hour ago
+        sampleDataValue: START_DATE
     }
     supports {
         dataTypes: [
@@ -498,7 +501,7 @@ customAttribute DESCRIPTION (
         sequence: 40
     }
     default {
-        sampleDataValue: Nunc sit amet nunc quis magna ornare suscipit. Etiam aliquet maximus sapien, at sagittis sem gravida nec.
+        sampleDataValue: WORK_MODE
     }
     help {
         helpText: Select a source column to be used for the row description.
@@ -517,7 +520,7 @@ customAttribute DISPLAY_AVATAR (
         sequence: 50
     }
     default {
-        sampleDataValue: Y
+        sampleDataValue: N
     }
     help {
         helpText: Specify whether to display or hide the avatar for each row. When set to Yes, an avatar will be displayed with the assigned image, icon, or initials. When set to No, no avatar will be displayed.
@@ -543,8 +546,42 @@ customAttribute DISPLAY_BADGE (
     }
 )
 
+customAttribute GROUP_ICON (
+    apexlangName: groupIcon
+    attribute: 23
+    name: Icon
+    scope: reportGroup
+    type: icon
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 230
+    }
+    dependingOn {
+        attribute: @GROUP_TITLE/reportGroup
+        conditionType: isNotNull
+    }
+)
+
+customAttribute GROUP_TITLE (
+    apexlangName: groupTitle
+    attribute: 22
+    name: Title
+    scope: reportGroup
+    type: html
+    security {
+        escapeMode: raw
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 220
+    }
+)
+
 customAttribute STYLE (
-    apexlangName: style2
+    apexlangName: style
     attribute: 20
     name: Style
     scope: report
@@ -582,7 +619,7 @@ customAttribute TITLE (
         sequence: 30
     }
     default {
-        sampleDataValue: Lorem ipsum dolor sit amet
+        sampleDataValue: TASK_NAME
     }
     help {
         helpText: Select a source column to be used as the title.
@@ -601,7 +638,7 @@ customAttribute USER_NAME (
         sequence: 10
     }
     default {
-        sampleDataValue: User
+        sampleDataValue: ASSIGNED_TO_NAME
     }
     help {
         helpText: Select a source column to be displayed as the user name associated with a timeline event.

@@ -5,11 +5,11 @@ fieldTemplate required-floating (
         before:
             ```html
             <div class="t-Form-labelContainer">
-              <label for="#CURRENT_ITEM_NAME#" id="#LABEL_ID#" class="t-Form-label">
+            <#LABEL_OPEN# id="#LABEL_ID#" class="t-Form-label">
             ```
         after:
             ```html
-              </label>
+            <#LABEL_CLOSE#>
             </div>
             ```
     }
@@ -42,14 +42,8 @@ fieldTemplate required-floating (
         errorTemplate: <div class="t-Form-error">#ERROR_MESSAGE#</div>
     }
     fieldContainer {
-        beforeLabelAndItem: <div class="t-Form-fieldContainer t-Form-fieldContainer--floatingLabel is-required #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#">
+        beforeLabelAndItem: <div class="t-Form-fieldContainer t-Form-fieldContainer--floatingLabel is-required #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#" data-otel-label="#CURRENT_ITEM_NAME#">
         afterLabelAndItem: </div>
-    }
-    advanced {
-        identifier: REQUIRED_FLOATING
-    }
-    subscription {
-        master: @required-floating
     }
 
     templateOption indicator-asterisk (
@@ -62,9 +56,6 @@ fieldTemplate required-floating (
         help {
             helpText: Displays an asterisk * on required items.
         }
-        advanced {
-            identifier: INDICATOR_ASTERISK
-        }
     )
 
     templateOption indicator-label (
@@ -76,9 +67,6 @@ fieldTemplate required-floating (
         }
         help {
             helpText: Displays "Required" inline.
-        }
-        advanced {
-            identifier: INDICATOR_LABEL
         }
     )
 

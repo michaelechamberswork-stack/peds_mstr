@@ -9,7 +9,7 @@ listTemplate links-list (
         current:
             ```html
             <li class="t-LinksList-item is-current #A03#" aria-current="page">
-              <a href="#LINK#" class="t-LinksList-link" #A02#>
+              <a href="#LINK#" class="t-LinksList-link" #A02# data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-LinksList-icon" aria-hidden="true"><span class="t-Icon #ICON_CSS_CLASSES#"></span></span>
                 <span class="t-LinksList-label">#TEXT#</span>
                 <span class="t-LinksList-badge">#A01#</span>
@@ -20,7 +20,7 @@ listTemplate links-list (
         currentWithSublist:
             ```html
             <li class="t-LinksList-item is-current #A03#" aria-current="page">
-              <a href="#LINK#" class="t-LinksList-link" #A02#>
+              <a href="#LINK#" class="t-LinksList-link" #A02# data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-LinksList-icon" aria-hidden="true"><span class="t-Icon #ICON_CSS_CLASSES#"></span></span>
                 <span class="t-LinksList-label">#TEXT#</span>
                 <span class="t-LinksList-badge">#A01#</span>
@@ -31,7 +31,7 @@ listTemplate links-list (
         noncurrent:
             ```html
             <li class="t-LinksList-item #A03#">
-              <a href="#LINK#" class="t-LinksList-link" #A02#>
+              <a href="#LINK#" class="t-LinksList-link" #A02# data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-LinksList-icon" aria-hidden="true"><span class="t-Icon #ICON_CSS_CLASSES#"></span></span>
                 <span class="t-LinksList-label">#TEXT#</span>
                 <span class="t-LinksList-badge">#A01#</span>
@@ -41,7 +41,7 @@ listTemplate links-list (
         noncurrentWithSublist:
             ```html
             <li class="t-LinksList-item #A03#">
-              <a href="#LINK#" class="t-LinksList-link" #A02#>
+              <a href="#LINK#" class="t-LinksList-link" #A02# data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-LinksList-icon" aria-hidden="true"><span class="t-Icon #ICON_CSS_CLASSES#"></span></span>
                 <span class="t-LinksList-label">#TEXT#</span>
                 <span class="t-LinksList-badge">#A01#</span>
@@ -57,7 +57,7 @@ listTemplate links-list (
         current:
             ```html
             <li class="t-LinksList-item is-current #A03#" aria-current="page">
-              <a href="#LINK#" class="t-LinksList-link" #A02#>
+              <a href="#LINK#" class="t-LinksList-link" #A02# data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-LinksList-icon" aria-hidden="true"><span class="t-Icon #ICON_CSS_CLASSES#"></span></span>
                 <span class="t-LinksList-label">#TEXT#</span>
                 <span class="t-LinksList-badge">#A01#</span>
@@ -68,7 +68,7 @@ listTemplate links-list (
         noncurrent:
             ```html
             <li class="t-LinksList-item #A03#">
-              <a href="#LINK#" class="t-LinksList-link" #A02#>
+              <a href="#LINK#" class="t-LinksList-link" #A02# data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-LinksList-icon" aria-hidden="true"><span class="t-Icon #ICON_CSS_CLASSES#"></span></span>
                 <span class="t-LinksList-label">#TEXT#</span>
                 <span class="t-LinksList-badge">#A01#</span>
@@ -81,12 +81,7 @@ listTemplate links-list (
         a01: Badge Value
         a02: Link Attributes
         a03: List Item CSS Classes
-    }
-    advanced {
-        identifier: LINKS_LIST
-    }
-    subscription {
-        master: @links-list
+        a10: OpenTelemetry Label
     }
 
     templateOption disabletextwrapping (
@@ -97,9 +92,6 @@ listTemplate links-list (
         }
         help {
             helpText: Do not allow link text to wrap to new lines. Truncate with ellipsis.
-        }
-        advanced {
-            identifier: DISABLETEXTWRAPPING
         }
     )
 
@@ -112,9 +104,6 @@ listTemplate links-list (
         help {
             helpText: Show badge to right of link (requires Attribute 1 to be populated)
         }
-        advanced {
-            identifier: SHOWBADGES
-        }
     )
 
     templateOption showgotoarrow (
@@ -126,9 +115,6 @@ listTemplate links-list (
         help {
             helpText: Show arrow to the right of link
         }
-        advanced {
-            identifier: SHOWGOTOARROW
-        }
     )
 
     templateOption showicons (
@@ -137,9 +123,6 @@ listTemplate links-list (
         sequence: 20
         appearance {
             cssClasses: t-LinksList--showIcons
-        }
-        advanced {
-            identifier: SHOWICONS
         }
     )
 
@@ -153,23 +136,17 @@ listTemplate links-list (
         help {
             helpText: This will show icons for top level items of the list only. It will not show icons for sub lists.
         }
-        advanced {
-            identifier: SHOWTOPICONS
-        }
     )
 
     templateOption actions (
         name: Actions
-        group: @list/style
+        group: @list/style-2
         sequence: 10
         appearance {
             cssClasses: t-LinksList--actions
         }
         help {
             helpText: Render as actions to be placed on the right side column.
-        }
-        advanced {
-            identifier: ACTIONS
         }
     )
 

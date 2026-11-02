@@ -21,5 +21,8 @@ fieldTemplate no-label (
     advanced {
         identifier: NO_LABEL
     }
+    subscription {
+        master: @/100/universal-theme/no-label
+    }
 )
 

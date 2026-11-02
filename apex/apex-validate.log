@@ -1,0 +1,505 @@
+CLEAR
+-----
+Resets or erases the current value or setting for the specified option.
+
+  Syntax:
+
+  CL[EAR] {option}
+
+  Options:
+
+  BRE[AKS]    Removes the break definition set by the BREAK command. 
+  BUFF[ER]    Clears text from the buffer. CLEAR BUFFER has the same effect as CLEAR SQL, unless multiple buffers are in use.
+  COL[UMNS]   Resets column display attributes set by the COLUMN command to default settings for all columns.
+  COMP[UTES]  Removes all COMPUTE definitions set by the COMPUTE command.
+  CONTEXT     Clears the context.
+  SCR[EEN]    Clears the screen.
+  SQL         Clears the text from SQL buffer. CLEAR SQL has the same effect as CLEAR BUFFER, unless multiple buffers are in use.
+  TIMI[NG]    Deletes all timers created by the TIMING command
+
+
+  Examples:
+
+  To clear breaks, enter:
+    SQL> CLEAR BREAKS
+
+  To clear column definitions, enter:
+    SQL> CLEAR COLUMNS
+APEXLang Compile Errors:
+File: pages/p01401-survey.apx
+Line: 254
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01401-survey.apx
+Line: 255
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01401-survey.apx
+Line: 281
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01401-survey.apx
+Line: 282
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01401-survey.apx
+Line: 614
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01401-survey.apx
+Line: 615
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01401-survey.apx
+Line: 641
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01401-survey.apx
+Line: 642
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 804
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 805
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 831
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 832
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 858
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 859
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 885
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 886
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 912
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 913
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 939
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 940
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 966
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 967
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 993
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 994
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1020
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1021
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1047
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1048
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1074
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1075
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1101
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1102
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1128
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1129
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1155
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1156
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1364
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1365
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1903
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1904
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1930
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1931
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1957
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1958
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1991
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 1992
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 2080
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 2081
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 2172
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 2173
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01502-assessment-v2022.apx
+Line: 2394
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01502-assessment-v2022.apx
+Line: 2395
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01701-program.apx
+Line: 197
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01701-program.apx
+Line: 198
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01001.apx
+Line: 134
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01001.apx
+Line: 135
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 410
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 411
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 740
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 741
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 976
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 977
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 1003
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 1004
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 1030
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 1031
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 1064
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 1065
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 1094
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 1095
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 1137
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 1138
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01501-assessment.apx
+Line: 1166
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 12927574984885643
+
+File: pages/p01501-assessment.apx
+Line: 1167
+Column: 12
+Type: INVALID_PROPERTY
+Error: Invalid property: templateOptions
+
+File: pages/p01100.apx
+Line: 255
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 14798442069586665
+
+File: pages/p01100.apx
+Line: 290
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 14798442069586665
+
+File: pages/p01100.apx
+Line: 308
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 14798442069586665
+
+File: pages/p01000.apx
+Line: 388
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 14798442069586665
+
+File: pages/p01200.apx
+Line: 353
+Column: 12
+Type: REFERENCE_NOT_FOUND
+Error: Value not found: 14798442069586665
+
+
+
+SQL> spool apex-validate.log

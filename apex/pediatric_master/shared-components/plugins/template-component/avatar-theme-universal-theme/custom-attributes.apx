@@ -6,7 +6,7 @@ customAttribute CSS_CLASSES (
         escapeMode: htmlAttribute
     }
     appearance {
-        sequence: 80
+        sequence: 90
     }
     builder {
         common: false
@@ -26,8 +26,45 @@ customAttribute DESCRIPTION (
     appearance {
         sequence: 55
     }
+    default {
+        sampleDataValue: &NAME. - &JOB.
+    }
     help {
         helpText: Enter a short description of the image/icon or select a source column from the quick pick options. This will be used as title & alt text for the avatar image/icon.
+    }
+)
+
+customAttribute GROUP_ICON (
+    apexlangName: groupIcon
+    attribute: 11
+    name: Icon
+    scope: reportGroup
+    type: icon
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 110
+    }
+    dependingOn {
+        attribute: @GROUP_TITLE/reportGroup
+        conditionType: isNotNull
+    }
+)
+
+customAttribute GROUP_TITLE (
+    apexlangName: groupTitle
+    attribute: 10
+    name: Title
+    scope: reportGroup
+    type: html
+    security {
+        escapeMode: raw
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 100
     }
 )
 
@@ -64,7 +101,7 @@ customAttribute IMAGE (
         sequence: 20
     }
     default {
-        sampleDataValue: #APEX_FILES#apex_ui/img/favicons/app-artwork-catalog.png
+        sampleDataValue: "{\"source\":\"URL\",\"url\":\"#APEX_FILES#sample_data/employees/&AVATAR_IMAGE.\"}"
     }
     dependingOn {
         attribute: @TYPE/component
@@ -76,13 +113,12 @@ customAttribute IMAGE (
             ```
             <p>Use the Media popup dialog to select a source for the avatar image.</p>
             
-            <p>Available options include:
+            <p>Available options include:</p>
             <ul>
             <li>URL</li>
             <li>BLOB Column</li>
             <li>URL Column</li>
             </ul>
-            </p>
             ```
     }
 )
@@ -118,6 +154,9 @@ customAttribute SHAPE (
     }
     appearance {
         sequence: 60
+    }
+    default {
+        sampleDataValue: t-Avatar--rounded
     }
     help {
         helpText: Select the shape of the avatar. Default inherits the shape set by the containing template.
@@ -175,6 +214,9 @@ customAttribute SIZE (
     appearance {
         sequence: 70
     }
+    default {
+        sampleDataValue: t-Avatar--xl
+    }
     help {
         helpText: Set the size of the avatar. The default inherits the sizing set by the containing template.
     }
@@ -219,6 +261,84 @@ customAttribute SIZE (
         sequence: 30
         display: Small
         return: t-Avatar--sm
+    )
+
+)
+
+customAttribute SPACING (
+    apexlangName: spacing
+    attribute: 9
+    name: Spacing
+    scope: report
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 80
+    }
+    default {
+        sampleDataValue: t-Avatars--spacingLg
+    }
+    help {
+        helpText: This option will create spacing between the avatars or allow them to stack on top of each other.
+    }
+
+    entry auto (
+        sequence: 60
+        display: Auto
+        return: t-Avatars--spacingAuto
+        help {
+            helpText: Sets the spacing to auto and will try to fill in the available space.
+        }
+    )
+
+    entry large (
+        sequence: 40
+        display: Large
+        return: t-Avatars--spacingLg
+        help {
+            helpText: Sets the spacing between the avatars to large.
+        }
+    )
+
+    entry medium (
+        sequence: 30
+        display: Medium
+        return: t-Avatars--spacingMd
+        help {
+            helpText: Sets the spacing between the avatars to medium.
+        }
+    )
+
+    entry none (
+        sequence: 10
+        display: None
+        return: t-Avatars--spacingNone
+        help {
+            helpText: Removes any spaces between the avatars.
+        }
+    )
+
+    entry small (
+        sequence: 20
+        display: Small
+        return: t-Avatars--spacingSm
+        help {
+            helpText: Sets the spacing between the avatars to small.
+        }
+    )
+
+    entry stack (
+        sequence: 50
+        display: Stack
+        return: t-Avatars--spacingStack
+        help {
+            helpText: Sets negative spacing between the avatars to provide a stacked appearance.
+        }
     )
 
 )

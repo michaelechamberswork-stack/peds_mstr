@@ -1,3 +1,234 @@
+templateOptionGroup button-set (
+    templateType: button
+    name: Button Set
+    sequence: 40
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Enables you to group many buttons together into a pill. You can use this option to specify where the button is within this set. Set the option to Default if this button is not part of a button set.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup icon-hover-animation (
+    templateType: button
+    name: Icon Hover Animation
+    sequence: 55
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup icon-position (
+    templateType: button
+    name: Icon Position
+    sequence: 50
+    help {
+        helpText: Sets the position of the icon relative to the label.
+    }
+)
+
+templateOptionGroup size (
+    templateType: button
+    name: Size
+    sequence: 10
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the size of the button.
+    }
+)
+
+templateOptionGroup spacing-bottom (
+    templateType: button
+    name: Spacing Bottom
+    sequence: 100
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Controls the spacing to the bottom of the button.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup spacing-left (
+    templateType: button
+    name: Spacing Left
+    sequence: 70
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Controls the spacing to the left of the button.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup spacing-right (
+    templateType: button
+    name: Spacing Right
+    sequence: 80
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Controls the spacing to the right of the button.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup spacing-top (
+    templateType: button
+    name: Spacing Top
+    sequence: 90
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Controls the spacing to the top of the button.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup style (
+    templateType: button
+    name: Style
+    sequence: 30
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the style of the button. Use the "Simple" option for secondary actions or sets of buttons. Use the "Remove UI Decoration" option to make the button appear as text.
+    }
+)
+
+templateOptionGroup type (
+    templateType: button
+    name: Type
+    sequence: 20
+    settings {
+        nullText: Normal
+    }
+)
+
+templateOptionGroup width (
+    templateType: button
+    name: Width
+    sequence: 60
+    settings {
+        nullText: Auto - Default
+    }
+    help {
+        helpText: Sets the width of the button.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup bottom-margin (
+    templateType: item
+    name: Bottom Margin
+    sequence: 220
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the bottom margin for this field.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup display-text-style (
+    templateType: item
+    name: Display Text Style
+    sequence: 400
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Determines the display style for Display Only & Read Only display items.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup item-post-text (
+    templateType: item
+    name: Item Post Text
+    sequence: 30
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Adjust the display of the Item Post Text
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup item-pre-text (
+    templateType: item
+    name: Item Pre Text
+    sequence: 20
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Adjust the display of the Item Pre Text
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup item-spacing (
+    templateType: item
+    name: Item Spacing
+    sequence: 310
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the padding around the item.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup left-margin (
+    templateType: item
+    name: Left Margin
+    sequence: 220
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the left margin for this field.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
 templateOptionGroup preserve-label-spacing (
     templateType: item
     name: Preserve Label Spacing
@@ -8,9 +239,108 @@ templateOptionGroup preserve-label-spacing (
     help {
         helpText: Preserves the label space and enables use of the Label Column Span property.
     }
-    advanced {
-        identifier: PRESERVE_LABEL_SPACING
+    subscription {
+        master: @/100/universal-theme/item/preserve-label-spacing
     }
+)
+
+templateOptionGroup radio-group-display (
+    templateType: item
+    name: Item Group Display
+    sequence: 300
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Determines the display style for radio and check box items.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup required-indicator (
+    templateType: item
+    name: Required Indicator
+    sequence: 1
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup right-margin (
+    templateType: item
+    name: Right Margin
+    sequence: 230
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the right margin for this field.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup size-2 (
+    templateType: item
+    name: Size
+    sequence: 10
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup top-margin (
+    templateType: item
+    name: Top Margin
+    sequence: 200
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the top margin for this field.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup animation (
+    templateType: list
+    name: Animation
+    sequence: 80
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the hover and focus animation.
+    }
+)
+
+templateOptionGroup badge-size (
+    templateType: list
+    name: Badge Size
+    sequence: 70
+)
+
+templateOptionGroup body-text (
+    templateType: list
+    name: Body Text
+    sequence: 40
+    settings {
+        nullText: Auto
+    }
+    help {
+        helpText: Determines the height of the card body.
+    }
+)
+
+templateOptionGroup collapse-style (
+    templateType: list
+    name: Collapse Mode
+    sequence: 30
 )
 
 templateOptionGroup color-accents (
@@ -20,8 +350,41 @@ templateOptionGroup color-accents (
     settings {
         nullText: Default
     }
-    advanced {
-        identifier: COLOR_ACCENTS
+    subscription {
+        master: @/100/universal-theme/list/color-accents
+    }
+)
+
+templateOptionGroup desktop (
+    templateType: list
+    name: Desktop
+    sequence: 90
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Determines the display for a desktop-sized screen
+    }
+)
+
+templateOptionGroup display-icons (
+    templateType: list
+    name: Display Icons
+    sequence: 30
+    settings {
+        nullText: No Icons
+    }
+)
+
+templateOptionGroup icon-shape (
+    templateType: list
+    name: Icon Shape
+    sequence: 60
+    settings {
+        nullText: Circle
+    }
+    help {
+        helpText: Determines the shape of the icon.
     }
 )
 
@@ -29,9 +392,84 @@ templateOptionGroup icon-style (
     templateType: list
     name: Icon Style
     sequence: 35
-    advanced {
-        identifier: ICON_STYLE
+    subscription {
+        master: @/100/universal-theme/list/icon-style
     }
+)
+
+templateOptionGroup icons (
+    templateType: list
+    name: Icons
+    sequence: 20
+    settings {
+        nullText: No Icons
+    }
+)
+
+templateOptionGroup label-display (
+    templateType: list
+    name: Label Display
+    sequence: 50
+)
+
+templateOptionGroup layout (
+    templateType: list
+    name: Layout
+    sequence: 30
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup mobile (
+    templateType: list
+    name: Mobile
+    sequence: 100
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Determines the display for a mobile-sized screen
+    }
+)
+
+templateOptionGroup size-3 (
+    templateType: list
+    name: Size
+    sequence: 1
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup style-2 (
+    templateType: list
+    name: Style
+    sequence: 10
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup content-padding (
+    templateType: page
+    name: Content Padding
+    sequence: 1
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the Content Body padding for the page.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup dialog-size (
+    templateType: page
+    name: Size
+    sequence: 1
 )
 
 templateOptionGroup display-mode (
@@ -44,8 +482,239 @@ templateOptionGroup display-mode (
     help {
         helpText: Determines the default display appearance and positioning of the dialog. The default opens a floating dialog position at the center of the screen.
     }
+    subscription {
+        master: @/100/universal-theme/page/display-mode
+    }
+)
+
+templateOptionGroup page-background (
+    templateType: page
+    name: Page Background
+    sequence: 20
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup page-layout (
+    templateType: page
+    name: Page Layout
+    sequence: 10
+    settings {
+        nullText: Floating (Default)
+    }
+)
+
+templateOptionGroup page-position (
+    templateType: page
+    name: Position
+    sequence: 1
+    help {
+        helpText: Sets the position of the page.
+    }
+)
+
+templateOptionGroup vertical-alignment (
+    templateType: page
+    name: Content Vertical Alignment
+    sequence: 2
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the Vertical Alignment for the Body of the Page
+    }
     advanced {
-        identifier: DISPLAY_MODE
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup accent (
+    templateType: region
+    name: Accent
+    sequence: 30
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the Region's accent. This accent corresponds to a Theme-Rollable color and sets the background of the Region's Header.
+    }
+)
+
+templateOptionGroup alert-display (
+    templateType: region
+    name: Alert Display
+    sequence: 1
+    help {
+        helpText: Sets the layout of the Alert Region.
+    }
+)
+
+templateOptionGroup alert-icons (
+    templateType: region
+    name: Alert Icons
+    sequence: 2
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets how icons are handled for the Alert Region.
+    }
+)
+
+templateOptionGroup alert-title (
+    templateType: region
+    name: Alert Title
+    sequence: 40
+    settings {
+        nullText: Visible - Default
+    }
+    help {
+        helpText: Determines how the title of the alert is displayed.
+    }
+)
+
+templateOptionGroup alert-type (
+    templateType: region
+    name: Alert Type
+    sequence: 3
+    help {
+        helpText: Sets the type of alert which can be used to determine the icon, icon color, and the background color.
+    }
+)
+
+templateOptionGroup alignment (
+    templateType: region
+    name: Alignment
+    sequence: 1
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: This sets the vertical alignment of the region.
+    }
+)
+
+templateOptionGroup animation-2 (
+    templateType: region
+    name: Animation
+    sequence: 10
+    settings {
+        nullText: Fade
+    }
+    help {
+        helpText: Sets the animation when navigating within the Carousel Region.
+    }
+)
+
+templateOptionGroup body-height (
+    templateType: region
+    name: Body Height
+    sequence: 10
+    settings {
+        nullText: Auto - Default
+    }
+    help {
+        helpText: Sets the Region Body height. You can also specify a custom height by modifying the Region's CSS Classes and using the height helper classes "i-hXXX" where XXX is any increment of 10 from 100 to 800.
+    }
+)
+
+templateOptionGroup body-overflow (
+    templateType: region
+    name: Body Overflow
+    sequence: 2
+    help {
+        helpText: Determines the scroll behavior when the region contents are larger than their container.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup body-padding (
+    templateType: region
+    name: Body Padding
+    sequence: 1
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the Region Body padding for the region.
+    }
+)
+
+templateOptionGroup body-style (
+    templateType: region
+    name: Body Style
+    sequence: 20
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Controls the display of the region's body container.
+    }
+)
+
+templateOptionGroup callout-position (
+    templateType: region
+    name: Callout Position
+    sequence: 10
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Determines where the callout for the popup will be positioned relative to its parent.
+    }
+)
+
+templateOptionGroup collapsible-button-icons (
+    templateType: region
+    name: Collapsible Button Icons
+    sequence: 1
+    settings {
+        nullText: Arrows
+    }
+    help {
+        helpText: Determines which arrows to use to represent the icons for the collapse and expand button.
+    }
+)
+
+templateOptionGroup collapsible-icon-position (
+    templateType: region
+    name: Collapsible Icon Position
+    sequence: 1
+    settings {
+        nullText: Start
+    }
+    help {
+        helpText: Determines the position of the expand and collapse toggle for the region.
+    }
+)
+
+templateOptionGroup default-state (
+    templateType: region
+    name: Default State
+    sequence: 1
+    help {
+        helpText: Sets the default state of the region.
+    }
+)
+
+templateOptionGroup dialog-size-2 (
+    templateType: region
+    name: Size
+    sequence: 1
+)
+
+templateOptionGroup display-icon (
+    templateType: region
+    name: Display Icon
+    sequence: 50
+    settings {
+        nullText: Yes (Default)
+    }
+    help {
+        helpText: Display the Hero Region icon.
     }
 )
 
@@ -59,8 +728,287 @@ templateOptionGroup display-mode (
     help {
         helpText: Determines the default display appearance and positioning of the dialog. The default opens a floating dialog position at the center of the screen.
     }
+    subscription {
+        master: @/100/universal-theme/region/display-mode
+    }
+)
+
+templateOptionGroup header (
+    templateType: region
+    name: Header
+    sequence: 20
+    settings {
+        nullText: Visible - Default
+    }
+    help {
+        helpText: Determines the display of the Region Header which also contains the Region Title.
+    }
+)
+
+templateOptionGroup header-visibility (
+    templateType: region
+    name: Header
+    sequence: 20
+    help {
+        helpText: Determines the display of the Region Header which also contains the Region Title.
+    }
+)
+
+templateOptionGroup heading-font (
+    templateType: region
+    name: Heading Font
+    sequence: 100
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the font-family of the heading for this region.
+    }
+)
+
+templateOptionGroup heading-level (
+    templateType: region
+    name: Heading Level
+    sequence: 1
+    settings {
+        nullText: Default
+    }
     advanced {
-        identifier: DISPLAY_MODE
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup hide-steps-for (
+    templateType: region
+    name: Hide Steps For
+    sequence: 1
+)
+
+templateOptionGroup icon-shape-2 (
+    templateType: region
+    name: Icon Shape
+    sequence: 60
+    settings {
+        nullText: Rounded Corners
+    }
+    help {
+        helpText: Determines the shape of the icon.
+    }
+)
+
+templateOptionGroup icon-size (
+    templateType: region
+    name: Icon Size
+    sequence: 3
+    settings {
+        nullText: Initial
+    }
+)
+
+templateOptionGroup image-filter (
+    templateType: region
+    name: Filter
+    sequence: 40
+)
+
+templateOptionGroup image-ratio (
+    templateType: region
+    name: Ratio
+    sequence: 10
+)
+
+templateOptionGroup image-scale (
+    templateType: region
+    name: Scale
+    sequence: 20
+)
+
+templateOptionGroup image-shape (
+    templateType: region
+    name: Shape
+    sequence: 30
+)
+
+templateOptionGroup item-padding (
+    templateType: region
+    name: Item Spacing
+    sequence: 100
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the padding around items within this region.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup item-size (
+    templateType: region
+    name: Item Size
+    sequence: 110
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the size of the form items within this region.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup item-width (
+    templateType: region
+    name: Item Width
+    sequence: 120
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the width of the form items within this region.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup label-alignment (
+    templateType: region
+    name: Label Alignment
+    sequence: 130
+    settings {
+        nullText: Right
+    }
+    help {
+        helpText: Set the label text alignment for items within this region.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup label-position (
+    templateType: region
+    name: Label Position
+    sequence: 140
+    settings {
+        nullText: Inline - Default
+    }
+    help {
+        helpText: Sets the position of the label relative to the form item.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup layout-2 (
+    templateType: region
+    name: Layout
+    sequence: 1
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup login-header (
+    templateType: region
+    name: Login Header
+    sequence: 10
+    settings {
+        nullText: Icon and Title (Default)
+    }
+    help {
+        helpText: Controls the display of the Login region header.
+    }
+)
+
+templateOptionGroup region-bottom-margin (
+    templateType: region
+    name: Bottom Margin
+    sequence: 210
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the bottom margin for this region.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup region-left-margin (
+    templateType: region
+    name: Left Margin
+    sequence: 220
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the left margin for this region.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup region-position (
+    templateType: region
+    name: Position
+    sequence: 1
+    help {
+        helpText: Sets the position of the region.
+    }
+)
+
+templateOptionGroup region-right-margin (
+    templateType: region
+    name: Right Margin
+    sequence: 230
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the right margin for this region.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup region-title (
+    templateType: region
+    name: Region Title
+    sequence: 1
+    help {
+        helpText: Sets the source of the Title Bar region's title.
+    }
+)
+
+templateOptionGroup region-top-margin (
+    templateType: region
+    name: Top Margin
+    sequence: 200
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Set the top margin for this region.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup result-appearance (
+    templateType: region
+    name: Result Appearance
+    sequence: 1
+    settings {
+        nullText: Default
     }
 )
 
@@ -71,8 +1019,185 @@ templateOptionGroup result-separator (
     settings {
         nullText: Show
     }
+    subscription {
+        master: @/100/universal-theme/region/result-separator
+    }
+)
+
+templateOptionGroup sort-order-alignment (
+    templateType: region
+    name: Sort Order Alignment
+    sequence: 145
+    settings {
+        nullText: Default (Start)
+    }
+    help {
+        helpText: Sets the alignment of the sort order item.
+    }
     advanced {
-        identifier: RESULT_SEPARATOR
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup style-3 (
+    templateType: region
+    name: Style
+    sequence: 40
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Determines how the region is styled. Use the "Remove Borders" template option to remove the region's borders and shadows.
+    }
+)
+
+templateOptionGroup tab-style (
+    templateType: region
+    name: Tabs Style
+    sequence: 1
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup tabs-icon (
+    templateType: region
+    name: Tabs Icon
+    sequence: 1
+    settings {
+        nullText: None - Default
+    }
+)
+
+templateOptionGroup tabs-size (
+    templateType: region
+    name: Tabs Size
+    sequence: 1
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup timer (
+    templateType: region
+    name: Timer
+    sequence: 2
+    settings {
+        nullText: No Timer
+    }
+    help {
+        helpText: Sets the timer for when to automatically navigate to the next region within the Carousel Region.
+    }
+)
+
+templateOptionGroup alternating-rows (
+    templateType: report
+    name: Alternating Rows
+    sequence: 10
+    help {
+        helpText: Shades alternate rows in the report with slightly different background colors.
+    }
+)
+
+templateOptionGroup animation-3 (
+    templateType: report
+    name: Animation
+    sequence: 70
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Sets the hover and focus animation.
+    }
+)
+
+templateOptionGroup badge-size-2 (
+    templateType: report
+    name: Badge Size
+    sequence: 10
+)
+
+templateOptionGroup body-text-2 (
+    templateType: report
+    name: Body Text
+    sequence: 40
+    settings {
+        nullText: Auto
+    }
+    help {
+        helpText: Determines the height of the card body.
+    }
+)
+
+templateOptionGroup col-actions (
+    templateType: report
+    name: Actions
+    sequence: 150
+    settings {
+        nullText: Default
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup col-content-description (
+    templateType: report
+    name: Description
+    sequence: 130
+    settings {
+        nullText: Default
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup col-content-title (
+    templateType: report
+    name: Title
+    sequence: 120
+    settings {
+        nullText: Default
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup col-icon (
+    templateType: report
+    name: Icon
+    sequence: 110
+    settings {
+        nullText: Default
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup col-misc (
+    templateType: report
+    name: Misc
+    sequence: 140
+    settings {
+        nullText: Default
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup col-selection (
+    templateType: report
+    name: Selection
+    sequence: 100
+    settings {
+        nullText: Default
+    }
+    advanced {
+        isAdvancedOption: true
     }
 )
 
@@ -83,8 +1208,161 @@ templateOptionGroup color-accents (
     settings {
         nullText: Default
     }
+    subscription {
+        master: @/100/universal-theme/report/color-accents
+    }
+)
+
+templateOptionGroup comments-style (
+    templateType: report
+    name: Comments Style
+    sequence: 10
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Determines the style in which comments are displayed.
+    }
+)
+
+templateOptionGroup content-alignment (
+    templateType: report
+    name: Content Alignment
+    sequence: 90
+    settings {
+        nullText: Center (Default)
+    }
+)
+
+templateOptionGroup display-items (
+    templateType: report
+    name: Display Items
+    sequence: 20
+    settings {
+        nullText: Inline (Default)
+    }
+)
+
+templateOptionGroup display-labels (
+    templateType: report
+    name: Display Labels
+    sequence: 30
+    settings {
+        nullText: Inline (Default)
+    }
+)
+
+templateOptionGroup icon-shape-3 (
+    templateType: report
+    name: Icon Shape
+    sequence: 60
+    settings {
+        nullText: Circle
+    }
+    help {
+        helpText: Determines the shape of the icon.
+    }
+)
+
+templateOptionGroup icons-2 (
+    templateType: report
+    name: Icons
+    sequence: 20
+    settings {
+        nullText: No Icons
+    }
+    help {
+        helpText: Controls how to handle icons in the report.
+    }
+)
+
+templateOptionGroup label-width (
+    templateType: report
+    name: Label Width
+    sequence: 10
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup layout-3 (
+    templateType: report
+    name: Layout
+    sequence: 30
+    help {
+        helpText: Determines the layout of Cards in the report.
+    }
+)
+
+templateOptionGroup pagination-display (
+    templateType: report
+    name: Pagination Display
+    sequence: 10
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Controls the display of pagination for this region.
+    }
     advanced {
-        identifier: COLOR_ACCENTS
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup report-border (
+    templateType: report
+    name: Report Border
+    sequence: 30
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Controls the display of the Report's borders.
+    }
+)
+
+templateOptionGroup row-highlighting (
+    templateType: report
+    name: Row Highlighting
+    sequence: 20
+    help {
+        helpText: Determines whether you want the row to be highlighted on hover.
+    }
+)
+
+templateOptionGroup size-4 (
+    templateType: report
+    name: Size
+    sequence: 35
+    settings {
+        nullText: Default
+    }
+)
+
+templateOptionGroup stack-on-mobile (
+    templateType: report
+    name: Stack on Mobile
+    sequence: 5
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Controls the layout of items on mobile breakpoints.
+    }
+    advanced {
+        isAdvancedOption: true
+    }
+)
+
+templateOptionGroup style-4 (
+    templateType: report
+    name: Style
+    sequence: 10
+    settings {
+        nullText: Default
+    }
+    help {
+        helpText: Determines the overall style for the component.
     }
 )
 

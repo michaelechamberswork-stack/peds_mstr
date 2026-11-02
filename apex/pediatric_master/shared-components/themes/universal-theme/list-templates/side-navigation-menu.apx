@@ -43,11 +43,11 @@ listTemplate side-navigation-menu (
         current:
             ```html
             <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#">
-              <a href="#LINK#" title="#A04#" #APEX_CSP_DISPLAY_NONE# target="#A06#">#TEXT_ESC_SC#</a>
+              <a href="#LINK#" class="u-DisplayNone" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
               <div class="a-TreeView-node a-TreeView-node--topLevel" aria-hidden="true">
                 <div role="none" class="a-TreeView-row"></div>
                 <div role="none" class="a-TreeView-content">
-                  <span class="fa fa-file-o #ICON_CSS_CLASSES#"></span>
+                  <span class="fa #ICON_CSS_CLASSES#"></span>
                   <span class="a-TreeView-label">#TEXT_ESC_SC#</span>
                 </div>
               </div>
@@ -57,11 +57,11 @@ listTemplate side-navigation-menu (
         currentWithSublist:
             ```html
             <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#">
-              <a href="#LINK#" title="#A04#" #APEX_CSP_DISPLAY_NONE# target="#A06#">#TEXT_ESC_SC#</a>
+              <a href="#LINK#" class="u-DisplayNone" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
               <div class="a-TreeView-node a-TreeView-node--topLevel" aria-hidden="true">
                 <div role="none" class="a-TreeView-row"></div>
                 <div role="none" class="a-TreeView-content">
-                  <span class="fa fa-file-o #ICON_CSS_CLASSES#"></span>
+                  <span class="fa #ICON_CSS_CLASSES#"></span>
                   <span class="a-TreeView-label">#TEXT_ESC_SC#</span>
                 </div>
               </div>
@@ -70,11 +70,11 @@ listTemplate side-navigation-menu (
         noncurrent:
             ```html
             <li data-current="false" data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#">
-              <a href="#LINK#" title="#A04#" #APEX_CSP_DISPLAY_NONE# target="#A06#">#TEXT_ESC_SC#</a>
+              <a href="#LINK#" class="u-DisplayNone" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
               <div class="a-TreeView-node a-TreeView-node--topLevel" aria-hidden="true">
                 <div role="none" class="a-TreeView-row"></div>
                 <div role="none" class="a-TreeView-content">
-                  <span class="fa fa-file-o #ICON_CSS_CLASSES#"></span>
+                  <span class="fa #ICON_CSS_CLASSES#"></span>
                   <span class="a-TreeView-label">#TEXT_ESC_SC#</span>
                 </div>
               </div>
@@ -83,11 +83,11 @@ listTemplate side-navigation-menu (
         noncurrentWithSublist:
             ```html
             <li data-current="false" data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#">
-              <a href="#LINK#" title="#A04#" #APEX_CSP_DISPLAY_NONE# target="#A06#">#TEXT_ESC_SC#</a>
+              <a href="#LINK#" class="u-DisplayNone" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
               <div class="a-TreeView-node a-TreeView-node--topLevel" aria-hidden="true">
                 <div role="none" class="a-TreeView-row"></div>
                 <div role="none" class="a-TreeView-content">
-                  <span class="fa fa-file-o #ICON_CSS_CLASSES#"></span>
+                  <span class="fa #ICON_CSS_CLASSES#"></span>
                   <span class="a-TreeView-label">#TEXT_ESC_SC#</span>
                 </div>
               </div>
@@ -95,14 +95,14 @@ listTemplate side-navigation-menu (
             ```
     }
     sublist {
-        beforeEntries: <ul #APEX_CSP_DISPLAY_NONE#>
+        beforeEntries: <ul class="u-DisplayNone">
         afterEntries: </ul></li>
     }
     sublistEntry {
-        current: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        currentWithSublist: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a>
-        noncurrent: <li data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        noncurrentWithSublist: <li data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a>
+        current: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        currentWithSublist: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
+        noncurrent: <li data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        noncurrentWithSublist: <li data-id="#A01#" data-disabled="#A02#" data-icon="#ICON_CSS_CLASSES#" data-shortcut="#A05#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
     }
     javaScript {
         fileUrls: #APEX_FILES#libraries/apex/#MIN_DIRECTORY#widget.treeView#MIN#.js?v=#APEX_VERSION#
@@ -114,12 +114,7 @@ listTemplate side-navigation-menu (
         a04: Title Attribute (Used By Actions Only)
         a05: Shortcut Key
         a06: Link Target
-    }
-    advanced {
-        identifier: SIDE_NAVIGATION_MENU
-    }
-    subscription {
-        master: @side-navigation-menu
+        a10: OpenTelemetry Label
     }
 
     templateOption add-actions (
@@ -130,9 +125,6 @@ listTemplate side-navigation-menu (
         }
         help {
             helpText: Use this option to add shortcuts for menu items. Note that actions.js must be included on your page to support this functionality.
-        }
-        advanced {
-            identifier: ADD_ACTIONS
         }
     )
 
@@ -145,8 +137,16 @@ listTemplate side-navigation-menu (
         help {
             helpText: This option will load the side navigation menu in a collapsed state by default.
         }
-        advanced {
-            identifier: COLLAPSED_DEFAULT
+    )
+
+    templateOption hide-default-item-icon (
+        name: Hide Default Item Icon
+        sequence: 30
+        appearance {
+            cssClasses: js-hideDefaultIcon
+        }
+        help {
+            helpText: This will hide the default item icon when the navigation is expanded.
         }
     )
 
@@ -160,9 +160,6 @@ listTemplate side-navigation-menu (
         help {
             helpText: Completely hide the navigation menu when it is collapsed.
         }
-        advanced {
-            identifier: COLLAPSE_STYLE_HIDDEN
-        }
     )
 
     templateOption icon-default (
@@ -175,14 +172,11 @@ listTemplate side-navigation-menu (
         help {
             helpText: Display icons when the navigation menu is collapsed for large screens.
         }
-        advanced {
-            identifier: ICON_DEFAULT
-        }
     )
 
     templateOption style-a (
         name: Style A
-        group: @list/style
+        group: @list/style-2
         sequence: 20
         appearance {
             cssClasses: t-TreeNav--styleA
@@ -190,14 +184,11 @@ listTemplate side-navigation-menu (
         help {
             helpText: Style Variation A
         }
-        advanced {
-            identifier: STYLE_A
-        }
     )
 
     templateOption style-b (
         name: Style B
-        group: @list/style
+        group: @list/style-2
         sequence: 30
         appearance {
             cssClasses: t-TreeNav--styleB
@@ -205,23 +196,17 @@ listTemplate side-navigation-menu (
         help {
             helpText: Style Variation B
         }
-        advanced {
-            identifier: STYLE_B
-        }
     )
 
     templateOption style-c (
         name: Classic
-        group: @list/style
+        group: @list/style-2
         sequence: 10
         appearance {
             cssClasses: t-TreeNav--classic
         }
         help {
             helpText: Classic Style
-        }
-        advanced {
-            identifier: STYLE_C
         }
     )
 

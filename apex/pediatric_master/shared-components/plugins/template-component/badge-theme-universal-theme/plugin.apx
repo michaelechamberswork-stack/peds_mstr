@@ -31,18 +31,17 @@ plugin badge (
             <li class="t-Badges-item" #APEX$ROW_IDENTIFICATION#>#APEX$PARTIAL#</li>
             
             ```
-        translateTemplates: true
         numberOfLazyLoadingSkeletons: 1
     }
     component {
         standardAttributes: regionTemplateAttr
     }
+    source {
+        sampleData: products
+    }
     information {
         version: 1.0
         helpText: Display content within a badge. Available for multiple report rows or a single row.
-    }
-    subscription {
-        master: @/8842/templateComponent/badge/universal-theme
     }
 )
 

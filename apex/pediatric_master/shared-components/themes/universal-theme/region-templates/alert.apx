@@ -11,14 +11,14 @@ regionTemplate alert (
     region {
         template:
             ```html
-            <div class="t-Alert #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-Alert #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
               <div class="t-Alert-wrap">
                 <div class="t-Alert-icon">
                   <span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true"></span>
                 </div>
                 <div class="t-Alert-content">
                   <div class="t-Alert-header">
-                    <h2 class="t-Alert-title" id="#REGION_STATIC_ID#_heading" data-apex-heading>#TITLE#</h2>
+                    <h2 class="t-Alert-title" id="#DOM_ID#_heading" data-apex-heading>#TITLE#</h2>
                   </div>
                   <div class="t-Alert-body">#BODY##SUB_REGIONS#</div>
                 </div>
@@ -30,12 +30,6 @@ regionTemplate alert (
     accessibility {
         landmarkType: region
     }
-    advanced {
-        identifier: ALERT
-    }
-    subscription {
-        master: @alert
-    }
 
     templateOption coloredbackground (
         name: Highlight Background
@@ -45,9 +39,6 @@ regionTemplate alert (
         }
         help {
             helpText: Set alert background color to that of the alert type (warning, success, etc.)
-        }
-        advanced {
-            identifier: COLOREDBACKGROUND
         }
     )
 
@@ -61,9 +52,6 @@ regionTemplate alert (
         help {
             helpText: Show horizontal alert with buttons to the right.
         }
-        advanced {
-            identifier: HORIZONTAL
-        }
     )
 
     templateOption wizard (
@@ -75,9 +63,6 @@ regionTemplate alert (
         }
         help {
             helpText: Show the alert in a wizard style region.
-        }
-        advanced {
-            identifier: WIZARD
         }
     )
 
@@ -91,9 +76,6 @@ regionTemplate alert (
         help {
             helpText: Hides alert icons
         }
-        advanced {
-            identifier: HIDE_ICONS
-        }
     )
 
     templateOption show-custom-icons (
@@ -105,9 +87,6 @@ regionTemplate alert (
         }
         help {
             helpText: Set custom icons by modifying the Alert Region's Icon CSS Classes property.
-        }
-        advanced {
-            identifier: SHOW_CUSTOM_ICONS
         }
     )
 
@@ -121,9 +100,6 @@ regionTemplate alert (
         help {
             helpText: Uses default icons for alert types.
         }
-        advanced {
-            identifier: USEDEFAULTICONS
-        }
     )
 
     templateOption hiddenheader (
@@ -135,9 +111,6 @@ regionTemplate alert (
         }
         help {
             helpText: Visually hides the alert title, but assistive technologies can still read it.
-        }
-        advanced {
-            identifier: HIDDENHEADER
         }
     )
 
@@ -154,9 +127,6 @@ regionTemplate alert (
         help {
             helpText: Hides the Alert Title from being displayed.
         }
-        advanced {
-            identifier: HIDDENHEADERNOAT
-        }
     )
 
     templateOption danger (
@@ -168,9 +138,6 @@ regionTemplate alert (
         }
         help {
             helpText: Show an error or danger alert.
-        }
-        advanced {
-            identifier: DANGER
         }
     )
 
@@ -184,9 +151,6 @@ regionTemplate alert (
         help {
             helpText: Show informational alert.
         }
-        advanced {
-            identifier: INFORMATION
-        }
     )
 
     templateOption success (
@@ -199,9 +163,6 @@ regionTemplate alert (
         help {
             helpText: Show success alert.
         }
-        advanced {
-            identifier: SUCCESS
-        }
     )
 
     templateOption warning (
@@ -213,9 +174,6 @@ regionTemplate alert (
         }
         help {
             helpText: Show a warning alert.
-        }
-        advanced {
-            identifier: WARNING
         }
     )
 

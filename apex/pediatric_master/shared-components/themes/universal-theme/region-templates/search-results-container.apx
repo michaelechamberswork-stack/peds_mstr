@@ -7,7 +7,7 @@ regionTemplate search-results-container (
     region {
         template:
             ```html
-            <div class="t-ResultsRegion #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-ResultsRegion #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
               <div class="t-ResultsRegion-search">#SEARCH_FIELD#</div>
               #BODY#
               #SUB_REGIONS#
@@ -18,12 +18,6 @@ regionTemplate search-results-container (
     accessibility {
         landmarkType: region
     }
-    advanced {
-        identifier: SEARCH_RESULTS_CONTAINER
-    }
-    subscription {
-        master: @search-results-container
-    }
 
     templateOption apply-theme-colors (
         name: Apply Theme Colors
@@ -33,9 +27,6 @@ regionTemplate search-results-container (
         }
         help {
             helpText: Applies the colors from the theme's color palette to the icons or initials within search results.
-        }
-        advanced {
-            identifier: APPLY_THEME_COLORS
         }
     )
 
@@ -49,9 +40,6 @@ regionTemplate search-results-container (
         help {
             helpText: Sets the icon size to large (64px).
         }
-        advanced {
-            identifier: ICON_SIZE_LARGE
-        }
     )
 
     templateOption icon-size-medium (
@@ -63,9 +51,6 @@ regionTemplate search-results-container (
         }
         help {
             helpText: Sets the icon size to medium (32px).
-        }
-        advanced {
-            identifier: ICON_SIZE_MEDIUM
         }
     )
 
@@ -79,9 +64,6 @@ regionTemplate search-results-container (
         help {
             helpText: Sets the icon size to small (16px).
         }
-        advanced {
-            identifier: ICON_SIZE_SMALL
-        }
     )
 
     templateOption result-appearance-boxed (
@@ -91,9 +73,6 @@ regionTemplate search-results-container (
         appearance {
             cssClasses: t-ResultsRegion--boxed
         }
-        advanced {
-            identifier: RESULT_APPEARANCE_BOXED
-        }
     )
 
     templateOption result-appearance-flat (
@@ -102,9 +81,6 @@ regionTemplate search-results-container (
         sequence: 2
         appearance {
             cssClasses: t-ResultsRegion--flat
-        }
-        advanced {
-            identifier: RESULT_APPEARANCE_FLAT
         }
     )
 

@@ -7,11 +7,11 @@ regionTemplate content-block (
     region {
         template:
             ```html
-            <div class="t-ContentBlock #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-ContentBlock #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
               <div class="t-ContentBlock-header">
                 <div class="t-ContentBlock-headerItems t-ContentBlock-headerItems--title">
                   <span class="t-ContentBlock-headerIcon"><span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true"></span></span>
-                  <h2 class="t-ContentBlock-title" id="#REGION_STATIC_ID#_heading" data-apex-heading>#TITLE#</h2>
+                  <h2 class="t-ContentBlock-title" id="#DOM_ID#_heading" data-apex-heading>#TITLE#</h2>
                   #EDIT#
                 </div>
                 <div class="t-ContentBlock-headerItems t-ContentBlock-headerItems--buttons">#CHANGE#</div>
@@ -24,13 +24,7 @@ regionTemplate content-block (
     }
     accessibility {
         landmarkType: region
-        regionTitleHtmlId: #REGION_STATIC_ID#_heading
-    }
-    advanced {
-        identifier: CONTENT_BLOCK
-    }
-    subscription {
-        master: @content-block
+        regionTitleHtmlId: #DOM_ID#_heading
     }
 
     templateOption add-body-padding (
@@ -42,9 +36,6 @@ regionTemplate content-block (
         help {
             helpText: Adds padding to the region's body container.
         }
-        advanced {
-            identifier: ADD_BODY_PADDING
-        }
     )
 
     templateOption show-region-icon (
@@ -55,9 +46,6 @@ regionTemplate content-block (
         }
         help {
             helpText: Displays the region icon in the region header beside the region title
-        }
-        advanced {
-            identifier: SHOW_REGION_ICON
         }
     )
 
@@ -71,9 +59,6 @@ regionTemplate content-block (
         help {
             helpText: Gives the region body a slightly lighter background.
         }
-        advanced {
-            identifier: LIGHT_BACKGROUND
-        }
     )
 
     templateOption shadow-background (
@@ -85,9 +70,6 @@ regionTemplate content-block (
         }
         help {
             helpText: Gives the region body a slightly darker background.
-        }
-        advanced {
-            identifier: SHADOW_BACKGROUND
         }
     )
 
@@ -101,9 +83,6 @@ regionTemplate content-block (
                 js-removeLandmark
             ]
         }
-        advanced {
-            identifier: HIDDENHEADERNOAT
-        }
     )
 
     templateOption hideregionheader (
@@ -111,13 +90,13 @@ regionTemplate content-block (
         group: @region/header
         sequence: 20
         appearance {
-            cssClasses: t-ContentBlock--hideHeader
+            cssClasses: [
+                t-ContentBlock--hideHeader
+                js-addHiddenHeadingRoleDesc
+            ]
         }
         help {
-            helpText: This option will hide the region header.  Note that the region title will still be audible for Screen Readers. Buttons placed in the region header will be hidden and inaccessible.
-        }
-        advanced {
-            identifier: HIDEREGIONHEADER
+            helpText: This option will hide the region header. Note that the region title will still be audible for Screen Readers. Buttons placed in the region header will be hidden and inaccessible.
         }
     )
 
@@ -128,9 +107,6 @@ regionTemplate content-block (
         appearance {
             cssClasses: t-ContentBlock--headingFontAlt
         }
-        advanced {
-            identifier: HEADING_FONT_ALTERNATIVE
-        }
     )
 
     templateOption content-title-h1 (
@@ -139,9 +115,6 @@ regionTemplate content-block (
         sequence: 10
         appearance {
             cssClasses: t-ContentBlock--h1
-        }
-        advanced {
-            identifier: CONTENT_TITLE_H1
         }
     )
 
@@ -152,9 +125,6 @@ regionTemplate content-block (
         appearance {
             cssClasses: t-ContentBlock--h2
         }
-        advanced {
-            identifier: CONTENT_TITLE_H2
-        }
     )
 
     templateOption content-title-h3 (
@@ -163,9 +133,6 @@ regionTemplate content-block (
         sequence: 30
         appearance {
             cssClasses: t-ContentBlock--h3
-        }
-        advanced {
-            identifier: CONTENT_TITLE_H3
         }
     )
 

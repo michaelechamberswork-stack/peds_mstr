@@ -5,11 +5,11 @@ fieldTemplate required (
         before:
             ```html
             <div class="t-Form-labelContainer col col-#LABEL_COLUMN_SPAN_NUMBER#">
-              <label for="#CURRENT_ITEM_NAME#" id="#LABEL_ID#" class="t-Form-label">
+            <#LABEL_OPEN# id="#LABEL_ID#" class="t-Form-label">
             ```
         after:
             ```html
-              </label>
+            <#LABEL_CLOSE#>
             </div>
             ```
     }
@@ -41,14 +41,8 @@ fieldTemplate required (
         errorTemplate: <div class="t-Form-error">#ERROR_MESSAGE#</div>
     }
     fieldContainer {
-        beforeLabelAndItem: <div class="t-Form-fieldContainer is-required rel-col #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#">
+        beforeLabelAndItem: <div class="t-Form-fieldContainer is-required rel-col #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#" data-otel-label="#CURRENT_ITEM_NAME#">
         afterLabelAndItem: </div>
-    }
-    advanced {
-        identifier: REQUIRED
-    }
-    subscription {
-        master: @required
     }
 
     templateOption indicator-asterisk (
@@ -61,9 +55,6 @@ fieldTemplate required (
         help {
             helpText: Displays an asterisk * on required items.
         }
-        advanced {
-            identifier: INDICATOR_ASTERISK
-        }
     )
 
     templateOption indicator-label (
@@ -75,9 +66,6 @@ fieldTemplate required (
         }
         help {
             helpText: Displays "Required" inline.
-        }
-        advanced {
-            identifier: INDICATOR_LABEL
         }
     )
 

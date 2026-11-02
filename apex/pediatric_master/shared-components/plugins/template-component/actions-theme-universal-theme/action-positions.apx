@@ -1,0 +1,9 @@
+actionPosition actions (
+    name: Actions
+    staticId: ACTIONS
+    sequence: 10
+    position {
+        type: template
+    }
+)
+

@@ -12,6 +12,7 @@ customAttribute APPLY_THEME_COLORS (
     }
     default {
         value: true
+        sampleDataValue: N
     }
     help {
         helpText: Specify whether to use the Universal Theme colors for avatar and badge row items. When set to Yes, the u-colors class will be applied to each row. When set to No, a default color will be used instead.
@@ -19,7 +20,7 @@ customAttribute APPLY_THEME_COLORS (
 )
 
 customAttribute AVATAR_DESCRIPTION (
-    apexlangName: description2
+    apexlangName: description
     attribute: 7
     name: Description
     security {
@@ -31,6 +32,11 @@ customAttribute AVATAR_DESCRIPTION (
     }
     builder {
         translatable: true
+    }
+    dependingOn {
+        attribute: @DISPLAY_AVATAR/component
+        conditionType: =
+        value: Y
     }
     help {
         helpText: Enter a short description of the image/icon or select a source column from the quick pick options. This will be used as title & alt text for the avatar image/icon.
@@ -80,6 +86,9 @@ customAttribute AVATAR_IMAGE (
         attributeGroup: @avatar
         sequence: 60
     }
+    default {
+        sampleDataValue: "{\"source\":\"URL\", \"url\":\"#APEX_FILES#sample_data/products/&IMAGE_FILENAME.\"}"
+    }
     dependingOn {
         attribute: @AVATAR_TYPE/component
         conditionType: =
@@ -90,13 +99,12 @@ customAttribute AVATAR_IMAGE (
             ```
             <p>Use the Media popup dialog to select a source for the avatar image.</p>
             
-            <p>Available options include:
+            <p>Available options include:</p>
             <ul>
             <li>URL</li>
             <li>BLOB Column</li>
             <li>URL Column</li>
             </ul>
-            </p>
             ```
     }
 )
@@ -205,7 +213,7 @@ customAttribute AVATAR_TYPE (
     }
     default {
         value: icon
-        sampleDataValue: icon
+        sampleDataValue: image
     }
     dependingOn {
         attribute: @DISPLAY_AVATAR/component
@@ -237,7 +245,7 @@ customAttribute AVATAR_TYPE (
 )
 
 customAttribute BADGE_ICON (
-    apexlangName: icon2
+    apexlangName: icon
     attribute: 14
     name: Icon
     type: icon
@@ -275,6 +283,9 @@ customAttribute BADGE_LABEL (
     builder {
         translatable: true
     }
+    default {
+        sampleDataValue: Price
+    }
     dependingOn {
         attribute: @DISPLAY_BADGE/component
         conditionType: =
@@ -308,7 +319,7 @@ customAttribute BADGE_LABEL_DISPLAY (
 )
 
 customAttribute BADGE_SHAPE (
-    apexlangName: shape2
+    apexlangName: shape
     attribute: 17
     name: Shape
     type: selectList
@@ -435,6 +446,9 @@ customAttribute BADGE_VALUE (
         attributeGroup: @badge
         sequence: 120
     }
+    default {
+        sampleDataValue: PRICE
+    }
     supports {
         dataTypes: [
             varchar2
@@ -463,7 +477,7 @@ customAttribute DESCRIPTION (
         sequence: 20
     }
     default {
-        sampleDataValue: Nunc sit amet nunc quis magna ornare suscipit. Etiam aliquet maximus sapien, at sagittis sem gravida nec.
+        sampleDataValue: CATEGORY
     }
     help {
         helpText: Select a source column to be used for the row description.
@@ -481,6 +495,9 @@ customAttribute DISPLAY_AVATAR (
     appearance {
         sequence: 30
     }
+    default {
+        sampleDataValue: Y
+    }
     help {
         helpText: Specify whether to display or hide the avatar for each row. When set to Yes, an avatar will be displayed with the assigned image, icon, or initials. When set to No, no avatar will be displayed.
     }
@@ -497,8 +514,45 @@ customAttribute DISPLAY_BADGE (
     appearance {
         sequence: 40
     }
+    default {
+        sampleDataValue: Y
+    }
     help {
         helpText: Specify whether to display or hide the badge for each row. When set to Yes, a badge will be displayed in each row. When set to No, no badge will be displayed.
+    }
+)
+
+customAttribute GROUP_ICON (
+    apexlangName: groupIcon
+    attribute: 22
+    name: Icon
+    scope: reportGroup
+    type: icon
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 220
+    }
+    dependingOn {
+        attribute: @GROUP_TITLE/reportGroup
+        conditionType: isNotNull
+    }
+)
+
+customAttribute GROUP_TITLE (
+    apexlangName: groupTitle
+    attribute: 21
+    name: Title
+    scope: reportGroup
+    type: html
+    security {
+        escapeMode: raw
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 210
     }
 )
 
@@ -516,6 +570,9 @@ customAttribute LAYOUT (
     }
     appearance {
         sequence: 180
+    }
+    default {
+        sampleDataValue: t-MediaList--cols t-MediaList--3cols
     }
     help {
         helpText: Select the number of grid columns the media list content will display in. Horizontal Span will display all columns in a single horizontal row.
@@ -568,6 +625,9 @@ customAttribute SIZE (
     appearance {
         sequence: 190
     }
+    default {
+        sampleDataValue: t-MediaList--large force-fa-lg
+    }
     help {
         helpText: Set the size of media list items.
     }
@@ -592,7 +652,7 @@ customAttribute TITLE (
         sequence: 10
     }
     default {
-        sampleDataValue: Lorem ipsum dolor sit amet
+        sampleDataValue: PRODUCT_NAME
     }
     help {
         helpText: Select a source column to be used as the title.

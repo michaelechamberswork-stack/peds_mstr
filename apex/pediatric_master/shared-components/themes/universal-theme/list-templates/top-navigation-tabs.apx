@@ -15,7 +15,7 @@ listTemplate top-navigation-tabs (
         current:
             ```html
             <li class="t-NavTabs-item #A03# is-active" aria-current="page" id="#A01#">
-              <a href="#LINK#" class="t-NavTabs-link #A04# " title="#TEXT_ESC_SC#">
+              <a href="#LINK#" class="t-NavTabs-link #A04# " title="#TEXT_ESC_SC#" data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true"></span>
                 <span class="t-NavTabs-label">#TEXT_ESC_SC#</span>
                 <span class="t-NavTabs-badge #A05#">#A02#</span>
@@ -25,7 +25,7 @@ listTemplate top-navigation-tabs (
         noncurrent:
             ```html
             <li class="t-NavTabs-item #A03#" id="#A01#">
-              <a href="#LINK#" class="t-NavTabs-link #A04# " title="#TEXT_ESC_SC#">
+              <a href="#LINK#" class="t-NavTabs-link #A04# " title="#TEXT_ESC_SC#" data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true"></span>
                 <span class="t-NavTabs-label">#TEXT_ESC_SC#</span>
                 <span class="t-NavTabs-badge #A05#">#A02#</span>
@@ -39,12 +39,7 @@ listTemplate top-navigation-tabs (
         a03: List Item Class
         a04: Link Class
         a05: Badge Class
-    }
-    advanced {
-        identifier: TOP_NAVIGATION_TABS
-    }
-    subscription {
-        master: @top-navigation-tabs
+        a10: OpenTelemetry Label
     }
 
     templateOption label-above-lg (
@@ -56,9 +51,6 @@ listTemplate top-navigation-tabs (
         }
         help {
             helpText: Display the label stacked above the icon and badge
-        }
-        advanced {
-            identifier: LABEL_ABOVE_LG
         }
     )
 
@@ -72,9 +64,6 @@ listTemplate top-navigation-tabs (
         help {
             helpText: Display the label inline with the icon and badge
         }
-        advanced {
-            identifier: LABEL_INLINE_LG
-        }
     )
 
     templateOption no-label-lg (
@@ -86,9 +75,6 @@ listTemplate top-navigation-tabs (
         }
         help {
             helpText: Hides the label for the list item
-        }
-        advanced {
-            identifier: NO_LABEL_LG
         }
     )
 
@@ -102,9 +88,6 @@ listTemplate top-navigation-tabs (
         help {
             helpText: Displays the label for the list items below the icon
         }
-        advanced {
-            identifier: DISPLAY_LABELS_SM
-        }
     )
 
     templateOption hide-labels-sm (
@@ -113,9 +96,6 @@ listTemplate top-navigation-tabs (
         sequence: 50
         appearance {
             cssClasses: t-NavTabs--hiddenLabels-sm
-        }
-        advanced {
-            identifier: HIDE_LABELS_SM
         }
     )
 

@@ -10,11 +10,11 @@ regionTemplate collapsible (
     region {
         template:
             ```html
-            <div class="t-Region t-Region--hideShow #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" data-region-id="#REGION_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-Region t-Region--hideShow #REGION_CSS_CLASSES#" id="#DOM_ID#" data-region-id="#REGION_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
              <div class="t-Region-header">
               <div class="t-Region-headerItems t-Region-headerItems--controls"><span class="t-Button t-Button--icon t-Button--hideShow"><span class="a-Icon _a-Collapsible-icon" aria-hidden="true"></span></span></div>
               <div class="t-Region-headerItems t-Region-headerItems--title">
-                <h2 id="#REGION_STATIC_ID#_heading" class="t-Region-title" data-apex-heading><button class="t-Region-titleButton" type="button">#TITLE#</button></h2>
+                <h2 id="#DOM_ID#_heading" class="t-Region-title" data-apex-heading><button class="t-Region-titleButton" type="button">#TITLE#</button></h2>
               </div>
               <div class="t-Region-headerItems t-Region-headerItems--buttons">#EDIT#</div>
              </div>
@@ -38,7 +38,7 @@ regionTemplate collapsible (
             </div>
             <script #APEX_CSP_NONCE_ATTRIBUTE#>
                 (() => {
-                    const region = document.getElementById('#REGION_STATIC_ID#').classList;
+                    const region = document.getElementById('#DOM_ID#').classList;
                     const pref = sessionStorage.getItem('ORA_WWV_apex.toggleCore.a_Collapsible_#REGION_ID#.&APP_ID..&APP_PAGE_ID..preferenceForExpanded');
                     if (region.contains('js-useLocalStorage')) { region.toggle('is-collapsed', pref === 'false' || region.contains('is-collapsed')); }
                 })();
@@ -47,13 +47,7 @@ regionTemplate collapsible (
     }
     accessibility {
         landmarkType: region
-        regionTitleHtmlId: #REGION_STATIC_ID#_heading
-    }
-    advanced {
-        identifier: COLLAPSIBLE
-    }
-    subscription {
-        master: @collapsible
+        regionTitleHtmlId: #DOM_ID#_heading
     }
 
     templateOption nobodypadding (
@@ -64,9 +58,6 @@ regionTemplate collapsible (
         }
         help {
             helpText: Removes padding from region body.
-        }
-        advanced {
-            identifier: NOBODYPADDING
         }
     )
 
@@ -79,9 +70,6 @@ regionTemplate collapsible (
         help {
             helpText: This option saves the current state of the collapsible region for the duration of the session.
         }
-        advanced {
-            identifier: REMEMBER_COLLAPSIBLE_STATE
-        }
     )
 
     templateOption accent-1 (
@@ -90,9 +78,6 @@ regionTemplate collapsible (
         sequence: 10
         appearance {
             cssClasses: t-Region--accent1
-        }
-        advanced {
-            identifier: ACCENT_1
         }
     )
 
@@ -103,9 +88,6 @@ regionTemplate collapsible (
         appearance {
             cssClasses: t-Region--accent10
         }
-        advanced {
-            identifier: ACCENT_10
-        }
     )
 
     templateOption accent-11 (
@@ -114,9 +96,6 @@ regionTemplate collapsible (
         sequence: 110
         appearance {
             cssClasses: t-Region--accent11
-        }
-        advanced {
-            identifier: ACCENT_11
         }
     )
 
@@ -127,9 +106,6 @@ regionTemplate collapsible (
         appearance {
             cssClasses: t-Region--accent12
         }
-        advanced {
-            identifier: ACCENT_12
-        }
     )
 
     templateOption accent-13 (
@@ -138,9 +114,6 @@ regionTemplate collapsible (
         sequence: 130
         appearance {
             cssClasses: t-Region--accent13
-        }
-        advanced {
-            identifier: ACCENT_13
         }
     )
 
@@ -151,9 +124,6 @@ regionTemplate collapsible (
         appearance {
             cssClasses: t-Region--accent14
         }
-        advanced {
-            identifier: ACCENT_14
-        }
     )
 
     templateOption accent-15 (
@@ -162,9 +132,6 @@ regionTemplate collapsible (
         sequence: 150
         appearance {
             cssClasses: t-Region--accent15
-        }
-        advanced {
-            identifier: ACCENT_15
         }
     )
 
@@ -175,9 +142,6 @@ regionTemplate collapsible (
         appearance {
             cssClasses: t-Region--accent2
         }
-        advanced {
-            identifier: ACCENT_2
-        }
     )
 
     templateOption accent-3 (
@@ -186,9 +150,6 @@ regionTemplate collapsible (
         sequence: 30
         appearance {
             cssClasses: t-Region--accent3
-        }
-        advanced {
-            identifier: ACCENT_3
         }
     )
 
@@ -199,9 +160,6 @@ regionTemplate collapsible (
         appearance {
             cssClasses: t-Region--accent4
         }
-        advanced {
-            identifier: ACCENT_4
-        }
     )
 
     templateOption accent-5 (
@@ -210,9 +168,6 @@ regionTemplate collapsible (
         sequence: 50
         appearance {
             cssClasses: t-Region--accent5
-        }
-        advanced {
-            identifier: ACCENT_5
         }
     )
 
@@ -223,9 +178,6 @@ regionTemplate collapsible (
         appearance {
             cssClasses: t-Region--accent6
         }
-        advanced {
-            identifier: ACCENT_6
-        }
     )
 
     templateOption accent-7 (
@@ -234,9 +186,6 @@ regionTemplate collapsible (
         sequence: 70
         appearance {
             cssClasses: t-Region--accent7
-        }
-        advanced {
-            identifier: ACCENT_7
         }
     )
 
@@ -247,9 +196,6 @@ regionTemplate collapsible (
         appearance {
             cssClasses: t-Region--accent8
         }
-        advanced {
-            identifier: ACCENT_8
-        }
     )
 
     templateOption accent-9 (
@@ -258,9 +204,6 @@ regionTemplate collapsible (
         sequence: 90
         appearance {
             cssClasses: t-Region--accent9
-        }
-        advanced {
-            identifier: ACCENT_9
         }
     )
 
@@ -274,9 +217,6 @@ regionTemplate collapsible (
         help {
             helpText: Sets region body height to 240px.
         }
-        advanced {
-            identifier: 240PX
-        }
     )
 
     templateOption 320px (
@@ -288,9 +228,6 @@ regionTemplate collapsible (
         }
         help {
             helpText: Sets region body height to 320px.
-        }
-        advanced {
-            identifier: 320PX
         }
     )
 
@@ -304,9 +241,6 @@ regionTemplate collapsible (
         help {
             helpText: Sets body height to 480px.
         }
-        advanced {
-            identifier: 480PX
-        }
     )
 
     templateOption 640px (
@@ -319,9 +253,6 @@ regionTemplate collapsible (
         help {
             helpText: Sets body height to 640px.
         }
-        advanced {
-            identifier: 640PX
-        }
     )
 
     templateOption hideoverflow (
@@ -331,9 +262,6 @@ regionTemplate collapsible (
         appearance {
             cssClasses: t-Region--hiddenOverflow
         }
-        advanced {
-            identifier: HIDEOVERFLOW
-        }
     )
 
     templateOption scrollbody (
@@ -342,9 +270,6 @@ regionTemplate collapsible (
         sequence: 10
         appearance {
             cssClasses: t-Region--scrollBody
-        }
-        advanced {
-            identifier: SCROLLBODY
         }
     )
 
@@ -358,9 +283,6 @@ regionTemplate collapsible (
         help {
             helpText: Use the plus and minus icons for the expand and collapse button.
         }
-        advanced {
-            identifier: ICONS_PLUS_OR_MINUS
-        }
     )
 
     templateOption conrtols-position-end (
@@ -373,9 +295,6 @@ regionTemplate collapsible (
         help {
             helpText: Position the expand / collapse button to the end of the region header.
         }
-        advanced {
-            identifier: CONRTOLS_POSITION_END
-        }
     )
 
     templateOption collapsed (
@@ -384,9 +303,6 @@ regionTemplate collapsible (
         sequence: 20
         appearance {
             cssClasses: is-collapsed
-        }
-        advanced {
-            identifier: COLLAPSED
         }
     )
 
@@ -397,14 +313,11 @@ regionTemplate collapsible (
         appearance {
             cssClasses: is-expanded
         }
-        advanced {
-            identifier: EXPANDED
-        }
     )
 
     templateOption noborder (
         name: Remove Borders
-        group: @region/style
+        group: @region/style-3
         sequence: 10
         appearance {
             cssClasses: t-Region--noBorder
@@ -412,14 +325,11 @@ regionTemplate collapsible (
         help {
             helpText: Removes borders from the region.
         }
-        advanced {
-            identifier: NOBORDER
-        }
     )
 
     templateOption remove-ui-decoration (
         name: Remove UI Decoration
-        group: @region/style
+        group: @region/style-3
         sequence: 30
         appearance {
             cssClasses: t-Region--noUI
@@ -427,23 +337,17 @@ regionTemplate collapsible (
         help {
             helpText: Removes UI decoration (borders, backgrounds, shadows, etc) from the region.
         }
-        advanced {
-            identifier: REMOVE_UI_DECORATION
-        }
     )
 
     templateOption stacked (
         name: Stack Region
-        group: @region/style
+        group: @region/style-3
         sequence: 20
         appearance {
             cssClasses: t-Region--stacked
         }
         help {
             helpText: Removes side borders and shadows, and can be useful for accordions and regions that need to be grouped together vertically.
-        }
-        advanced {
-            identifier: STACKED
         }
     )
 

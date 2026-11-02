@@ -4,13 +4,13 @@ regionTemplate hero (
     region {
         template:
             ```html
-            <div class="t-HeroRegion #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-HeroRegion #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
               <div class="t-HeroRegion-top">
                 <div class="t-HeroRegion-wrap">
                   <div class="t-HeroRegion-col t-HeroRegion-col--beforeIcon">#UP#</div>
                   <div class="t-HeroRegion-col t-HeroRegion-col--left">#REGION_IMAGE#<span class="t-HeroRegion-icon t-Icon #ICON_CSS_CLASSES#"></span></div>
                   <div class="t-HeroRegion-col t-HeroRegion-col--content">
-                    <h1 id="#REGION_STATIC_ID#_heading" class="t-HeroRegion-title" data-apex-heading>#TITLE#</h1>
+                    <h1 id="#DOM_ID#_heading" class="t-HeroRegion-title" data-apex-heading>#TITLE#</h1>
                     #BODY#
                   </div>
                   <div class="t-HeroRegion-col t-HeroRegion-col--right"><div class="t-HeroRegion-form">#SUB_REGIONS#</div><div class="t-HeroRegion-buttons">#NEXT#</div></div>
@@ -24,13 +24,7 @@ regionTemplate hero (
     }
     accessibility {
         landmarkType: region
-        regionTitleHtmlId: #REGION_STATIC_ID#_heading
-    }
-    advanced {
-        identifier: HERO
-    }
-    subscription {
-        master: @hero
+        regionTitleHtmlId: #DOM_ID#_heading
     }
 
     templateOption remove-body-padding (
@@ -41,9 +35,6 @@ regionTemplate hero (
         }
         help {
             helpText: Removes the padding around the hero region.
-        }
-        advanced {
-            identifier: REMOVE_BODY_PADDING
         }
     )
 
@@ -57,9 +48,6 @@ regionTemplate hero (
         help {
             helpText: Hide the Hero Region icon.
         }
-        advanced {
-            identifier: DISPLAY_ICON_NO
-        }
     )
 
     templateOption heading-font-alternative (
@@ -69,14 +57,11 @@ regionTemplate hero (
         appearance {
             cssClasses: t-HeroRegion--headingFontAlt
         }
-        advanced {
-            identifier: HEADING_FONT_ALTERNATIVE
-        }
     )
 
     templateOption icons-circular (
         name: Circle
-        group: @region/icon-shape
+        group: @region/icon-shape-2
         sequence: 10
         appearance {
             cssClasses: t-HeroRegion--iconsCircle
@@ -84,14 +69,11 @@ regionTemplate hero (
         help {
             helpText: The icons are displayed within a circle.
         }
-        advanced {
-            identifier: ICONS_CIRCULAR
-        }
     )
 
     templateOption icons-square (
         name: Square
-        group: @region/icon-shape
+        group: @region/icon-shape-2
         sequence: 20
         appearance {
             cssClasses: t-HeroRegion--iconsSquare
@@ -99,35 +81,26 @@ regionTemplate hero (
         help {
             helpText: The icons are displayed within a square.
         }
-        advanced {
-            identifier: ICONS_SQUARE
-        }
     )
 
     templateOption featured (
         name: Featured
-        group: @region/style
+        group: @region/style-3
         sequence: 10
         appearance {
             cssClasses: t-HeroRegion--featured
-        }
-        advanced {
-            identifier: FEATURED
         }
     )
 
     templateOption stacked-featured (
         name: Stacked Featured
-        group: @region/style
+        group: @region/style-3
         sequence: 20
         appearance {
             cssClasses: [
                 t-HeroRegion--featured
                 t-HeroRegion--centered
             ]
-        }
-        advanced {
-            identifier: STACKED_FEATURED
         }
     )
 
@@ -176,7 +149,6 @@ regionTemplate hero (
         }
         gridLayout {
             gridSupport: false
-            newRow: false
         }
     )
 

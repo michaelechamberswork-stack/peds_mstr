@@ -10,7 +10,7 @@ classicReportTemplate badge-list (
         ]
     }
     reportTemplate {
-        top: <ul class="t-BadgeList #COMPONENT_CSS_CLASSES#" data-region-id="#REGION_STATIC_ID#">
+        top: <ul class="t-BadgeList #COMPONENT_CSS_CLASSES#" data-region-id="#DOM_ID#">
         bottom:
             ```html
             </ul>
@@ -55,12 +55,6 @@ classicReportTemplate badge-list (
             </a>
             ```
     }
-    advanced {
-        identifier: BADGE_LIST
-    }
-    subscription {
-        master: @badge-list
-    }
 
     templateOption apply-theme-colors (
         name: Apply Theme Colors
@@ -68,74 +62,56 @@ classicReportTemplate badge-list (
         appearance {
             cssClasses: u-colors
         }
-        advanced {
-            identifier: APPLY_THEME_COLORS
-        }
     )
 
     templateOption 128px (
         name: 128px
-        group: @report/badge-size
+        group: @report/badge-size-2
         sequence: 50
         appearance {
             cssClasses: t-BadgeList--xxlarge
-        }
-        advanced {
-            identifier: 128PX
         }
     )
 
     templateOption 32px (
         name: 32px
-        group: @report/badge-size
+        group: @report/badge-size-2
         sequence: 10
         appearance {
             cssClasses: t-BadgeList--small
-        }
-        advanced {
-            identifier: 32PX
         }
     )
 
     templateOption 48px (
         name: 48px
-        group: @report/badge-size
+        group: @report/badge-size-2
         sequence: 20
         appearance {
             cssClasses: t-BadgeList--medium
-        }
-        advanced {
-            identifier: 48PX
         }
     )
 
     templateOption 64px (
         name: 64px
-        group: @report/badge-size
+        group: @report/badge-size-2
         sequence: 30
         appearance {
             cssClasses: t-BadgeList--large
-        }
-        advanced {
-            identifier: 64PX
         }
     )
 
     templateOption 96px (
         name: 96px
-        group: @report/badge-size
+        group: @report/badge-size-2
         sequence: 40
         appearance {
             cssClasses: t-BadgeList--xlarge
-        }
-        advanced {
-            identifier: 96PX
         }
     )
 
     templateOption 2columngrid (
         name: 2 Column Grid
-        group: @report/layout
+        group: @report/layout-3
         sequence: 20
         appearance {
             cssClasses: t-BadgeList--cols
@@ -143,14 +119,11 @@ classicReportTemplate badge-list (
         help {
             helpText: Arrange badges in a two column grid
         }
-        advanced {
-            identifier: 2COLUMNGRID
-        }
     )
 
     templateOption 3columngrid (
         name: 3 Column Grid
-        group: @report/layout
+        group: @report/layout-3
         sequence: 30
         appearance {
             cssClasses: [
@@ -161,14 +134,11 @@ classicReportTemplate badge-list (
         help {
             helpText: Arrange badges in a 3 column grid
         }
-        advanced {
-            identifier: 3COLUMNGRID
-        }
     )
 
     templateOption 4columngrid (
         name: 4 Column Grid
-        group: @report/layout
+        group: @report/layout-3
         sequence: 40
         appearance {
             cssClasses: [
@@ -176,14 +146,11 @@ classicReportTemplate badge-list (
                 t-BadgeList--4cols
             ]
         }
-        advanced {
-            identifier: 4COLUMNGRID
-        }
     )
 
     templateOption 5columngrid (
         name: 5 Column Grid
-        group: @report/layout
+        group: @report/layout-3
         sequence: 50
         appearance {
             cssClasses: [
@@ -191,80 +158,59 @@ classicReportTemplate badge-list (
                 t-BadgeList--5cols
             ]
         }
-        advanced {
-            identifier: 5COLUMNGRID
-        }
     )
 
     templateOption fixed (
         name: Span Horizontally
-        group: @report/layout
+        group: @report/layout-3
         sequence: 60
         appearance {
             cssClasses: t-BadgeList--fixed
-        }
-        advanced {
-            identifier: FIXED
         }
     )
 
     templateOption flexiblebox (
         name: Flexible Box
-        group: @report/layout
+        group: @report/layout-3
         sequence: 80
         appearance {
             cssClasses: t-BadgeList--flex
-        }
-        advanced {
-            identifier: FLEXIBLEBOX
         }
     )
 
     templateOption floatitems (
         name: Float Items
-        group: @report/layout
+        group: @report/layout-3
         sequence: 70
         appearance {
             cssClasses: t-BadgeList--float
-        }
-        advanced {
-            identifier: FLOATITEMS
         }
     )
 
     templateOption stacked (
         name: Stacked
-        group: @report/layout
+        group: @report/layout-3
         sequence: 10
         appearance {
             cssClasses: t-BadgeList--stacked
-        }
-        advanced {
-            identifier: STACKED
         }
     )
 
     templateOption circular (
         name: Circular
-        group: @report/style
+        group: @report/style-4
         sequence: 20
         appearance {
             cssClasses: t-BadgeList--circular
-        }
-        advanced {
-            identifier: CIRCULAR
         }
     )
 
     templateOption grid (
         name: Grid
-        group: @report/style
+        group: @report/style-4
         sequence: 30
         appearance {
             cssClasses: t-BadgeList--dash
-        }
-        advanced {
-            identifier: GRID
         }
     )
 

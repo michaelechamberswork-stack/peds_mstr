@@ -6,7 +6,7 @@ classicReportTemplate value-attribute-pairs-row (
         preset: t-AVPList--leftAligned
     }
     reportTemplate {
-        top: <dl class="t-AVPList #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="report_#REGION_STATIC_ID#" data-region-id="#REGION_STATIC_ID#">
+        top: <dl class="t-AVPList #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="report_#DOM_ID#" data-region-id="#DOM_ID#">
         bottom:
             ```html
             </dl>
@@ -51,12 +51,6 @@ classicReportTemplate value-attribute-pairs-row (
             </a>
             ```
     }
-    advanced {
-        identifier: VALUE_ATTRIBUTE_PAIRS_ROW
-    }
-    subscription {
-        master: @value-attribute-pairs-row
-    }
 
     templateOption fixed-large (
         name: Fixed - Large
@@ -64,9 +58,6 @@ classicReportTemplate value-attribute-pairs-row (
         sequence: 30
         appearance {
             cssClasses: t-AVPList--fixedLabelLarge
-        }
-        advanced {
-            identifier: FIXED_LARGE
         }
     )
 
@@ -77,9 +68,6 @@ classicReportTemplate value-attribute-pairs-row (
         appearance {
             cssClasses: t-AVPList--fixedLabelMedium
         }
-        advanced {
-            identifier: FIXED_MEDIUM
-        }
     )
 
     templateOption fixed-small (
@@ -88,9 +76,6 @@ classicReportTemplate value-attribute-pairs-row (
         sequence: 10
         appearance {
             cssClasses: t-AVPList--fixedLabelSmall
-        }
-        advanced {
-            identifier: FIXED_SMALL
         }
     )
 
@@ -101,9 +86,6 @@ classicReportTemplate value-attribute-pairs-row (
         appearance {
             cssClasses: t-AVPList--variableLabelLarge
         }
-        advanced {
-            identifier: VARIABLE_LARGE
-        }
     )
 
     templateOption variable-medium (
@@ -112,9 +94,6 @@ classicReportTemplate value-attribute-pairs-row (
         sequence: 50
         appearance {
             cssClasses: t-AVPList--variableLabelMedium
-        }
-        advanced {
-            identifier: VARIABLE_MEDIUM
         }
     )
 
@@ -125,32 +104,23 @@ classicReportTemplate value-attribute-pairs-row (
         appearance {
             cssClasses: t-AVPList--variableLabelSmall
         }
-        advanced {
-            identifier: VARIABLE_SMALL
-        }
     )
 
     templateOption left-aligned-details (
         name: Left Aligned Details
-        group: @report/layout
+        group: @report/layout-3
         sequence: 10
         appearance {
             cssClasses: t-AVPList--leftAligned
-        }
-        advanced {
-            identifier: LEFT_ALIGNED_DETAILS
         }
     )
 
     templateOption right-aligned-details (
         name: Right Aligned Details
-        group: @report/layout
+        group: @report/layout-3
         sequence: 20
         appearance {
             cssClasses: t-AVPList--rightAligned
-        }
-        advanced {
-            identifier: RIGHT_ALIGNED_DETAILS
         }
     )
 

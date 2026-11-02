@@ -1,0 +1,12 @@
+slot body (
+    name: Region Body
+    staticId: BODY
+    supports {
+        items: true
+        buttons: true
+    }
+    gridLayout {
+        newRow: false
+    }
+)
+

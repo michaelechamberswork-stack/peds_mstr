@@ -5,13 +5,12 @@ fieldTemplate optional (
         before:
             ```html
             <div class="t-Form-labelContainer col col-#LABEL_COLUMN_SPAN_NUMBER#">
-            <label for="#CURRENT_ITEM_NAME#" id="#LABEL_ID#" class="t-Form-label">
+            <#LABEL_OPEN# id="#LABEL_ID#" class="t-Form-label">
             ```
         after:
             ```html
-            </label>
+            <#LABEL_CLOSE#>
             </div>
-            
             ```
     }
     item {
@@ -28,14 +27,8 @@ fieldTemplate optional (
         errorTemplate: <span class="t-Form-error">#ERROR_MESSAGE#</span>
     }
     fieldContainer {
-        beforeLabelAndItem: <div class="t-Form-fieldContainer rel-col #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#">
+        beforeLabelAndItem: <div class="t-Form-fieldContainer rel-col #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#" data-otel-label="#CURRENT_ITEM_NAME#">
         afterLabelAndItem: </div>
-    }
-    advanced {
-        identifier: OPTIONAL
-    }
-    subscription {
-        master: @optional
     }
 )
 

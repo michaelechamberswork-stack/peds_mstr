@@ -2,14 +2,8 @@ buttonTemplate text (
     name: Text
     templateClass: button
     button {
-        normal: <button class="t-Button #BUTTON_CSS_CLASSES#" type="button" #BUTTON_ATTRIBUTES# #ONCLICK# id="#BUTTON_ID#"><span class="t-Button-label">#LABEL#</span></button>
-        hot: <button class="t-Button t-Button--hot #BUTTON_CSS_CLASSES#" type="button" #BUTTON_ATTRIBUTES# #ONCLICK# id="#BUTTON_ID#"><span class="t-Button-label">#LABEL#</span></button>
-    }
-    advanced {
-        identifier: TEXT
-    }
-    subscription {
-        master: @text
+        normal: "<button class=\"t-Button #BUTTON_CSS_CLASSES#\" type=\"button\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# id=\"#DOM_ID#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Button-label\">#LABEL#</span></button>"
+        hot: "<button class=\"t-Button t-Button--hot #BUTTON_CSS_CLASSES#\" type=\"button\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# id=\"#DOM_ID#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Button-label\">#LABEL#</span></button>"
     }
 )
 

@@ -30,6 +30,9 @@ customAttribute LABEL (
     builder {
         translatable: true
     }
+    default {
+        sampleDataValue: &PRODUCT_NAME.
+    }
     help {
         helpText: Enter a value for the badge label or select a source column from the quick pick options.
     }
@@ -45,6 +48,9 @@ customAttribute LABEL_DISPLAY (
     }
     appearance {
         sequence: 50
+    }
+    default {
+        sampleDataValue: Y
     }
     help {
         helpText: Specify whether to display or hide the badge label. When set to Yes, the badge label will be displayed in addition to the badge value. When set to No, only the badge value will be displayed.
@@ -111,6 +117,9 @@ customAttribute SIZE (
     }
     appearance {
         sequence: 80
+    }
+    default {
+        sampleDataValue: t-Badge--lg
     }
     help {
         helpText: Set the size of the badge. The default inherits the sizing set by the containing template.
@@ -197,6 +206,9 @@ customAttribute VALUE (
     }
     appearance {
         sequence: 20
+    }
+    default {
+        sampleDataValue: PRICE
     }
     supports {
         dataTypes: [

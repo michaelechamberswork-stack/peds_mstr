@@ -8,13 +8,13 @@ regionTemplate title-bar (
     region {
         template:
             ```html
-            <nav id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# class="t-BreadcrumbRegion #REGION_CSS_CLASSES#">
+            <nav id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# class="t-BreadcrumbRegion #REGION_CSS_CLASSES#">
               <div class="t-BreadcrumbRegion-top">
                 <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start">#UP#</div>
                 <div class="t-BreadcrumbRegion-body">
-                  <div class="t-BreadcrumbRegion-breadcrumb">#BODY#</div>
+                  <div class="t-BreadcrumbRegion-breadcrumb">#BODY##SUB_REGIONS#</div>
                     <div class="t-BreadcrumbRegion-title">
-                    <h1 id="#REGION_STATIC_ID#_heading" class="t-BreadcrumbRegion-titleText" data-apex-heading>#TITLE#</h1>
+                    <h1 id="#DOM_ID#_heading" class="t-BreadcrumbRegion-titleText" data-apex-heading>#TITLE#</h1>
                   </div>
                 </div>
                 <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--end">#PREVIOUS##CLOSE##DELETE##HELP##CHANGE##EDIT##COPY##CREATE##NEXT#</div>
@@ -27,21 +27,12 @@ regionTemplate title-bar (
     accessibility {
         landmarkType: navigation
     }
-    advanced {
-        identifier: TITLE_BAR
-    }
-    subscription {
-        master: @title-bar
-    }
 
     templateOption hide-breadcrumb (
         name: Show Breadcrumbs
         sequence: 1
         appearance {
             cssClasses: t-BreadcrumbRegion--showBreadcrumb
-        }
-        advanced {
-            identifier: HIDE_BREADCRUMB
         }
     )
 
@@ -54,9 +45,6 @@ regionTemplate title-bar (
         help {
             helpText: Uses a compact style for the breadcrumbs.
         }
-        advanced {
-            identifier: USE_COMPACT_STYLE
-        }
     )
 
     templateOption heading-font-alternative (
@@ -65,9 +53,6 @@ regionTemplate title-bar (
         sequence: 1
         appearance {
             cssClasses: t-BreadcrumbRegion--headingFontAlt
-        }
-        advanced {
-            identifier: HEADING_FONT_ALTERNATIVE
         }
     )
 
@@ -78,9 +63,6 @@ regionTemplate title-bar (
         appearance {
             cssClasses: t-BreadcrumbRegion--useBreadcrumbTitle
         }
-        advanced {
-            identifier: GET_TITLE_FROM_BREADCRUMB
-        }
     )
 
     templateOption region-header-visible (
@@ -89,9 +71,6 @@ regionTemplate title-bar (
         sequence: 1
         appearance {
             cssClasses: t-BreadcrumbRegion--useRegionTitle
-        }
-        advanced {
-            identifier: REGION_HEADER_VISIBLE
         }
     )
 
@@ -236,7 +215,6 @@ regionTemplate title-bar (
         }
         gridLayout {
             gridSupport: false
-            newRow: false
         }
     )
 

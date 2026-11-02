@@ -2,17 +2,20 @@ regionTemplate carousel-container (
     name: Carousel Container
     templateClass: navigationRegion
     templateOptions {
-        preset: t-Region--hiddenOverflow
+        preset: [
+            t-Region--hideHeader js-addHiddenHeadingRoleDesc
+            t-Region--hiddenOverflow
+        ]
         default: t-Region--showCarouselControls
     }
     region {
         template:
             ```html
-            <div class="t-Region t-Region--carousel #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-Region t-Region--carousel #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
               <div class="t-Region-header">
                 <div class="t-Region-headerItems t-Region-headerItems--title">
                   <span class="t-Region-headerIcon"><span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true"></span></span>
-                  <h2 class="t-Region-title" id="#REGION_STATIC_ID#_heading" data-apex-heading>#TITLE#</h2>
+                  <h2 class="t-Region-title" id="#DOM_ID#_heading" data-apex-heading>#TITLE#</h2>
                 </div>
                 <div class="t-Region-headerItems t-Region-headerItems--buttons">#COPY##EDIT#<span class="js-maximizeButtonContainer"></span></div>
               </div>
@@ -50,12 +53,6 @@ regionTemplate carousel-container (
             #APEX_FILES#plugins/com.oracle.apex.carousel/1.1/com.oracle.apex.carousel#MIN#.js?v=#APEX_VERSION#
         ]
     }
-    advanced {
-        identifier: CAROUSEL_CONTAINER
-    }
-    subscription {
-        master: @carousel-container
-    }
 
     templateOption nobodypadding (
         name: Remove Body Padding
@@ -66,9 +63,6 @@ regionTemplate carousel-container (
         help {
             helpText: Removes padding from region body.
         }
-        advanced {
-            identifier: NOBODYPADDING
-        }
     )
 
     templateOption remember-carousel-slide (
@@ -76,9 +70,6 @@ regionTemplate carousel-container (
         sequence: 20
         appearance {
             cssClasses: js-useLocalStorage
-        }
-        advanced {
-            identifier: REMEMBER_CAROUSEL_SLIDE
         }
     )
 
@@ -91,9 +82,6 @@ regionTemplate carousel-container (
         help {
             helpText: Displays a button in the Region Header to maximize the region. Clicking this button will toggle the maximize state and stretch the region to fill the screen.
         }
-        advanced {
-            identifier: SHOW_MAXIMIZE_BUTTON
-        }
     )
 
     templateOption show-next-and-previous-buttons (
@@ -101,9 +89,6 @@ regionTemplate carousel-container (
         sequence: 30
         appearance {
             cssClasses: t-Region--showCarouselControls
-        }
-        advanced {
-            identifier: SHOW_NEXT_AND_PREVIOUS_BUTTONS
         }
     )
 
@@ -116,9 +101,6 @@ regionTemplate carousel-container (
         help {
             helpText: Displays the region icon in the region header beside the region title
         }
-        advanced {
-            identifier: SHOW_REGION_ICON
-        }
     )
 
     templateOption accent-1 (
@@ -127,9 +109,6 @@ regionTemplate carousel-container (
         sequence: 10
         appearance {
             cssClasses: t-Region--accent1
-        }
-        advanced {
-            identifier: ACCENT_1
         }
     )
 
@@ -140,9 +119,6 @@ regionTemplate carousel-container (
         appearance {
             cssClasses: t-Region--accent2
         }
-        advanced {
-            identifier: ACCENT_2
-        }
     )
 
     templateOption accent-3 (
@@ -151,9 +127,6 @@ regionTemplate carousel-container (
         sequence: 30
         appearance {
             cssClasses: t-Region--accent3
-        }
-        advanced {
-            identifier: ACCENT_3
         }
     )
 
@@ -164,9 +137,6 @@ regionTemplate carousel-container (
         appearance {
             cssClasses: t-Region--accent4
         }
-        advanced {
-            identifier: ACCENT_4
-        }
     )
 
     templateOption accent-5 (
@@ -176,32 +146,23 @@ regionTemplate carousel-container (
         appearance {
             cssClasses: t-Region--accent5
         }
-        advanced {
-            identifier: ACCENT_5
-        }
     )
 
     templateOption slide (
         name: Slide
-        group: @region/animation
+        group: @region/animation-2
         sequence: 10
         appearance {
             cssClasses: t-Region--carouselSlide
-        }
-        advanced {
-            identifier: SLIDE
         }
     )
 
     templateOption spin (
         name: Spin
-        group: @region/animation
+        group: @region/animation-2
         sequence: 20
         appearance {
             cssClasses: t-Region--carouselSpin
-        }
-        advanced {
-            identifier: SPIN
         }
     )
 
@@ -215,9 +176,6 @@ regionTemplate carousel-container (
         help {
             helpText: Sets region body height to 240px.
         }
-        advanced {
-            identifier: 240PX
-        }
     )
 
     templateOption 320px (
@@ -230,9 +188,6 @@ regionTemplate carousel-container (
         help {
             helpText: Sets region body height to 320px.
         }
-        advanced {
-            identifier: 320PX
-        }
     )
 
     templateOption 480px (
@@ -241,9 +196,6 @@ regionTemplate carousel-container (
         sequence: 30
         appearance {
             cssClasses: i-h480
-        }
-        advanced {
-            identifier: 480PX
         }
     )
 
@@ -254,9 +206,6 @@ regionTemplate carousel-container (
         appearance {
             cssClasses: i-h640
         }
-        advanced {
-            identifier: 640PX
-        }
     )
 
     templateOption hideoverflow (
@@ -265,9 +214,6 @@ regionTemplate carousel-container (
         sequence: 10
         appearance {
             cssClasses: t-Region--hiddenOverflow
-        }
-        advanced {
-            identifier: HIDEOVERFLOW
         }
     )
 
@@ -278,41 +224,38 @@ regionTemplate carousel-container (
         appearance {
             cssClasses: t-Region--scrollBody
         }
-        advanced {
-            identifier: SCROLLBODY
-        }
     )
 
     templateOption hiddenheadernoat (
         name: Hidden
-        group: @region/header
+        group: @region/header-visibility
         sequence: 10
         appearance {
-            cssClasses: t-Region--removeHeader
-        }
-        advanced {
-            identifier: HIDDENHEADERNOAT
+            cssClasses: [
+                t-Region--removeHeader
+                js-removeLandmark
+            ]
         }
     )
 
     templateOption hideregionheader (
         name: Hidden but accessible
-        group: @region/header
+        group: @region/header-visibility
         sequence: 20
         appearance {
-            cssClasses: t-Region--hideHeader
+            cssClasses: [
+                t-Region--hideHeader
+                js-addHiddenHeadingRoleDesc
+            ]
         }
         help {
-            helpText: This option will hide the region header.  Note that the region title will still be audible for Screen Readers. Buttons placed in the region header will be hidden and inaccessible.
-        }
-        advanced {
-            identifier: HIDEREGIONHEADER
+            helpText: This option will hide the region header. Note that the region title will still be audible for Screen Readers. Buttons placed in the region header will be hidden and inaccessible.
         }
     )
 
     templateOption noborder (
         name: Remove Borders
-        group: @region/style
+        group: @region/style-3
         sequence: 10
         appearance {
             cssClasses: t-Region--noBorder
@@ -320,23 +263,17 @@ regionTemplate carousel-container (
         help {
             helpText: Removes borders from the region.
         }
-        advanced {
-            identifier: NOBORDER
-        }
     )
 
     templateOption stacked (
         name: Stack Region
-        group: @region/style
+        group: @region/style-3
         sequence: 20
         appearance {
             cssClasses: t-Region--stacked
         }
         help {
             helpText: Removes side borders and shadows, and can be useful for accordions and regions that need to be grouped together vertically.
-        }
-        advanced {
-            identifier: STACKED
         }
     )
 
@@ -347,9 +284,6 @@ regionTemplate carousel-container (
         appearance {
             cssClasses: js-cycle10s
         }
-        advanced {
-            identifier: 10_SECONDS
-        }
     )
 
     templateOption 15-seconds (
@@ -358,9 +292,6 @@ regionTemplate carousel-container (
         sequence: 30
         appearance {
             cssClasses: js-cycle15s
-        }
-        advanced {
-            identifier: 15_SECONDS
         }
     )
 
@@ -371,9 +302,6 @@ regionTemplate carousel-container (
         appearance {
             cssClasses: js-cycle20s
         }
-        advanced {
-            identifier: 20_SECONDS
-        }
     )
 
     templateOption 5-seconds (
@@ -382,9 +310,6 @@ regionTemplate carousel-container (
         sequence: 10
         appearance {
             cssClasses: js-cycle5s
-        }
-        advanced {
-            identifier: 5_SECONDS
         }
     )
 

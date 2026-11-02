@@ -3,7 +3,7 @@ classicReportTemplate alerts (
     templateClass: custom8
     type: namedColumn
     reportTemplate {
-        top: <div class="t-Alerts #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#REGION_STATIC_ID#_alerts" data-region-id="#REGION_STATIC_ID#">
+        top: <div class="t-Alerts #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#DOM_ID#_alerts" data-region-id="#DOM_ID#">
         bottom:
             ```html
             </div>
@@ -59,12 +59,6 @@ classicReportTemplate alerts (
               <span class="a-Icon icon-left-arrow" aria-hidden="true"></span>#PAGINATION_PREVIOUS_SET#
             </a>
             ```
-    }
-    advanced {
-        identifier: ALERTS
-    }
-    subscription {
-        master: @alerts
     }
 )
 

@@ -7,28 +7,31 @@ regionTemplate inline-popup (
     region {
         template:
             ```html
-            <div id="#REGION_STATIC_ID#_parent">
-            <div id="#REGION_STATIC_ID#" class="t-DialogRegion #REGION_CSS_CLASSES# js-regionPopup" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# #APEX_CSP_DISPLAY_NONE# title="#TITLE!ATTR#">
-              <div class="t-DialogRegion-wrap">
-                <div class="t-DialogRegion-bodyWrapperOut"><div class="t-DialogRegion-bodyWrapperIn"><div class="t-DialogRegion-body">#BODY##SUB_REGIONS#</div></div></div>
-                <div class="t-DialogRegion-buttons">
-                   <div class="t-ButtonRegion t-ButtonRegion--dialogRegion">
-                     <div class="t-ButtonRegion-wrap">
-                       <div class="t-ButtonRegion-col t-ButtonRegion-col--left"><div class="t-ButtonRegion-buttons">#PREVIOUS##DELETE##CLOSE#</div></div>
-                       <div class="t-ButtonRegion-col t-ButtonRegion-col--right"><div class="t-ButtonRegion-buttons">#EDIT##CREATE##NEXT#</div></div>
-                     </div>
-                   </div>
+            <div id="#DOM_ID#_parent">
+              <div id="#DOM_ID#" class="t-DialogRegion #REGION_CSS_CLASSES# js-regionPopup js-hidden" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# title="#TITLE!ATTR#">
+                <div class="t-DialogRegion-wrap">
+                  <div class="t-DialogRegion-bodyWrapperOut">
+                    <div class="t-DialogRegion-bodyWrapperIn">
+                      <div class="t-DialogRegion-body">#BODY##SUB_REGIONS#</div>
+                    </div>
+                  </div>
+                  <div class="t-DialogRegion-buttons">
+                    <div class="t-ButtonRegion t-ButtonRegion--dialogRegion">
+                      <div class="t-ButtonRegion-wrap">
+                        <div class="t-ButtonRegion-col t-ButtonRegion-col--left">
+                          <div class="t-ButtonRegion-buttons">#PREVIOUS##DELETE##CLOSE#</div>
+                        </div>
+                        <div class="t-ButtonRegion-col t-ButtonRegion-col--right">
+                          <div class="t-ButtonRegion-buttons">#EDIT##CREATE##NEXT#</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            </div>
+            
             ```
-    }
-    advanced {
-        identifier: INLINE_POPUP
-    }
-    subscription {
-        master: @inline-popup
     }
 
     templateOption auto-height-inline-dialog (
@@ -39,9 +42,6 @@ regionTemplate inline-popup (
         }
         help {
             helpText: This option will set the height of the dialog to fit its contents.
-        }
-        advanced {
-            identifier: AUTO_HEIGHT_INLINE_DIALOG
         }
     )
 
@@ -54,9 +54,6 @@ regionTemplate inline-popup (
         help {
             helpText: Use this option to add display a callout for the popup. Note that callout will only be displayed if the data-parent-element custom attribute is defined.
         }
-        advanced {
-            identifier: DISPLAY_POPUP_CALLOUT
-        }
     )
 
     templateOption remove-body-padding (
@@ -68,9 +65,6 @@ regionTemplate inline-popup (
         help {
             helpText: Removes the padding around the region body.
         }
-        advanced {
-            identifier: REMOVE_BODY_PADDING
-        }
     )
 
     templateOption remove-page-overlay (
@@ -81,9 +75,6 @@ regionTemplate inline-popup (
         }
         help {
             helpText: This option will display the inline dialog without an overlay on the background.
-        }
-        advanced {
-            identifier: REMOVE_PAGE_OVERLAY
         }
     )
 
@@ -97,9 +88,6 @@ regionTemplate inline-popup (
         help {
             helpText: Positions the callout above or typically on top of the parent.
         }
-        advanced {
-            identifier: ABOVE
-        }
     )
 
     templateOption after (
@@ -111,9 +99,6 @@ regionTemplate inline-popup (
         }
         help {
             helpText: Positions the callout after or typically to the right of the parent.
-        }
-        advanced {
-            identifier: AFTER
         }
     )
 
@@ -127,9 +112,6 @@ regionTemplate inline-popup (
         help {
             helpText: Positions the callout before or typically to the left of the parent.
         }
-        advanced {
-            identifier: BEFORE
-        }
     )
 
     templateOption below (
@@ -141,9 +123,6 @@ regionTemplate inline-popup (
         }
         help {
             helpText: Positions the callout below or typically to the bottom of the parent.
-        }
-        advanced {
-            identifier: BELOW
         }
     )
 
@@ -157,56 +136,41 @@ regionTemplate inline-popup (
         help {
             helpText: Positions the callout inside of the parent. This is useful when the parent is sufficiently large, such as a report or large region.
         }
-        advanced {
-            identifier: INSIDE
-        }
     )
 
     templateOption large-720x480 (
         name: Large (720x480)
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 30
         appearance {
             cssClasses: js-dialog-size720x480
-        }
-        advanced {
-            identifier: LARGE_720X480
         }
     )
 
     templateOption medium-600x400 (
         name: Medium (600x400)
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 20
         appearance {
             cssClasses: js-dialog-size600x400
-        }
-        advanced {
-            identifier: MEDIUM_600X400
         }
     )
 
     templateOption none (
         name: None
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 1
         appearance {
             cssClasses: js-dialog-nosize
-        }
-        advanced {
-            identifier: NONE
         }
     )
 
     templateOption small-480x320 (
         name: Small (480x320)
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 10
         appearance {
             cssClasses: js-dialog-size480x320
-        }
-        advanced {
-            identifier: SMALL_480X320
         }
     )
 

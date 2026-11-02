@@ -1,3 +1,19 @@
+customAttribute ALIGNMENT (
+    apexlangName: alignment
+    attribute: 19
+    name: Alignment
+    scope: report
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 125
+    }
+    help {
+        helpText: Align the comment by passing a value of "inbound" (appearing on the side where comments typically are received) or "outbound" (positioned on the opposite side, where comments are typically sent).
+    }
+)
+
 customAttribute APPLY_THEME_COLORS (
     apexlangName: applyThemeColors
     attribute: 13
@@ -34,6 +50,24 @@ customAttribute ATTRIBUTES (
     }
     help {
         helpText: Enter some text and/or column substitution strings to be used as the comment attributes.
+    }
+)
+
+customAttribute AVATAR_CSS_CLASSES (
+    apexlangName: cssClasses
+    attribute: 15
+    name: CSS Classes
+    appearance {
+        attributeGroup: @avatar
+        sequence: 150
+    }
+    dependingOn {
+        attribute: @DISPLAY_AVATAR/component
+        conditionType: =
+        value: Y
+    }
+    help {
+        helpText: Enter CSS classes to add to the visual. You may add multiple classes by separating them with a space.
     }
 )
 
@@ -109,13 +143,12 @@ customAttribute AVATAR_IMAGE (
             ```
             <p>Use the Media popup dialog to select a source for the avatar image.</p>
             
-            <p>Available options include:
+            <p>Available options include:</p>
             <ul>
             <li>URL</li>
             <li>BLOB Column</li>
             <li>URL Column</li>
             </ul>
-            </p>
             ```
     }
 )
@@ -136,7 +169,7 @@ customAttribute AVATAR_INITIALS (
         sequence: 80
     }
     default {
-        sampleDataValue: JK
+        sampleDataValue: INITIALS
     }
     dependingOn {
         attribute: @AVATAR_TYPE/component
@@ -227,7 +260,6 @@ customAttribute AVATAR_TYPE (
     }
     default {
         value: icon
-        sampleDataValue: initials
     }
     dependingOn {
         attribute: @DISPLAY_AVATAR/component
@@ -282,7 +314,7 @@ customAttribute COMMENT_DATE (
         sequence: 30
     }
     default {
-        sampleDataValue: 5 minutes ago
+        sampleDataValue: START_DATE
     }
     supports {
         dataTypes: [
@@ -307,7 +339,7 @@ customAttribute COMMENT_TEXT (
         sequence: 10
     }
     default {
-        sampleDataValue: Praesent vel felis rutrum erat elementum viverra sit amet non odio. Cras vel auctor eros, in malesuada dolor. Nulla tellus magna, ornare consectetur purus id, volutpat egestas felis. Proin lobortis risus massa, nec faucibus arcu malesuada a. Nunc sed gravida urna. Fusce at ligula sed erat consequat pharetra.
+        sampleDataValue: TASK_NAME
     }
     help {
         helpText: Select a source column containing text for user comments.
@@ -331,6 +363,40 @@ customAttribute DISPLAY_AVATAR (
     }
     help {
         helpText: Specify whether to display or hide the avatar for each row. When set to Yes, an avatar will be displayed with the assigned image, icon, or initials. When set to No, no avatar will be displayed.
+    }
+)
+
+customAttribute GROUP_ICON (
+    apexlangName: groupIcon
+    attribute: 18
+    name: Icon
+    scope: reportGroup
+    type: icon
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 180
+    }
+    dependingOn {
+        attribute: @GROUP_TITLE/reportGroup
+        conditionType: isNotNull
+    }
+)
+
+customAttribute GROUP_TITLE (
+    apexlangName: groupTitle
+    attribute: 17
+    name: Title
+    scope: reportGroup
+    type: html
+    security {
+        escapeMode: raw
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 170
     }
 )
 
@@ -383,7 +449,7 @@ customAttribute USER_NAME (
         sequence: 20
     }
     default {
-        sampleDataValue: Joel
+        sampleDataValue: ASSIGNED_TO_NAME
     }
     help {
         helpText: Select a source column to be displayed as the user name associated with a comment.

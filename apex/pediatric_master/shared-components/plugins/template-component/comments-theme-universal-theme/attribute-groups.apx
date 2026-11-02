@@ -1,8 +1,16 @@
 attributeGroup avatar (
     name: Avatar
-    sequence: 20
+    sequence: 10
     advanced {
         staticId: avatar
+    }
+)
+
+attributeGroup grouping (
+    name: Grouping
+    sequence: 20
+    advanced {
+        staticId: grouping
     }
 )
 

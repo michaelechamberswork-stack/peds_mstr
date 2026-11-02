@@ -5,7 +5,7 @@ classicReportTemplate search-results (
     reportTemplate {
         top:
             ```html
-            <div class="t-SearchResults #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#REGION_STATIC_ID#_report" data-region-id="#REGION_STATIC_ID#">
+            <div class="t-SearchResults #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#DOM_ID#_report" data-region-id="#DOM_ID#">
             <ul class="t-SearchResults-list">
             ```
         bottom:
@@ -101,15 +101,6 @@ classicReportTemplate search-results (
               <span class="a-Icon icon-left-arrow" aria-hidden="true"></span>#PAGINATION_PREVIOUS_SET#
             </a>
             ```
-    }
-    advanced {
-        identifier: SEARCH_RESULTS
-    }
-    subscription {
-        master: @search-results
-    }
-    comments {
-        comments: " (SELECT link_text, link_target, detail1, detail2, last_modified)"
     }
 )
 

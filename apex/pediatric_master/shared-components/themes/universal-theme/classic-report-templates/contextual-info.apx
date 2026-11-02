@@ -3,10 +3,10 @@ classicReportTemplate contextual-info (
     templateClass: valueAttributePairs
     type: genericColumns
     reportTemplate {
-        top: " <div class=\"t-ContextualInfo #COMPONENT_CSS_CLASSES#\" id=\"report_#REGION_STATIC_ID#\" #REPORT_ATTRIBUTES# data-region-id=\"#REGION_STATIC_ID#\">"
+        top: " <dl class=\"t-ContextualInfo #COMPONENT_CSS_CLASSES#\" id=\"report_#DOM_ID#\" #REPORT_ATTRIBUTES# data-region-id=\"#DOM_ID#\">"
         bottom:
             ```html
-            </div>
+            </dl>
             <table class="t-Report-pagination" role="presentation">#PAGINATION#</table>
             ```
     }
@@ -14,8 +14,8 @@ classicReportTemplate contextual-info (
         template:
             ```html
             <div class="t-ContextualInfo-item">
-              <span class="t-ContextualInfo-label">#COLUMN_HEADER#</span>
-              <span class="t-ContextualInfo-value">#COLUMN_VALUE#</span>
+              <dt class="t-ContextualInfo-label">#COLUMN_HEADER#</dt>
+              <dd class="t-ContextualInfo-value">#COLUMN_VALUE#</dd>
             </div>
             ```
     }
@@ -46,12 +46,6 @@ classicReportTemplate contextual-info (
             </a>
             ```
     }
-    advanced {
-        identifier: CONTEXTUAL_INFO
-    }
-    subscription {
-        master: @contextual-info
-    }
 
     templateOption hide-empty-values (
         name: Hide Empty Values
@@ -62,9 +56,6 @@ classicReportTemplate contextual-info (
         help {
             helpText: This option will hide the null rows. Note: This only works in browsers that supports :has() pseudo-class.
         }
-        advanced {
-            identifier: HIDE_EMPTY_VALUES
-        }
     )
 
     templateOption display-items-stacked (
@@ -74,9 +65,6 @@ classicReportTemplate contextual-info (
         appearance {
             cssClasses: t-ContextualInfo-item--stacked
         }
-        advanced {
-            identifier: DISPLAY_ITEMS_STACKED
-        }
     )
 
     templateOption display-labels-stacked (
@@ -85,9 +73,6 @@ classicReportTemplate contextual-info (
         sequence: 1
         appearance {
             cssClasses: t-ContextualInfo-label--stacked
-        }
-        advanced {
-            identifier: DISPLAY_LABELS_STACKED
         }
     )
 

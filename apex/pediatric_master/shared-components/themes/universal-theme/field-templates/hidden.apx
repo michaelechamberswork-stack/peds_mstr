@@ -5,11 +5,11 @@ fieldTemplate hidden (
         before:
             ```html
             <div class="t-Form-labelContainer t-Form-labelContainer--hiddenLabel col col-#LABEL_COLUMN_SPAN_NUMBER#">
-            <label for="#CURRENT_ITEM_NAME#" id="#LABEL_ID#" class="t-Form-label u-VisuallyHidden">
+            <#LABEL_OPEN# id="#LABEL_ID#" class="t-Form-label u-VisuallyHidden">
             ```
         after:
             ```html
-            </label>
+            <#LABEL_CLOSE#>
             </div>
             ```
     }
@@ -27,14 +27,8 @@ fieldTemplate hidden (
         errorTemplate: <span class="t-Form-error">#ERROR_MESSAGE#</span>
     }
     fieldContainer {
-        beforeLabelAndItem: <div class="t-Form-fieldContainer t-Form-fieldContainer--hiddenLabel rel-col #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#">
+        beforeLabelAndItem: <div class="t-Form-fieldContainer t-Form-fieldContainer--hiddenLabel rel-col #ITEM_CSS_CLASSES#" id="#CURRENT_ITEM_CONTAINER_ID#" data-otel-label="#CURRENT_ITEM_NAME#">
         afterLabelAndItem: </div>
-    }
-    advanced {
-        identifier: HIDDEN
-    }
-    subscription {
-        master: @hidden
     }
 )
 

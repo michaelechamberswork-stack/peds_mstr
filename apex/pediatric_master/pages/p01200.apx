@@ -2,7 +2,7 @@ page 1200 (
     name: SESSIONS
     title: SESSIONS
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -24,7 +24,7 @@ page 1200 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -74,11 +74,11 @@ page 1200 (
             slot: subRegions
         }
         appearance {
-            template: @/interactive-report
+            template: @interactive-report
             templateOptions: #DEFAULT#
         }
         componentAppearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -314,7 +314,7 @@ page 1200 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -350,7 +350,7 @@ page 1200 (
             startNewRow: false
         }
         appearance {
-            buttonTemplate: @text-w-null-label-above
+            buttonTemplate: 14798442069586665
             hot: true
             templateOptions: #DEFAULT#
         }

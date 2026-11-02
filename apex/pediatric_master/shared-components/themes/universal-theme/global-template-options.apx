@@ -6,9 +6,6 @@ globalTemplateOption pill (
     appearance {
         cssClasses: t-Button--pill
     }
-    advanced {
-        identifier: PILL
-    }
 )
 
 globalTemplateOption pillend (
@@ -18,9 +15,6 @@ globalTemplateOption pillend (
     sequence: 30
     appearance {
         cssClasses: t-Button--pillEnd
-    }
-    advanced {
-        identifier: PILLEND
     }
 )
 
@@ -35,9 +29,6 @@ globalTemplateOption pillstart (
     help {
         helpText: Use this for the start of a pill button.
     }
-    advanced {
-        identifier: PILLSTART
-    }
 )
 
 globalTemplateOption large (
@@ -50,9 +41,6 @@ globalTemplateOption large (
     }
     help {
         helpText: A large button.
-    }
-    advanced {
-        identifier: LARGE
     }
 )
 
@@ -67,9 +55,6 @@ globalTemplateOption small (
     help {
         helpText: A small button.
     }
-    advanced {
-        identifier: SMALL
-    }
 )
 
 globalTemplateOption tiny (
@@ -83,9 +68,6 @@ globalTemplateOption tiny (
     help {
         helpText: A very small button.
     }
-    advanced {
-        identifier: TINY
-    }
 )
 
 globalTemplateOption largebottommargin (
@@ -96,8 +78,15 @@ globalTemplateOption largebottommargin (
     appearance {
         cssClasses: t-Button--gapBottom
     }
-    advanced {
-        identifier: LARGEBOTTOMMARGIN
+)
+
+globalTemplateOption nobottommargin (
+    templateType: button
+    name: None
+    group: @button/spacing-bottom
+    sequence: 5
+    appearance {
+        cssClasses: t-Button--noBottom
     }
 )
 
@@ -109,9 +98,6 @@ globalTemplateOption smallbottommargin (
     appearance {
         cssClasses: t-Button--padBottom
     }
-    advanced {
-        identifier: SMALLBOTTOMMARGIN
-    }
 )
 
 globalTemplateOption largeleftmargin (
@@ -122,8 +108,15 @@ globalTemplateOption largeleftmargin (
     appearance {
         cssClasses: t-Button--gapLeft
     }
-    advanced {
-        identifier: LARGELEFTMARGIN
+)
+
+globalTemplateOption noleftmargin (
+    templateType: button
+    name: None
+    group: @button/spacing-left
+    sequence: 5
+    appearance {
+        cssClasses: t-Button--noLeft
     }
 )
 
@@ -135,9 +128,6 @@ globalTemplateOption smallleftmargin (
     appearance {
         cssClasses: t-Button--padLeft
     }
-    advanced {
-        identifier: SMALLLEFTMARGIN
-    }
 )
 
 globalTemplateOption largerightmargin (
@@ -148,8 +138,15 @@ globalTemplateOption largerightmargin (
     appearance {
         cssClasses: t-Button--gapRight
     }
-    advanced {
-        identifier: LARGERIGHTMARGIN
+)
+
+globalTemplateOption norightmargin (
+    templateType: button
+    name: None
+    group: @button/spacing-right
+    sequence: 5
+    appearance {
+        cssClasses: t-Button--noRight
     }
 )
 
@@ -161,9 +158,6 @@ globalTemplateOption smallrightmargin (
     appearance {
         cssClasses: t-Button--padRight
     }
-    advanced {
-        identifier: SMALLRIGHTMARGIN
-    }
 )
 
 globalTemplateOption largetopmargin (
@@ -174,8 +168,15 @@ globalTemplateOption largetopmargin (
     appearance {
         cssClasses: t-Button--gapTop
     }
-    advanced {
-        identifier: LARGETOPMARGIN
+)
+
+globalTemplateOption notopmargin (
+    templateType: button
+    name: None
+    group: @button/spacing-top
+    sequence: 5
+    appearance {
+        cssClasses: t-Button--noTop
     }
 )
 
@@ -186,9 +187,6 @@ globalTemplateOption smalltopmargin (
     sequence: 10
     appearance {
         cssClasses: t-Button--padTop
-    }
-    advanced {
-        identifier: SMALLTOPMARGIN
     }
 )
 
@@ -203,9 +201,6 @@ globalTemplateOption display-as-link (
     help {
         helpText: This option makes the button appear as a text link.
     }
-    advanced {
-        identifier: DISPLAY_AS_LINK
-    }
 )
 
 globalTemplateOption noui (
@@ -215,9 +210,6 @@ globalTemplateOption noui (
     sequence: 20
     appearance {
         cssClasses: t-Button--noUI
-    }
-    advanced {
-        identifier: NOUI
     }
 )
 
@@ -229,9 +221,6 @@ globalTemplateOption simple (
     appearance {
         cssClasses: t-Button--simple
     }
-    advanced {
-        identifier: SIMPLE
-    }
 )
 
 globalTemplateOption danger (
@@ -241,9 +230,6 @@ globalTemplateOption danger (
     sequence: 30
     appearance {
         cssClasses: t-Button--danger
-    }
-    advanced {
-        identifier: DANGER
     }
 )
 
@@ -255,9 +241,6 @@ globalTemplateOption primary (
     appearance {
         cssClasses: t-Button--primary
     }
-    advanced {
-        identifier: PRIMARY
-    }
 )
 
 globalTemplateOption success (
@@ -268,9 +251,6 @@ globalTemplateOption success (
     appearance {
         cssClasses: t-Button--success
     }
-    advanced {
-        identifier: SUCCESS
-    }
 )
 
 globalTemplateOption warning (
@@ -280,9 +260,6 @@ globalTemplateOption warning (
     sequence: 20
     appearance {
         cssClasses: t-Button--warning
-    }
-    advanced {
-        identifier: WARNING
     }
 )
 
@@ -297,8 +274,17 @@ globalTemplateOption stretch (
     help {
         helpText: Stretches button to fill container
     }
-    advanced {
-        identifier: STRETCH
+)
+
+globalTemplateOption hide-password-visibility (
+    templateType: item
+    name: Hide Password Visibility
+    sequence: 1
+    appearance {
+        cssClasses: js-hidePasswordVisibility
+    }
+    help {
+        helpText: This option hides the password visibility toggle button for the password item type.
     }
 )
 
@@ -311,9 +297,6 @@ globalTemplateOption stretch-form-item (
     }
     help {
         helpText: Stretches the form item to fill its container.
-    }
-    advanced {
-        identifier: STRETCH_FORM_ITEM
     }
 )
 
@@ -328,9 +311,6 @@ globalTemplateOption fbm-large (
     help {
         helpText: Adds a large bottom margin for this field.
     }
-    advanced {
-        identifier: FBM_LARGE
-    }
 )
 
 globalTemplateOption fbm-medium (
@@ -343,9 +323,6 @@ globalTemplateOption fbm-medium (
     }
     help {
         helpText: Adds a medium bottom margin for this field.
-    }
-    advanced {
-        identifier: FBM_MEDIUM
     }
 )
 
@@ -360,9 +337,6 @@ globalTemplateOption fbm-none (
     help {
         helpText: Removes the bottom margin for this field.
     }
-    advanced {
-        identifier: FBM_NONE
-    }
 )
 
 globalTemplateOption fbm-small (
@@ -376,9 +350,6 @@ globalTemplateOption fbm-small (
     help {
         helpText: Adds a small bottom margin for this field.
     }
-    advanced {
-        identifier: FBM_SMALL
-    }
 )
 
 globalTemplateOption display-text-style-bold (
@@ -389,9 +360,6 @@ globalTemplateOption display-text-style-bold (
     appearance {
         cssClasses: t-Form-fieldContainer--boldDisplay
     }
-    advanced {
-        identifier: DISPLAY_TEXT_STYLE_BOLD
-    }
 )
 
 globalTemplateOption display-text-style-normal (
@@ -401,9 +369,6 @@ globalTemplateOption display-text-style-normal (
     sequence: 20
     appearance {
         cssClasses: t-Form-fieldContainer--normalDisplay
-    }
-    advanced {
-        identifier: DISPLAY_TEXT_STYLE_NORMAL
     }
 )
 
@@ -418,9 +383,6 @@ globalTemplateOption post-text-block (
     help {
         helpText: Displays the Item Post Text in a block style immediately after the item.
     }
-    advanced {
-        identifier: POST_TEXT_BLOCK
-    }
 )
 
 globalTemplateOption pre-text-block (
@@ -434,8 +396,31 @@ globalTemplateOption pre-text-block (
     help {
         helpText: Displays the Item Pre Text in a block style immediately before the item.
     }
-    advanced {
-        identifier: PRE_TEXT_BLOCK
+)
+
+globalTemplateOption item-remove-padding (
+    templateType: item
+    name: None
+    group: @item/item-spacing
+    sequence: 20
+    appearance {
+        cssClasses: t-Form-fieldContainer--noPadding
+    }
+    help {
+        helpText: Removes item spacing.
+    }
+)
+
+globalTemplateOption item-slim-padding (
+    templateType: item
+    name: Slim
+    group: @item/item-spacing
+    sequence: 10
+    appearance {
+        cssClasses: t-Form-fieldContainer--slimPadding
+    }
+    help {
+        helpText: Reduces item spacing.
     }
 )
 
@@ -450,9 +435,6 @@ globalTemplateOption flm-large (
     help {
         helpText: Adds a large left margin for this field.
     }
-    advanced {
-        identifier: FLM_LARGE
-    }
 )
 
 globalTemplateOption flm-medium (
@@ -465,9 +447,6 @@ globalTemplateOption flm-medium (
     }
     help {
         helpText: Adds a medium left margin for this field.
-    }
-    advanced {
-        identifier: FLM_MEDIUM
     }
 )
 
@@ -482,9 +461,6 @@ globalTemplateOption flm-none (
     help {
         helpText: Removes the left margin for this field.
     }
-    advanced {
-        identifier: FLM_NONE
-    }
 )
 
 globalTemplateOption flm-small (
@@ -497,9 +473,6 @@ globalTemplateOption flm-small (
     }
     help {
         helpText: Adds a small left margin for this field.
-    }
-    advanced {
-        identifier: FLM_SMALL
     }
 )
 
@@ -514,9 +487,6 @@ globalTemplateOption display-as-pill-button (
     help {
         helpText: Displays the radio buttons to look like a button set / pill button.  Note that the the radio buttons must all be in the same row for this option to work.
     }
-    advanced {
-        identifier: DISPLAY_AS_PILL_BUTTON
-    }
 )
 
 globalTemplateOption frm-large (
@@ -529,9 +499,6 @@ globalTemplateOption frm-large (
     }
     help {
         helpText: Adds a large right margin for this field.
-    }
-    advanced {
-        identifier: FRM_LARGE
     }
 )
 
@@ -546,9 +513,6 @@ globalTemplateOption frm-medium (
     help {
         helpText: Adds a medium right margin for this field.
     }
-    advanced {
-        identifier: FRM_MEDIUM
-    }
 )
 
 globalTemplateOption frm-none (
@@ -561,9 +525,6 @@ globalTemplateOption frm-none (
     }
     help {
         helpText: Removes the right margin for this field.
-    }
-    advanced {
-        identifier: FRM_NONE
     }
 )
 
@@ -578,34 +539,25 @@ globalTemplateOption frm-small (
     help {
         helpText: Adds a small right margin for this field.
     }
-    advanced {
-        identifier: FRM_SMALL
-    }
 )
 
 globalTemplateOption large-field (
     templateType: item
     name: Large
-    group: @item/size
+    group: @item/size-2
     sequence: 10
     appearance {
         cssClasses: t-Form-fieldContainer--large
-    }
-    advanced {
-        identifier: LARGE_FIELD
     }
 )
 
 globalTemplateOption x-large-size (
     templateType: item
     name: X Large
-    group: @item/size
+    group: @item/size-2
     sequence: 20
     appearance {
         cssClasses: t-Form-fieldContainer--xlarge
-    }
-    advanced {
-        identifier: X_LARGE_SIZE
     }
 )
 
@@ -620,9 +572,6 @@ globalTemplateOption ftm-large (
     help {
         helpText: Adds a large top margin for this field.
     }
-    advanced {
-        identifier: FTM_LARGE
-    }
 )
 
 globalTemplateOption ftm-medium (
@@ -635,9 +584,6 @@ globalTemplateOption ftm-medium (
     }
     help {
         helpText: Adds a medium top margin for this field.
-    }
-    advanced {
-        identifier: FTM_MEDIUM
     }
 )
 
@@ -652,9 +598,6 @@ globalTemplateOption ftm-none (
     help {
         helpText: Removes the top margin for this field.
     }
-    advanced {
-        identifier: FTM_NONE
-    }
 )
 
 globalTemplateOption ftm-small (
@@ -668,9 +611,6 @@ globalTemplateOption ftm-small (
     help {
         helpText: Adds a small top margin for this field.
     }
-    advanced {
-        identifier: FTM_SMALL
-    }
 )
 
 globalTemplateOption deferred-page-rendering (
@@ -682,9 +622,6 @@ globalTemplateOption deferred-page-rendering (
     }
     help {
         helpText: Defer page rendering until all page components have finished loading.
-    }
-    advanced {
-        identifier: DEFERRED_PAGE_RENDERING
     }
 )
 
@@ -699,8 +636,44 @@ globalTemplateOption remove-padding (
     help {
         helpText: Removes padding from the content region.
     }
-    advanced {
-        identifier: REMOVE_PADDING
+)
+
+globalTemplateOption bottom (
+    templateType: page
+    name: Bottom
+    group: @page/vertical-alignment
+    sequence: 4
+    appearance {
+        cssClasses: t-PageBody--verticalBottom
+    }
+    help {
+        helpText: Sets the vertical alignment of the page body to bottom.
+    }
+)
+
+globalTemplateOption middle (
+    templateType: page
+    name: Middle
+    group: @page/vertical-alignment
+    sequence: 3
+    appearance {
+        cssClasses: t-PageBody--verticalMiddle
+    }
+    help {
+        helpText: Sets the vertical alignment of the page body to middle.
+    }
+)
+
+globalTemplateOption top (
+    templateType: page
+    name: Top
+    group: @page/vertical-alignment
+    sequence: 2
+    appearance {
+        cssClasses: t-PageBody--verticalTop
+    }
+    help {
+        helpText: Sets the vertical alignment of the page body to top.
     }
 )
 
@@ -715,9 +688,6 @@ globalTemplateOption h4 (
     help {
         helpText: H4
     }
-    advanced {
-        identifier: H4
-    }
 )
 
 globalTemplateOption heading-level-h1 (
@@ -730,9 +700,6 @@ globalTemplateOption heading-level-h1 (
     }
     help {
         helpText: H1
-    }
-    advanced {
-        identifier: HEADING_LEVEL_H1
     }
 )
 
@@ -747,9 +714,6 @@ globalTemplateOption heading-level-h2 (
     help {
         helpText: H2
     }
-    advanced {
-        identifier: HEADING_LEVEL_H2
-    }
 )
 
 globalTemplateOption heading-level-h3 (
@@ -762,9 +726,6 @@ globalTemplateOption heading-level-h3 (
     }
     help {
         helpText: H3
-    }
-    advanced {
-        identifier: HEADING_LEVEL_H3
     }
 )
 
@@ -779,9 +740,6 @@ globalTemplateOption heading-level-h5 (
     help {
         helpText: H5
     }
-    advanced {
-        identifier: HEADING_LEVEL_H5
-    }
 )
 
 globalTemplateOption heading-level-h6 (
@@ -794,9 +752,6 @@ globalTemplateOption heading-level-h6 (
     }
     help {
         helpText: H6
-    }
-    advanced {
-        identifier: HEADING_LEVEL_H6
     }
 )
 
@@ -811,9 +766,6 @@ globalTemplateOption formremovepadding (
     help {
         helpText: Removes spacing between items.
     }
-    advanced {
-        identifier: FORMREMOVEPADDING
-    }
 )
 
 globalTemplateOption formslimpadding (
@@ -826,9 +778,6 @@ globalTemplateOption formslimpadding (
     }
     help {
         helpText: Reduces form item spacing.
-    }
-    advanced {
-        identifier: FORMSLIMPADDING
     }
 )
 
@@ -843,9 +792,6 @@ globalTemplateOption formstandardpadding (
     help {
         helpText: Uses the standard spacing between items.
     }
-    advanced {
-        identifier: FORMSTANDARDPADDING
-    }
 )
 
 globalTemplateOption formsizelarge (
@@ -855,9 +801,6 @@ globalTemplateOption formsizelarge (
     sequence: 10
     appearance {
         cssClasses: t-Form--large
-    }
-    advanced {
-        identifier: FORMSIZELARGE
     }
 )
 
@@ -869,9 +812,6 @@ globalTemplateOption formsizexlarge (
     appearance {
         cssClasses: t-Form--xlarge
     }
-    advanced {
-        identifier: FORMSIZEXLARGE
-    }
 )
 
 globalTemplateOption stretch-form-fields (
@@ -881,9 +821,6 @@ globalTemplateOption stretch-form-fields (
     sequence: 10
     appearance {
         cssClasses: t-Form--stretchInputs
-    }
-    advanced {
-        identifier: STRETCH_FORM_FIELDS
     }
 )
 
@@ -898,9 +835,6 @@ globalTemplateOption formleftlabels (
     help {
         helpText: Align form labels to left.
     }
-    advanced {
-        identifier: FORMLEFTLABELS
-    }
 )
 
 globalTemplateOption showformlabelsabove (
@@ -913,9 +847,6 @@ globalTemplateOption showformlabelsabove (
     }
     help {
         helpText: Show form labels above input fields.
-    }
-    advanced {
-        identifier: SHOWFORMLABELSABOVE
     }
 )
 
@@ -930,9 +861,6 @@ globalTemplateOption rbm-large (
     help {
         helpText: Adds a large bottom margin to the region.
     }
-    advanced {
-        identifier: RBM_LARGE
-    }
 )
 
 globalTemplateOption rbm-medium (
@@ -945,9 +873,6 @@ globalTemplateOption rbm-medium (
     }
     help {
         helpText: Adds a medium bottom margin to the region.
-    }
-    advanced {
-        identifier: RBM_MEDIUM
     }
 )
 
@@ -962,9 +887,6 @@ globalTemplateOption rbm-none (
     help {
         helpText: Removes the bottom margin for this region.
     }
-    advanced {
-        identifier: RBM_NONE
-    }
 )
 
 globalTemplateOption rbm-small (
@@ -977,9 +899,6 @@ globalTemplateOption rbm-small (
     }
     help {
         helpText: Adds a small bottom margin to the region.
-    }
-    advanced {
-        identifier: RBM_SMALL
     }
 )
 
@@ -994,9 +913,6 @@ globalTemplateOption rlm-large (
     help {
         helpText: Adds a large right margin to the region.
     }
-    advanced {
-        identifier: RLM_LARGE
-    }
 )
 
 globalTemplateOption rlm-medium (
@@ -1009,9 +925,6 @@ globalTemplateOption rlm-medium (
     }
     help {
         helpText: Adds a medium right margin to the region.
-    }
-    advanced {
-        identifier: RLM_MEDIUM
     }
 )
 
@@ -1026,9 +939,6 @@ globalTemplateOption rlm-none (
     help {
         helpText: Removes the left margin from the region.
     }
-    advanced {
-        identifier: RLM_NONE
-    }
 )
 
 globalTemplateOption rlm-small (
@@ -1041,9 +951,6 @@ globalTemplateOption rlm-small (
     }
     help {
         helpText: Adds a small left margin to the region.
-    }
-    advanced {
-        identifier: RLM_SMALL
     }
 )
 
@@ -1058,9 +965,6 @@ globalTemplateOption rrm-large (
     help {
         helpText: Adds a large right margin to the region.
     }
-    advanced {
-        identifier: RRM_LARGE
-    }
 )
 
 globalTemplateOption rrm-medium (
@@ -1073,9 +977,6 @@ globalTemplateOption rrm-medium (
     }
     help {
         helpText: Adds a medium right margin to the region.
-    }
-    advanced {
-        identifier: RRM_MEDIUM
     }
 )
 
@@ -1090,9 +991,6 @@ globalTemplateOption rrm-none (
     help {
         helpText: Removes the right margin from the region.
     }
-    advanced {
-        identifier: RRM_NONE
-    }
 )
 
 globalTemplateOption rrm-small (
@@ -1105,9 +1003,6 @@ globalTemplateOption rrm-small (
     }
     help {
         helpText: Adds a small right margin to the region.
-    }
-    advanced {
-        identifier: RRM_SMALL
     }
 )
 
@@ -1122,9 +1017,6 @@ globalTemplateOption rtm-large (
     help {
         helpText: Adds a large top margin to the region.
     }
-    advanced {
-        identifier: RTM_LARGE
-    }
 )
 
 globalTemplateOption rtm-medium (
@@ -1137,9 +1029,6 @@ globalTemplateOption rtm-medium (
     }
     help {
         helpText: Adds a medium top margin to the region.
-    }
-    advanced {
-        identifier: RTM_MEDIUM
     }
 )
 
@@ -1154,9 +1043,6 @@ globalTemplateOption rtm-none (
     help {
         helpText: Removes the top margin for this region.
     }
-    advanced {
-        identifier: RTM_NONE
-    }
 )
 
 globalTemplateOption rtm-small (
@@ -1170,9 +1056,6 @@ globalTemplateOption rtm-small (
     help {
         helpText: Adds a small top margin to the region.
     }
-    advanced {
-        identifier: RTM_SMALL
-    }
 )
 
 globalTemplateOption sort-center (
@@ -1183,9 +1066,6 @@ globalTemplateOption sort-center (
     appearance {
         cssClasses: t-Region-orderBy--center
     }
-    advanced {
-        identifier: SORT_CENTER
-    }
 )
 
 globalTemplateOption sort-end (
@@ -1195,9 +1075,6 @@ globalTemplateOption sort-end (
     sequence: 20
     appearance {
         cssClasses: t-Region-orderBy--end
-    }
-    advanced {
-        identifier: SORT_END
     }
 )
 
@@ -1211,9 +1088,6 @@ globalTemplateOption hide-when-all-rows-displayed (
     }
     help {
         helpText: This option will hide the pagination when all rows are displayed.
-    }
-    advanced {
-        identifier: HIDE_WHEN_ALL_ROWS_DISPLAYED
     }
 )
 

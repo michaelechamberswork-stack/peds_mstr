@@ -3,7 +3,7 @@ page 1400 (
     alias: SURVEYS
     title: SURVEYS
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -22,7 +22,7 @@ page 1400 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -68,14 +68,14 @@ page 1400 (
             slot: regionBody
         }
         appearance {
-            template: @/interactive-report
+            template: @interactive-report
             templateOptions: #DEFAULT#
         }
         reportLayout {
             numberOfRows: 50
         }
         componentAppearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -366,7 +366,7 @@ page 1400 (
             slot: regionBody
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -401,7 +401,7 @@ page 1400 (
             slot: next
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }

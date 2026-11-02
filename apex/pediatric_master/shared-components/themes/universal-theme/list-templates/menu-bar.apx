@@ -9,20 +9,20 @@ listTemplate menu-bar (
         afterEntries: </ul></div>
     }
     entry {
-        current: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        currentWithSublist: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a>
-        noncurrent: <li data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        noncurrentWithSublist: <li data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a>
+        current: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        currentWithSublist: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
+        noncurrent: <li data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        noncurrentWithSublist: <li data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
     }
     sublist {
         beforeEntries: <ul>
         afterEntries: </ul></li>
     }
     sublistEntry {
-        current: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        currentWithSublist: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a>
-        noncurrent: <li data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        noncurrentWithSublist: <li data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a>
+        current: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        currentWithSublist: <li data-current="true" data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
+        noncurrent: <li data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        noncurrentWithSublist: <li data-id="#A01#" data-disabled="#A02#" data-hide="#A03#" data-shortcut="#A05#" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a>
     }
     javaScript {
         executeWhenPageLoads:
@@ -48,12 +48,7 @@ listTemplate menu-bar (
         a04: Title Attribute (Used By Actions Only)
         a05: Shortcut
         a06: Link Target
-    }
-    advanced {
-        identifier: MENU_BAR
-    }
-    subscription {
-        master: @menu-bar
+        a10: OpenTelemetry Label
     }
 
     templateOption add-actions (
@@ -65,9 +60,6 @@ listTemplate menu-bar (
         help {
             helpText: Use this option to add shortcuts for menu items. Note that actions.js must be included on your page to support this functionality.
         }
-        advanced {
-            identifier: ADD_ACTIONS
-        }
     )
 
     templateOption behave-like-tabs (
@@ -75,9 +67,6 @@ listTemplate menu-bar (
         sequence: 10
         appearance {
             cssClasses: js-tabLike
-        }
-        advanced {
-            identifier: BEHAVE_LIKE_TABS
         }
     )
 
@@ -90,9 +79,6 @@ listTemplate menu-bar (
         help {
             helpText: Use this option to add display a callout for the menu.
         }
-        advanced {
-            identifier: DISPLAY_MENU_CALLOUT
-        }
     )
 
     templateOption show-sub-menu-icons (
@@ -100,9 +86,6 @@ listTemplate menu-bar (
         sequence: 30
         appearance {
             cssClasses: js-showSubMenuIcons
-        }
-        advanced {
-            identifier: SHOW_SUB_MENU_ICONS
         }
     )
 

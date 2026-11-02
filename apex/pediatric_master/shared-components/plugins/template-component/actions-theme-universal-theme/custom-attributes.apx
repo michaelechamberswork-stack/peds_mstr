@@ -1,0 +1,119 @@
+customAttribute ACTIONS_WRAP (
+    apexlangName: wrapActions
+    attribute: 1
+    name: Wrap Actions
+    type: yesNo
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 10
+    }
+    help {
+        helpText: This will enable action buttons to wrap when a column or container is too thin for the contents.
+    }
+)
+
+customAttribute GAP (
+    apexlangName: gap
+    attribute: 3
+    name: Spacing
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 30
+    }
+
+    entry large (
+        sequence: 40
+        display: Large
+        return: gapLarge
+        help {
+            helpText: Large (8px) spacing between actions.
+        }
+    )
+
+    entry medium (
+        sequence: 30
+        display: Medium
+        return: gapMedium
+        help {
+            helpText: Medium (4px) spacing between actions.
+        }
+    )
+
+    entry none (
+        sequence: 10
+        display: None
+        return: gapNone
+        help {
+            helpText: Removes spacing between actions.
+        }
+    )
+
+    entry small (
+        sequence: 20
+        display: Small
+        return: gapSmall
+        help {
+            helpText: Small (2px) spacing between actions.
+        }
+    )
+
+)
+
+customAttribute SIZE (
+    apexlangName: size
+    attribute: 2
+    name: Size
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 20
+    }
+    help {
+        helpText: Sets the size of the specific actions.
+    }
+
+    entry extraLarge (
+        sequence: 50
+        display: Extra Large
+        return: xlarge
+    )
+
+    entry large (
+        sequence: 40
+        display: Large
+        return: large
+    )
+
+    entry medium (
+        sequence: 30
+        display: Medium
+        return: medium
+    )
+
+    entry small (
+        sequence: 20
+        display: Small
+        return: small
+    )
+
+    entry tiny (
+        sequence: 10
+        display: Tiny
+        return: tiny
+    )
+
+)
+

@@ -4,7 +4,7 @@ page 1204 (
     title: OBJECTIVE
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @/drawer
+        dialogTemplate: @drawer
         templateOptions: [
             #DEFAULT#
             js-dialog-class-t-Drawer--pullOutEnd
@@ -26,7 +26,7 @@ page 1204 (
             slot: dialogFooter
         }
         appearance {
-            template: @/buttons-container
+            template: @buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -46,7 +46,7 @@ page 1204 (
             slot: contentBody
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -146,7 +146,7 @@ page 1204 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -277,7 +277,7 @@ page 1204 (
             slot: close
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {

@@ -1,0 +1,13 @@
+plugin actions (
+    name: Actions
+    staticId: THEME_142$ACTIONS
+    theme: @universal-theme
+    templateComponent {
+        availableAs: partial
+        partial: "{if ACTIONS/}<span id=\"#APEX$DOM_ID#\" class=\"t-InlineActions{if SIZE/} t-InlineActions--#SIZE#{endif/}{if GAP/} t-InlineActions--#GAP#{endif/}{if ACTIONS_WRAP/} t-InlineActions--wrap{endif/}\">#ACTIONS#</span>{endif/}"
+    }
+    information {
+        helpText: This component is used to create a set of Inline Actions.
+    }
+)
+

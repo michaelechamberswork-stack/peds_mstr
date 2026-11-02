@@ -3,7 +3,7 @@ page 1221 (
     title: SEND SIGNATURE REQUEST
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @/modal-dialog
+        dialogTemplate: @modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -28,7 +28,7 @@ page 1221 (
             slot: dialogFooter
         }
         appearance {
-            template: @/buttons-container
+            template: @buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -48,7 +48,7 @@ page 1221 (
             slot: contentBody
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -90,7 +90,7 @@ page 1221 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
         }
@@ -139,7 +139,7 @@ page 1221 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
         }
@@ -157,7 +157,7 @@ page 1221 (
             slot: close
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -182,7 +182,7 @@ page 1221 (
             slot: next
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }

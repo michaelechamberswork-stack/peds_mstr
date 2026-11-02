@@ -6,7 +6,7 @@ classicReportTemplate value-attribute-pairs-column (
         preset: t-AVPList--leftAligned
     }
     reportTemplate {
-        top: <dl class="t-AVPList #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# data-region-id="#REGION_STATIC_ID#">
+        top: <dl class="t-AVPList #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# data-region-id="#DOM_ID#">
         bottom:
             ```html
             </dl>
@@ -47,12 +47,6 @@ classicReportTemplate value-attribute-pairs-column (
             </a>
             ```
     }
-    advanced {
-        identifier: VALUE_ATTRIBUTE_PAIRS_COLUMN
-    }
-    subscription {
-        master: @value-attribute-pairs-column
-    }
 
     templateOption hide-empty-values (
         name: Hide Empty Values
@@ -63,9 +57,6 @@ classicReportTemplate value-attribute-pairs-column (
         help {
             helpText: This option will hide the null rows. Note: This only works in browsers that supports :has() pseudo-class.
         }
-        advanced {
-            identifier: HIDE_EMPTY_VALUES
-        }
     )
 
     templateOption fixed-large (
@@ -74,9 +65,6 @@ classicReportTemplate value-attribute-pairs-column (
         sequence: 30
         appearance {
             cssClasses: t-AVPList--fixedLabelLarge
-        }
-        advanced {
-            identifier: FIXED_LARGE
         }
     )
 
@@ -87,9 +75,6 @@ classicReportTemplate value-attribute-pairs-column (
         appearance {
             cssClasses: t-AVPList--fixedLabelMedium
         }
-        advanced {
-            identifier: FIXED_MEDIUM
-        }
     )
 
     templateOption fixed-small (
@@ -98,9 +83,6 @@ classicReportTemplate value-attribute-pairs-column (
         sequence: 10
         appearance {
             cssClasses: t-AVPList--fixedLabelSmall
-        }
-        advanced {
-            identifier: FIXED_SMALL
         }
     )
 
@@ -111,9 +93,6 @@ classicReportTemplate value-attribute-pairs-column (
         appearance {
             cssClasses: t-AVPList--variableLabelLarge
         }
-        advanced {
-            identifier: VARIABLE_LARGE
-        }
     )
 
     templateOption variable-medium (
@@ -122,9 +101,6 @@ classicReportTemplate value-attribute-pairs-column (
         sequence: 50
         appearance {
             cssClasses: t-AVPList--variableLabelMedium
-        }
-        advanced {
-            identifier: VARIABLE_MEDIUM
         }
     )
 
@@ -135,32 +111,23 @@ classicReportTemplate value-attribute-pairs-column (
         appearance {
             cssClasses: t-AVPList--variableLabelSmall
         }
-        advanced {
-            identifier: VARIABLE_SMALL
-        }
     )
 
     templateOption left-aligned-details (
         name: Left Aligned Details
-        group: @report/layout
+        group: @report/layout-3
         sequence: 10
         appearance {
             cssClasses: t-AVPList--leftAligned
-        }
-        advanced {
-            identifier: LEFT_ALIGNED_DETAILS
         }
     )
 
     templateOption right-aligned-details (
         name: Right Aligned Details
-        group: @report/layout
+        group: @report/layout-3
         sequence: 20
         appearance {
             cssClasses: t-AVPList--rightAligned
-        }
-        advanced {
-            identifier: RIGHT_ALIGNED_DETAILS
         }
     )
 

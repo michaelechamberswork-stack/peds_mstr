@@ -1,0 +1,8 @@
+[2026-09-07 21:04:27] Starting script with Action=folder Environment=DEV ExportType=SCHEMA Folder=peds_mstr DbAlias=dev_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-09-07 21:04:27] Connecting as proxy user peds_mstr in DEV using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@dev_medium
+[2026-09-07 21:09:46] Starting script with Action=folder Environment=prod ExportType=SCHEMA Folder=peds_mstr DbAlias=lts_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-09-07 21:09:46] Connecting as proxy user peds_mstr in prod using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@lts_medium
+[2026-09-07 21:30:59] Starting script with Action=folder Environment=prod ExportType=SCHEMA Folder=peds_mstr DbAlias=lts_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-09-07 21:30:59] Connecting as proxy user peds_mstr in prod using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@lts_medium
+[2026-09-07 21:45:48] Starting script with Action=folder Environment=dev ExportType=SCHEMA Folder=peds_mstr DbAlias=dev_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-09-07 21:45:48] Connecting as proxy user peds_mstr in dev using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@dev_medium

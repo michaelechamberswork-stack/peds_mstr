@@ -3,7 +3,7 @@ page 1301 (
     title: SESSION
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @/modal-dialog
+        dialogTemplate: @modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -42,7 +42,7 @@ page 1301 (
             slot: dialogFooter
         }
         appearance {
-            template: @/buttons-container
+            template: @buttons-container
             templateOptions: #DEFAULT#
         }
         advanced {
@@ -69,7 +69,7 @@ page 1301 (
             slot: contentBody
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
         advanced {
@@ -80,7 +80,7 @@ page 1301 (
             item: P1301_S_ID
         }
         componentAppearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -195,7 +195,7 @@ page 1301 (
             slot: contentBody
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -228,7 +228,7 @@ page 1301 (
             column: 5
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -303,7 +303,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -355,7 +355,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 85
             height: 5
@@ -386,7 +386,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             formatMask: MM/DD/YYYY HH:MI AM
             width: 30
@@ -413,7 +413,7 @@ page 1301 (
             slot: regionBody
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         validation {
@@ -448,7 +448,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -493,7 +493,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -572,7 +572,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -622,7 +622,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -681,7 +681,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -716,7 +716,7 @@ page 1301 (
             column: 5
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             formatMask: HH:MI AM
             width: 30
@@ -756,7 +756,7 @@ page 1301 (
             column: 9
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -794,7 +794,7 @@ page 1301 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             formatMask: HH:MI AM
             width: 30
@@ -823,7 +823,7 @@ page 1301 (
             slot: previous
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -849,7 +849,7 @@ page 1301 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -910,7 +910,7 @@ page 1301 (
             slot: create
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -961,7 +961,7 @@ page 1301 (
             slot: create
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }

@@ -31,12 +31,6 @@ listTemplate wizard-progress (
     javaScript {
         executeWhenPageLoads: apex.theme.initWizardProgressBar();
     }
-    advanced {
-        identifier: WIZARD_PROGRESS
-    }
-    subscription {
-        master: @wizard-progress
-    }
 
     templateOption vertical-list (
         name: Vertical Orientation
@@ -46,9 +40,6 @@ listTemplate wizard-progress (
         }
         help {
             helpText: Displays the wizard progress list in a vertical orientation and is suitable for displaying within a side column of a page.
-        }
-        advanced {
-            identifier: VERTICAL_LIST
         }
     )
 
@@ -61,9 +52,6 @@ listTemplate wizard-progress (
         help {
             helpText: This option will make the wizard steps clickable links.
         }
-        advanced {
-            identifier: WIZARD_PROGRESS_LINKS
-        }
     )
 
     templateOption allsteps (
@@ -72,9 +60,6 @@ listTemplate wizard-progress (
         sequence: 10
         appearance {
             cssClasses: t-WizardSteps--displayLabels
-        }
-        advanced {
-            identifier: ALLSTEPS
         }
     )
 
@@ -85,9 +70,6 @@ listTemplate wizard-progress (
         appearance {
             cssClasses: t-WizardSteps--displayCurrentLabelOnly
         }
-        advanced {
-            identifier: CURRENTSTEPONLY
-        }
     )
 
     templateOption hidelabels (
@@ -96,9 +78,6 @@ listTemplate wizard-progress (
         sequence: 30
         appearance {
             cssClasses: t-WizardSteps--hideLabels
-        }
-        advanced {
-            identifier: HIDELABELS
         }
     )
 

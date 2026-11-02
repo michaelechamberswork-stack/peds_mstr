@@ -10,7 +10,7 @@ classicReportTemplate media-list (
         ]
     }
     reportTemplate {
-        top: <ul class="t-MediaList #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#REGION_STATIC_ID#_report" data-region-id="#REGION_STATIC_ID#">
+        top: <ul class="t-MediaList #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#DOM_ID#_report" data-region-id="#DOM_ID#">
         bottom:
             ```html
             </ul>
@@ -86,24 +86,12 @@ classicReportTemplate media-list (
             </a>
             ```
     }
-    advanced {
-        identifier: MEDIA_LIST
-    }
-    subscription {
-        master: @media-list
-    }
-    comments {
-        comments: " (SELECT link_text, link_target, detail1, detail2, last_modified)"
-    }
 
     templateOption apply-theme-colors (
         name: Apply Theme Colors
         sequence: 40
         appearance {
             cssClasses: u-colors
-        }
-        advanced {
-            identifier: APPLY_THEME_COLORS
         }
     )
 
@@ -113,9 +101,6 @@ classicReportTemplate media-list (
         appearance {
             cssClasses: t-MediaList--showBadges
         }
-        advanced {
-            identifier: SHOW_BADGES
-        }
     )
 
     templateOption show-description (
@@ -123,9 +108,6 @@ classicReportTemplate media-list (
         sequence: 20
         appearance {
             cssClasses: t-MediaList--showDesc
-        }
-        advanced {
-            identifier: SHOW_DESCRIPTION
         }
     )
 
@@ -135,14 +117,11 @@ classicReportTemplate media-list (
         appearance {
             cssClasses: t-MediaList--showIcons
         }
-        advanced {
-            identifier: SHOW_ICONS
-        }
     )
 
     templateOption icons-rounded (
         name: Rounded Corners
-        group: @report/icon-shape
+        group: @report/icon-shape-3
         sequence: 10
         appearance {
             cssClasses: t-MediaList--iconsRounded
@@ -150,14 +129,11 @@ classicReportTemplate media-list (
         help {
             helpText: The icons are displayed within a square with rounded corners.
         }
-        advanced {
-            identifier: ICONS_ROUNDED
-        }
     )
 
     templateOption icons-square (
         name: Square
-        group: @report/icon-shape
+        group: @report/icon-shape-3
         sequence: 20
         appearance {
             cssClasses: t-MediaList--iconsSquare
@@ -165,14 +141,11 @@ classicReportTemplate media-list (
         help {
             helpText: The icons are displayed within a square shape.
         }
-        advanced {
-            identifier: ICONS_SQUARE
-        }
     )
 
     templateOption 2-column-grid (
         name: 2 Column Grid
-        group: @report/layout
+        group: @report/layout-3
         sequence: 10
         appearance {
             cssClasses: [
@@ -180,14 +153,11 @@ classicReportTemplate media-list (
                 t-MediaList--2cols
             ]
         }
-        advanced {
-            identifier: 2_COLUMN_GRID
-        }
     )
 
     templateOption 3-column-grid (
         name: 3 Column Grid
-        group: @report/layout
+        group: @report/layout-3
         sequence: 20
         appearance {
             cssClasses: [
@@ -195,14 +165,11 @@ classicReportTemplate media-list (
                 t-MediaList--3cols
             ]
         }
-        advanced {
-            identifier: 3_COLUMN_GRID
-        }
     )
 
     templateOption 4-column-grid (
         name: 4 Column Grid
-        group: @report/layout
+        group: @report/layout-3
         sequence: 30
         appearance {
             cssClasses: [
@@ -210,14 +177,11 @@ classicReportTemplate media-list (
                 t-MediaList--4cols
             ]
         }
-        advanced {
-            identifier: 4_COLUMN_GRID
-        }
     )
 
     templateOption 5-column-grid (
         name: 5 Column Grid
-        group: @report/layout
+        group: @report/layout-3
         sequence: 40
         appearance {
             cssClasses: [
@@ -225,38 +189,29 @@ classicReportTemplate media-list (
                 t-MediaList--5cols
             ]
         }
-        advanced {
-            identifier: 5_COLUMN_GRID
-        }
     )
 
     templateOption span-horizontal (
         name: Span Horizontal
-        group: @report/layout
+        group: @report/layout-3
         sequence: 50
         appearance {
             cssClasses: t-MediaList--horizontal
-        }
-        advanced {
-            identifier: SPAN_HORIZONTAL
         }
     )
 
     templateOption stack (
         name: Stack
-        group: @report/layout
+        group: @report/layout-3
         sequence: 5
         appearance {
             cssClasses: t-MediaList--stack
-        }
-        advanced {
-            identifier: STACK
         }
     )
 
     templateOption large (
         name: Large
-        group: @report/size
+        group: @report/size-4
         sequence: 20
         appearance {
             cssClasses: [
@@ -266,9 +221,6 @@ classicReportTemplate media-list (
         }
         help {
             helpText: Increases the size of the text and icons in the list.
-        }
-        advanced {
-            identifier: LARGE
         }
     )
 

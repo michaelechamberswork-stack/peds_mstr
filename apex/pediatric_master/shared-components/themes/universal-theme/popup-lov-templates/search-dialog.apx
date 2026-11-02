@@ -58,8 +58,5 @@ popupLovTemplate search-dialog (
     advanced {
         identifier: winlov
     }
-    subscription {
-        master: @search-dialog
-    }
 )
 

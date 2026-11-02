@@ -3,7 +3,7 @@ page 1203 (
     alias: SESSION-IG
     title: SESSION
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -93,7 +93,7 @@ page 1203 (
             slot: subRegions
         }
         appearance {
-            template: @/interactive-report
+            template: @interactive-report
             templateOptions: #DEFAULT#
         }
         advanced {
@@ -535,7 +535,7 @@ page 1203 (
             newColumn: false
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -553,7 +553,7 @@ page 1203 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -593,7 +593,7 @@ page 1203 (
             column: 5
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -659,7 +659,7 @@ page 1203 (
             column: 9
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -711,7 +711,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 85
             height: 5
@@ -741,7 +741,7 @@ page 1203 (
             slot: regionBody
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         validation {
@@ -809,7 +809,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             cssClasses: lts-hidden
             height: 4
@@ -846,7 +846,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -904,7 +904,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
             height: 5
@@ -955,7 +955,7 @@ page 1203 (
             column: 5
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -1016,7 +1016,7 @@ page 1203 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -1088,7 +1088,7 @@ page 1203 (
             column: 5
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             formatMask: HH:MI AM
         }
@@ -1119,7 +1119,7 @@ page 1203 (
             column: 9
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -1145,7 +1145,7 @@ page 1203 (
             slot: regionBody
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             formatMask: HH:MI AM
         }
@@ -1186,7 +1186,7 @@ page 1203 (
             slot: change
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -1214,7 +1214,7 @@ page 1203 (
             slot: close
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -1237,7 +1237,7 @@ page 1203 (
             slot: create
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -1261,7 +1261,7 @@ page 1203 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -1324,7 +1324,7 @@ page 1203 (
             slot: change
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }

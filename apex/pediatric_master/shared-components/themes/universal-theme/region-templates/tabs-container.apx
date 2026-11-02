@@ -7,7 +7,7 @@ regionTemplate tabs-container (
     region {
         template:
             ```html
-            <div class="t-TabsRegion #REGION_CSS_CLASSES# apex-tabs-region" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# id="#REGION_STATIC_ID#">
+            <div class="t-TabsRegion #REGION_CSS_CLASSES# apex-tabs-region" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# id="#DOM_ID#" data-tabs-label="#TITLE!ATTR#">
               #BODY#
               <div class="t-TabsRegion-items">#SUB_REGIONS#</div>
             </div>
@@ -19,12 +19,6 @@ regionTemplate tabs-container (
     javaScript {
         fileUrls: #APEX_FILES#libraries/apex/#MIN_DIRECTORY#widget.apexTabs#MIN#.js?v=#APEX_VERSION#
     }
-    advanced {
-        identifier: TABS_CONTAINER
-    }
-    subscription {
-        master: @tabs-container
-    }
 
     templateOption remember-active-tab (
         name: Remember Active Tab
@@ -32,20 +26,14 @@ regionTemplate tabs-container (
         appearance {
             cssClasses: js-useLocalStorage
         }
-        advanced {
-            identifier: REMEMBER_ACTIVE_TAB
-        }
     )
 
     templateOption fill-tab-labels (
         name: Fill Tab Labels
-        group: @region/layout
+        group: @region/layout-2
         sequence: 10
         appearance {
             cssClasses: t-TabsRegion-mod--fillLabels
-        }
-        advanced {
-            identifier: FILL_TAB_LABELS
         }
     )
 
@@ -56,9 +44,6 @@ regionTemplate tabs-container (
         appearance {
             cssClasses: t-TabsRegion-mod--pill
         }
-        advanced {
-            identifier: PILL
-        }
     )
 
     templateOption simple (
@@ -68,8 +53,23 @@ regionTemplate tabs-container (
         appearance {
             cssClasses: t-TabsRegion-mod--simple
         }
-        advanced {
-            identifier: SIMPLE
+    )
+
+    templateOption above-label (
+        name: Above Label
+        group: @region/tabs-icon
+        sequence: 10
+        appearance {
+            cssClasses: t-Tabs--iconsAbove
+        }
+    )
+
+    templateOption inline-with-label (
+        name: Inline with Label
+        group: @region/tabs-icon
+        sequence: 20
+        appearance {
+            cssClasses: t-Tabs--inlineIcons
         }
     )
 
@@ -80,9 +80,6 @@ regionTemplate tabs-container (
         appearance {
             cssClasses: t-TabsRegion-mod--small
         }
-        advanced {
-            identifier: TABS_SMALL
-        }
     )
 
     templateOption tabslarge (
@@ -91,9 +88,6 @@ regionTemplate tabs-container (
         sequence: 20
         appearance {
             cssClasses: t-TabsRegion-mod--large
-        }
-        advanced {
-            identifier: TABSLARGE
         }
     )
 

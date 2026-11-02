@@ -1,0 +1,517 @@
+customAttribute ALIGNCONTENT (
+    apexlangName: alignContent
+    attribute: 3
+    name: Align-Content
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 30
+    }
+    help {
+        helpText: Align-content controls how multiple flex lines are distributed along the cross axis. It only has an effect when the container wraps (flex-wrap: wrap) and there is extra space in the cross axis.
+    }
+
+    entry around (
+        sequence: 40
+        display: Around
+        return: u-align-content-around
+        help {
+            helpText: Distribute flex lines with equal space around each line; half-size space at the edges
+        }
+    )
+
+    entry between (
+        sequence: 50
+        display: Between
+        return: u-align-content-between
+        help {
+            helpText: Distribute flex lines with equal space between lines; no space at the edges
+        }
+    )
+
+    entry center (
+        sequence: 10
+        display: Center
+        return: u-align-content-center
+        help {
+            helpText: Pack flex lines in the center of the cross axis, leaving equal space above and below
+        }
+    )
+
+    entry end (
+        sequence: 30
+        display: End
+        return: u-align-content-end
+        help {
+            helpText: Pack flex lines toward the cross-end edge
+        }
+    )
+
+    entry evenly (
+        sequence: 60
+        display: Evenly
+        return: u-align-content-evenly
+        help {
+            helpText: Distribute flex lines so the gaps between lines and the edges are all equal
+        }
+    )
+
+    entry start (
+        sequence: 20
+        display: Start
+        return: u-align-content-start
+        help {
+            helpText: Pack flex lines toward the cross-start edge
+        }
+    )
+
+)
+
+customAttribute ALIGNITEMS (
+    apexlangName: alignItems
+    attribute: 5
+    name: Align-Items
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 50
+    }
+    help {
+        helpText: Align-items sets the default cross-axis alignment for all flex items within each line. It applies inside a line; when wrapping, align-content controls spacing between lines. Per-item overrides use align-self.
+    }
+
+    entry baseline (
+        sequence: 40
+        display: Baseline
+        return: u-align-items-baseline
+        help {
+            helpText: Align items so their first typographic baselines line up; falls back to start if a baseline can't be determined
+        }
+    )
+
+    entry center (
+        sequence: 10
+        display: Center
+        return: u-align-items-center
+        help {
+            helpText: Align items' cross-axis centers together within the line
+        }
+    )
+
+    entry end (
+        sequence: 30
+        display: End
+        return: u-align-items-end
+        help {
+            helpText: Align items to the cross-end edge of the line
+        }
+    )
+
+    entry start (
+        sequence: 20
+        display: Start
+        return: u-align-items-start
+        help {
+            helpText: Align items to the cross-start edge of the line
+        }
+    )
+
+    entry stretch (
+        sequence: 50
+        display: Stretch
+        return: u-align-items-stretch
+        help {
+            helpText: Stretch items to fill the line's cross size when their cross-size is auto; respects min/max and explicit sizes
+        }
+    )
+
+)
+
+customAttribute DIRECTION (
+    apexlangName: direction
+    attribute: 1
+    name: Direction
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 10
+    }
+    help {
+        helpText: Flex-direction sets the main axis of a flex container and the visual order of flex items. This affects which axis justify-content (main axis) and align-items/align-content (cross axis) operate on. It does not change DOM order, reading order, or tab order-only visual layout.
+    }
+
+    entry column (
+        sequence: 20
+        display: Column
+        return: u-flex-direction-column
+        help {
+            helpText: Lay out items top to bottom (block direction). Cross axis becomes inline direction
+        }
+    )
+
+    entry columnReverse (
+        sequence: 40
+        display: Column Reverse
+        return: u-flex-direction-column-reverse
+        help {
+            helpText: Same axis as column, but visual order is reversed (bottom to top). DOM order unchanged
+        }
+    )
+
+    entry row (
+        sequence: 10
+        display: Row
+        return: u-flex-direction-row
+        help {
+            helpText: Lay out items along the inline direction (left to right in LTR, right to left in RTL). Cross axis is block direction (top to bottom in horizontal writing modes). Default
+        }
+    )
+
+    entry rowReverse (
+        sequence: 30
+        display: Row Reverse
+        return: u-flex-direction-row-reverse
+        help {
+            helpText: Same axis as row, but visual order is reversed (end to start). DOM order unchanged
+        }
+    )
+
+)
+
+customAttribute FLEX_BEHAVIOR (
+    apexlangName: flexBehavior
+    attribute: 9
+    name: Flex Item Sizing
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 160
+    }
+
+    entry doNotGrow (
+        sequence: 30
+        display: No Grow
+        return: a-FlexContainer--noGrow
+        help {
+            helpText: Good for sidebars / controls that must not expand.
+        }
+    )
+
+    entry fillAvailableSpace (
+        sequence: 10
+        display: Fill Space
+        return: a-FlexContainer--fill
+        help {
+            helpText: For things that should stretch and share space with peers (classic equal columns)
+        }
+    )
+
+    entry growIfNeeded (
+        sequence: 20
+        display: Grow as Needed
+        return: a-FlexContainer--grow
+        help {
+            helpText: Grows when there is space, but initial size is content driven.
+        }
+    )
+
+)
+
+customAttribute GAP (
+    apexlangName: gap
+    attribute: 6
+    name: Gap
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 60
+    }
+    help {
+        helpText: The gap property sets the space between rows and columns of items.
+    }
+
+    entry lg (
+        sequence: 60
+        display: Large
+        return: u-gap-4
+        help {
+            helpText: Set the gap spacing to 16px
+        }
+    )
+
+    entry md (
+        sequence: 50
+        display: Medium
+        return: u-gap-2
+        help {
+            helpText: Set the gap spacing to 8px
+        }
+    )
+
+    entry none (
+        sequence: 10
+        display: None
+        return: u-gap-0
+        help {
+            helpText: Sets the gap to zero
+        }
+    )
+
+    entry sm (
+        sequence: 40
+        display: Small
+        return: u-gap-1
+        help {
+            helpText: Set the gap spacing to 4px
+        }
+    )
+
+    entry xl (
+        sequence: 70
+        display: Extra Large
+        return: u-gap-6
+        help {
+            helpText: Set the gap spacing to 24px
+        }
+    )
+
+    entry xs (
+        sequence: 30
+        display: Extra Small
+        return: u-gap-0_5
+        help {
+            helpText: Set the gap spacing to 2px
+        }
+    )
+
+    entry xxl (
+        sequence: 80
+        display: Extra Extra Large
+        return: u-gap-8
+        help {
+            helpText: Set the gap spacing to 32px
+        }
+    )
+
+    entry xxs (
+        sequence: 20
+        display: Extra Extra Small
+        return: u-gap-px
+        help {
+            helpText: Set the gap spacing to 1px
+        }
+    )
+
+)
+
+customAttribute JUSTIFYCONTENT (
+    apexlangName: justifyContent
+    attribute: 4
+    name: Justify-Content
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 40
+    }
+    help {
+        helpText: Justify-content distributes free space along the main axis (set by flex-direction). On wrapped containers, it applies within each line; align-content controls spacing between lines.
+    }
+
+    entry around (
+        sequence: 40
+        display: Around
+        return: u-justify-content-space-around
+        help {
+            helpText: Distribute items with equal space around each item; half-size space at the edges
+        }
+    )
+
+    entry between (
+        sequence: 50
+        display: Between
+        return: u-justify-content-space-between
+        help {
+            helpText: Distribute items with equal space between them; no space at the edges
+        }
+    )
+
+    entry center (
+        sequence: 10
+        display: Center
+        return: u-justify-content-center
+        help {
+            helpText: Pack items in the center of the main axis with equal space on both sides
+        }
+    )
+
+    entry end (
+        sequence: 30
+        display: End
+        return: u-justify-content-flex-end
+        help {
+            helpText: Pack items toward the main-end edge
+        }
+    )
+
+    entry start (
+        sequence: 20
+        display: Start
+        return: u-justify-content-flex-start
+        help {
+            helpText: Pack items toward the main-start edge
+        }
+    )
+
+    entry stretch (
+        sequence: 60
+        display: Stretch
+        return: u-justify-content-stretch
+        help {
+            helpText: Not applicable for Flexbox in current browsers. Typically ignored or behaves like flex-start; items won't stretch along the main axis. Use flex: 1 on items or space-between/around/evenly to distribute free space
+        }
+    )
+
+)
+
+customAttribute OVERFLOW (
+    apexlangName: overflow
+    attribute: 7
+    name: Overflow
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 70
+    }
+    help {
+        helpText: Controls what happens when content exceeds its container's size, letting you choose whether it scrolls, stays visible, or gets clipped.
+    }
+
+    entry auto (
+        sequence: 5
+        display: Auto
+        return: u-overflow-auto
+        help {
+            helpText: Add scrollbars only when the content exceeds the container's available space, keeping the layout clean unless scrolling is necessary.
+        }
+    )
+
+    entry clip (
+        sequence: 50
+        display: Clip
+        return: u-overflow-clip
+        help {
+            helpText: Hide any overflowing content without scrollbars, similar to hidden but with stricter clipping that prevents any scrolling even via programmatic methods.
+        }
+    )
+
+    entry hidden (
+        sequence: 30
+        display: Hidden
+        return: u-overflow-hidden
+        help {
+            helpText: Clip any content that extends beyond the container's boundaries, preventing scrollbars and hiding the overflow entirely.
+        }
+    )
+
+    entry scrollHorizontally (
+        sequence: 10
+        display: Scroll Horizontally
+        return: u-overflow-x-scroll
+        help {
+            helpText: Force a horizontal scrollbar whenever content extends beyond the container's width.
+        }
+    )
+
+    entry scrollVertically (
+        sequence: 20
+        display: Scroll Vertically
+        return: u-overflow-y-scroll
+        help {
+            helpText: Force a vertical scrollbar whenever content extends beyond the container's height when flex direction is set to column.
+        }
+    )
+
+    entry visible (
+        sequence: 40
+        display: Visible
+        return: u-overflow-visible
+        help {
+            helpText: Let content extend freely outside the container's boundaries, showing all overflow without adding scrollbars or clipping.
+        }
+    )
+
+)
+
+customAttribute WRAP (
+    apexlangName: wrap
+    attribute: 2
+    name: Wrap
+    type: selectList
+    componentLov {
+        nullText: Default
+    }
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 20
+    }
+    help {
+        helpText: Flex-wrap controls whether flex items stay on a single line or can flow onto multiple lines along the cross axis. When wrapping occurs, align-content can distribute space between the lines. Without wrapping, align-content has no effect.
+    }
+
+    entry noWrap (
+        sequence: 10
+        display: No Wrap
+        return: u-flex-wrap-nowrap
+        help {
+            helpText: Keep all items on one line. Items shrink (respecting flex-shrink and min-* constraints) and may overflow if they can't fit
+        }
+    )
+
+    entry wrap (
+        sequence: 20
+        display: Wrap
+        return: u-flex-wrap
+        help {
+            helpText: Allow items to wrap onto multiple lines from cross-start toward cross-end. Line stacking order depends on flex-direction and writing mode
+        }
+    )
+
+)
+

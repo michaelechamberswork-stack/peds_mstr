@@ -1,0 +1,22 @@
+plugin flexboxContainer (
+    name: Flexbox Container
+    staticId: THEME_142$FLEXBOX_CONTAINER
+    theme: @universal-theme
+    templateComponent {
+        availableAs: regionOnly
+        partial:
+            ```html
+            <div id="#APEX$DOM_ID#" class="a-FlexContainer u-flex #DIRECTION# #WRAP# #ALIGNCONTENT# #JUSTIFYCONTENT# #ALIGNITEMS# #GAP# #OVERFLOW# #FLEX_BEHAVIOR# #APEX$COMPONENT_CSS_CLASSES#">#BODY#</div>
+            
+            ```
+    }
+    defaultSlots {
+        regions: body
+        items: body
+        buttons: body
+    }
+    information {
+        helpText: A flexible container for arranging components using modern flexbox layout.
+    }
+)
+

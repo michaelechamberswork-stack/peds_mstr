@@ -1,0 +1,8 @@
+attributeGroup grouping (
+    name: Grouping
+    sequence: 10
+    advanced {
+        staticId: grouping
+    }
+)
+

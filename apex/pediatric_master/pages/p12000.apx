@@ -2,7 +2,7 @@ page 12000 (
     name: RESOURCES
     title: RESOURCES
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -42,7 +42,7 @@ page 12000 (
             slot: body
         }
         appearance {
-            template: @/interactive-report
+            template: @interactive-report
             templateOptions: #DEFAULT#
         }
         link {

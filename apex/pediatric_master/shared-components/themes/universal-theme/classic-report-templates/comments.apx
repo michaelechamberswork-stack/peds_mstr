@@ -6,7 +6,7 @@ classicReportTemplate comments (
         preset: t-Comments--chat
     }
     reportTemplate {
-        top: <ul class="t-Comments #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#REGION_STATIC_ID#_report" data-region-id="#REGION_STATIC_ID#">
+        top: <ul class="t-Comments #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#DOM_ID#_report" data-region-id="#DOM_ID#">
         bottom:
             ```html
             </ul>
@@ -59,12 +59,6 @@ classicReportTemplate comments (
             </a>
             ```
     }
-    advanced {
-        identifier: COMMENTS
-    }
-    subscription {
-        master: @comments
-    }
 
     templateOption basic (
         name: Basic
@@ -72,9 +66,6 @@ classicReportTemplate comments (
         sequence: 10
         appearance {
             cssClasses: t-Comments--basic
-        }
-        advanced {
-            identifier: BASIC
         }
     )
 
@@ -85,14 +76,11 @@ classicReportTemplate comments (
         appearance {
             cssClasses: t-Comments--chat
         }
-        advanced {
-            identifier: SPEECH_BUBBLES
-        }
     )
 
     templateOption icons-rounded (
         name: Rounded Corners
-        group: @report/icon-shape
+        group: @report/icon-shape-3
         sequence: 10
         appearance {
             cssClasses: t-Comments--iconsRounded
@@ -100,23 +88,17 @@ classicReportTemplate comments (
         help {
             helpText: The icons are displayed within a square with rounded corners.
         }
-        advanced {
-            identifier: ICONS_ROUNDED
-        }
     )
 
     templateOption icons-square (
         name: Square
-        group: @report/icon-shape
+        group: @report/icon-shape-3
         sequence: 20
         appearance {
             cssClasses: t-Comments--iconsSquare
         }
         help {
             helpText: The icons are displayed within a square shape.
-        }
-        advanced {
-            identifier: ICONS_SQUARE
         }
     )
 

@@ -2,26 +2,22 @@ regionTemplate cards-container (
     name: Cards Container
     templateClass: custom1
     templateOptions {
+        preset: t-CardsRegion--hideHeader js-addHiddenHeadingRoleDesc
         default: u-colors
     }
     region {
         template:
             ```html
-            <div class="t-CardsRegion #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
-              <div class="t-Region-orderBy">#ORDER_BY_ITEM#</div>
-              #BODY#
-              #SUB_REGIONS#
+            <div class="t-CardsRegion #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+              <h2 class="t-CardsRegion-title" id="#DOM_ID#_heading" data-apex-heading>#TITLE#</h2>
+                <div class="t-Region-orderBy">#ORDER_BY_ITEM#</div>
+                #BODY#
+                #SUB_REGIONS#
             </div>
             ```
     }
     accessibility {
         landmarkType: region
-    }
-    advanced {
-        identifier: CARDS_CONTAINER
-    }
-    subscription {
-        master: @cards-container
     }
 
     templateOption apply-theme-colors (
@@ -33,44 +29,59 @@ regionTemplate cards-container (
         help {
             helpText: Applies the colors from the theme's color palette to the icons or initials within cards.
         }
-        advanced {
-            identifier: APPLY_THEME_COLORS
+    )
+
+    templateOption hiddenheadernoat (
+        name: Hidden
+        group: @region/header-visibility
+        sequence: 1
+        appearance {
+            cssClasses: [
+                t-CardsRegion--removeHeader
+                js-removeLandmark
+            ]
+        }
+    )
+
+    templateOption hideregionheader (
+        name: Hidden but accessible
+        group: @region/header-visibility
+        sequence: 1
+        appearance {
+            cssClasses: [
+                t-CardsRegion--hideHeader
+                js-addHiddenHeadingRoleDesc
+            ]
+        }
+        help {
+            helpText: This option will hide the region header. Note that the region title will still be audible for Screen Readers.
         }
     )
 
     templateOption style-a (
         name: Style A
-        group: @region/style
+        group: @region/style-3
         sequence: 10
         appearance {
             cssClasses: t-CardsRegion--styleA
-        }
-        advanced {
-            identifier: STYLE_A
         }
     )
 
     templateOption style-b (
         name: Style B
-        group: @region/style
+        group: @region/style-3
         sequence: 20
         appearance {
             cssClasses: t-CardsRegion--styleB
-        }
-        advanced {
-            identifier: STYLE_B
         }
     )
 
     templateOption style-c (
         name: Style C
-        group: @region/style
+        group: @region/style-3
         sequence: 30
         appearance {
             cssClasses: t-CardsRegion--styleC
-        }
-        advanced {
-            identifier: STYLE_C
         }
     )
 
@@ -93,7 +104,6 @@ regionTemplate cards-container (
         }
         gridLayout {
             gridSupport: false
-            newRow: false
         }
     )
 

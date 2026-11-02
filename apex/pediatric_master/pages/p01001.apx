@@ -2,7 +2,7 @@ page 1001 (
     name: CLIENT
     title: CLIENT
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -32,7 +32,7 @@ page 1001 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -72,7 +72,7 @@ page 1001 (
             column: 4
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -102,7 +102,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 120
         }
@@ -131,7 +131,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @no-label
+            template: 12927574984885643
             templateOptions: #DEFAULT#
             width: 120
         }
@@ -161,7 +161,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 75
         }
@@ -209,7 +209,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -239,7 +239,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -270,7 +270,7 @@ page 1001 (
             column: 4
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -292,7 +292,7 @@ page 1001 (
             slot: regionBody
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -314,7 +314,7 @@ page 1001 (
             slot: regionBody
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -340,7 +340,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -375,7 +375,7 @@ page 1001 (
             column: 4
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 32
         }
@@ -423,7 +423,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -455,7 +455,7 @@ page 1001 (
             column: 4
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -485,7 +485,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -517,7 +517,7 @@ page 1001 (
             column: 4
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -547,7 +547,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -577,7 +577,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -614,7 +614,7 @@ page 1001 (
             column: 4
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -643,7 +643,7 @@ page 1001 (
             column: 4
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 5
         }
@@ -681,7 +681,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 1
         }
@@ -717,7 +717,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 5
         }
@@ -753,7 +753,7 @@ page 1001 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             height: 5
         }
@@ -787,7 +787,7 @@ page 1001 (
             column: 6
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 10
         }
@@ -813,7 +813,7 @@ page 1001 (
             slot: close
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -838,7 +838,7 @@ page 1001 (
             slot: close
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -867,7 +867,7 @@ page 1001 (
             slot: create
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -890,7 +890,7 @@ page 1001 (
             slot: change
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }

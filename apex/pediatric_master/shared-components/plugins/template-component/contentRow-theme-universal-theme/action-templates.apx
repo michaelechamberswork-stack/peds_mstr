@@ -17,7 +17,7 @@ actionTemplate button (
             ```
     }
     advanced {
-        staticId: button
+        staticId: Button
     }
 )
 
@@ -40,7 +40,7 @@ actionTemplate menu (
             ```
     }
     advanced {
-        staticId: menu
+        staticId: Menu
     }
 )
 

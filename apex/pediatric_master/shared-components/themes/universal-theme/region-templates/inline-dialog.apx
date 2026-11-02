@@ -12,28 +12,32 @@ regionTemplate inline-dialog (
     region {
         template:
             ```html
-            <div id="#REGION_STATIC_ID#_parent">
-            <div id="#REGION_STATIC_ID#" class="t-DialogRegion #REGION_CSS_CLASSES# js-regionDialog" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# #APEX_CSP_DISPLAY_NONE# title="#TITLE!ATTR#">
-              <div class="t-DialogRegion-wrap">
-                <div class="t-DialogRegion-bodyWrapperOut"><div class="t-DialogRegion-bodyWrapperIn"><div class="t-DialogRegion-body">#BODY##SUB_REGIONS#</div></div></div>
-                <div class="t-DialogRegion-buttons">
-                   <div class="t-ButtonRegion t-ButtonRegion--dialogRegion">
-                     <div class="t-ButtonRegion-wrap">
-                       <div class="t-ButtonRegion-col t-ButtonRegion-col--left"><div class="t-ButtonRegion-buttons">#PREVIOUS##DELETE##CLOSE#</div></div>
-                       <div class="t-ButtonRegion-col t-ButtonRegion-col--right"><div class="t-ButtonRegion-buttons">#EDIT##CREATE##NEXT#</div></div>
-                     </div>
-                   </div>
+            <div id="#DOM_ID#_parent">
+              <div id="#DOM_ID#" class="t-DialogRegion #REGION_CSS_CLASSES# js-regionDialog js-hidden" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# title="#TITLE!ATTR#">
+                <div class="t-DialogRegion-wrap">
+                  <div class="t-DialogRegion-bodyWrapperOut">
+                    <div class="t-DialogRegion-bodyWrapperIn">
+                      <div class="t-DialogRegion-body">#BODY##SUB_REGIONS#</div>
+                    </div>
+                  </div>
+                  <div class="t-DialogRegion-buttons">
+                    <div class="t-ButtonRegion t-ButtonRegion--dialogRegion">
+                      <div class="t-ButtonRegion-wrap">
+                        <div class="t-ButtonRegion-col t-ButtonRegion-col--left">
+                          <div class="t-ButtonRegion-buttons">#PREVIOUS##DELETE##CLOSE#</div>
+                        </div>
+                        <div class="t-ButtonRegion-col t-ButtonRegion-col--right">
+                          <div class="t-ButtonRegion-buttons">#EDIT##CREATE##NEXT#</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="t-DialogRegion-footer">#FOOTER#</div>
                 </div>
               </div>
             </div>
-            </div>
+            
             ```
-    }
-    advanced {
-        identifier: INLINE_DIALOG
-    }
-    subscription {
-        master: @inline-dialog
     }
 
     templateOption auto-height-inline-dialog (
@@ -45,9 +49,6 @@ regionTemplate inline-dialog (
         help {
             helpText: This option will set the height of the dialog to fit its contents.
         }
-        advanced {
-            identifier: AUTO_HEIGHT_INLINE_DIALOG
-        }
     )
 
     templateOption draggable (
@@ -56,9 +57,6 @@ regionTemplate inline-dialog (
         appearance {
             cssClasses: js-draggable
         }
-        advanced {
-            identifier: DRAGGABLE
-        }
     )
 
     templateOption modal (
@@ -66,9 +64,6 @@ regionTemplate inline-dialog (
         sequence: 10
         appearance {
             cssClasses: js-modal
-        }
-        advanced {
-            identifier: MODAL
         }
     )
 
@@ -81,9 +76,6 @@ regionTemplate inline-dialog (
         help {
             helpText: Removes the padding around the region body.
         }
-        advanced {
-            identifier: REMOVE_BODY_PADDING
-        }
     )
 
     templateOption resizable (
@@ -92,56 +84,41 @@ regionTemplate inline-dialog (
         appearance {
             cssClasses: js-resizable
         }
-        advanced {
-            identifier: RESIZABLE
-        }
     )
 
     templateOption large-720x480 (
         name: Large (720x480)
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 30
         appearance {
             cssClasses: js-dialog-size720x480
-        }
-        advanced {
-            identifier: LARGE_720X480
         }
     )
 
     templateOption medium-600x400 (
         name: Medium (600x400)
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 20
         appearance {
             cssClasses: js-dialog-size600x400
-        }
-        advanced {
-            identifier: MEDIUM_600X400
         }
     )
 
     templateOption none (
         name: None
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 5
         appearance {
             cssClasses: js-dialog-nosize
-        }
-        advanced {
-            identifier: NONE
         }
     )
 
     templateOption small-480x320 (
         name: Small (480x320)
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 10
         appearance {
             cssClasses: js-dialog-size480x320
-        }
-        advanced {
-            identifier: SMALL_480X320
         }
     )
 
@@ -178,6 +155,15 @@ regionTemplate inline-dialog (
         }
         gridLayout {
             gridSupport: false
+        }
+    )
+
+    slot dialogFooter (
+        name: Dialog Footer
+        staticId: FOOTER
+        supports {
+            items: true
+            buttons: true
         }
     )
 
@@ -220,7 +206,7 @@ regionTemplate inline-dialog (
     )
 
     slot regionBody (
-        name: Region Body
+        name: Dialog Body
         staticId: BODY
         supports {
             items: true

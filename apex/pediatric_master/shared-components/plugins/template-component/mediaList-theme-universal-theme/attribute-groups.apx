@@ -14,3 +14,11 @@ attributeGroup badge (
     }
 )
 
+attributeGroup grouping (
+    name: Grouping
+    sequence: 30
+    advanced {
+        staticId: grouping
+    }
+)
+

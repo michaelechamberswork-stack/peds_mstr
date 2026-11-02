@@ -7,11 +7,11 @@ regionTemplate standard (
     region {
         template:
             ```html
-            <div class="t-Region #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-Region #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
              <div class="t-Region-header">
               <div class="t-Region-headerItems t-Region-headerItems--title">
                 <span class="t-Region-headerIcon"><span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true"></span></span>
-                <h2 class="t-Region-title" id="#REGION_STATIC_ID#_heading" data-apex-heading>#TITLE#</h2>
+                <h2 class="t-Region-title" id="#DOM_ID#_heading" data-apex-heading>#TITLE#</h2>
               </div>
               <div class="t-Region-headerItems t-Region-headerItems--buttons">#COPY##EDIT#<span class="js-maximizeButtonContainer"></span></div>
              </div>
@@ -37,12 +37,6 @@ regionTemplate standard (
     accessibility {
         landmarkType: region
     }
-    advanced {
-        identifier: STANDARD
-    }
-    subscription {
-        master: @standard
-    }
 
     templateOption nobodypadding (
         name: Remove Body Padding
@@ -52,9 +46,6 @@ regionTemplate standard (
         }
         help {
             helpText: Removes padding from region body.
-        }
-        advanced {
-            identifier: NOBODYPADDING
         }
     )
 
@@ -67,9 +58,6 @@ regionTemplate standard (
         help {
             helpText: Displays a button in the Region Header to maximize the region. Clicking this button will toggle the maximize state and stretch the region to fill the screen.
         }
-        advanced {
-            identifier: SHOW_MAXIMIZE_BUTTON
-        }
     )
 
     templateOption show-region-icon (
@@ -81,9 +69,6 @@ regionTemplate standard (
         help {
             helpText: Displays the region icon in the region header beside the region title
         }
-        advanced {
-            identifier: SHOW_REGION_ICON
-        }
     )
 
     templateOption accent-1 (
@@ -92,9 +77,6 @@ regionTemplate standard (
         sequence: 10
         appearance {
             cssClasses: t-Region--accent1
-        }
-        advanced {
-            identifier: ACCENT_1
         }
     )
 
@@ -105,9 +87,6 @@ regionTemplate standard (
         appearance {
             cssClasses: t-Region--accent10
         }
-        advanced {
-            identifier: ACCENT_10
-        }
     )
 
     templateOption accent-11 (
@@ -116,9 +95,6 @@ regionTemplate standard (
         sequence: 110
         appearance {
             cssClasses: t-Region--accent11
-        }
-        advanced {
-            identifier: ACCENT_11
         }
     )
 
@@ -129,9 +105,6 @@ regionTemplate standard (
         appearance {
             cssClasses: t-Region--accent12
         }
-        advanced {
-            identifier: ACCENT_12
-        }
     )
 
     templateOption accent-13 (
@@ -140,9 +113,6 @@ regionTemplate standard (
         sequence: 130
         appearance {
             cssClasses: t-Region--accent13
-        }
-        advanced {
-            identifier: ACCENT_13
         }
     )
 
@@ -153,9 +123,6 @@ regionTemplate standard (
         appearance {
             cssClasses: t-Region--accent14
         }
-        advanced {
-            identifier: ACCENT_14
-        }
     )
 
     templateOption accent-15 (
@@ -164,9 +131,6 @@ regionTemplate standard (
         sequence: 150
         appearance {
             cssClasses: t-Region--accent15
-        }
-        advanced {
-            identifier: ACCENT_15
         }
     )
 
@@ -177,9 +141,6 @@ regionTemplate standard (
         appearance {
             cssClasses: t-Region--accent2
         }
-        advanced {
-            identifier: ACCENT_2
-        }
     )
 
     templateOption accent-3 (
@@ -188,9 +149,6 @@ regionTemplate standard (
         sequence: 30
         appearance {
             cssClasses: t-Region--accent3
-        }
-        advanced {
-            identifier: ACCENT_3
         }
     )
 
@@ -201,9 +159,6 @@ regionTemplate standard (
         appearance {
             cssClasses: t-Region--accent4
         }
-        advanced {
-            identifier: ACCENT_4
-        }
     )
 
     templateOption accent-5 (
@@ -212,9 +167,6 @@ regionTemplate standard (
         sequence: 50
         appearance {
             cssClasses: t-Region--accent5
-        }
-        advanced {
-            identifier: ACCENT_5
         }
     )
 
@@ -225,9 +177,6 @@ regionTemplate standard (
         appearance {
             cssClasses: t-Region--accent6
         }
-        advanced {
-            identifier: ACCENT_6
-        }
     )
 
     templateOption accent-7 (
@@ -236,9 +185,6 @@ regionTemplate standard (
         sequence: 70
         appearance {
             cssClasses: t-Region--accent7
-        }
-        advanced {
-            identifier: ACCENT_7
         }
     )
 
@@ -249,9 +195,6 @@ regionTemplate standard (
         appearance {
             cssClasses: t-Region--accent8
         }
-        advanced {
-            identifier: ACCENT_8
-        }
     )
 
     templateOption accent-9 (
@@ -260,9 +203,6 @@ regionTemplate standard (
         sequence: 90
         appearance {
             cssClasses: t-Region--accent9
-        }
-        advanced {
-            identifier: ACCENT_9
         }
     )
 
@@ -276,9 +216,6 @@ regionTemplate standard (
         help {
             helpText: Sets region body height to 240px.
         }
-        advanced {
-            identifier: 240PX
-        }
     )
 
     templateOption 320px (
@@ -291,9 +228,6 @@ regionTemplate standard (
         help {
             helpText: Sets region body height to 320px.
         }
-        advanced {
-            identifier: 320PX
-        }
     )
 
     templateOption 480px (
@@ -302,9 +236,6 @@ regionTemplate standard (
         sequence: 30
         appearance {
             cssClasses: i-h480
-        }
-        advanced {
-            identifier: 480PX
         }
     )
 
@@ -315,9 +246,6 @@ regionTemplate standard (
         appearance {
             cssClasses: i-h640
         }
-        advanced {
-            identifier: 640PX
-        }
     )
 
     templateOption hideoverflow (
@@ -326,9 +254,6 @@ regionTemplate standard (
         sequence: 20
         appearance {
             cssClasses: t-Region--hiddenOverflow
-        }
-        advanced {
-            identifier: HIDEOVERFLOW
         }
     )
 
@@ -339,8 +264,14 @@ regionTemplate standard (
         appearance {
             cssClasses: t-Region--scrollBody
         }
-        advanced {
-            identifier: SCROLLBODY
+    )
+
+    templateOption visibleoverflow (
+        name: Visible
+        group: @region/body-overflow
+        sequence: 30
+        appearance {
+            cssClasses: t-Region--visibleOverflow
         }
     )
 
@@ -354,9 +285,6 @@ regionTemplate standard (
                 js-removeLandmark
             ]
         }
-        advanced {
-            identifier: HIDDENHEADERNOAT
-        }
     )
 
     templateOption hideregionheader (
@@ -364,19 +292,19 @@ regionTemplate standard (
         group: @region/header
         sequence: 20
         appearance {
-            cssClasses: t-Region--hideHeader
+            cssClasses: [
+                t-Region--hideHeader
+                js-addHiddenHeadingRoleDesc
+            ]
         }
         help {
-            helpText: This option will hide the region header.  Note that the region title will still be audible for Screen Readers. Buttons placed in the region header will be hidden and inaccessible.
-        }
-        advanced {
-            identifier: HIDEREGIONHEADER
+            helpText: This option will hide the region header. Note that the region title will still be audible for Screen Readers. Buttons placed in the region header will be hidden and inaccessible.
         }
     )
 
     templateOption noborder (
         name: Remove Borders
-        group: @region/style
+        group: @region/style-3
         sequence: 10
         appearance {
             cssClasses: t-Region--noBorder
@@ -384,14 +312,11 @@ regionTemplate standard (
         help {
             helpText: Removes borders from the region.
         }
-        advanced {
-            identifier: NOBORDER
-        }
     )
 
     templateOption remove-ui-decoration (
         name: Remove UI Decoration
-        group: @region/style
+        group: @region/style-3
         sequence: 30
         appearance {
             cssClasses: t-Region--noUI
@@ -399,14 +324,11 @@ regionTemplate standard (
         help {
             helpText: Removes UI decoration (borders, backgrounds, shadows, etc) from the region.
         }
-        advanced {
-            identifier: REMOVE_UI_DECORATION
-        }
     )
 
     templateOption stacked (
         name: Stack Region
-        group: @region/style
+        group: @region/style-3
         sequence: 20
         appearance {
             cssClasses: t-Region--stacked
@@ -414,23 +336,17 @@ regionTemplate standard (
         help {
             helpText: Removes side borders and shadows, and can be useful for accordions and regions that need to be grouped together vertically.
         }
-        advanced {
-            identifier: STACKED
-        }
     )
 
     templateOption text-content (
         name: Text Content
-        group: @region/style
+        group: @region/style-3
         sequence: 40
         appearance {
             cssClasses: t-Region--textContent
         }
         help {
             helpText: Useful for displaying primarily text-based content, such as FAQs and more.
-        }
-        advanced {
-            identifier: TEXT_CONTENT
         }
     )
 
@@ -568,7 +484,6 @@ regionTemplate standard (
         }
         gridLayout {
             gridSupport: false
-            newRow: false
         }
     )
 

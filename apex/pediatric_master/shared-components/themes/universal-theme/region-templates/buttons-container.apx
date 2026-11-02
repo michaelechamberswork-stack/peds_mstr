@@ -4,7 +4,7 @@ regionTemplate buttons-container (
     region {
         template:
             ```html
-            <div class="t-ButtonRegion t-Form--floatLeft #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-ButtonRegion t-Form--floatLeft #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
               <div class="t-ButtonRegion-wrap">
                 <div class="t-ButtonRegion-col t-ButtonRegion-col--left"><div class="t-ButtonRegion-buttons">#PREVIOUS##CLOSE##DELETE#</div></div>
                 <div class="t-ButtonRegion-col t-ButtonRegion-col--content">
@@ -20,12 +20,6 @@ regionTemplate buttons-container (
     accessibility {
         landmarkType: region
     }
-    advanced {
-        identifier: BUTTONS_CONTAINER
-    }
-    subscription {
-        master: @buttons-container
-    }
 
     templateOption stick-to-bottom (
         name: Stick to Bottom for Mobile
@@ -36,9 +30,6 @@ regionTemplate buttons-container (
         help {
             helpText: This will position the button container region to the bottom of the screen for small screens.
         }
-        advanced {
-            identifier: STICK_TO_BOTTOM
-        }
     )
 
     templateOption nopadding (
@@ -47,9 +38,6 @@ regionTemplate buttons-container (
         sequence: 3
         appearance {
             cssClasses: t-ButtonRegion--noPadding
-        }
-        advanced {
-            identifier: NOPADDING
         }
     )
 
@@ -60,32 +48,23 @@ regionTemplate buttons-container (
         appearance {
             cssClasses: t-ButtonRegion--slimPadding
         }
-        advanced {
-            identifier: SLIMPADDING
-        }
     )
 
     templateOption borderless (
         name: Borderless
-        group: @region/style
+        group: @region/style-3
         sequence: 1
         appearance {
             cssClasses: t-ButtonRegion--noBorder
-        }
-        advanced {
-            identifier: BORDERLESS
         }
     )
 
     templateOption removeuidecoration (
         name: Remove UI Decoration
-        group: @region/style
+        group: @region/style-3
         sequence: 4
         appearance {
             cssClasses: t-ButtonRegion--noUI
-        }
-        advanced {
-            identifier: REMOVEUIDECORATION
         }
     )
 

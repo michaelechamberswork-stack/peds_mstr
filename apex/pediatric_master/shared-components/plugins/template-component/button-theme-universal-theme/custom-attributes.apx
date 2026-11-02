@@ -93,3 +93,15 @@ customAttribute LINK_URL (
     }
 )
 
+customAttribute MENU_ID (
+    apexlangName: menuId
+    attribute: 9
+    name: Menu ID
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        sequence: 90
+    }
+)
+

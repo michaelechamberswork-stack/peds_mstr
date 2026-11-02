@@ -9,9 +9,8 @@ pageTemplate drawer (
         header:
             ```html
             <!DOCTYPE html>
-            <html class="no-js #RTL_CLASS# page-&APP_PAGE_ID. app-&APP_ALIAS." lang="&BROWSER_LANGUAGE." #TEXT_DIRECTION#>
+            <html class="no-js #RTL_CLASS# page-&APP_PAGE_ID!ATTR. app-&APP_ALIAS!ATTR." lang="&BROWSER_LANGUAGE!ATTR." #TEXT_DIRECTION#>
             <head>
-              <meta http-equiv="x-ua-compatible" content="IE=edge" />
               <meta charset="utf-8">
               <title>#TITLE#</title>
               #APEX_CSS#
@@ -22,7 +21,11 @@ pageTemplate drawer (
               #PAGE_CSS#
               #FAVICONS#
               #HEAD#
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+              <meta name="app-version" content="&APP_VERSION!ATTR." />
+              <meta name="app-tenant-id" content="&APP_TENANT_ID!ATTR." />
+              <meta name="app-alias" content="&APP_ALIAS!ATTR." />
+              <meta name="app-page-alias" content="&APP_PAGE_ALIAS!ATTR." />
             </head>
             <body class="t-Drawer-page t-PageTemplate--drawer #DIALOG_CSS_CLASSES# #PAGE_CSS_CLASSES#" #TEXT_DIRECTION# #ONLOAD#>
             #FORM_OPEN#
@@ -64,7 +67,7 @@ pageTemplate drawer (
               <div class="t-Alert t-Alert--defaultIcons t-Alert--success t-Alert--horizontal t-Alert--page t-Alert--colorBG" id="t_Alert_Success" role="region" aria-labelledby="page_success_id">
                 <div class="t-Alert-wrap">
                   <div class="t-Alert-icon">
-                    <span class="t-Icon" role="img" aria-label='&"APP_TEXT$APEX.TASK.EVENT.ACTION.SUCCESS"!HTML.'></span>
+                    <span class="t-Icon" role="img" aria-label="&"APP_TEXT$APEX.SUCCESS"!ATTR."></span>
                   </div>
                   <div class="t-Alert-content">
                     <div class="t-Alert-header">
@@ -85,7 +88,7 @@ pageTemplate drawer (
               <div class="t-Alert t-Alert--defaultIcons t-Alert--warning t-Alert--horizontal t-Alert--page t-Alert--colorBG" id="t_Alert_Notification" role="region" aria-labelledby="page_warning_id">
                 <div class="t-Alert-wrap">
                   <div class="t-Alert-icon">
-                    <span class="t-Icon" role="img" aria-label='&"APP_TEXT$WARNING"!HTML.'></span>
+                    <span class="t-Icon" role="img" aria-label="&"APP_TEXT$WARNING"!ATTR."></span>
                   </div>
                   <div class="t-Alert-content">
                     <div class="t-Alert-header">
@@ -139,7 +142,7 @@ pageTemplate drawer (
             <div class="t-Alert t-Alert--danger t-Alert--wizard t-Alert--defaultIcons">
               <div class="t-Alert-wrap">
                 <div class="t-Alert-icon">
-                  <span class="t-Icon"></span>
+                  <span class="t-Icon" role="img" aria-label="&"APP_TEXT$WARNING"!ATTR."></span>
                 </div>
                 <div class="t-Alert-content">
                   <div class="t-Alert-body">
@@ -155,21 +158,12 @@ pageTemplate drawer (
             </div>
             ```
     }
-    advanced {
-        identifier: DRAWER
-    }
-    subscription {
-        master: @drawer
-    }
 
     templateOption remove-body-padding (
         name: Remove Body Padding
         sequence: 20
         appearance {
             cssClasses: t-Dialog--noPadding
-        }
-        advanced {
-            identifier: REMOVE_BODY_PADDING
         }
     )
 
@@ -180,9 +174,6 @@ pageTemplate drawer (
         appearance {
             cssClasses: js-dialog-class-t-Drawer--xl
         }
-        advanced {
-            identifier: DRAWER_SIZE_EXTRA_LARGE
-        }
     )
 
     templateOption drawer-size-large (
@@ -191,9 +182,6 @@ pageTemplate drawer (
         sequence: 30
         appearance {
             cssClasses: js-dialog-class-t-Drawer--lg
-        }
-        advanced {
-            identifier: DRAWER_SIZE_LARGE
         }
     )
 
@@ -204,9 +192,6 @@ pageTemplate drawer (
         appearance {
             cssClasses: js-dialog-class-t-Drawer--md
         }
-        advanced {
-            identifier: DRAWER_SIZE_MEDIUM
-        }
     )
 
     templateOption drawer-size-small (
@@ -216,8 +201,14 @@ pageTemplate drawer (
         appearance {
             cssClasses: js-dialog-class-t-Drawer--sm
         }
-        advanced {
-            identifier: DRAWER_SIZE_SMALL
+    )
+
+    templateOption position-bottom (
+        name: Bottom
+        group: @page/page-position
+        sequence: 40
+        appearance {
+            cssClasses: js-dialog-class-t-Drawer--pullOutBottom
         }
     )
 
@@ -228,9 +219,6 @@ pageTemplate drawer (
         appearance {
             cssClasses: js-dialog-class-t-Drawer--pullOutEnd
         }
-        advanced {
-            identifier: POSITION_END
-        }
     )
 
     templateOption position-start (
@@ -240,8 +228,14 @@ pageTemplate drawer (
         appearance {
             cssClasses: js-dialog-class-t-Drawer--pullOutStart
         }
-        advanced {
-            identifier: POSITION_START
+    )
+
+    templateOption position-top (
+        name: Top
+        group: @page/page-position
+        sequence: 30
+        appearance {
+            cssClasses: js-dialog-class-t-Drawer--pullOutTop
         }
     )
 

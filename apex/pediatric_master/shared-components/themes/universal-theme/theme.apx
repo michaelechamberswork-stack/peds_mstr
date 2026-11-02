@@ -1,9 +1,9 @@
 theme universal-theme (
     name: Universal Theme
     themeNumber: 142
-    baseTheme: ut-26.1
+    version: 26.1
     style {
-        currentThemeStyle: @lts
+        currentThemeStyle: @iris
     }
     javaScript {
         fileUrls: [
@@ -15,38 +15,38 @@ theme universal-theme (
         fileUrls: #THEME_FILES#css/Core#MIN#.css?v=#APEX_VERSION#
     }
     componentDefaults {
-        page: @/standard
-        navigationBarList: @/navigation-bar
+        page: @standard
+        navigationBarList: @navigation-bar
         navigationMenuListPosition: side
-        navigationMenuListTop: @/top-navigation-menu
-        navigationMenuListSide: @/side-navigation-menu
-        loginPage: @/login
-        errorPage: @/login
-        printerFriendlyPage: @/standard
-        breadcrumb: @/breadcrumb
-        button: @/text
-        defaultLabel: @/optional
-        optionalLabel: @/optional
-        requiredLabel: @/required
-        list: @/links-list
-        region: @/standard
-        classicReport: @/standard
-        headerToolbar: @/alert
-        footerToolbar: @/alert
+        navigationMenuListTop: @top-navigation-menu
+        navigationMenuListSide: @side-navigation-menu
+        loginPage: @login
+        errorPage: @login
+        printerFriendlyPage: @standard
+        breadcrumb: @breadcrumb
+        button: @text
+        defaultLabel: @optional
+        optionalLabel: @optional
+        requiredLabel: @required
+        list: @links-list
+        region: @standard
+        classicReport: @standard
+        headerToolbar: @alert
+        footerToolbar: @alert
     }
     regionDefaults {
-        breadcrumbs: @/title-bar
-        charts: @/standard
-        forms: @/standard
-        lists: @/standard
-        reports: @/standard
-        wizards: @/standard
-        interactiveReports: @/interactive-report
+        breadcrumbs: @title-bar
+        charts: @standard
+        forms: @standard
+        lists: @standard
+        reports: @standard
+        wizards: @standard
+        interactiveReports: @interactive-report
     }
     dialogDefaults {
-        dialogContentRegion: @/blank-with-attributes
-        dialogButtonRegion: @/buttons-container
-        dialogPage: @/modal-dialog
+        dialogContentRegion: @blank-with-attributes
+        dialogButtonRegion: @buttons-container
+        dialogPage: @modal-dialog
     }
     icons {
         library: fontApex
@@ -55,6 +55,47 @@ theme universal-theme (
         filePrefix: #APEX_FILES#themes/theme_42/26.1/
         identifier: UNIVERSAL_THEME
     }
+
+    style Vita (
+        name: Vita
+        themeRollerAttributes {
+            readOnly: true
+            inputParameterFileUrls: #THEME_FILES#less/theme/Vita.less
+            outputCssFileUrl: #THEME_FILES#css/Vita#MIN#.css?v=#APEX_VERSION#
+        }
+        advanced {
+            endUserCanPick: true
+            accessibilityTested: true
+        }
+    )
+
+    style iris (
+        name: Iris
+        css {
+            fileUrls: #APEX_FILES#libraries/oracle-fonts/oraclesans-apex#MIN#.css?v=#APEX_VERSION#
+        }
+        themeRollerAttributes {
+            readOnly: true
+            inputParameterFileUrls: #THEME_FILES#less/theme/Iris.less
+            outputCssFileUrl: #THEME_FILES#css/Iris#MIN#.css?v=#APEX_VERSION#
+        }
+        advanced {
+            endUserCanPick: true
+            accessibilityTested: true
+        }
+    )
+
+    style life-ts (
+        name: LIFE-TS
+        themeRollerAttributes {
+            inputParameterFileUrls: #THEME_IMAGES#less/theme/Vita.less
+            outputCssFileUrl: #THEME_DB_FILES#1905851249088885.css
+            jsonConfig: "{\"classes\":[],\"vars\":{\"@g_Accent-BG\":\"#7e4099\",\"@g_Nav-Active-BG\":\"#522963\",\"@g_Nav-BG\":\"#7e4099\"},\"customCSS\":\"\",\"useCustomLess\":\"N\"}"
+        }
+        subscription {
+            master: @/100/universal-theme/life-ts
+        }
+    )
 
     style lts (
         name: LTS
@@ -65,6 +106,24 @@ theme universal-theme (
         }
     )
 
+    style redwood-light (
+        name: Redwood Light
+        css {
+            fileUrls: [
+                #APEX_FILES#libraries/oracle-fonts/oraclesans-apex#MIN#.css?v=#APEX_VERSION#
+                #THEME_FILES#css/Redwood#MIN#.css?v=#APEX_VERSION#
+            ]
+        }
+        themeRollerAttributes {
+            readOnly: true
+            inputParameterFileUrls: #THEME_FILES#less/theme/Redwood-Theme.less
+            outputCssFileUrl: #THEME_FILES#css/Redwood-Theme#MIN#.css?v=#APEX_VERSION#
+        }
+        advanced {
+            endUserCanPick: true
+        }
+    )
+
     style vista (
         name: Vista
         css {
@@ -72,6 +131,45 @@ theme universal-theme (
         }
         themeRollerAttributes {
             readOnly: true
+        }
+        advanced {
+            endUserCanPick: true
+        }
+        subscription {
+            master: @/100/universal-theme/vista
+        }
+    )
+
+    style vita-dark (
+        name: Vita - Dark
+        themeRollerAttributes {
+            readOnly: true
+            inputParameterFileUrls: #THEME_FILES#less/theme/Vita-Dark.less
+            outputCssFileUrl: #THEME_FILES#css/Vita-Dark#MIN#.css?v=#APEX_VERSION#
+        }
+        advanced {
+            endUserCanPick: true
+        }
+    )
+
+    style vita-red (
+        name: Vita - Red
+        themeRollerAttributes {
+            readOnly: true
+            inputParameterFileUrls: #THEME_FILES#less/theme/Vita-Red.less
+            outputCssFileUrl: #THEME_FILES#css/Vita-Red#MIN#.css?v=#APEX_VERSION#
+        }
+        advanced {
+            endUserCanPick: true
+        }
+    )
+
+    style vita-slate (
+        name: Vita - Slate
+        themeRollerAttributes {
+            readOnly: true
+            inputParameterFileUrls: #THEME_FILES#less/theme/Vita-Slate.less
+            outputCssFileUrl: #THEME_FILES#css/Vita-Slate#MIN#.css?v=#APEX_VERSION#
         }
         advanced {
             endUserCanPick: true

@@ -4,18 +4,12 @@ regionTemplate item-container (
     region {
         template:
             ```html
-            <div class="t-ItemContainer #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-ItemContainer #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
               <div class="t-ItemContainer-start">#BUTTON_START#</div>
               <div class="t-ItemContainer-item">#BODY#</div>
               <div class="t-ItemContainer-end">#BUTTON_END#</div>
             </div>
             ```
-    }
-    advanced {
-        identifier: ITEM_CONTAINER
-    }
-    subscription {
-        master: @item-container
     }
 
     templateOption stack-mobile (
@@ -24,9 +18,6 @@ regionTemplate item-container (
         appearance {
             cssClasses: t-ItemContainer--stackMobile
         }
-        advanced {
-            identifier: STACK_MOBILE
-        }
     )
 
     templateOption wrap-items (
@@ -34,9 +25,6 @@ regionTemplate item-container (
         sequence: 2
         appearance {
             cssClasses: t-ItemContainer--wrap
-        }
-        advanced {
-            identifier: WRAP_ITEMS
         }
     )
 
@@ -47,9 +35,6 @@ regionTemplate item-container (
         appearance {
             cssClasses: t-ItemContainer--alignCenter
         }
-        advanced {
-            identifier: ALIGNMENT_CENTER
-        }
     )
 
     templateOption alignment-end (
@@ -58,9 +43,6 @@ regionTemplate item-container (
         sequence: 12
         appearance {
             cssClasses: t-ItemContainer--alignEnd
-        }
-        advanced {
-            identifier: ALIGNMENT_END
         }
     )
 
@@ -71,9 +53,6 @@ regionTemplate item-container (
         appearance {
             cssClasses: t-ItemContainer--alignStart
         }
-        advanced {
-            identifier: ALIGNMENT_START
-        }
     )
 
     templateOption alignment-stretch (
@@ -82,9 +61,6 @@ regionTemplate item-container (
         sequence: 13
         appearance {
             cssClasses: t-ItemContainer--alignStretch
-        }
-        advanced {
-            identifier: ALIGNMENT_STRETCH
         }
     )
 

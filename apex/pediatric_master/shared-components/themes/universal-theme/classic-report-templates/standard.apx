@@ -11,11 +11,11 @@ classicReportTemplate standard (
     reportTemplate {
         top:
             ```html
-            <div class="t-Report #COMPONENT_CSS_CLASSES#" id="report_#REGION_STATIC_ID#" #REPORT_ATTRIBUTES# data-region-id="#REGION_STATIC_ID#">
+            <div class="t-Report #COMPONENT_CSS_CLASSES#" id="report_#DOM_ID#" #REPORT_ATTRIBUTES# data-region-id="#DOM_ID#">
               <div class="t-Report-wrap">
                 <table class="t-Report-pagination" role="presentation">#TOP_PAGINATION#</table>
                 <div class="t-Report-tableWrap">
-                <table class="t-Report-report" id="report_table_#REGION_STATIC_ID#" aria-label="#REGION_TITLE#">
+                <table class="t-Report-report" id="report_table_#DOM_ID#" aria-label="#REGION_TITLE#">
             ```
         bottom:
             ```html
@@ -71,21 +71,12 @@ classicReportTemplate standard (
             </a>
             ```
     }
-    advanced {
-        identifier: STANDARD
-    }
-    subscription {
-        master: @standard
-    }
 
     templateOption stretchreport (
         name: Stretch Report
         sequence: 10
         appearance {
             cssClasses: t-Report--stretch
-        }
-        advanced {
-            identifier: STRETCHREPORT
         }
     )
 
@@ -96,9 +87,6 @@ classicReportTemplate standard (
         appearance {
             cssClasses: t-Report--staticRowColors
         }
-        advanced {
-            identifier: ALTROWCOLORSDISABLE
-        }
     )
 
     templateOption altrowcolorsenable (
@@ -107,9 +95,6 @@ classicReportTemplate standard (
         sequence: 10
         appearance {
             cssClasses: t-Report--altRowsDefault
-        }
-        advanced {
-            identifier: ALTROWCOLORSENABLE
         }
     )
 
@@ -120,9 +105,6 @@ classicReportTemplate standard (
         appearance {
             cssClasses: t-Report--horizontalBorders
         }
-        advanced {
-            identifier: HORIZONTALBORDERS
-        }
     )
 
     templateOption removeallborders (
@@ -131,9 +113,6 @@ classicReportTemplate standard (
         sequence: 30
         appearance {
             cssClasses: t-Report--noBorders
-        }
-        advanced {
-            identifier: REMOVEALLBORDERS
         }
     )
 
@@ -144,9 +123,6 @@ classicReportTemplate standard (
         appearance {
             cssClasses: t-Report--inline
         }
-        advanced {
-            identifier: REMOVEOUTERBORDERS
-        }
     )
 
     templateOption verticalborders (
@@ -155,9 +131,6 @@ classicReportTemplate standard (
         sequence: 20
         appearance {
             cssClasses: t-Report--verticalBorders
-        }
-        advanced {
-            identifier: VERTICALBORDERS
         }
     )
 
@@ -171,9 +144,6 @@ classicReportTemplate standard (
         help {
             helpText: Enable row highlighting on mouse over
         }
-        advanced {
-            identifier: ENABLE
-        }
     )
 
     templateOption rowhighlightdisable (
@@ -185,9 +155,6 @@ classicReportTemplate standard (
         }
         help {
             helpText: Disable row highlighting on mouse over
-        }
-        advanced {
-            identifier: ROWHIGHLIGHTDISABLE
         }
     )
 

@@ -8,7 +8,7 @@ regionTemplate login (
               <div class="t-Login-header">
                 #REGION_IMAGE#
                 <span class="t-Login-logo #ICON_CSS_CLASSES#" aria-hidden="true"></span>
-                <h2 class="t-Login-title" id="#REGION_STATIC_ID#_heading" data-apex-heading>#TITLE#</h2>
+                <h2 class="t-Login-title" id="#DOM_ID#_heading" data-apex-heading>#TITLE#</h2>
               </div>
               <div class="t-Login-body">#BODY#</div>
               <div class="t-Login-buttons">#NEXT#</div>
@@ -20,13 +20,7 @@ regionTemplate login (
     }
     accessibility {
         landmarkType: region
-        regionTitleHtmlId: #REGION_STATIC_ID#_heading
-    }
-    advanced {
-        identifier: LOGIN
-    }
-    subscription {
-        master: @login
+        regionTitleHtmlId: #DOM_ID#_heading
     }
 
     templateOption login-header-icon (
@@ -38,9 +32,6 @@ regionTemplate login (
         }
         help {
             helpText: Displays only the Region Icon in the Login region.
-        }
-        advanced {
-            identifier: LOGIN_HEADER_ICON
         }
     )
 
@@ -57,9 +48,6 @@ regionTemplate login (
         help {
             helpText: Displays only the Region Title in the Login region.
         }
-        advanced {
-            identifier: LOGIN_HEADER_TITLE
-        }
     )
 
     templateOption logo-header-hidden (
@@ -74,9 +62,6 @@ regionTemplate login (
         }
         help {
             helpText: Hides both the Region Icon and Title from the Login region.
-        }
-        advanced {
-            identifier: LOGO_HEADER_HIDDEN
         }
     )
 

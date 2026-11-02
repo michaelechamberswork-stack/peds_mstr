@@ -7,9 +7,9 @@ regionTemplate wizard-container (
     region {
         template:
             ```html
-            <div class="t-Wizard #REGION_CSS_CLASSES#" id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
+            <div class="t-Wizard #REGION_CSS_CLASSES#" id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>
               <div class="t-Wizard-header">
-                <h1 class="t-Wizard-title" id="#REGION_STATIC_ID#_heading" data-apex-heading>#TITLE#</h1>
+                <h1 class="t-Wizard-title" id="#DOM_ID#_heading" data-apex-heading>#TITLE#</h1>
                 <div class="u-Table t-Wizard-controls">
                   <div class="u-Table-fit t-Wizard-buttons">#PREVIOUS##CLOSE#</div>
                   <div class="u-Table-fill t-Wizard-steps">#BODY#</div>
@@ -22,13 +22,7 @@ regionTemplate wizard-container (
     }
     accessibility {
         landmarkType: region
-        regionTitleHtmlId: #REGION_STATIC_ID#_heading
-    }
-    advanced {
-        identifier: WIZARD_CONTAINER
-    }
-    subscription {
-        master: @wizard-container
+        regionTitleHtmlId: #DOM_ID#_heading
     }
 
     templateOption show-title (
@@ -36,9 +30,6 @@ regionTemplate wizard-container (
         sequence: 10
         appearance {
             cssClasses: t-Wizard--showTitle
-        }
-        advanced {
-            identifier: SHOW_TITLE
         }
     )
 
@@ -52,9 +43,6 @@ regionTemplate wizard-container (
         help {
             helpText: Hides the wizard progress steps for screens that are smaller than 768px wide.
         }
-        advanced {
-            identifier: HIDESMALLSCREENS
-        }
     )
 
     templateOption hidexsmallscreens (
@@ -66,9 +54,6 @@ regionTemplate wizard-container (
         }
         help {
             helpText: Hides the wizard progress steps for screens that are smaller than 768px wide.
-        }
-        advanced {
-            identifier: HIDEXSMALLSCREENS
         }
     )
 
@@ -120,9 +105,6 @@ regionTemplate wizard-container (
     slot wizardSubRegions (
         name: Wizard Sub Regions
         staticId: SUB_REGIONS
-        gridLayout {
-            newRow: false
-        }
     )
 
 )

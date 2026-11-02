@@ -1,3 +1,11 @@
+file 1905851249088885.css (
+    mimeType: text/css
+    charSet: utf-8
+    subscription {
+        master: @/100/universal-theme/1905851249088885.css
+    }
+)
+
 file 5500723881584318.css (
     mimeType: text/css
     charSet: utf-8

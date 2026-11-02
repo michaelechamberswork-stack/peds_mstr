@@ -3,9 +3,9 @@ listTemplate badge-list (
     templateClass: horizontalLinksList
     templateOptions {
         preset: [
-            t-BadgeList--large
-            t-BadgeList--cols t-BadgeList--3cols
             t-BadgeList--circular
+            t-BadgeList--cols t-BadgeList--3cols
+            t-BadgeList--large
         ]
     }
     list {
@@ -16,7 +16,7 @@ listTemplate badge-list (
         current:
             ```html
             <li class="t-BadgeList-item #A02# is-current" aria-current="page">
-              <a class="t-BadgeList-wrap u-color #A04#" href="#LINK#" #A03#>
+              <a class="t-BadgeList-wrap u-color #A04#" href="#LINK#" #A03# data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-BadgeList-label">#TEXT#</span>
                 <span class="t-BadgeList-value">#A01#</span>
               </a>
@@ -26,7 +26,7 @@ listTemplate badge-list (
         noncurrent:
             ```html
             <li class="t-BadgeList-item #A02#">
-              <a class="t-BadgeList-wrap u-color #A04#" href="#LINK#" #A03#>
+              <a class="t-BadgeList-wrap u-color #A04#" href="#LINK#" #A03# data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-BadgeList-label">#TEXT#</span>
                 <span class="t-BadgeList-value">#A01#</span>
               </a>
@@ -39,20 +39,7 @@ listTemplate badge-list (
         a02: List item CSS Classes
         a03: Link Attributes
         a04: Link Classes
-    }
-    advanced {
-        identifier: BADGE_LIST
-    }
-    subscription {
-        master: @badge-list
-    }
-    comments {
-        comments:
-            ```
-            A01: Large Number
-            A02: List Item Classes
-            A03: Link Attributes
-            ```
+        a10: OpenTelemetry Label
     }
 
     templateOption apply-theme-colors (
@@ -60,9 +47,6 @@ listTemplate badge-list (
         sequence: 10
         appearance {
             cssClasses: u-colors
-        }
-        advanced {
-            identifier: APPLY_THEME_COLORS
         }
     )
 
@@ -73,9 +57,6 @@ listTemplate badge-list (
         appearance {
             cssClasses: t-BadgeList--large
         }
-        advanced {
-            identifier: LARGE
-        }
     )
 
     templateOption medium (
@@ -84,9 +65,6 @@ listTemplate badge-list (
         sequence: 20
         appearance {
             cssClasses: t-BadgeList--medium
-        }
-        advanced {
-            identifier: MEDIUM
         }
     )
 
@@ -97,9 +75,6 @@ listTemplate badge-list (
         appearance {
             cssClasses: t-BadgeList--small
         }
-        advanced {
-            identifier: SMALL
-        }
     )
 
     templateOption xlarge (
@@ -109,9 +84,6 @@ listTemplate badge-list (
         appearance {
             cssClasses: t-BadgeList--xlarge
         }
-        advanced {
-            identifier: XLARGE
-        }
     )
 
     templateOption xxlarge (
@@ -120,9 +92,6 @@ listTemplate badge-list (
         sequence: 50
         appearance {
             cssClasses: t-BadgeList--xxlarge
-        }
-        advanced {
-            identifier: XXLARGE
         }
     )
 
@@ -135,9 +104,6 @@ listTemplate badge-list (
         }
         help {
             helpText: Arrange badges in a two column grid
-        }
-        advanced {
-            identifier: 2COLUMNGRID
         }
     )
 
@@ -154,9 +120,6 @@ listTemplate badge-list (
         help {
             helpText: Arrange badges in a 3 column grid
         }
-        advanced {
-            identifier: 3COLUMNGRID
-        }
     )
 
     templateOption 4columngrid (
@@ -171,9 +134,6 @@ listTemplate badge-list (
         }
         help {
             helpText: Arrange badges in 4 column grid
-        }
-        advanced {
-            identifier: 4COLUMNGRID
         }
     )
 
@@ -190,9 +150,6 @@ listTemplate badge-list (
         help {
             helpText: Arrange badges in a 5 column grid
         }
-        advanced {
-            identifier: 5COLUMNGRID
-        }
     )
 
     templateOption fixed (
@@ -204,9 +161,6 @@ listTemplate badge-list (
         }
         help {
             helpText: Span badges horizontally
-        }
-        advanced {
-            identifier: FIXED
         }
     )
 
@@ -220,9 +174,6 @@ listTemplate badge-list (
         help {
             helpText: Use flexbox to arrange items
         }
-        advanced {
-            identifier: FLEXIBLEBOX
-        }
     )
 
     templateOption floatitems (
@@ -234,9 +185,6 @@ listTemplate badge-list (
         }
         help {
             helpText: Float badges to left
-        }
-        advanced {
-            identifier: FLOATITEMS
         }
     )
 
@@ -250,32 +198,23 @@ listTemplate badge-list (
         help {
             helpText: Stack badges on top of each other
         }
-        advanced {
-            identifier: STACKED
-        }
     )
 
     templateOption circular (
         name: Circular
-        group: @list/style
+        group: @list/style-2
         sequence: 20
         appearance {
             cssClasses: t-BadgeList--circular
-        }
-        advanced {
-            identifier: CIRCULAR
         }
     )
 
     templateOption grid (
         name: Grid
-        group: @list/style
+        group: @list/style-2
         sequence: 30
         appearance {
             cssClasses: t-BadgeList--dash
-        }
-        advanced {
-            identifier: GRID
         }
     )
 

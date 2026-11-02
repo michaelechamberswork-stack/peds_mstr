@@ -2,14 +2,8 @@ buttonTemplate icon (
     name: Icon
     templateClass: buttonAlternative2
     button {
-        normal: <button class="t-Button t-Button--noLabel  t-Button--icon #BUTTON_CSS_CLASSES#" #BUTTON_ATTRIBUTES# #ONCLICK# type="button" id="#BUTTON_ID#" title="#LABEL!ATTR#" aria-label="#LABEL!ATTR#"><span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true"></span></button>
-        hot: <button class="t-Button t-Button--noLabel t-Button--icon #BUTTON_CSS_CLASSES# t-Button--hot" #BUTTON_ATTRIBUTES# #ONCLICK# type="button" id="#BUTTON_ID#" title="#LABEL!ATTR#" aria-label="#LABEL!ATTR#"><span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true"></span></button>
-    }
-    advanced {
-        identifier: ICON
-    }
-    subscription {
-        master: @icon
+        normal: "<button class=\"t-Button t-Button--noLabel t-Button--icon #BUTTON_CSS_CLASSES#\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# type=\"button\" id=\"#DOM_ID#\" title=\"#LABEL!ATTR#\" aria-label=\"#LABEL!ATTR#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Icon #ICON_CSS_CLASSES#\" aria-hidden=\"true\"></span></button>"
+        hot: "<button class=\"t-Button t-Button--noLabel t-Button--icon #BUTTON_CSS_CLASSES# t-Button--hot\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# type=\"button\" id=\"#DOM_ID#\" title=\"#LABEL!ATTR#\" aria-label=\"#LABEL!ATTR#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Icon #ICON_CSS_CLASSES#\" aria-hidden=\"true\"></span></button>"
     }
 
     templateOption push (
@@ -22,9 +16,6 @@ buttonTemplate icon (
         help {
             helpText: The icon will animate to the right or left on button hover or focus.
         }
-        advanced {
-            identifier: PUSH
-        }
     )
 
     templateOption spin (
@@ -36,9 +27,6 @@ buttonTemplate icon (
         }
         help {
             helpText: The icon will spin on button hover or focus.
-        }
-        advanced {
-            identifier: SPIN
         }
     )
 

@@ -10,13 +10,7 @@ regionTemplate image (
         ]
     }
     region {
-        template: <div id="#REGION_STATIC_ID#" class="t-ImageRegion #REGION_CSS_CLASSES#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#><img src="#REGION_IMAGE_URL#" alt="#REGION_IMAGE_ALT_TEXT#" #REGION_IMAGE_ATTRIBUTES# /></div>
-    }
-    advanced {
-        identifier: IMAGE
-    }
-    subscription {
-        master: @image
+        template: <div id="#DOM_ID#" class="t-ImageRegion #REGION_CSS_CLASSES#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#><img src="#REGION_IMAGE_URL#" alt="#REGION_IMAGE_ALT_TEXT#" #REGION_IMAGE_ATTRIBUTES# /></div>
     }
 
     templateOption image-stretch (
@@ -24,9 +18,6 @@ regionTemplate image (
         sequence: 1
         appearance {
             cssClasses: t-ImageRegion--stretch
-        }
-        advanced {
-            identifier: IMAGE_STRETCH
         }
     )
 
@@ -37,9 +28,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--blur
         }
-        advanced {
-            identifier: FILTER_BLUR
-        }
     )
 
     templateOption filter-grayscale (
@@ -48,9 +36,6 @@ regionTemplate image (
         sequence: 410
         appearance {
             cssClasses: t-ImageRegion--grayscale
-        }
-        advanced {
-            identifier: FILTER_GRAYSCALE
         }
     )
 
@@ -61,9 +46,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--invert
         }
-        advanced {
-            identifier: FILTER_INVERT
-        }
     )
 
     templateOption filter-none (
@@ -72,9 +54,6 @@ regionTemplate image (
         sequence: 400
         appearance {
             cssClasses: t-ImageRegion--noFilter
-        }
-        advanced {
-            identifier: FILTER_NONE
         }
     )
 
@@ -85,9 +64,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--saturate
         }
-        advanced {
-            identifier: FILTER_SATURATE
-        }
     )
 
     templateOption filter-sepia (
@@ -96,9 +72,6 @@ regionTemplate image (
         sequence: 420
         appearance {
             cssClasses: t-ImageRegion--sepia
-        }
-        advanced {
-            identifier: FILTER_SEPIA
         }
     )
 
@@ -109,9 +82,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--1x1
         }
-        advanced {
-            identifier: RATIO_1_1
-        }
     )
 
     templateOption ratio-16-9 (
@@ -120,9 +90,6 @@ regionTemplate image (
         sequence: 120
         appearance {
             cssClasses: t-ImageRegion--16x9
-        }
-        advanced {
-            identifier: RATIO_16_9
         }
     )
 
@@ -133,9 +100,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--2x1
         }
-        advanced {
-            identifier: RATIO_2_1
-        }
     )
 
     templateOption ratio-4-3 (
@@ -144,9 +108,6 @@ regionTemplate image (
         sequence: 130
         appearance {
             cssClasses: t-ImageRegion--4x3
-        }
-        advanced {
-            identifier: RATIO_4_3
         }
     )
 
@@ -157,9 +118,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--auto
         }
-        advanced {
-            identifier: RATIO_AUTO
-        }
     )
 
     templateOption scale-contain (
@@ -168,9 +126,6 @@ regionTemplate image (
         sequence: 200
         appearance {
             cssClasses: t-ImageRegion--contain
-        }
-        advanced {
-            identifier: SCALE_CONTAIN
         }
     )
 
@@ -181,9 +136,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--cover
         }
-        advanced {
-            identifier: SCALE_COVER
-        }
     )
 
     templateOption scale-down (
@@ -192,9 +144,6 @@ regionTemplate image (
         sequence: 230
         appearance {
             cssClasses: t-ImageRegion--scale-down
-        }
-        advanced {
-            identifier: SCALE_DOWN
         }
     )
 
@@ -205,9 +154,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--fill
         }
-        advanced {
-            identifier: SCALE_FILL
-        }
     )
 
     templateOption shape-circle (
@@ -216,9 +162,6 @@ regionTemplate image (
         sequence: 320
         appearance {
             cssClasses: t-ImageRegion--circle
-        }
-        advanced {
-            identifier: SHAPE_CIRCLE
         }
     )
 
@@ -229,9 +172,6 @@ regionTemplate image (
         appearance {
             cssClasses: t-ImageRegion--rounded
         }
-        advanced {
-            identifier: SHAPE_ROUNDED
-        }
     )
 
     templateOption shape-square (
@@ -240,9 +180,6 @@ regionTemplate image (
         sequence: 300
         appearance {
             cssClasses: t-ImageRegion--square
-        }
-        advanced {
-            identifier: SHAPE_SQUARE
         }
     )
 
@@ -254,7 +191,6 @@ regionTemplate image (
         }
         gridLayout {
             gridSupport: false
-            newRow: false
         }
     )
 
@@ -263,7 +199,6 @@ regionTemplate image (
         staticId: SUB_REGIONS
         gridLayout {
             gridSupport: false
-            newRow: false
         }
     )
 

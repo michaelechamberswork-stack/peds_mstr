@@ -2,7 +2,7 @@ page 6 (
     name: SS Home
     title: SS Home
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -46,7 +46,7 @@ page 6 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -65,7 +65,7 @@ page 6 (
             plsqlExpression: lts_settings.is_app_admin
         }
         componentAppearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -235,7 +235,7 @@ page 6 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -273,7 +273,7 @@ page 6 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         default {
@@ -298,7 +298,7 @@ page 6 (
             slot: next
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
             icon: fa-print
         }

@@ -34,7 +34,7 @@ plugin mediaList (
                 {endif/}
               </div>
             {else/}
-              {if LINK/}<a href="#LINK#" #LINK_ATTR#{else/}<div{endif/} class="t-MediaList-itemWrap{if ?DESCRIPTION/} t-MediaList-itemWrap--showDesc{endif/}">
+              {if LINK/}<a href="#LINK#" #LINK_ATTR#{else/}<div{endif/} class="t-MediaList-itemWrap{if ?DESCRIPTION/} t-MediaList-itemWrap--showDesc{endif/}{if DISPLAY_AVATAR/} t-MediaList--showIcons{endif/}">
                 {if ?APEX$SELECTOR%assigned/}<div class="t-MediaList-selection">#APEX$SELECTOR#</div>{endif/}
                 {if DISPLAY_AVATAR/}
                   <div class="t-MediaList-iconWrap" aria-hidden="true">
@@ -69,6 +69,18 @@ plugin mediaList (
             {endif/}
             ```
         reportBody: "<ul class=\"t-MediaList t-MediaList--showIcons{if ?LAYOUT/} #LAYOUT!ATTR#{endif/}{if ?SIZE/} #SIZE!ATTR#{endif/}{if APPLY_THEME_COLORS/} u-colors{endif/} #APEX$COMPONENT_CSS_CLASSES#\">#APEX$ROWS#</ul>"
+        reportGroup:
+            ```html
+            <li class="t-MediaList-groupItem" #APEX$GROUP_IDENTIFICATION#>
+              {if ?GROUP_TITLE/}
+              <div class="t-MediaList-groupHeader">
+                {if ?GROUP_ICON/}<span class="t-MediaList-groupIcon #GROUP_ICON#" aria-hidden="true"></span>{endif/}
+                <h2 class="t-MediaList-groupTitle" id="#APEX$DOM_ID#_heading">#GROUP_TITLE#</h2>
+              </div>
+              {endif/}
+              <ul class="t-MediaList-groupItems">#APEX$ROWS#</ul>
+            </li>
+            ```
         reportRow: <li class="t-MediaList-item" #APEX$ROW_IDENTIFICATION#>#APEX$PARTIAL#</li>
         numberOfLazyLoadingSkeletons: 3
     }
@@ -78,14 +90,14 @@ plugin mediaList (
             regionTemplateAttr
         ]
     }
+    source {
+        sampleData: products
+    }
     advanced {
         quickPick: true
     }
     information {
         helpText: Display report content in a formatted media list. Supports avatars and badges. Available for a single row or as a report with multiple rows.
-    }
-    subscription {
-        master: @/8842/templateComponent/mediaList/universal-theme
     }
 )
 

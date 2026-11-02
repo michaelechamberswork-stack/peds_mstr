@@ -10,7 +10,7 @@ classicReportTemplate cards (
         ]
     }
     reportTemplate {
-        top: <ul class="t-Cards #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#REGION_STATIC_ID#_cards" data-region-id="#REGION_STATIC_ID#">
+        top: <ul class="t-Cards #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#DOM_ID#_cards" data-region-id="#DOM_ID#">
         bottom:
             ```html
             </ul>
@@ -82,21 +82,12 @@ classicReportTemplate cards (
             </a>
             ```
     }
-    advanced {
-        identifier: CARDS
-    }
-    subscription {
-        master: @cards
-    }
 
     templateOption display-subtitle (
         name: Display Subtitle
         sequence: 20
         appearance {
             cssClasses: t-Cards--displaySubtitle
-        }
-        advanced {
-            identifier: DISPLAY_SUBTITLE
         }
     )
 
@@ -106,74 +97,56 @@ classicReportTemplate cards (
         appearance {
             cssClasses: u-colors
         }
-        advanced {
-            identifier: USE_THEME_COLORS
-        }
     )
 
     templateOption card-raise-card (
         name: Raise Card
-        group: @report/animation
+        group: @report/animation-3
         sequence: 20
         appearance {
             cssClasses: t-Cards--animRaiseCard
-        }
-        advanced {
-            identifier: CARD_RAISE_CARD
         }
     )
 
     templateOption cards-color-fill (
         name: Color Fill
-        group: @report/animation
+        group: @report/animation-3
         sequence: 10
         appearance {
             cssClasses: t-Cards--animColorFill
-        }
-        advanced {
-            identifier: CARDS_COLOR_FILL
         }
     )
 
     templateOption 2-lines (
         name: 2 Lines
-        group: @report/body-text
+        group: @report/body-text-2
         sequence: 10
         appearance {
             cssClasses: t-Cards--desc-2ln
-        }
-        advanced {
-            identifier: 2_LINES
         }
     )
 
     templateOption 3-lines (
         name: 3 Lines
-        group: @report/body-text
+        group: @report/body-text-2
         sequence: 20
         appearance {
             cssClasses: t-Cards--desc-3ln
-        }
-        advanced {
-            identifier: 3_LINES
         }
     )
 
     templateOption 4-lines (
         name: 4 Lines
-        group: @report/body-text
+        group: @report/body-text-2
         sequence: 30
         appearance {
             cssClasses: t-Cards--desc-4ln
-        }
-        advanced {
-            identifier: 4_LINES
         }
     )
 
     templateOption hidden-body-text (
         name: Hidden
-        group: @report/body-text
+        group: @report/body-text-2
         sequence: 50
         appearance {
             cssClasses: t-Cards--hideBody
@@ -181,14 +154,11 @@ classicReportTemplate cards (
         help {
             helpText: This option hides the card body which contains description and subtext.
         }
-        advanced {
-            identifier: HIDDEN_BODY_TEXT
-        }
     )
 
     templateOption icons-rounded (
         name: Rounded Corners
-        group: @report/icon-shape
+        group: @report/icon-shape-3
         sequence: 10
         appearance {
             cssClasses: t-Cards--iconsRounded
@@ -196,14 +166,11 @@ classicReportTemplate cards (
         help {
             helpText: The icons are displayed within a square with rounded corners.
         }
-        advanced {
-            identifier: ICONS_ROUNDED
-        }
     )
 
     templateOption icons-square (
         name: Square
-        group: @report/icon-shape
+        group: @report/icon-shape-3
         sequence: 20
         appearance {
             cssClasses: t-Cards--iconsSquare
@@ -211,122 +178,92 @@ classicReportTemplate cards (
         help {
             helpText: The icons are displayed within a square shape.
         }
-        advanced {
-            identifier: ICONS_SQUARE
-        }
     )
 
     templateOption display-icons (
         name: Display Icons
-        group: @report/icons
+        group: @report/icons-2
         sequence: 10
         appearance {
             cssClasses: t-Cards--displayIcons
-        }
-        advanced {
-            identifier: DISPLAY_ICONS
         }
     )
 
     templateOption display-initials (
         name: Display Initials
-        group: @report/icons
+        group: @report/icons-2
         sequence: 20
         appearance {
             cssClasses: t-Cards--displayInitials
-        }
-        advanced {
-            identifier: DISPLAY_INITIALS
         }
     )
 
     templateOption 2-columns (
         name: 2 Columns
-        group: @report/layout
+        group: @report/layout-3
         sequence: 15
         appearance {
             cssClasses: t-Cards--cols
-        }
-        advanced {
-            identifier: 2_COLUMNS
         }
     )
 
     templateOption 3-columns (
         name: 3 Columns
-        group: @report/layout
+        group: @report/layout-3
         sequence: 20
         appearance {
             cssClasses: t-Cards--3cols
-        }
-        advanced {
-            identifier: 3_COLUMNS
         }
     )
 
     templateOption 4-columns (
         name: 4 Columns
-        group: @report/layout
+        group: @report/layout-3
         sequence: 30
         appearance {
             cssClasses: t-Cards--4cols
-        }
-        advanced {
-            identifier: 4_COLUMNS
         }
     )
 
     templateOption 5-columns (
         name: 5 Columns
-        group: @report/layout
+        group: @report/layout-3
         sequence: 50
         appearance {
             cssClasses: t-Cards--5cols
-        }
-        advanced {
-            identifier: 5_COLUMNS
         }
     )
 
     templateOption float (
         name: Float
-        group: @report/layout
+        group: @report/layout-3
         sequence: 60
         appearance {
             cssClasses: t-Cards--float
-        }
-        advanced {
-            identifier: FLOAT
         }
     )
 
     templateOption span-horizontally (
         name: Span Horizontally
-        group: @report/layout
+        group: @report/layout-3
         sequence: 70
         appearance {
             cssClasses: t-Cards--spanHorizontally
-        }
-        advanced {
-            identifier: SPAN_HORIZONTALLY
         }
     )
 
     templateOption basic (
         name: Basic
-        group: @report/style
+        group: @report/style-4
         sequence: 10
         appearance {
             cssClasses: t-Cards--basic
-        }
-        advanced {
-            identifier: BASIC
         }
     )
 
     templateOption block (
         name: Block
-        group: @report/style
+        group: @report/style-4
         sequence: 40
         appearance {
             cssClasses: [
@@ -335,14 +272,11 @@ classicReportTemplate cards (
                 force-fa-lg
             ]
         }
-        advanced {
-            identifier: BLOCK
-        }
     )
 
     templateOption compact (
         name: Compact
-        group: @report/style
+        group: @report/style-4
         sequence: 20
         appearance {
             cssClasses: t-Cards--compact
@@ -350,23 +284,17 @@ classicReportTemplate cards (
         help {
             helpText: Use this option when you want to show smaller cards.
         }
-        advanced {
-            identifier: COMPACT
-        }
     )
 
     templateOption featured (
         name: Featured
-        group: @report/style
+        group: @report/style-4
         sequence: 30
         appearance {
             cssClasses: [
                 t-Cards--featured
                 force-fa-lg
             ]
-        }
-        advanced {
-            identifier: FEATURED
         }
     )
 

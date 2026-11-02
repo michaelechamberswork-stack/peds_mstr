@@ -9,7 +9,7 @@ listTemplate navigation-bar (
         current:
             ```html
             <li class="t-NavigationBar-item is-active #A02#" aria-current="page">
-              <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#LINK#" title="#A04#" target="#A06#">
+              <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true" #IMAGE_ATTR#></span><span class="t-Button-label">#TEXT_ESC_SC#</span><span class="t-Button-badge">#A01#</span>
               </a>
             </li>
@@ -24,7 +24,7 @@ listTemplate navigation-bar (
         noncurrent:
             ```html
             <li class="t-NavigationBar-item #A02#">
-              <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#LINK#" title="#A04#" target="#A06#">
+              <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>
                 <span class="t-Icon #ICON_CSS_CLASSES#" aria-hidden="true" #IMAGE_ATTR#></span><span class="t-Button-label">#TEXT_ESC_SC#</span><span class="t-Button-badge">#A01#</span>
               </a>
             </li>
@@ -38,26 +38,21 @@ listTemplate navigation-bar (
             ```
     }
     sublist {
-        beforeEntries: <div class="t-NavigationBar-menu" #APEX_CSP_DISPLAY_NONE# id="menu_#PARENT_LIST_ITEM_ID#"><ul>
+        beforeEntries: <div class="t-NavigationBar-menu u-DisplayNone" id="menu_#PARENT_LIST_ITEM_ID#"><ul>
         afterEntries: </ul></div></li>
     }
     sublistEntry {
-        current: <li class="#A02#" data-current="true" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        currentWithSublist: <li class="#A02#" data-current="true" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        noncurrent: <li class="#A02#" data-current="false" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
-        noncurrentWithSublist: <li class="#A02#" data-current="false" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#">#TEXT_ESC_SC#</a></li>
+        current: <li class="#A02#" data-current="true" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        currentWithSublist: <li class="#A02#" data-current="true" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        noncurrent: <li class="#A02#" data-current="false" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
+        noncurrentWithSublist: <li class="#A02#" data-current="false" data-icon="#ICON_CSS_CLASSES#"><a href="#LINK#" title="#A04#" target="#A06#" data-otel-label="#A10#" #LINK_ATTR#>#TEXT_ESC_SC#</a></li>
     }
     attributeDescriptions {
         a01: Badge Value
         a02: List  Item CSS Classes
         a04: Title Attribute
         a06: Link Target
-    }
-    advanced {
-        identifier: NAVIGATION_BAR
-    }
-    subscription {
-        master: @navigation-bar
+        a10: OpenTelemetry Label
     }
 
     templateOption display-menu-callout (
@@ -68,9 +63,6 @@ listTemplate navigation-bar (
         }
         help {
             helpText: Use this option to add display a callout for the menu.
-        }
-        advanced {
-            identifier: DISPLAY_MENU_CALLOUT
         }
     )
 

@@ -14,7 +14,7 @@ app PEDIATRIC_MASTER (
         }
     }
     navigationMenu {
-        listTemplate: @/side-navigation-menu
+        listTemplate: @side-navigation-menu
         templateOptions: [
             #DEFAULT#
             js-defaultCollapsed
@@ -25,7 +25,7 @@ app PEDIATRIC_MASTER (
     }
     navigationBar {
         list: @desktop-navigation-bar
-        listTemplate: @/navigation-bar
+        listTemplate: @navigation-bar
         templateOptions: #DEFAULT#
     }
     userInterface {

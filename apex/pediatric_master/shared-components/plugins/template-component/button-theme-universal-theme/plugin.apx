@@ -11,8 +11,5 @@ plugin button (
             
             ```
     }
-    subscription {
-        master: @/8842/templateComponent/button/universal-theme
-    }
 )
 

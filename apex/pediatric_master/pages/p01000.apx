@@ -2,7 +2,7 @@ page 1000 (
     name: SELECT CLIENT
     title: SELECT CLIENT
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -24,7 +24,7 @@ page 1000 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -43,7 +43,7 @@ page 1000 (
             newColumn: false
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
     )
@@ -145,11 +145,11 @@ page 1000 (
             slot: subRegions
         }
         appearance {
-            template: @/interactive-report
+            template: @interactive-report
             templateOptions: #DEFAULT#
         }
         componentAppearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--stretch
@@ -335,7 +335,7 @@ page 1000 (
             slot: subRegions
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--removeHeader js-removeLandmark
@@ -385,7 +385,7 @@ page 1000 (
             newColumn: false
         }
         appearance {
-            buttonTemplate: @text-w-null-label-above
+            buttonTemplate: 14798442069586665
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -411,7 +411,7 @@ page 1000 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -449,7 +449,7 @@ page 1000 (
             slot: regionBody
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {

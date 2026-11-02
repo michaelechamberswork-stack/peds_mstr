@@ -3,7 +3,7 @@ page 12001 (
     alias: DOCUMENTS
     title: DOCUMENTS
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -43,7 +43,7 @@ page 12001 (
             slot: body
         }
         appearance {
-            template: @/interactive-report
+            template: @interactive-report
             templateOptions: #DEFAULT#
         }
         link {

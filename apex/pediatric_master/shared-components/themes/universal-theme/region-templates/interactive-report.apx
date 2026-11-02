@@ -1,10 +1,14 @@
 regionTemplate interactive-report (
     name: Interactive Report
     templateClass: reportsRegion
+    templateOptions {
+        preset: t-IRR-region--hideHeader js-addHiddenHeadingRoleDesc
+    }
     region {
         template:
             ```html
-            <div id="#REGION_STATIC_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# class="t-IRR-region #REGION_CSS_CLASSES#">
+            <div id="#DOM_ID#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# class="t-IRR-region #REGION_CSS_CLASSES#">
+              <h2 class="t-IRR-title" id="#DOM_ID#_heading" data-apex-heading>#TITLE#</h2>
                 <div class="t-Region-orderBy">#ORDER_BY_ITEM#</div>
                 #PREVIOUS#
                 #BODY#
@@ -12,16 +16,11 @@ regionTemplate interactive-report (
                 #NEXT#
             </div>
             
+            
             ```
     }
     accessibility {
         landmarkType: region
-    }
-    advanced {
-        identifier: INTERACTIVE_REPORT
-    }
-    subscription {
-        master: @interactive-report
     }
 
     templateOption removeborders (
@@ -32,9 +31,6 @@ regionTemplate interactive-report (
         }
         help {
             helpText: Removes borders around the Interactive Report
-        }
-        advanced {
-            identifier: REMOVEBORDERS
         }
     )
 
@@ -47,8 +43,32 @@ regionTemplate interactive-report (
         help {
             helpText: Displays a button in the Interactive Reports toolbar to maximize the report. Clicking this button will toggle the maximize state and stretch the report to fill the screen.
         }
-        advanced {
-            identifier: SHOW_MAXIMIZE_BUTTON
+    )
+
+    templateOption hiddenheadernoat (
+        name: Hidden
+        group: @region/header-visibility
+        sequence: 1
+        appearance {
+            cssClasses: [
+                t-IRR-region--removeHeader
+                js-removeLandmark
+            ]
+        }
+    )
+
+    templateOption hideregionheader (
+        name: Hidden but accessible
+        group: @region/header-visibility
+        sequence: 1
+        appearance {
+            cssClasses: [
+                t-IRR-region--hideHeader
+                js-addHiddenHeadingRoleDesc
+            ]
+        }
+        help {
+            helpText: This option will hide the region header. Note that the region title will still be audible for Screen Readers.
         }
     )
 

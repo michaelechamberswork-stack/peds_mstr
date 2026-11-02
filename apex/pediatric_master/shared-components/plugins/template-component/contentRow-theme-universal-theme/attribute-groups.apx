@@ -1,6 +1,6 @@
 attributeGroup appearance (
     name: Appearance
-    sequence: 30
+    sequence: 40
     advanced {
         staticId: appearance
     }
@@ -19,6 +19,14 @@ attributeGroup badge (
     sequence: 20
     advanced {
         staticId: badge
+    }
+)
+
+attributeGroup grouping (
+    name: Grouping
+    sequence: 30
+    advanced {
+        staticId: grouping
     }
 )
 

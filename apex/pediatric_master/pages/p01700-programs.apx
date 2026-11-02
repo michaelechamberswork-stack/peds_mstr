@@ -3,7 +3,7 @@ page 1700 (
     alias: PROGRAMS
     title: PROGRAMS
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -25,14 +25,14 @@ page 1700 (
             slot: breadcrumbBar
         }
         appearance {
-            template: @/title-bar
+            template: @title-bar
             templateOptions: [
                 #DEFAULT#
                 t-BreadcrumbRegion--useBreadcrumbTitle
             ]
         }
         componentAppearance {
-            breadcrumbTemplate: @/breadcrumb
+            breadcrumbTemplate: @breadcrumb
             templateOptions: #DEFAULT#
         }
     )
@@ -65,7 +65,7 @@ page 1700 (
             slot: body
         }
         appearance {
-            template: @/blank-with-attributes-no-grid
+            template: @blank-with-attributes-no-grid
             templateOptions: #DEFAULT#
         }
         componentAppearance {
@@ -119,7 +119,7 @@ page 1700 (
             alignment: left
         }
         appearance {
-            template: @/optional
+            template: @optional
             templateOptions: #DEFAULT#
             height: 1
         }

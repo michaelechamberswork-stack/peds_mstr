@@ -9,7 +9,7 @@ page 0 (
             slot: body
         }
         appearance {
-            template: @/inline-popup
+            template: @inline-popup
             templateOptions: [
                 #DEFAULT#
                 js-dialog-size600x400
@@ -47,7 +47,7 @@ page 0 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
     )

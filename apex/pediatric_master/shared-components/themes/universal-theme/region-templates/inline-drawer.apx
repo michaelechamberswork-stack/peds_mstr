@@ -8,8 +8,8 @@ regionTemplate inline-drawer (
     region {
         template:
             ```html
-            <div id="#REGION_STATIC_ID#_parent">
-              <div id="#REGION_STATIC_ID#" class="t-DrawerRegion js-dialog-class-ui-dialog--drawer #REGION_CSS_CLASSES# js-regionDialog" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# #APEX_CSP_DISPLAY_NONE# title="#TITLE!ATTR#">
+            <div id="#DOM_ID#_parent">
+              <div id="#DOM_ID#" class="t-DrawerRegion js-dialog-class-ui-dialog--drawer #REGION_CSS_CLASSES# js-regionDialog js-hidden" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES# title="#TITLE!ATTR#">
                 <div class="t-DrawerRegion-wrap">
                   <div class="t-DrawerRegion-bodyWrapperOut">
                     <div class="t-DrawerRegion-bodyWrapperIn">
@@ -28,16 +28,11 @@ regionTemplate inline-drawer (
                       </div>
                     </div>
                   </div>
+                  <div class="t-DrawerRegion-footer">#FOOTER#</div>
                 </div>
               </div>
             </div>
             ```
-    }
-    advanced {
-        identifier: INLINE_DRAWER
-    }
-    subscription {
-        master: @inline-drawer
     }
 
     templateOption modal (
@@ -45,9 +40,6 @@ regionTemplate inline-drawer (
         sequence: 10
         appearance {
             cssClasses: js-modal
-        }
-        advanced {
-            identifier: MODAL
         }
     )
 
@@ -60,68 +52,59 @@ regionTemplate inline-drawer (
         help {
             helpText: Removes the padding around the region body.
         }
-        advanced {
-            identifier: REMOVE_BODY_PADDING
-        }
     )
 
     templateOption drawer-size-extra-large (
         name: Extra Large
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 40
         appearance {
             cssClasses: js-dialog-class-t-Drawer--xl
-        }
-        advanced {
-            identifier: DRAWER_SIZE_EXTRA_LARGE
         }
     )
 
     templateOption drawer-size-large (
         name: Large
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 30
         appearance {
             cssClasses: js-dialog-class-t-Drawer--lg
-        }
-        advanced {
-            identifier: DRAWER_SIZE_LARGE
         }
     )
 
     templateOption drawer-size-medium (
         name: Medium
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 20
         appearance {
             cssClasses: js-dialog-class-t-Drawer--md
-        }
-        advanced {
-            identifier: DRAWER_SIZE_MEDIUM
         }
     )
 
     templateOption drawer-size-small (
         name: Small
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 10
         appearance {
             cssClasses: js-dialog-class-t-Drawer--sm
-        }
-        advanced {
-            identifier: DRAWER_SIZE_SMALL
         }
     )
 
     templateOption none (
         name: None (Auto)
-        group: @region/dialog-size
+        group: @region/dialog-size-2
         sequence: 5
         appearance {
             cssClasses: js-dialog-nosize
         }
-        advanced {
-            identifier: NONE
+    )
+
+    templateOption position-bottom (
+        name: Bottom
+        group: @region/region-position
+        sequence: 40
+        appearance {
+            cssClasses: js-dialog-class-t-Drawer--pullOutBottom
         }
     )
 
@@ -132,9 +115,6 @@ regionTemplate inline-drawer (
         appearance {
             cssClasses: js-dialog-class-t-Drawer--pullOutEnd
         }
-        advanced {
-            identifier: POSITION_END
-        }
     )
 
     templateOption position-start (
@@ -144,8 +124,14 @@ regionTemplate inline-drawer (
         appearance {
             cssClasses: js-dialog-class-t-Drawer--pullOutStart
         }
-        advanced {
-            identifier: POSITION_START
+    )
+
+    templateOption position-top (
+        name: Top
+        group: @region/region-position
+        sequence: 30
+        appearance {
+            cssClasses: js-dialog-class-t-Drawer--pullOutTop
         }
     )
 
@@ -182,6 +168,15 @@ regionTemplate inline-drawer (
         }
         gridLayout {
             gridSupport: false
+        }
+    )
+
+    slot drawerFooter (
+        name: Drawer Footer
+        staticId: FOOTER
+        supports {
+            items: true
+            buttons: true
         }
     )
 
@@ -224,7 +219,7 @@ regionTemplate inline-drawer (
     )
 
     slot regionBody (
-        name: Region Body
+        name: Drawer Body
         staticId: BODY
         supports {
             items: true

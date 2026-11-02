@@ -2,7 +2,7 @@ page 1100 (
     name: OBJECTIVES
     title: OBJECTIVES
     appearance {
-        pageTemplate: @/standard
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
     }
     navigation {
@@ -41,7 +41,7 @@ page 1100 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -57,7 +57,7 @@ page 1100 (
             item: P1100_ROWS
         }
         componentAppearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Report--altRowsDefault
@@ -162,7 +162,7 @@ page 1100 (
             slot: body
         }
         appearance {
-            template: @/standard
+            template: @standard
             templateOptions: [
                 #DEFAULT#
                 t-Region--scrollBody
@@ -195,7 +195,7 @@ page 1100 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 30
         }
@@ -225,7 +225,7 @@ page 1100 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
         }
         source {
@@ -252,7 +252,7 @@ page 1100 (
             newColumn: false
         }
         appearance {
-            buttonTemplate: @text-w-null-label-above
+            buttonTemplate: 14798442069586665
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -287,7 +287,7 @@ page 1100 (
             newColumn: false
         }
         appearance {
-            buttonTemplate: @text-w-null-label-above
+            buttonTemplate: 14798442069586665
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -305,7 +305,7 @@ page 1100 (
             startNewRow: false
         }
         appearance {
-            buttonTemplate: @text-w-null-label-above
+            buttonTemplate: 14798442069586665
             templateOptions: #DEFAULT#
         }
         behavior {

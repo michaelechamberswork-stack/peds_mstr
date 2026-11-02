@@ -3,7 +3,7 @@ page 1202 (
     title: NOTES
     appearance {
         pageMode: modalDialog
-        dialogTemplate: @/modal-dialog
+        dialogTemplate: @modal-dialog
         templateOptions: #DEFAULT#
     }
     dialog {
@@ -39,7 +39,7 @@ page 1202 (
             slot: dialogFooter
         }
         appearance {
-            template: @/buttons-container
+            template: @buttons-container
             templateOptions: #DEFAULT#
         }
         settings {
@@ -60,7 +60,7 @@ page 1202 (
             slot: contentBody
         }
         appearance {
-            template: @/blank-with-attributes
+            template: @blank-with-attributes
             templateOptions: #DEFAULT#
         }
         edit {
@@ -82,7 +82,7 @@ page 1202 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -149,7 +149,7 @@ page 1202 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -200,7 +200,7 @@ page 1202 (
             alignment: left
         }
         appearance {
-            template: @/optional-above
+            template: @optional-above
             templateOptions: #DEFAULT#
             width: 60
             height: 4
@@ -260,7 +260,7 @@ page 1202 (
             slot: close
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -285,7 +285,7 @@ page 1202 (
             slot: delete
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -328,7 +328,7 @@ page 1202 (
             slot: next
         }
         appearance {
-            buttonTemplate: @/text
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }

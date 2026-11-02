@@ -41,7 +41,7 @@ customAttribute AVATAR_CSS_CLASSES (
 )
 
 customAttribute AVATAR_DESCRIPTION (
-    apexlangName: description2
+    apexlangName: description
     attribute: 9
     name: Description
     security {
@@ -53,6 +53,11 @@ customAttribute AVATAR_DESCRIPTION (
     }
     builder {
         translatable: true
+    }
+    dependingOn {
+        attribute: @DISPLAY_AVATAR/component
+        conditionType: =
+        value: Y
     }
     help {
         helpText: Enter a short description of the image or select a source column from the quick pick options. This will be used as alt text for the avatar image.
@@ -112,13 +117,12 @@ customAttribute AVATAR_IMAGE (
             ```
             <p>Use the Media popup dialog to select a source for the avatar image.</p>
             
-            <p>Available options include:
+            <p>Available options include:</p>
             <ul>
             <li>URL</li>
             <li>BLOB Column</li>
             <li>URL Column</li>
             </ul>
-            </p>
             ```
     }
 )
@@ -137,6 +141,9 @@ customAttribute AVATAR_INITIALS (
     appearance {
         attributeGroup: @avatar
         sequence: 100
+    }
+    default {
+        sampleDataValue: INITIALS
     }
     dependingOn {
         attribute: @AVATAR_TYPE/component
@@ -295,7 +302,7 @@ customAttribute AVATAR_TYPE (
     }
     default {
         value: icon
-        sampleDataValue: icon
+        sampleDataValue: initials
     }
     dependingOn {
         attribute: @DISPLAY_AVATAR/component
@@ -424,7 +431,7 @@ customAttribute BADGE_COL_WIDTH (
 )
 
 customAttribute BADGE_ICON (
-    apexlangName: icon2
+    apexlangName: icon
     attribute: 16
     name: Icon
     type: icon
@@ -461,6 +468,9 @@ customAttribute BADGE_LABEL (
     }
     builder {
         translatable: true
+    }
+    default {
+        sampleDataValue: ID
     }
     dependingOn {
         attribute: @DISPLAY_BADGE/component
@@ -530,7 +540,7 @@ customAttribute BADGE_POS (
 )
 
 customAttribute BADGE_SHAPE (
-    apexlangName: shape2
+    apexlangName: shape
     attribute: 19
     name: Shape
     type: selectList
@@ -589,7 +599,7 @@ customAttribute BADGE_SHAPE (
 )
 
 customAttribute BADGE_SIZE (
-    apexlangName: size2
+    apexlangName: size
     attribute: 21
     name: Size
     type: selectList
@@ -707,6 +717,9 @@ customAttribute BADGE_VALUE (
         attributeGroup: @badge
         sequence: 140
     }
+    default {
+        sampleDataValue: ID
+    }
     supports {
         dataTypes: [
             varchar2
@@ -741,7 +754,7 @@ customAttribute DESCRIPTION (
         translatable: true
     }
     default {
-        sampleDataValue: Nunc sit amet nunc quis magna ornare suscipit. Etiam aliquet maximus sapien, at sagittis sem gravida nec.
+        sampleDataValue: &JOB.
     }
     help {
         helpText: Enter some text and/or column substitution strings to be used as the description in each row.
@@ -759,6 +772,9 @@ customAttribute DISPLAY_AVATAR (
     appearance {
         sequence: 50
     }
+    default {
+        sampleDataValue: Y
+    }
     help {
         helpText: Specify whether to display or hide the avatar for each row. When set to Yes, an avatar will be displayed with the assigned image, icon, or initials. When set to No, no avatar will be displayed.
     }
@@ -775,8 +791,57 @@ customAttribute DISPLAY_BADGE (
     appearance {
         sequence: 60
     }
+    default {
+        sampleDataValue: Y
+    }
     help {
         helpText: Specify whether to display or hide the badge for each row. When set to Yes, a badge will be displayed in each row. When set to No, no badge will be displayed.
+    }
+)
+
+customAttribute GROUP_ICON (
+    apexlangName: icon
+    attribute: 34
+    name: Icon
+    scope: reportGroup
+    type: icon
+    security {
+        escapeMode: htmlAttribute
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 340
+    }
+    dependingOn {
+        attribute: @GROUP_TITLE/reportGroup
+        conditionType: isNotNull
+    }
+    help {
+        helpText: Enter an icon class or use the Pick Icon dialog to select the icon you want to add to display in the avatar.
+    }
+)
+
+customAttribute GROUP_TITLE (
+    apexlangName: title
+    attribute: 33
+    name: Title
+    scope: reportGroup
+    type: html
+    validation {
+        required: true
+    }
+    security {
+        escapeMode: raw
+    }
+    appearance {
+        attributeGroup: @grouping
+        sequence: 330
+    }
+    builder {
+        translatable: true
+    }
+    help {
+        helpText: Enter a concise and descriptive title for the group of items. The title should summarize the contents or purpose of the group, making it easy to understand at a glance.
     }
 )
 
@@ -799,12 +864,14 @@ customAttribute ITEM_CSS_CLASSES (
     apexlangName: itemCssClasses
     attribute: 31
     name: Item CSS Classes
-    type: sessionStateValue
     security {
         escapeMode: htmlAttribute
     }
     appearance {
         sequence: 310
+    }
+    help {
+        helpText: Enter CSS classes to add to the items. You may add multiple classes by separating them with a space.
     }
 )
 
@@ -821,6 +888,9 @@ customAttribute MISC (
     }
     builder {
         translatable: true
+    }
+    default {
+        sampleDataValue: &SALARY.
     }
     help {
         helpText: Enter miscellaneous content such as additional text and/or column substitution strings to display in each row.
@@ -842,7 +912,7 @@ customAttribute OVERLINE (
         translatable: true
     }
     default {
-        sampleDataValue: Category
+        sampleDataValue: Employee
     }
     help {
         helpText: Enter some text and/or column substitution strings to display at the top of each row above the title and description.
@@ -864,8 +934,23 @@ customAttribute REMOVE_PADDING (
     }
 )
 
+customAttribute STACK_MOBILE (
+    apexlangName: stackOnMobile
+    attribute: 36
+    name: Stack on Mobile
+    scope: report
+    type: yesNo
+    appearance {
+        attributeGroup: @appearance
+        sequence: 360
+    }
+    help {
+        helpText: Stack the content row elements at the mobile breakpoints.
+    }
+)
+
 customAttribute STYLE (
-    apexlangName: style2
+    apexlangName: style
     attribute: 27
     name: Style
     scope: report
@@ -901,7 +986,7 @@ customAttribute TITLE (
         translatable: true
     }
     default {
-        sampleDataValue: Lorem ipsum dolor sit amet
+        sampleDataValue: &NAME.
     }
     help {
         helpText: Enter some text and/or column substitution strings to be used as the title in each row.

@@ -15,7 +15,7 @@ listTemplate media-list (
         current:
             ```html
             <li class="t-MediaList-item is-active #A04#">
-              <a href="#LINK#" class="t-MediaList-itemWrap #A05#" #A03#>
+              <a href="#LINK#" class="t-MediaList-itemWrap #A05#" #A03# data-otel-label="#A10#" #LINK_ATTR#>
                 <div class="t-MediaList-iconWrap" aria-hidden="true">
                   <span class="t-MediaList-icon u-color #A06#"><span class="t-Icon #ICON_CSS_CLASSES#" #IMAGE_ATTR#></span></span>
                 </div>
@@ -32,7 +32,7 @@ listTemplate media-list (
         noncurrent:
             ```html
             <li class="t-MediaList-item  #A04#">
-              <a href="#LINK#" class="t-MediaList-itemWrap #A05#" #A03#>
+              <a href="#LINK#" class="t-MediaList-itemWrap #A05#" #A03# data-otel-label="#A10#" #LINK_ATTR#>
                 <div class="t-MediaList-iconWrap" aria-hidden="true">
                   <span class="t-MediaList-icon u-color #A06#"><span class="t-Icon #ICON_CSS_CLASSES#" #IMAGE_ATTR#></span></span>
                 </div>
@@ -54,12 +54,7 @@ listTemplate media-list (
         a04: List Item CSS Classes
         a05: Link Class
         a06: Icon Color Class
-    }
-    advanced {
-        identifier: MEDIA_LIST
-    }
-    subscription {
-        master: @media-list
+        a10: OpenTelemetry Label
     }
 
     templateOption apply-theme-colors (
@@ -70,9 +65,6 @@ listTemplate media-list (
         }
         help {
             helpText: Applies colors from the Theme's color palette to icons in the list.
-        }
-        advanced {
-            identifier: APPLY_THEME_COLORS
         }
     )
 
@@ -85,9 +77,6 @@ listTemplate media-list (
         help {
             helpText: Show a badge (Attribute 2) to the right of the list item.
         }
-        advanced {
-            identifier: SHOW_BADGES
-        }
     )
 
     templateOption show-description (
@@ -99,9 +88,6 @@ listTemplate media-list (
         help {
             helpText: Shows the description (Attribute 1) for each list item.
         }
-        advanced {
-            identifier: SHOW_DESCRIPTION
-        }
     )
 
     templateOption show-icons (
@@ -112,9 +98,6 @@ listTemplate media-list (
         }
         help {
             helpText: Display an icon next to the list item.
-        }
-        advanced {
-            identifier: SHOW_ICONS
         }
     )
 
@@ -128,9 +111,6 @@ listTemplate media-list (
         help {
             helpText: The icons are displayed within a square with rounded corners.
         }
-        advanced {
-            identifier: ICONS_ROUNDED
-        }
     )
 
     templateOption icons-square (
@@ -142,9 +122,6 @@ listTemplate media-list (
         }
         help {
             helpText: The icons are displayed within a square shape.
-        }
-        advanced {
-            identifier: ICONS_SQUARE
         }
     )
 
@@ -158,9 +135,6 @@ listTemplate media-list (
                 t-MediaList--2cols
             ]
         }
-        advanced {
-            identifier: 2COLUMNGRID
-        }
     )
 
     templateOption 3columngrid (
@@ -172,9 +146,6 @@ listTemplate media-list (
                 t-MediaList--cols
                 t-MediaList--3cols
             ]
-        }
-        advanced {
-            identifier: 3COLUMNGRID
         }
     )
 
@@ -188,9 +159,6 @@ listTemplate media-list (
                 t-MediaList--4cols
             ]
         }
-        advanced {
-            identifier: 4COLUMNGRID
-        }
     )
 
     templateOption 5columngrid (
@@ -202,9 +170,6 @@ listTemplate media-list (
                 t-MediaList--cols
                 t-MediaList--5cols
             ]
-        }
-        advanced {
-            identifier: 5COLUMNGRID
         }
     )
 
@@ -218,14 +183,11 @@ listTemplate media-list (
         help {
             helpText: Show all list items in one horizontal row.
         }
-        advanced {
-            identifier: SPANHORIZONTAL
-        }
     )
 
     templateOption list-size-large (
         name: Large
-        group: @list/size
+        group: @list/size-3
         sequence: 10
         appearance {
             cssClasses: [
@@ -235,9 +197,6 @@ listTemplate media-list (
         }
         help {
             helpText: Increases the size of the text and icons in the list.
-        }
-        advanced {
-            identifier: LIST_SIZE_LARGE
         }
     )
 

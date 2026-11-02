@@ -4,6 +4,7 @@ actionPosition actions (
     sequence: 10
     position {
         type: template
+        predefinedTemplate: @link
     }
 )
 

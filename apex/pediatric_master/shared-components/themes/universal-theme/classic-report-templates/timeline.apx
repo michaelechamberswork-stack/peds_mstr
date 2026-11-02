@@ -5,7 +5,7 @@ classicReportTemplate timeline (
     reportTemplate {
         top:
             ```html
-            <ul class="t-Timeline #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#REGION_STATIC_ID#_timeline" data-region-id="#REGION_STATIC_ID#">
+            <ul class="t-Timeline #COMPONENT_CSS_CLASSES#" #REPORT_ATTRIBUTES# id="#DOM_ID#_timeline" data-region-id="#DOM_ID#">
             
             ```
         bottom:
@@ -103,25 +103,16 @@ classicReportTemplate timeline (
             </a>
             ```
     }
-    advanced {
-        identifier: TIMELINE
-    }
-    subscription {
-        master: @timeline
-    }
 
     templateOption compact (
         name: Compact
-        group: @report/style
+        group: @report/style-4
         sequence: 1
         appearance {
             cssClasses: t-Timeline--compact
         }
         help {
             helpText: Displays a compact version of timeline with smaller text and fewer columns.
-        }
-        advanced {
-            identifier: COMPACT
         }
     )
 

@@ -2,13 +2,7 @@ regionTemplate blank-with-attributes (
     name: Blank with Attributes
     templateClass: borderlessRegion
     region {
-        template: <div id="#REGION_STATIC_ID#" class="#REGION_CSS_CLASSES#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>#PREVIOUS##BODY##SUB_REGIONS##NEXT#</div>
-    }
-    advanced {
-        identifier: BLANK_WITH_ATTRIBUTES
-    }
-    subscription {
-        master: @blank-with-attributes
+        template: <div id="#DOM_ID#" class="#REGION_CSS_CLASSES#" #REGION_LANDMARK_ATTRIBUTES# #REGION_ATTRIBUTES#>#PREVIOUS##BODY##SUB_REGIONS##NEXT#</div>
     }
 
     slot next (

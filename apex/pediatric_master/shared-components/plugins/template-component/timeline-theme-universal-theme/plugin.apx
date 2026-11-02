@@ -40,6 +40,8 @@ plugin timeline (
                         VALUE:=#BADGE_VALUE#
                         ICON:=#BADGE_ICON#
                         STATE:=#BADGE_STATE#
+                        STYLE:=#BADGE_STYLE#
+                        SHAPE:=#BADGE_SHAPE#
                       {apply THEME$BADGE/}
                     </div>
                   {endif/}
@@ -56,6 +58,18 @@ plugin timeline (
             <ul class="t-Timeline{if ?STYLE/} #STYLE#{endif/}{if APPLY_THEME_COLORS/} u-colors{endif/} #APEX$COMPONENT_CSS_CLASSES#">#APEX$ROWS#</ul>
             
             ```
+        reportGroup:
+            ```html
+            <li class="t-Timeline-groupItem" #APEX$GROUP_IDENTIFICATION#>
+              {if ?GROUP_TITLE/}
+              <div class="t-Timeline-groupHeader">
+                {if ?GROUP_ICON/}<span class="t-Timeline-groupIcon #GROUP_ICON#" aria-hidden="true"></span>{endif/}
+                <h2 class="t-Timeline-groupTitle" id="#APEX$DOM_ID#_heading">#GROUP_TITLE#</h2>
+              </div>
+              {endif/}
+              <ul class="t-Timeline-groupItems">#APEX$ROWS#</ul>
+            </li>
+            ```
         reportRow: <li class="t-Timeline-item" #APEX$ROW_IDENTIFICATION#>#APEX$PARTIAL#</li>
         numberOfLazyLoadingSkeletons: 3
     }
@@ -65,14 +79,14 @@ plugin timeline (
             regionTemplateAttr
         ]
     }
+    source {
+        sampleData: tasks
+    }
     advanced {
         quickPick: true
     }
     information {
         helpText: Display a series of events. Supports avatars and badges. Available for a single row or as a report with multiple rows.
-    }
-    subscription {
-        master: @/8842/templateComponent/timeline/universal-theme
     }
 )
 

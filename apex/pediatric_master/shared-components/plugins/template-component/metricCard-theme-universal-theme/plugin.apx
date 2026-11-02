@@ -1,0 +1,98 @@
+plugin metricCard (
+    name: Metric Card
+    staticId: THEME_142$METRIC_CARD
+    theme: @universal-theme
+    templateComponent {
+        availableAs: [
+            partial
+            report
+        ]
+        partial:
+            ```html
+            {if APEX$IS_LAZY_LOADING/}
+              <div class="t-MetricCard" aria-hidden="true">
+                <div class="t-MetricCard-body">
+                  {if ?TITLE%assigned/}<div class="t-MetricCard-title #TITLE_CSS_CLASSES# is-placeholder"></div>{endif/}
+                  {if ?METRIC%assigned/}<div class="t-MetricCard-metric #METRIC_CSS_CLASSES# is-placeholder"></div>{endif/}
+                  {if ?META%assigned/}<div class="t-MetricCard-meta #META_CSS_CLASSES# is-placeholder"></div>{endif/}
+                </div>
+                {if DISPLAY_BADGE/}
+                <div class="t-MetricCard-badge">
+                  {with/}
+                    LABEL:=
+                    VALUE:=
+                    SIZE:=#BADGE_SIZE#
+                    SHAPE:=#BADGE_SHAPE#
+                  {apply THEME$BADGE/}
+                </div>
+                {endif/}
+              </div>
+            {else/}
+              {if LINK/}<a href="#LINK#" #LINK_ATTR#{else/}<div{endif/} class="t-MetricCard u-color-var">
+                {if ?APEX$SELECTOR%assigned/}<div class="t-MetricCard-selection">#APEX$SELECTOR#</div>{endif/}
+                <div class="t-MetricCard-body #AVATAR_POSITION# #AVATAR_ALIGNMENT#">
+                  {if DISPLAY_AVATAR/}
+                  <div class="t-MetricCard-avatar{if ?AVATAR_STYLE/} #AVATAR_STYLE#{endif/}">
+                    {with/}
+                      TYPE:=#AVATAR_TYPE#
+                      IMAGE:=#AVATAR_IMAGE#
+                      ICON:=#AVATAR_ICON#
+                      INITIALS:=#AVATAR_INITIALS#
+                      SIZE:=#AVATAR_SIZE#
+                      SHAPE:=#AVATAR_SHAPE#
+                    {apply THEME$AVATAR/}
+                  </div>
+                  {endif/}
+                  <div class="t-MetricCard-content">
+                    {if ?TITLE/}<div class="t-MetricCard-title #TITLE_CSS_CLASSES#">#TITLE#</div>{endif/}
+                    {if ?METRIC/}<div class="t-MetricCard-metric #METRIC_CSS_CLASSES#">#METRIC#</div>{endif/}
+                    {if ?META/}<div class="t-MetricCard-meta #META_CSS_CLASSES#">#META#</div>{endif/}
+                  </div>
+                </div>
+                {if DISPLAY_BADGE/}
+                <div class="t-MetricCard-badge">
+                  {with/}
+                    LABEL_DISPLAY:=#BADGE_LABEL_DISPLAY#
+                    LABEL:=#BADGE_LABEL#
+                    SIZE:=#BADGE_SIZE#
+                    VALUE:=#BADGE_VALUE#
+                    ICON:=#BADGE_ICON#
+                    SHAPE:=#BADGE_SHAPE#
+                    STYLE:=#BADGE_STYLE#
+                    STATE:=#BADGE_STATE#
+                  {apply THEME$BADGE/}
+                </div>
+              {endif/}
+              {if LINK/}</a>{else/}</div>{endif/}
+            {endif/}
+            
+            ```
+        reportBody:
+            ```html
+            <ul class="t-MetricCards{if LAYOUT/} t-MetricCards--#LAYOUT#{endif/} #APEX$COMPONENT_CSS_CLASSES#">#APEX$ROWS#</ul>
+            
+            ```
+        reportGroup:
+            ```html
+            <li class="t-MetricCard-groupItem" #APEX$GROUP_IDENTIFICATION#>
+              {if ?GROUP_TITLE/}
+              <div class="t-MetricCard-groupHeader">
+                {if ?GROUP_ICON/}<span class="t-MetricCard-groupIcon fa #GROUP_ICON#" aria-hidden="true"></span>{endif/}
+                <h2 class="t-MetricCard-groupTitle" id="#APEX$DOM_ID#_heading">#GROUP_TITLE#</h2>
+              </div>
+              {endif/}
+              <ul class="t-MetricCard-groupItems">#APEX$ROWS#</ul>
+            </li>
+            
+            ```
+        reportRow: <li class="t-MetricCards-item #ITEM_CSS_CLASSES#" #APEX$ROW_IDENTIFICATION#>#APEX$PARTIAL#</li>
+        numberOfLazyLoadingSkeletons: 3
+    }
+    component {
+        standardAttributes: [
+            rowSelection
+            regionTemplateAttr
+        ]
+    }
+)
+
