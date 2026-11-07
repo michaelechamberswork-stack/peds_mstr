@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="a4f23d36418c91bd25bd5d531ff946b85190e5c7" author="(peds_mstr)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createOracleTrigger objectName="TRG_PROGRAMS_ID" objectType="TRIGGER" ownerName="peds_mstr"  replaceIfExists="false" >
+    <n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE TRIGGER "%USER_NAME%"."TRG_PROGRAMS_ID" 
+BEFORE INSERT
+ON PEDS_MSTR.PROGRAMS
+REFERENCING NEW AS New OLD AS Old
+FOR EACH ROW
+BEGIN
+-- For Toad:  Highlight column P_ID
+  :new.P_ID := SEQ_PROGRAMS.nextval;
+END TRG_PROGRAMS_ID;
+/
+]]></n0:source>
+      </n0:createOracleTrigger>
+ </changeSet>
+</databaseChangeLog>

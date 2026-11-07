@@ -14,6 +14,7 @@
   <include file="sequence/objectives_log_detail_seq_sequence.xml"/> 
   <include file="sequence/objectives_log_seq_sequence.xml"/> 
   <include file="sequence/objectives_seq_sequence.xml"/> 
+  <include file="sequence/seq_programs_sequence.xml"/> 
   <include file="sequence/sessions_seq_sequence.xml"/> 
   <include file="sequence/session_review_seq_sequence.xml"/> 
   <include file="table/assessment_table.xml"/> 
@@ -117,6 +118,7 @@
   <include file="trigger/trg_objectives_log_audit_trigger.xml"/> 
   <include file="trigger/trg_objectives_log_detail_audi_trigger.xml"/> 
   <include file="trigger/trg_programs_audit_trigger.xml"/> 
+  <include file="trigger/trg_programs_id_trigger.xml"/> 
   <include file="trigger/trg_program_service_codes_audi_trigger.xml"/> 
   <include file="trigger/trg_sessions_audit_trigger.xml"/> 
   <include file="trigger/trg_session_review_audit_trigger.xml"/> 

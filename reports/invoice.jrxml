@@ -1,0 +1,438 @@
+<!-- Created with Jaspersoft Studio version 7.0.8.final using JasperReports Library version 7.0.8-6f896111  -->
+<jasperReport name="invoice" language="java" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd888d1d-e868-4435-92c7-0cb780117ab1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LTS"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="357"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="637"/>
+	<style name="Base" default="true" fontName="SansSerif" fontSize="9.0"/>
+	<style name="Bold" fontName="SansSerif" fontSize="9.0" bold="true"/>
+	<style name="RowShade" mode="Opaque" backcolor="#FFFFFF">
+		<conditionalStyle mode="Opaque" backcolor="#C0C0C0">
+			<conditionExpression><![CDATA[$V{ROW_NUM}.intValue() % 2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<parameter name="p_case_number" class="java.lang.String"/>
+	<parameter name="p_session_month" class="java.lang.String"/>
+	<parameter name="p_mode" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT case_folder."CASE_NUMBER",
+	case_folder."SESSION_START",
+	therapists."FIRST_NAME",
+	therapists."LAST_NAME",
+	therapists."TITLE",
+	case_folder."DATE_SESSION",
+	case_folder."TIME_START",
+	case_folder."TIME_END",
+	case_folder."FIRST_NAME",
+	case_folder."LAST_NAME",
+	case_folder.last_name || ', ' || case_folder.first_name "PED_NAME",
+	case_folder."CASE_NUMBER_ASSIGNED",
+	case_folder."S_ID",
+	case_folder."PROG_COST_NUM",
+	case_folder."PROG_ACCT_NUM",
+	case_folder."SERVICE_DESCRIPTION",
+	case_folder."SERVICE_CODE",
+	case_folder."SERVICE_CHARGE",
+	case_folder."PROG_NAME",
+	case_folder."PROG_ADDRESS1",
+	case_folder."PROG_ADDRESS2",
+	case_folder."PROG_CITY",
+	case_folder."PROG_STATE",
+	case_folder."PROG_ZIP",
+	case_folder."REVIEWER_DATE",
+	activity."ACTIVTY_ID",
+	activity."ACTIVITY_DISPLAY",
+	case_folder."COMMENTS",
+	cancel_reason."CANCEL_REASON_DISPLAY",
+	cancel_reason."CANCEL_REASON_ID",
+	activity."ACTIVITY_TYPE",
+	therapists."SIGNATURE_BLOB",
+	case_folder."REVIEWER_SIGNATURE",
+	case_folder."DATE_SESSION_MONTH"
+FROM "PEDS_MSTR"."CASE_FOLDER_BILLING" case_folder
+	left outer join "PEDS_MSTR"."ACTIVITY" activity ON 
+	 case_folder."ACTIVITY" = activity."ACTIVTY_ID" 
+	inner join "LTS"."THERAPISTS" therapists ON 
+	 case_folder."THERAPIST_ID" = therapists."ID" 
+	left outer join "PEDS_MSTR"."CANCEL_REASON" cancel_reason ON 
+	 case_folder."CANCEL_REASON" = cancel_reason."CANCEL_REASON_ID"
+WHERE ($P{p_case_number} =  case_folder."CASE_NUMBER" or $P{p_case_number} = '-1')
+and case_folder."DATE_SESSION_MONTH" = TRUNC(TO_DATE($P{p_session_month}, 'mm/dd/yyyy'), 'month')
+and activity."ACTIVITY_TYPE" = 'Direct'
+ORDER BY case_folder."PROG_NAME", case_folder."LAST_NAME", case_folder."FIRST_NAME", case_folder."DATE_SESSION"]]></query>
+	<field name="CASE_NUMBER" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CASE_NUMBER"/>
+		<property name="com.jaspersoft.studio.field.label" value="CASE_NUMBER"/>
+	</field>
+	<field name="SESSION_START" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="SESSION_START"/>
+		<property name="com.jaspersoft.studio.field.label" value="SESSION_START"/>
+	</field>
+	<field name="FIRST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="FIRST_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="FIRST_NAME"/>
+	</field>
+	<field name="LAST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LAST_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="LAST_NAME"/>
+	</field>
+	<field name="TITLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TITLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TITLE"/>
+	</field>
+	<field name="DATE_SESSION" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_SESSION"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_SESSION"/>
+	</field>
+	<field name="TIME_START" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="TIME_START"/>
+		<property name="com.jaspersoft.studio.field.label" value="TIME_START"/>
+	</field>
+	<field name="TIME_END" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="TIME_END"/>
+		<property name="com.jaspersoft.studio.field.label" value="TIME_END"/>
+	</field>
+	<field name="COLUMN_9" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="FIRST_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="FIRST_NAME"/>
+	</field>
+	<field name="COLUMN_10" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LAST_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="LAST_NAME"/>
+	</field>
+	<field name="PED_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PED_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="PED_NAME"/>
+	</field>
+	<field name="CASE_NUMBER_ASSIGNED" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CASE_NUMBER_ASSIGNED"/>
+		<property name="com.jaspersoft.studio.field.label" value="CASE_NUMBER_ASSIGNED"/>
+	</field>
+	<field name="S_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="S_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="S_ID"/>
+	</field>
+	<field name="PROG_COST_NUM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROG_COST_NUM"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROG_COST_NUM"/>
+	</field>
+	<field name="PROG_ACCT_NUM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROG_ACCT_NUM"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROG_ACCT_NUM"/>
+	</field>
+	<field name="SERVICE_DESCRIPTION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SERVICE_DESCRIPTION"/>
+		<property name="com.jaspersoft.studio.field.label" value="SERVICE_DESCRIPTION"/>
+	</field>
+	<field name="SERVICE_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SERVICE_CODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="SERVICE_CODE"/>
+	</field>
+	<field name="SERVICE_CHARGE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="SERVICE_CHARGE"/>
+		<property name="com.jaspersoft.studio.field.label" value="SERVICE_CHARGE"/>
+	</field>
+	<field name="PROG_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROG_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROG_NAME"/>
+	</field>
+	<field name="PROG_ADDRESS1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROG_ADDRESS1"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROG_ADDRESS1"/>
+	</field>
+	<field name="PROG_ADDRESS2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROG_ADDRESS2"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROG_ADDRESS2"/>
+	</field>
+	<field name="PROG_CITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROG_CITY"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROG_CITY"/>
+	</field>
+	<field name="PROG_STATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROG_STATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROG_STATE"/>
+	</field>
+	<field name="PROG_ZIP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PROG_ZIP"/>
+		<property name="com.jaspersoft.studio.field.label" value="PROG_ZIP"/>
+	</field>
+	<field name="REVIEWER_DATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="REVIEWER_DATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="REVIEWER_DATE"/>
+	</field>
+	<field name="ACTIVTY_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ACTIVTY_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACTIVTY_ID"/>
+	</field>
+	<field name="ACTIVITY_DISPLAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ACTIVITY_DISPLAY"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACTIVITY_DISPLAY"/>
+	</field>
+	<field name="COMMENTS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="COMMENTS"/>
+		<property name="com.jaspersoft.studio.field.label" value="COMMENTS"/>
+	</field>
+	<field name="CANCEL_REASON_DISPLAY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CANCEL_REASON_DISPLAY"/>
+		<property name="com.jaspersoft.studio.field.label" value="CANCEL_REASON_DISPLAY"/>
+	</field>
+	<field name="CANCEL_REASON_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CANCEL_REASON_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="CANCEL_REASON_ID"/>
+	</field>
+	<field name="ACTIVITY_TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ACTIVITY_TYPE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACTIVITY_TYPE"/>
+	</field>
+	<field name="SIGNATURE_BLOB" class="java.io.InputStream">
+		<property name="com.jaspersoft.studio.field.name" value="SIGNATURE_BLOB"/>
+		<property name="com.jaspersoft.studio.field.label" value="SIGNATURE_BLOB"/>
+	</field>
+	<field name="REVIEWER_SIGNATURE" class="java.io.InputStream">
+		<property name="com.jaspersoft.studio.field.name" value="REVIEWER_SIGNATURE"/>
+		<property name="com.jaspersoft.studio.field.label" value="REVIEWER_SIGNATURE"/>
+	</field>
+	<field name="DATE_SESSION_MONTH" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATE_SESSION_MONTH"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATE_SESSION_MONTH"/>
+	</field>
+	<variable name="ROW_NUM" resetType="Group" calculation="Count" resetGroup="CASE_GRP" class="java.lang.Integer">
+		<expression><![CDATA[Boolean.TRUE]]></expression>
+	</variable>
+	<variable name="TOTAL_CHARGE" resetType="Group" calculation="Sum" resetGroup="CASE_GRP" class="java.math.BigDecimal">
+		<expression><![CDATA[$V{SERVICE_CHARGE}]]></expression>
+	</variable>
+	<variable name="SERVICE_CHARGE" class="java.math.BigDecimal">
+		<expression><![CDATA[($F{ACTIVTY_ID} != null && $F{ACTIVTY_ID}.intValue() == 10) || $F{SERVICE_CHARGE} == null
+    ? java.math.BigDecimal.ZERO
+    : $F{SERVICE_CHARGE}]]></expression>
+	</variable>
+	<group name="PROG_GRP">
+		<expression><![CDATA[$F{PROG_NAME}]]></expression>
+	</group>
+	<group name="PED_GRP">
+		<expression><![CDATA[$F{PED_NAME}]]></expression>
+	</group>
+	<group name="CASE_GRP" startNewPage="true">
+		<expression><![CDATA[$F{CASE_NUMBER}]]></expression>
+		<groupHeader>
+			<band height="90">
+				<element kind="staticText" uuid="bbc40136-afe8-49f0-a14f-8ab7f502c3bc" x="0" y="54" width="40" height="13" style="Bold">
+					<text><![CDATA[Bill To:]]></text>
+				</element>
+				<element kind="textField" uuid="5aa7ab72-d16d-49a2-a53c-c18f41aa8604" x="65" y="5" width="215" height="84" blankWhenNull="true">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<expression><![CDATA["Life Therapeutic Solutions, Inc\nPO Box 1053\nAda, MI 49301\n\n" + 
+$F{PROG_NAME} + "\n" +
+($F{PROG_ADDRESS1} == null || $F{PROG_ADDRESS1}.trim().isEmpty() ? "" : $F{PROG_ADDRESS1} + "\n") +
+($F{PROG_ADDRESS2} == null || $F{PROG_ADDRESS2}.trim().isEmpty() ? "" : $F{PROG_ADDRESS2} + "\n") +
+($F{PROG_CITY} == null ? "" : $F{PROG_CITY} + ", ") +
+($F{PROG_STATE} == null ? "" : $F{PROG_STATE} + "  ") +
+($F{PROG_ZIP} == null ? "" : $F{PROG_ZIP})]]></expression>
+				</element>
+				<element kind="staticText" uuid="f56b69ad-c717-4819-95ab-9186b0f2a218" x="0" y="5" width="60" height="27" style="Bold">
+					<text><![CDATA[Issue
+Payments To:]]></text>
+				</element>
+				<element kind="staticText" uuid="e44f0f3d-24b3-4802-84fe-66bd692aff49" x="280" y="50" width="50" height="13" style="Bold">
+					<text><![CDATA[Name:]]></text>
+				</element>
+				<element kind="textField" uuid="becd9b9e-2602-4cef-8a4d-b89cfc050741" x="330" y="50" width="230" height="13" blankWhenNull="true">
+					<expression><![CDATA[$F{PED_NAME}]]></expression>
+				</element>
+				<element kind="staticText" uuid="322880d2-5915-411d-b055-d865420efa33" x="280" y="63" width="50" height="13" style="Bold">
+					<text><![CDATA[CMH #:]]></text>
+				</element>
+				<element kind="textField" uuid="446521d6-4ba3-40d9-b2b0-b0a287a11c72" x="330" y="63" width="230" height="13" blankWhenNull="true">
+					<expression><![CDATA[$F{CASE_NUMBER_ASSIGNED}]]></expression>
+				</element>
+			</band>
+			<band height="32">
+				<element kind="staticText" uuid="849981c2-dfe7-4431-911a-136d1b0f6c12" x="0" y="6" width="70" height="24" vTextAlign="Bottom" style="Bold">
+					<box style="Bold">
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<text><![CDATA[DATE OF
+SERVICE]]></text>
+				</element>
+				<element kind="staticText" uuid="ba464603-cac9-4c0b-9568-30af2cd6cb52" x="70" y="6" width="200" height="24" vTextAlign="Bottom" style="Bold">
+					<box style="Bold">
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<text><![CDATA[SERVICE DESCRIPTION]]></text>
+				</element>
+				<element kind="staticText" uuid="a635cda9-f1b2-49cd-8963-05aa9713498a" x="270" y="6" width="70" height="24" vTextAlign="Bottom" style="Bold">
+					<box style="Bold">
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<text><![CDATA[SERVICE
+CODE]]></text>
+				</element>
+				<element kind="staticText" uuid="ab109192-1222-4db3-b902-857d2feb8b92" x="365" y="6" width="80" height="24" hTextAlign="Left" vTextAlign="Bottom" style="Bold">
+					<box style="Bold">
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<text><![CDATA[START TIME AND
+END TIME]]></text>
+				</element>
+				<element kind="staticText" uuid="61e7953d-56ac-436d-a1f9-18d33b4b6c1b" x="470" y="6" width="102" height="24" hTextAlign="Right" vTextAlign="Bottom" style="Bold">
+					<box style="Bold">
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<text><![CDATA[SERVICE
+CHARGE]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<element kind="line" uuid="39dfbef7-43dd-4e28-a4f3-3c903c6be0e1" x="340" y="2" width="232" height="1"/>
+				<element kind="staticText" uuid="ab35bdc6-f574-461b-89a2-0b64b557111b" x="340" y="6" width="130" height="14" hTextAlign="Right" style="Bold">
+					<text><![CDATA[TOTAL CHARGE]]></text>
+				</element>
+				<element kind="textField" uuid="67948678-643f-4c3f-9f9e-b15a879d3148" x="470" y="6" width="102" height="14" evaluationTime="Group" pattern="$#,##0.00;($#,##0.00)" evaluationGroup="S_GRP" blankWhenNull="true" hTextAlign="Right" style="Bold">
+					<printWhenExpression><![CDATA["A".equals($P{p_mode})]]></printWhenExpression>
+					<expression><![CDATA[$V{TOTAL_CHARGE}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="S_GRP">
+		<expression><![CDATA[$F{S_ID}]]></expression>
+	</group>
+	<pageHeader height="33">
+		<element kind="staticText" uuid="f2b39bda-34c9-4644-8944-c3c238cf8b82" x="0" y="0" width="572" height="16" fontSize="10.0" bold="true">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<text><![CDATA[Service Rates and Billing Data - Invoice
+Specialty Service Recreation Therapy]]></text>
+		</element>
+		<element kind="staticText" uuid="02560523-7aaf-4ef6-9c5c-54cfbed556a6" x="0" y="16" width="572" height="16" fontSize="10.0" bold="true" hTextAlign="Center">
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<text><![CDATA[Specialty Service Recreation Therapy]]></text>
+		</element>
+	</pageHeader>
+	<detail>
+		<band height="16">
+			<element kind="rectangle" uuid="9e4cec71-30c9-44ba-bdf3-1edcb76e1040" x="0" y="0" width="572" height="16" stretchType="ContainerHeight" style="RowShade">
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="textField" uuid="2b43f24b-29fc-4e4d-818e-7af34b341c81" x="0" y="2" width="70" height="13" pattern="MM/dd/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{DATE_SESSION}]]></expression>
+			</element>
+			<element kind="textField" uuid="429f4b52-de35-4e48-a1c8-53ad87e62725" x="70" y="2" width="200" height="13" textAdjust="StretchHeight" blankWhenNull="true">
+				<expression><![CDATA[$F{SERVICE_DESCRIPTION}]]></expression>
+			</element>
+			<element kind="textField" uuid="e3ffff92-41d3-4c22-916e-066472f35b20" x="270" y="2" width="70" height="13" blankWhenNull="true">
+				<expression><![CDATA[$F{SERVICE_CODE}]]></expression>
+			</element>
+			<element kind="textField" uuid="54c599b7-deaa-48a8-91ff-eae6872b684d" x="340" y="2" width="55" height="13" pattern="h:mm a" blankWhenNull="true" hTextAlign="Right">
+				<printWhenExpression><![CDATA[$F{ACTIVTY_ID} == null || $F{ACTIVTY_ID}.intValue() != 10]]></printWhenExpression>
+				<expression><![CDATA[$F{TIME_START}]]></expression>
+			</element>
+			<element kind="staticText" uuid="4e292fb0-87fb-4bc3-847d-cbd39f450471" x="395" y="2" width="20" height="13" hTextAlign="Center">
+				<printWhenExpression><![CDATA[$F{ACTIVTY_ID} == null || $F{ACTIVTY_ID}.intValue() != 10]]></printWhenExpression>
+				<text><![CDATA[to]]></text>
+			</element>
+			<element kind="textField" uuid="4c57e90f-9092-4dd5-910f-77096cbbd053" x="415" y="2" width="55" height="13" pattern="h:mm a" blankWhenNull="true">
+				<printWhenExpression><![CDATA[$F{ACTIVTY_ID} == null || $F{ACTIVTY_ID}.intValue() != 10]]></printWhenExpression>
+				<expression><![CDATA[$F{TIME_END}]]></expression>
+			</element>
+			<element kind="textField" uuid="8f4ddfde-6e80-403f-a8ff-a313f4ae6bbe" x="470" y="2" width="102" height="13" pattern="$#,##0.00;-$#,##0.00" blankWhenNull="true" hTextAlign="Right">
+				<printWhenExpression><![CDATA["A".equals($P{p_mode})]]></printWhenExpression>
+				<expression><![CDATA[$V{SERVICE_CHARGE}]]></expression>
+			</element>
+		</band>
+		<band height="14">
+			<printWhenExpression><![CDATA[$F{ACTIVTY_ID} != null && $F{ACTIVTY_ID}.intValue() == 10]]></printWhenExpression>
+			<element kind="rectangle" uuid="4347ff8e-1a00-480d-8620-5115ae856eeb" x="0" y="0" width="572" height="14" stretchType="ContainerHeight" style="RowShade">
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="textField" uuid="034a0fe8-e57a-4a91-8529-1b78c12c87bb" x="70" y="0" width="400" height="13" textAdjust="StretchHeight" blankWhenNull="true">
+				<expression><![CDATA[$F{ACTIVITY_DISPLAY}]]></expression>
+			</element>
+		</band>
+		<band height="14">
+			<printWhenExpression><![CDATA[$F{ACTIVTY_ID} != null && $F{ACTIVTY_ID}.intValue() == 10]]></printWhenExpression>
+			<element kind="rectangle" uuid="377bfa46-aaaa-4a6d-9bcb-565d47dbc1c8" x="0" y="0" width="572" height="14" stretchType="ContainerHeight" style="RowShade">
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="textField" uuid="aff56914-b69e-478c-b632-8c6511f6f40d" x="70" y="0" width="400" height="13" textAdjust="StretchHeight" blankWhenNull="true">
+				<expression><![CDATA[$F{CANCEL_REASON_DISPLAY}]]></expression>
+			</element>
+		</band>
+		<band height="14">
+			<printWhenExpression><![CDATA[$F{ACTIVTY_ID} != null && $F{ACTIVTY_ID}.intValue() == 10
+&& $F{CANCEL_REASON_ID} != null && $F{CANCEL_REASON_ID}.intValue() == 10]]></printWhenExpression>
+			<element kind="rectangle" uuid="ec344a52-51b3-49c8-888e-ee956e34e5ae" x="0" y="0" width="572" height="14" stretchType="ContainerHeight" style="RowShade">
+				<pen lineWidth="0.0"/>
+			</element>
+			<element kind="textField" uuid="1a34a7b0-f849-4872-a85a-aef838777098" x="70" y="0" width="500" height="13" textAdjust="StretchHeight" blankWhenNull="true">
+				<expression><![CDATA[$F{COMMENTS}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="189">
+		<element kind="image" uuid="93ca25d4-720a-4980-8ee7-7c13cfc596bb" x="0" y="0" width="130" height="50" scaleImage="RealSize">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<expression><![CDATA[$F{SIGNATURE_BLOB}]]></expression>
+		</element>
+		<element kind="textField" uuid="7c11046a-a8c1-405d-9434-247a9223a052" x="0" y="50" width="188" height="14" blankWhenNull="true">
+			<expression><![CDATA[($F{FIRST_NAME} == null ? "" : $F{FIRST_NAME}) + " "
++ ($F{LAST_NAME} == null ? "" : $F{LAST_NAME})
++ ($F{TITLE} == null ? "" : ", " + $F{TITLE})]]></expression>
+		</element>
+		<element kind="textField" uuid="da7377d0-7bb6-4ee3-b590-55337d51bfa3" x="188" y="50" width="80" height="14" pattern="M/d/yyyy" blankWhenNull="true" hTextAlign="Right">
+			<expression><![CDATA[$F{SESSION_START}]]></expression>
+		</element>
+		<element kind="line" uuid="d30c7a10-8739-476e-b653-491b9ad2c29b" x="0" y="65" width="572" height="1"/>
+		<element kind="staticText" uuid="b5dfabbd-f7d7-4ede-a3bb-7f47a8bfbaec" x="0" y="66" width="188" height="12" fontSize="8.0">
+			<text><![CDATA[Clinician Signature, Credentials]]></text>
+		</element>
+		<element kind="staticText" uuid="144829b8-66e8-4c38-a89d-956b172fae83" x="188" y="66" width="80" height="12" fontSize="8.0" hTextAlign="Right">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<text><![CDATA[Date]]></text>
+		</element>
+		<element kind="textField" uuid="b65c9db4-7950-45d3-9be0-f55da32209f2" x="188" y="115" width="80" height="14" pattern="M/d/yyyy" blankWhenNull="true" hTextAlign="Right">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<expression><![CDATA[$F{REVIEWER_DATE}]]></expression>
+		</element>
+		<element kind="staticText" uuid="9123214f-cf10-486d-8904-4cc6bf55f392" x="304" y="66" width="188" height="12" fontSize="8.0">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<text><![CDATA[Case Manager Signature, Credentials]]></text>
+		</element>
+		<element kind="staticText" uuid="6e8b388b-8f86-495d-bac3-17a0ca807f0a" x="492" y="66" width="80" height="12" fontSize="8.0" hTextAlign="Right">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<text><![CDATA[Date]]></text>
+		</element>
+		<element kind="line" uuid="6fbb875f-c55d-4782-80e5-1b113561754e" x="0" y="130" width="572" height="1">
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="staticText" uuid="d6a9aa67-2880-48a4-b4d0-d35802df58d9" x="0" y="131" width="188" height="12" fontSize="8.0">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<text><![CDATA[Parent/Guardian]]></text>
+		</element>
+		<element kind="staticText" uuid="5c501c73-48cd-4889-87a2-bf96df2cdb01" x="188" y="131" width="80" height="12" fontSize="8.0" hTextAlign="Right">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<text><![CDATA[Date]]></text>
+		</element>
+		<element kind="staticText" uuid="6117ec1d-322a-4d14-b3fc-4dfc8eb61ba1" x="304" y="131" width="188" height="12" fontSize="8.0">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<text><![CDATA[Program Supervisor]]></text>
+		</element>
+		<element kind="staticText" uuid="15c7c971-de87-4019-ba10-122345e2108d" x="492" y="131" width="80" height="12" fontSize="8.0" hTextAlign="Right">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<text><![CDATA[Date]]></text>
+		</element>
+		<element kind="staticText" uuid="15fc77dd-f5e6-422e-a9ab-9a71882fb971" x="0" y="172" width="300" height="12" fontSize="7.0">
+			<text><![CDATA[Invoice Activity Therapy Billing]]></text>
+		</element>
+		<element kind="staticText" uuid="63625d26-d684-4f85-b63b-bb8f3e71d9d7" x="372" y="172" width="200" height="12" fontSize="7.0" hTextAlign="Right">
+			<text><![CDATA[Rev 07/27/2010]]></text>
+		</element>
+		<element kind="image" uuid="7dd48266-32b6-4caf-b779-e209fa3d2d03" x="0" y="78" width="130" height="50" scaleImage="RetainShape">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<expression><![CDATA[$F{REVIEWER_SIGNATURE}]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>

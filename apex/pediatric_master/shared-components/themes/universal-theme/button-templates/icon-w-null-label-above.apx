@@ -11,7 +11,7 @@ buttonTemplate icon-w-null-label-above (
 
     templateOption push (
         name: Push
-        group: @button/icon-hover-animation
+        group: 1666140410328385209
         sequence: 20
         appearance {
             cssClasses: t-Button--hoverIconPush
@@ -26,7 +26,7 @@ buttonTemplate icon-w-null-label-above (
 
     templateOption spin (
         name: Spin
-        group: @button/icon-hover-animation
+        group: 1666140410328385209
         sequence: 10
         appearance {
             cssClasses: t-Button--hoverIconSpin

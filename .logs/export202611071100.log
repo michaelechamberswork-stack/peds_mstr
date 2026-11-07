@@ -1,0 +1,75 @@
+Export started for peds_mstr at 2026-11-07 11:00:53
+
+
+SQLcl: Release 26.1 Production on Sat Nov 07 11:01:02 2026
+
+Copyright (c) 1982, 2026, Oracle.  All rights reserved.
+
+Connected to:
+Oracle AI Database 26ai Enterprise Edition Release 23.26.4.1.0 - Production
+Version 23.26.4.1.0
+
+--Starting Liquibase at 2026-11-07T11:01:07.426916500 using Java 17.0.13 (version 4.33.0 #0 built at 2025-12-09 17:47+0000)
+
+Export Flags Used:
+
+Export Grants		false
+Export Synonyms		false
+
+[Method loadCaptureTable]: 
+
+[Method loadCaptureTable]:                            1ms
+	[Load Type DIRECTORY]:                      894ms
+	[Load Type TYPE_BODY]:                      180ms
+	[Load Type TYPE_SPEC]:                       54ms
+	[Load Type MATERIALIZED_VIEW_LOG]:          112ms
+	[Load Type SEQUENCE]:                    2s 980ms
+	[Load Type CLUSTER]:                     1s 655ms
+	[Load Type DIMENSION]:                      134ms
+	[Load Type PACKAGE_SPEC]:                3s 967ms
+	[Load Type REF_CONSTRAINT]:              1s 132ms
+	[Load Type VIEW]:                            56ms
+	[Load Type FUNCTION]:                       812ms
+	[Load Type DB_LINK]:                         71ms
+	[Load Type PROCEDURE]:                   1s 507ms
+	[Load Type SYNONYM]:                     1s 422ms
+	[Load Type PACKAGE_BODY]:                2s 765ms
+	[Load Type JOB]:                            949ms
+	[Load Type INDEX]:                       2s 627ms
+	[Load Type TRIGGER]:                        234ms
+	[Load Type TABLE]:                       5s 560ms
+	[Load Type MATERIALIZED_VIEW]:           1s 482ms
+[Method sortCaptureTable]:                          263ms
+[Method writeChangeLogs]:                       36s 535ms
+[Method writeController]:                           631ms
+[Total Time (Wall Clock)]:                      38s 820ms
+Changelog created and written out to file controller.xml 
+
+Operation completed successfully.
+
+
+Exporting Workspace LTS - application 105:PEDIATRIC MASTER
+File pediatric_master\application.apx created
+
+Exporting Workspace LTS - application 105:PEDIATRIC MASTER
+File f105.sql created
+
+Exporting Workspace LTS - application 1050:PEDIATRIC SESSION REVIEW
+ORA-20987: APEX - This application uses theme 142 - Universal Theme, which is subscribed to a master theme that cannot be found. Please ensure the master theme is available, as it is required for APEXlang export. - Contact your application administrator.
+Details about this incident are available via debug id "66008".
+ORA-06512: at "APEX_260100.WWV_FLOW_EXPORT_INT", line 2691
+ORA-06512: at "APEX_260100.WWV_FLOW_ERROR", line 1186
+ORA-06512: at "APEX_260100.WWV_FLOW_ERROR", line 1644
+ORA-06512: at "APEX_260100.WWV_FLOW_EXPORT_INT", line 2552
+ORA-06512: at "APEX_260100.WWV_FLOW_EXPORT_INT", line 2552
+ORA-06512: at "APEX_260100.WWV_FLOW_EXPORT_INT", line 2825
+ORA-06512: at "APEX_260100.WWV_FLOW_EXPORT_API", line 110
+ORA-06512: at line 3
+
+https://docs.oracle.com/error-help/db/ora-20987/
+Exporting Workspace LTS - application 1050:PEDIATRIC SESSION REVIEW
+File f1050.sql created
+
+Disconnected from Oracle AI Database 26ai Enterprise Edition Release 23.26.4.1.0 - Production
+Version 23.26.4.1.0
+

@@ -39,26 +39,10 @@ page 1700 (
 
     region programs (
         name: PROGRAMS
-        type: cards
+        type: classicReport
         source {
             location: localDatabase
-            type: sqlQuery
-            sqlQuery:
-                ```sql
-                select P_ID,
-                       NAME,
-                       ADDRESS1,
-                       ADDRESS2,
-                       CITY,
-                       STATE,
-                       ZIP,
-                       COST_NUM,
-                       ACCT_NUM,
-                       VEND_NUM,
-                       NUM_SESSIONS_ALLOWED_PER_MONTH,
-                       COLOR_CSS_CODE card_color
-                  from PROGRAMS
-                ```
+            tableName: PROGRAMS
         }
         layout {
             sequence: 10
@@ -69,92 +53,248 @@ page 1700 (
             templateOptions: #DEFAULT#
         }
         componentAppearance {
-            layout: float
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
         }
-        card {
-            cssClasses: &CARD_COLOR!ATTR.
-            primaryKeyColumn1: P_ID
-        }
-        title {
-            column: NAME
-        }
-        body {
-            column: CITY
+        pagination {
+            type: nextAndPreviousLinks
         }
 
-        action action (
-            type: fullCard
+        column ACCT_NUM (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 90
+            }
+        )
+
+        column ADDRESS1 (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: Address1
+            }
+            layout {
+                sequence: 30
+            }
+        )
+
+        column ADDRESS2 (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: Address2
+            }
+            layout {
+                sequence: 40
+            }
+        )
+
+        column CITY (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: City
+            }
+            layout {
+                sequence: 50
+            }
+        )
+
+        column COLOR_CSS_CODE (
+            reportColumnQueryId: 12
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 120
+            }
+        )
+
+        column COST_NUM (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 80
+            }
+        )
+
+        column CREATED_BY (
+            reportColumnQueryId: 13
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 130
+            }
+        )
+
+        column CREATED_ON (
+            reportColumnQueryId: 14
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 140
+            }
+        )
+
+        column NAME (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            heading {
+                heading: Name
+            }
+            layout {
+                sequence: 20
+            }
+            sorting {
+                defaultSequence: 1
+            }
+        )
+
+        column NUM_SESSIONS_ALLOWED_PER_MONTH (
+            reportColumnQueryId: 11
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 110
+            }
+        )
+
+        column P_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                heading: &nbsp;
+                alignment: end
+            }
             layout {
                 sequence: 10
+                columnAlignment: end
             }
-            behavior {
+            link {
                 target: {
                     page: 1701
                     items: {
-                        P1701_P_ID: &P_ID.
+                        P1701_P_ID: #P_ID#
                     }
-                    clearCache: 1701
                 }
+                linkText: &ICON_EDIT.
+                linkAttributes: class="lts-bg-color #COLOR_CSS_CODE#"
+            }
+            sorting {
+                sortable: false
+            }
+            exportPrinting {
+                includeInExportPrint: false
+            }
+        )
+
+        column ROW_VERSION (
+            reportColumnQueryId: 17
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 170
+            }
+        )
+
+        column STATE (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            heading {
+                heading: State
+            }
+            layout {
+                sequence: 60
+            }
+        )
+
+        column UPDATED_BY (
+            reportColumnQueryId: 15
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 150
+            }
+        )
+
+        column UPDATED_ON (
+            reportColumnQueryId: 16
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 160
+            }
+        )
+
+        column VEND_NUM (
+            reportColumnQueryId: 10
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 100
+            }
+        )
+
+        column ZIP (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            heading {
+                heading: Zip
+            }
+            layout {
+                sequence: 70
             }
         )
 
     )
 
-    pageItem P1700_ORDER_BY (
-        type: selectList
-        label {
-            label: Order By
-            alignment: right
-        }
-        lov {
-            type: staticValues
-            staticValues: STATIC2:Name;NAME,City;CITY
-            displayExtraValues: false
-            displayNullValue: false
-        }
-        layout {
-            sequence: 10
-            region: @programs
-            slot: regionBody
-            alignment: left
-        }
-        appearance {
-            template: @optional
-            templateOptions: #DEFAULT#
-            height: 1
-        }
-        validation {
-            valueRequired: true
-        }
-        advanced {
-            warnOnUnsavedChanges: ignore
-        }
-        default {
-            type: static
-            staticValue: NAME
-        }
-    )
-
-    dynamicAction refresh-report (
-        name: Refresh Report
+    dynamicAction set-row-colors (
+        name: Set Row Colors
         execution {
             sequence: 10
         }
         when {
-            event: apexafterclosecanceldialog
-            selectionType: jsExpression
-            javaScriptExpression: document
+            event: ready
         }
 
-        action native-refresh (
-            action: refresh
-            affectedElements {
-                selectionType: region
-                region: @programs
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    $('.lts-bg-color').each(function() {
+                        $(this).parents('tr').children('td').addClass( $(this).attr('class') ) ;
+                        $(this).parents('tr').children('td').removeClass('lts-bg-color') ;
+                        $(this).parents('tr').addClass('lts-bg-color') ;
+                        $(this).parents('tr').attr('href', $(this).attr('href'));
+                        $(this).parents('tr').children('td').on('click', function(event){event.preventDefault();apex.navigation.redirect($(this).parents('tr').attr('href'))});
+                        $('#' + $(this).parents('td').attr('headers')).hide();
+                        $(this).parents('td').hide();
+                        $(this).removeClass();
+                    });
+                    
+                    $('.lts-alert-class').each(function() {
+                        $(this).parents('td').removeClass(function (index, className) {
+                            return (className.match (/(^|\s)u-color-\S+/g) || []).join(' ');
+                        });
+                        $(this).removeClass('lts-alert-class');
+                        $(this).parents('td').addClass( $(this).attr('class') ) ;
+                        $(this).remove();
+                    });
+                    
+                    
+                    ```
             }
             execution {
                 sequence: 10
-                fireOnInit: false
             }
         )
 

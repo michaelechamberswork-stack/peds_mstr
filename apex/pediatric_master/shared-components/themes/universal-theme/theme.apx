@@ -3,7 +3,7 @@ theme universal-theme (
     themeNumber: 142
     version: 26.1
     style {
-        currentThemeStyle: @iris
+        currentThemeStyle: @lts
     }
     javaScript {
         fileUrls: [
@@ -101,7 +101,7 @@ theme universal-theme (
         name: LTS
         themeRollerAttributes {
             inputParameterFileUrls: #THEME_IMAGES#less/theme/Vita.less
-            outputCssFileUrl: #THEME_DB_FILES#55840199596767209.css
+            outputCssFileUrl: #THEME_DB_FILES#81563333910605965.css
             jsonConfig: "{\"classes\":[],\"vars\":{\"@g_Accent-BG\":\"#7e4099\",\"@g_Nav-BG\":\"#7e4099\",\"@g_Nav-Active-BG\":\"#522963\"},\"customCSS\":\".lts-no-wrap{\\n    white-space: nowrap;\\n}\\n\\n.apex-item-select, .apex-item-text, .apex-item-textarea, .apex-item-multi {\\n    backface-visibility: hidden;\\n}\\n\\n.lts-full-width{\\n    width: 100%;\\n}\",\"useCustomLess\":\"N\"}"
         }
     )

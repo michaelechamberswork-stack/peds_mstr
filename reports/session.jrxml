@@ -1,0 +1,222 @@
+<jasperReport name="session_note" language="java" pageWidth="612" pageHeight="792" whenNoDataType="NoDataSection" columnWidth="540" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36" uuid="529dd2e1-2974-4548-b1c6-7cecdf7b0dc1">
+	<property name="net.sf.jasperreports.data.adapter" value="LTS"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LTS"/>
+	<style name="Base" default="true" fontName="SansSerif" fontSize="10.0"/>
+	<style name="Label" style="Base" bold="true"/>
+	<style name="Title" style="Base" hTextAlign="Center" fontSize="14.0" bold="true"/>
+	<style name="RowShade" mode="Transparent">
+		<conditionalStyle mode="Opaque" backcolor="#C0C0C0">
+			<conditionExpression><![CDATA[$F{ROW_SEQ} != null && $F{ROW_SEQ}.intValue() % 2 == 1]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<parameter name="review" class="java.lang.String"/>
+	<parameter name="s_id" class="java.lang.String"/>
+	<parameter name="case_number" class="java.lang.String"/>
+	<parameter name="StartDate" class="java.lang.String"/>
+	<parameter name="EndDate" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT cf.S_ID,
+       cf.CASE_NUMBER,
+       cf.CASE_NUMBER_ASSIGNED,
+       cf.FIRST_NAME || ' ' || cf.LAST_NAME                       AS PED_NAME,
+       TO_CHAR(cf.DATE_SESSION, 'FMMM/DD/YYYY')
+         || '  ' || TO_CHAR(cf.TIME_START, 'FMHH:FMMI AM')
+         || ' to ' || TO_CHAR(cf.TIME_END, 'FMHH:FMMI AM')         AS SESSION_DATE_LINE,
+       TRIM(loc.LOCATION_DISPLAY
+         || NVL2(cf.LOCATION_OTHER, ' - ' || cf.LOCATION_OTHER, NULL)) AS LOCATION_TEXT,
+       TRIM(act.ACTIVITY_DISPLAY
+         || NVL2(cf.ACTIVITY_OTHER, ' - ' || cf.ACTIVITY_OTHER, NULL)) AS ACTIVITY_TEXT,
+       peds_mstr.get_time_length_display(cf.TIME_LENGTH)          AS TIME_LENGTH_DISPLAY,
+       cf.COMMENTS,
+       cf.NOTE_OBJECTIVE,
+       cf.INTERVENTION,
+       cf.PROGRESS,
+       cf.NARRATIVE,
+       cf.SESSION_START,
+       TRIM(t.FIRST_NAME || ' ' || t.LAST_NAME || ' ' || t.TITLE) AS THERAPIST_LINE,
+       t.SIGNATURE_BLOB,
+       CASE WHEN cf.PROGRESS IS NULL AND cf.INTERVENTION IS NULL THEN NULL
+            ELSE ROW_NUMBER() OVER (
+                   PARTITION BY cf.S_ID,
+                                CASE WHEN cf.PROGRESS IS NULL AND cf.INTERVENTION IS NULL THEN 0 ELSE 1 END
+                   ORDER BY cf.S_ID)
+       END                                                         AS ROW_SEQ,
+       CASE
+         WHEN NVL(TO_NUMBER($P{case_number}), 0) > 0
+           THEN 'SESSION' || CHR(10) || cf.FIRST_NAME || ' ' || cf.LAST_NAME
+         WHEN NVL(TO_NUMBER($P{s_id}), 0) > 0 AND $P{review} = 'Y'
+           THEN 'SESSION REVIEW' || CHR(10) || cf.FIRST_NAME || ' ' || cf.LAST_NAME
+                || ' ' || TO_CHAR(cf.DATE_SESSION, 'FMMM/DD/YYYY')
+         WHEN NVL(TO_NUMBER($P{s_id}), 0) > 0
+           THEN 'SESSION' || CHR(10) || cf.FIRST_NAME || ' ' || cf.LAST_NAME
+                || ' ' || TO_CHAR(cf.DATE_SESSION, 'FMMM/DD/YYYY')
+         WHEN $P{review} = 'M'
+           THEN 'REVIEWED SESSIONS' || CHR(10) || $P{StartDate} || ' to ' || $P{EndDate}
+         ELSE 'SESSION REVIEW'
+       END                                                         AS REPORT_TITLE
+  FROM PEDS_MSTR.CASE_FOLDER cf
+  LEFT JOIN PEDS_MSTR.ACTIVITY act ON cf.ACTIVITY = act.ACTIVTY_ID
+  LEFT JOIN PEDS_MSTR.LOCATION loc ON cf.LOCATION = loc.LOCATION_ID
+  JOIN LTS.THERAPISTS t            ON cf.SIGNATURE_THERAPIST_ID = t.ID
+ WHERE (
+        ($P{review} = 'Y' AND cf.STATUS = 'S')
+     OR ($P{review} = 'M' AND cf.STATUS = 'R'
+         AND cf.SESSION_START >= TO_DATE($P{StartDate}, 'YYYY-MM-DD')
+         AND cf.SESSION_START <  TO_DATE($P{EndDate},   'YYYY-MM-DD') + 1)
+     OR (NVL($P{review}, '~') NOT IN ('Y', 'M')
+         AND NVL(TO_NUMBER($P{s_id}), 0) > 0
+         AND cf.S_ID = TO_NUMBER($P{s_id}))
+     OR (NVL($P{review}, '~') NOT IN ('Y', 'M')
+         AND NVL(TO_NUMBER($P{s_id}), 0) <= 0
+         AND NVL(TO_NUMBER($P{case_number}), 0) > 0
+         AND $P{review} = 'P'
+         AND cf.CASE_NUMBER = TO_NUMBER($P{case_number})
+         AND cf.SESSION_START >= TO_DATE($P{StartDate}, 'YYYY-MM-DD')
+         AND cf.SESSION_START <  TO_DATE($P{EndDate},   'YYYY-MM-DD') + 1)
+     OR (NVL($P{review}, '~') NOT IN ('Y', 'M', 'P')
+         AND NVL(TO_NUMBER($P{s_id}), 0) <= 0
+         AND NVL(TO_NUMBER($P{case_number}), 0) > 0
+         AND cf.CASE_NUMBER = TO_NUMBER($P{case_number}))
+       )
+ ORDER BY cf.S_ID, ROW_SEQ]]></query>
+	<field name="S_ID" class="java.math.BigDecimal"/>
+	<field name="CASE_NUMBER" class="java.lang.String"/>
+	<field name="CASE_NUMBER_ASSIGNED" class="java.lang.String"/>
+	<field name="PED_NAME" class="java.lang.String"/>
+	<field name="SESSION_DATE_LINE" class="java.lang.String"/>
+	<field name="LOCATION_TEXT" class="java.lang.String"/>
+	<field name="ACTIVITY_TEXT" class="java.lang.String"/>
+	<field name="TIME_LENGTH_DISPLAY" class="java.lang.String"/>
+	<field name="COMMENTS" class="java.lang.String"/>
+	<field name="NOTE_OBJECTIVE" class="java.lang.String"/>
+	<field name="INTERVENTION" class="java.lang.String"/>
+	<field name="PROGRESS" class="java.lang.String"/>
+	<field name="NARRATIVE" class="java.lang.String"/>
+	<field name="SESSION_START" class="java.sql.Timestamp"/>
+	<field name="THERAPIST_LINE" class="java.lang.String"/>
+	<field name="SIGNATURE_BLOB" class="java.io.InputStream"/>
+	<field name="ROW_SEQ" class="java.math.BigDecimal"/>
+	<field name="REPORT_TITLE" class="java.lang.String"/>
+	<group name="Session" startNewPage="true" keepTogether="true">
+		<expression><![CDATA[$F{S_ID}]]></expression>
+		<groupHeader>
+			<band height="125" splitType="Prevent">
+				<element kind="textField" uuid="d4f394db-f542-44e4-8bd1-50766b50f445" x="0" y="0" width="540" height="36" textAdjust="StretchHeight" style="Title">
+					<expression><![CDATA[$F{REPORT_TITLE}]]></expression>
+				</element>
+				<element kind="staticText" uuid="9f50391d-48cf-4026-bd5f-30905535c0e3" x="0" y="44" width="70" height="16" positionType="Float" style="Label">
+					<text><![CDATA[NAME:]]></text>
+				</element>
+				<element kind="textField" uuid="9c219399-cb68-4f7a-bd74-a9594ac1a121" x="70" y="44" width="180" height="16" positionType="Float" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{PED_NAME}]]></expression>
+				</element>
+				<element kind="staticText" uuid="7fcda4e4-2b62-4b0c-a1fe-9ad42ecbffe8" x="270" y="44" width="90" height="16" positionType="Float" style="Label">
+					<text><![CDATA[CASE NUMBER:]]></text>
+				</element>
+				<element kind="textField" uuid="0e14de10-e076-44e0-87a1-5be9b023db0e" x="360" y="44" width="180" height="16" positionType="Float" blankWhenNull="true">
+					<expression><![CDATA[$F{CASE_NUMBER_ASSIGNED}]]></expression>
+				</element>
+				<element kind="staticText" uuid="19e4a5a6-21a2-4e83-b3be-fbec83cb33d4" x="0" y="62" width="70" height="16" positionType="Float" style="Label">
+					<text><![CDATA[DATE:]]></text>
+				</element>
+				<element kind="textField" uuid="2cd8939e-ef6d-42b1-a5fd-6b9f977880bd" x="70" y="62" width="180" height="16" positionType="Float" blankWhenNull="true">
+					<expression><![CDATA[$F{SESSION_DATE_LINE}]]></expression>
+				</element>
+				<element kind="staticText" uuid="1beda4b2-954f-4844-b342-b9f6f45c4e0e" x="270" y="81" width="90" height="16" positionType="Float" style="Label">
+					<text><![CDATA[LOCATION:]]></text>
+				</element>
+				<element kind="textField" uuid="ddf8e2ea-98fa-4e4e-8a3a-d285e1e56118" x="360" y="81" width="180" height="16" positionType="Float" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{LOCATION_TEXT}]]></expression>
+				</element>
+				<element kind="staticText" uuid="cb792ac3-6a6a-483a-ad16-e7ca77dc45c5" x="270" y="62" width="90" height="16" positionType="Float" style="Label">
+					<text><![CDATA[LENGTH:]]></text>
+				</element>
+				<element kind="textField" uuid="18408d40-2125-4716-98c8-bd8ddade5758" x="360" y="62" width="180" height="16" positionType="Float" blankWhenNull="true">
+					<expression><![CDATA[$F{TIME_LENGTH_DISPLAY}]]></expression>
+				</element>
+				<element kind="staticText" uuid="aaf51dac-e9a1-4f41-9817-f2c03e44c857" x="0" y="81" width="70" height="16" positionType="Float" style="Label">
+					<text><![CDATA[ACTIVITY:]]></text>
+				</element>
+				<element kind="textField" uuid="2f393327-fa80-4223-882d-79b437d03e6d" x="70" y="81" width="180" height="16" positionType="Float" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{ACTIVITY_TEXT}]]></expression>
+				</element>
+				<element kind="staticText" uuid="cc91bb63-afc3-45bc-a5f8-240b0daf5400" x="0" y="100" width="70" height="16" positionType="Float" removeLineWhenBlank="true" style="Label">
+					<printWhenExpression><![CDATA[$F{COMMENTS} != null]]></printWhenExpression>
+					<text><![CDATA[COMMENTS:]]></text>
+				</element>
+				<element kind="textField" uuid="3fd3709b-c216-4532-b0be-142e110e6554" x="70" y="100" width="470" height="16" positionType="Float" removeLineWhenBlank="true" textAdjust="StretchHeight" blankWhenNull="true">
+					<printWhenExpression><![CDATA[$F{COMMENTS} != null]]></printWhenExpression>
+					<expression><![CDATA[$F{COMMENTS}]]></expression>
+				</element>
+				<element kind="line" uuid="0c7c6288-22bb-4f5b-afe0-054056252688" x="0" y="120" width="540" height="1" positionType="Float"/>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="121" splitType="Prevent">
+				<element kind="staticText" uuid="9a3b8e6b-2edd-4b2a-822a-9b4ee5c43412" x="0" y="6" width="110" height="16" style="Label">
+					<text><![CDATA[NARRATIVE:]]></text>
+				</element>
+				<element kind="textField" uuid="263df834-ebbf-4982-96c6-45f3c471917b" x="110" y="6" width="430" height="16" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{NARRATIVE}]]></expression>
+				</element>
+				<element kind="image" uuid="ad190728-9b96-455f-9cbb-e728deba885a" x="0" y="34" width="220" height="44" positionType="Float" scaleImage="RetainShape" hImageAlign="Left" vImageAlign="Bottom" onErrorType="Blank">
+					<printWhenExpression><![CDATA[$F{SIGNATURE_BLOB} != null]]></printWhenExpression>
+					<expression><![CDATA[$F{SIGNATURE_BLOB}]]></expression>
+				</element>
+				<element kind="textField" uuid="84bea2d2-135d-412d-850d-0884cdd52185" x="0" y="80" width="190" height="16" positionType="Float" blankWhenNull="true">
+					<expression><![CDATA[$F{THERAPIST_LINE}]]></expression>
+				</element>
+				<element kind="textField" uuid="a4bf4a0e-12b7-4858-ad73-2ad8aa7777fe" x="190" y="80" width="60" height="16" positionType="Float" pattern="M/d/yyyy h:mm a" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$F{SESSION_START}]]></expression>
+				</element>
+				<element kind="line" uuid="71989a0c-28a5-42b3-b656-18d5f2586edd" x="0" y="97" width="540" height="1" positionType="Float"/>
+				<element kind="staticText" uuid="3e728ed4-35c3-4414-9a16-ef800e10c177" x="0" y="99" width="190" height="14" positionType="Float" fontSize="8.0" style="Label">
+					<text><![CDATA[CLINICIAN SIGNATURE, CREDENTIALS]]></text>
+				</element>
+				<element kind="staticText" uuid="a3390582-bb2c-472a-b3f3-9dfb0286436b" x="190" y="99" width="60" height="14" positionType="Float" fontSize="8.0" hTextAlign="Right" style="Label">
+					<text><![CDATA[DATE]]></text>
+				</element>
+				<element kind="staticText" uuid="33176794-2aca-48ab-85a1-5818ff0fba01" x="270" y="100" width="190" height="14" positionType="Float" fontSize="8.0" style="Label">
+					<text><![CDATA[CASE MANAGER SIGNATURE, CREDENTIALS]]></text>
+				</element>
+				<element kind="staticText" uuid="a56ce807-d5bc-43db-acf7-787cc6c50de8" x="460" y="100" width="60" height="14" positionType="Float" fontSize="8.0" hTextAlign="Right" style="Label">
+					<text><![CDATA[DATE]]></text>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{ROW_SEQ} != null]]></printWhenExpression>
+			<element kind="frame" uuid="b34b5237-d58e-4938-bd90-ee30a31e12a5" x="0" y="0" width="540" height="58" stretchType="ContainerHeight" style="RowShade">
+				<element kind="staticText" uuid="1e4dbec1-d3ba-4dcb-94fb-6b6b16debe77" x="4" y="2" width="106" height="16" style="Label">
+					<text><![CDATA[OBJECTIVE:]]></text>
+				</element>
+				<element kind="textField" uuid="347fc82e-52bb-492b-ae37-341b3c2734a2" x="110" y="2" width="426" height="16" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{NOTE_OBJECTIVE}]]></expression>
+				</element>
+				<element kind="staticText" uuid="4b15b1aa-57c3-4b10-8a70-7d1d842f1f5a" x="4" y="20" width="106" height="16" positionType="Float" style="Label">
+					<text><![CDATA[INTERVENTION:]]></text>
+				</element>
+				<element kind="textField" uuid="4a303fe8-911a-48cc-86ae-79f1e848e39e" x="110" y="20" width="426" height="16" positionType="Float" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{INTERVENTION}]]></expression>
+				</element>
+				<element kind="staticText" uuid="435ccc43-5866-49b3-8498-ee34d036caf4" x="4" y="38" width="106" height="16" positionType="Float" style="Label">
+					<text><![CDATA[PROGRESS:]]></text>
+				</element>
+				<element kind="textField" uuid="0cd13251-a01e-426f-82a7-3bc947604dd0" x="110" y="38" width="426" height="16" positionType="Float" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{PROGRESS}]]></expression>
+				</element>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="16">
+		<element kind="textField" uuid="1e6f247c-f4c4-4742-aaae-301201313574" x="0" y="0" width="540" height="14" fontSize="8.0" hTextAlign="Right">
+			<expression><![CDATA["Page " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<noData height="30">
+		<element kind="staticText" uuid="c22bdeed-3238-44e5-8312-215e4e935e1f" x="0" y="0" width="540" height="20" hTextAlign="Center">
+			<text><![CDATA[No sessions found for the selected criteria.]]></text>
+		</element>
+	</noData>
+</jasperReport>

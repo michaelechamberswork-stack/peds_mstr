@@ -350,7 +350,7 @@ page 1200 (
             startNewRow: false
         }
         appearance {
-            buttonTemplate: 14798442069586665
+            buttonTemplate: @text
             hot: true
             templateOptions: #DEFAULT#
         }

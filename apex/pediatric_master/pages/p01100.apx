@@ -223,6 +223,8 @@ page 1100 (
             region: @search
             slot: regionBody
             alignment: left
+            startNewRow: false
+            column: 3
         }
         appearance {
             template: @optional-above
@@ -249,10 +251,10 @@ page 1100 (
             region: @search
             slot: regionBody
             startNewRow: false
-            newColumn: false
+            column: 6
         }
         appearance {
-            buttonTemplate: 14798442069586665
+            buttonTemplate: @text-w-null-label-above
             hot: true
             templateOptions: #DEFAULT#
         }
@@ -284,10 +286,10 @@ page 1100 (
             region: @search
             slot: regionBody
             startNewRow: false
-            newColumn: false
+            column: 5
         }
         appearance {
-            buttonTemplate: 14798442069586665
+            buttonTemplate: @text-w-null-label-above
             templateOptions: #DEFAULT#
         }
         behavior {
@@ -303,9 +305,10 @@ page 1100 (
             region: @search
             slot: regionBody
             startNewRow: false
+            column: 4
         }
         appearance {
-            buttonTemplate: 14798442069586665
+            buttonTemplate: @text-w-null-label-above
             templateOptions: #DEFAULT#
         }
         behavior {

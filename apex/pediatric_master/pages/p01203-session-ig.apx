@@ -1912,17 +1912,19 @@ page 1203 (
                     
                     apex.message.clearErrors();
                     
-                    if( status == "S" ) {
-                        if ( dateSession == "" ) {
-                            callError( "P&APP_PAGE_ID._DATE_SESSION", "DATE is required when STATUS is Submitted" );
+                    if( status == "S" &&  "P&APP_PAGE_ID._READ_ONLY" !- "Y") {
+                        if( activty != "10" ) {
+                            if ( dateSession == "" ) {
+                                callError( "P&APP_PAGE_ID._DATE_SESSION", "DATE is required when STATUS is Submitted" );
+                            }
+                            if ( timeStart == "" ) {
+                                callError( "P&APP_PAGE_ID._TIME_START", "START is required when STATUS is Submitted" );
+                            }
+                            if ( timeEnd == "" ) {
+                                callError( "P&APP_PAGE_ID._TIME_END", "END is required when STATUS is Submitted" );
+                            }
                         }
-                        if ( timeStart == "" ) {
-                            callError( "P&APP_PAGE_ID._TIME_START", "START is required when STATUS is Submitted" );
-                        }
-                        if ( timeEnd == "" ) {
-                            callError( "P&APP_PAGE_ID._TIME_END", "END is required when STATUS is Submitted" );
-                        }
-                        if( activty == "10" ) {
+                        else if( activty == "10" ) {
                             if ( cancelReason == "" ) {
                                 callError( "P&APP_PAGE_ID._CANCEL_REASON", "CANCEL REASON is required when ACTIVITY is Session Cancelled" );
                             }

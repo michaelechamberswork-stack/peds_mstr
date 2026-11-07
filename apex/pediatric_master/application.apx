@@ -89,5 +89,11 @@ app PEDIATRIC_MASTER (
         }
     )
 
+    substitution ICON_EDIT (
+        value {
+            staticValue: <span aria-hidden="true" class="fa fa-pencil"></span>
+        }
+    )
+
 )
 

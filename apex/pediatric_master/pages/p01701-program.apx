@@ -3,12 +3,8 @@ page 1701 (
     alias: PROGRAM
     title: PROGRAM
     appearance {
-        pageMode: modalDialog
-        dialogTemplate: @modal-dialog
+        pageTemplate: @standard
         templateOptions: #DEFAULT#
-    }
-    dialog {
-        resizable: false
     }
     navigation {
         cursorFocus: doNotFocusCursor
@@ -17,22 +13,6 @@ page 1701 (
         pageAccessProtection: argumentsMustHaveChecksum
         formAutoComplete: false
     }
-
-    region buttons (
-        name: Buttons
-        type: staticContent
-        layout {
-            sequence: 20
-            slot: dialogFooter
-        }
-        appearance {
-            template: @buttons-container
-            templateOptions: #DEFAULT#
-        }
-        settings {
-            outputAs: text
-        }
-    )
 
     region colors (
         name: COLORS
@@ -55,14 +35,16 @@ page 1701 (
                 ```
         }
         layout {
-            sequence: 30
-            slot: contentBody
+            sequence: 10
+            parentRegion: @program
+            slot: subRegions
         }
         appearance {
             template: @blank-with-attributes-no-grid
             templateOptions: #DEFAULT#
         }
         advanced {
+            htmlDomId: colors
             customAttributes: style="display: none;"
         }
         componentAppearance {
@@ -102,8 +84,8 @@ page 1701 (
             tableName: PROGRAMS
         }
         layout {
-            sequence: 10
-            slot: contentBody
+            sequence: 20
+            slot: body
         }
         appearance {
             template: @blank-with-attributes
@@ -117,6 +99,171 @@ page 1701 (
                 delete
             ]
         }
+    )
+
+    region service-codes (
+        name: service codes
+        type: classicReport
+        source {
+            location: localDatabase
+            tableName: PROGRAM_SERVICE_CODES
+            whereClause: psc_p_id = :P1701_P_ID
+        }
+        layout {
+            sequence: 20
+            parentRegion: @program
+            slot: subRegions
+        }
+        appearance {
+            template: @blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+        componentAppearance {
+            template: @standard
+            templateOptions: [
+                #DEFAULT#
+                t-Report--stretch
+                t-Report--altRowsDefault
+                t-Report--rowHighlight
+            ]
+        }
+        pagination {
+            type: nextAndPreviousLinks
+        }
+        printing {
+            enabled: true
+        }
+        output {
+            linkText: Print
+            format: pdf
+        }
+        page {
+            borderWidth: 0.5
+            borderColor: #666666
+        }
+
+        column CREATED_BY (
+            reportColumnQueryId: 7
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 70
+            }
+        )
+
+        column CREATED_ON (
+            reportColumnQueryId: 8
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 80
+            }
+        )
+
+        column PSC_CHARGE (
+            reportColumnQueryId: 5
+            derivedColumn: N
+            heading {
+                heading: Charge
+                alignment: end
+            }
+            layout {
+                sequence: 50
+                columnAlignment: end
+            }
+        )
+
+        column PSC_CODE (
+            reportColumnQueryId: 4
+            derivedColumn: N
+            heading {
+                heading: Code
+            }
+            layout {
+                sequence: 40
+            }
+        )
+
+        column PSC_CODE_CODE (
+            reportColumnQueryId: 6
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 60
+            }
+        )
+
+        column PSC_DESCRIPTION (
+            reportColumnQueryId: 3
+            derivedColumn: N
+            heading {
+                heading: description
+            }
+            layout {
+                sequence: 30
+            }
+        )
+
+        column PSC_ID (
+            reportColumnQueryId: 1
+            derivedColumn: N
+            type: link
+            heading {
+                heading: &nbsp;
+                alignment: end
+            }
+            layout {
+                sequence: 10
+                columnAlignment: end
+            }
+            link {
+                target: {
+                    page: 1702
+                    items: {
+                        P1702_PSC_ID: #PSC_ID#
+                    }
+                    clearCache: 1702
+                }
+                linkText: &ICON_EDIT.
+            }
+        )
+
+        column PSC_P_ID (
+            reportColumnQueryId: 2
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 20
+            }
+        )
+
+        column ROW_VERSION (
+            reportColumnQueryId: 11
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 110
+            }
+        )
+
+        column UPDATED_BY (
+            reportColumnQueryId: 9
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 90
+            }
+        )
+
+        column UPDATED_ON (
+            reportColumnQueryId: 10
+            derivedColumn: N
+            type: hidden
+            layout {
+                sequence: 100
+            }
+        )
+
     )
 
     pageItem P1701_ACCT_NUM (
@@ -133,6 +280,8 @@ page 1701 (
             region: @program
             slot: regionBody
             alignment: left
+            startNewRow: false
+            column: 3
         }
         appearance {
             template: @optional-above
@@ -340,6 +489,8 @@ page 1701 (
             region: @program
             slot: regionBody
             alignment: left
+            startNewRow: false
+            column: 3
         }
         appearance {
             template: @optional-above
@@ -392,6 +543,8 @@ page 1701 (
             region: @program
             slot: regionBody
             alignment: left
+            startNewRow: false
+            column: 3
         }
         appearance {
             template: @optional-above
@@ -452,6 +605,8 @@ page 1701 (
             region: @program
             slot: regionBody
             alignment: left
+            startNewRow: false
+            column: 4
         }
         appearance {
             template: @optional-above
@@ -472,33 +627,31 @@ page 1701 (
         buttonName: CANCEL
         label: Cancel
         layout {
-            sequence: 10
-            region: @buttons
-            slot: close
+            sequence: 50
+            region: @program
+            slot: next
         }
         appearance {
             buttonTemplate: @text
-            templateOptions: #DEFAULT#
+            templateOptions: [
+                #DEFAULT#
+                t-Button--simple
+            ]
         }
         behavior {
-            action: triggerAction
-        }
-
-        triggerAction native-dialog-cancel (
-            action: cancelDialog
-            execution {
-                sequence: 10
+            action: redirectThisApp
+            target: {
+                page: 1700
             }
-        )
-
+        }
     )
 
     button create (
         buttonName: CREATE
         label: Create
         layout {
-            sequence: 40
-            region: @buttons
+            sequence: 30
+            region: @program
             slot: next
         }
         appearance {
@@ -520,13 +673,16 @@ page 1701 (
         buttonName: DELETE
         label: Delete
         layout {
-            sequence: 20
-            region: @buttons
-            slot: delete
+            sequence: 40
+            region: @program
+            slot: next
         }
         appearance {
             buttonTemplate: @text
-            templateOptions: #DEFAULT#
+            templateOptions: [
+                #DEFAULT#
+                t-Button--danger
+            ]
         }
         behavior {
             executeValidations: false
@@ -544,12 +700,39 @@ page 1701 (
         }
     )
 
+    button new-service-code (
+        buttonName: new_service_code
+        label: New Service Code
+        layout {
+            sequence: 10
+            region: @program
+            slot: next
+        }
+        appearance {
+            buttonTemplate: @text
+            templateOptions: [
+                #DEFAULT#
+                t-Button--gapRight
+            ]
+        }
+        behavior {
+            action: redirectThisApp
+            target: {
+                page: 1702
+                items: {
+                    P1702_PSC_P_ID: &P1701_P_ID.
+                }
+                clearCache: 1702
+            }
+        }
+    )
+
     button save (
         buttonName: SAVE
         label: Apply Changes
         layout {
-            sequence: 30
-            region: @buttons
+            sequence: 20
+            region: @program
             slot: next
         }
         appearance {
@@ -578,6 +761,22 @@ page 1701 (
             selectionType: jsExpression
             javaScriptExpression: document
         }
+        clientSideCondition {
+            type: jsExpression
+            javaScriptExpression: $('#colors').is(':hidden')
+        }
+
+        action native-hide (
+            action: hide
+            affectedElements {
+                selectionType: region
+                region: @colors
+            }
+            execution {
+                sequence: 10
+                fireWhenEventResultIs: false
+            }
+        )
 
         action native-show (
             action: show
@@ -586,7 +785,7 @@ page 1701 (
                 region: @colors
             }
             execution {
-                sequence: 20
+                sequence: 10
                 fireOnInit: false
             }
         )
