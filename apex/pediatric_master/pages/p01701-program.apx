@@ -343,7 +343,7 @@ page 1701 (
             alignment: left
         }
         appearance {
-            template: 12927574984885643
+            template: @optional-above-hidden
             templateOptions: #DEFAULT#
             width: 60
         }

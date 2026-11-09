@@ -441,7 +441,6 @@ page 1304 (
             width: 30
         }
         validation {
-            valueRequired: true
             maxLength: 255
         }
         source {
@@ -708,7 +707,6 @@ page 1304 (
             width: 30
         }
         validation {
-            valueRequired: true
             maxLength: 255
         }
         source {
@@ -1654,6 +1652,7 @@ page 1304 (
                     
                     var status = $v("P&APP_PAGE_ID._STATUS");
                     var activty = $v("P&APP_PAGE_ID._ACTIVITY");
+                    var location = $v("P&APP_PAGE_ID._LOCATION");
                     var cancelReason = $v("P&APP_PAGE_ID._CANCEL_REASON");
                     var comments = $v("P&APP_PAGE_ID._COMMENTS");
                     var dateSession = $v("P&APP_PAGE_ID._DATE_SESSION");
@@ -1662,7 +1661,13 @@ page 1304 (
                     
                     apex.message.clearErrors();
                     
-                    if( status == "S" &&  "P&APP_PAGE_ID._READ_ONLY" != "Y") {
+                    if( status == "S" && $v("P&APP_PAGE_ID._READ_ONLY") != "Y") {
+                        if ( activty == "" ) {
+                            callError( "P&APP_PAGE_ID._ACTIVITY", "ACTIVITY is required when STATUS is Submitted" );
+                        }
+                        if ( location == "" ) {
+                            callError( "P&APP_PAGE_ID._LOCATION", "LOCATION is required when STATUS is Submitted" );
+                        }
                         if( activty != "10" ) {
                             if ( dateSession == "" ) {
                                 callError( "P&APP_PAGE_ID._DATE_SESSION", "DATE is required when STATUS is Submitted" );
@@ -1682,10 +1687,27 @@ page 1304 (
                                 callError( "P&APP_PAGE_ID._COMMENTS", "COMMENTS is required when CANCEL REASON is other" );
                             }
                         }
+                        if ( activty == "2" && $v("P&APP_PAGE_ID._ACTIVITY_OTHER") == "" ) {
+                            callError( "P&APP_PAGE_ID._ACTIVITY_OTHER", "CONSULTED WITH is required when ACTIVITY is Other" );
+                        }
+                        if ( Number($v("P&APP_PAGE_ID._LOCATION")) > 1 && $v("P&APP_PAGE_ID._LOCATION_OTHER") == "" ) {
+                            callError( "P&APP_PAGE_ID._LOCATION_OTHER", "SERVICE LOCATION is required when LOCATION is Other" );
+                        }
+                        if ( $("#P&APP_PAGE_ID._LATE_REASON_CONTAINER").is(":visible") && $v("P&APP_PAGE_ID._LATE_REASON") == "" ) {
+                            callError( "P&APP_PAGE_ID._LATE_REASON", "REASON DOCUMENTING IS LATE is required" );
+                        }
                     }
                     
                     if ( !apex.event.gCancelFlag ) {
                         $("#P&APP_PAGE_ID._TIME_LENGTH").prop("disabled", false);
+                    
+                        // set checkboxes not checked to N and type hidden
+                        $('input[type="checkbox"][name^="f0"]:not(:checked)').each(function() {
+                            // Change its value to 'N'
+                            $(this).val('N');
+                            // Set the 'checked' property to true
+                            $(this).prop('type', 'hidden');
+                        });
                     }
                     
                     ```
@@ -1821,4 +1843,3 @@ page 1304 (
     )
 
 )
-

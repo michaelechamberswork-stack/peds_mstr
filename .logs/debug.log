@@ -36,3 +36,13 @@
 [2026-11-07 11:00:53] Processing schema export target=peds_mstr connection=chambersm[peds_mstr]/euKRteTeh2FGB6m@dev_medium log=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs\export202611071100.log
 [2026-11-07 11:01:01] AppIds for peds_mstr: 105, 1050
 [2026-11-07 11:01:01] Generated SQL script length: 377
+[2026-11-07 13:10:37] Starting script with Action=FOLDER Environment=DEV ExportType=SCHEMA Folder=peds_mstr DbAlias=dev_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-11-07 13:10:37] Connecting as proxy user peds_mstr in DEV using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@dev_medium
+[2026-11-07 14:54:28] Starting script with Action=FOLDER Environment=DEV ExportType=SCHEMA Folder=peds_mstr DbAlias=dev_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-11-07 14:54:28] Connecting as proxy user peds_mstr in DEV using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@dev_medium
+[2026-11-07 18:28:54] Starting script with Action=FOLDER Environment=DEV ExportType=SCHEMA Folder=peds_mstr DbAlias=dev_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-11-07 18:28:54] Connecting as proxy user peds_mstr in DEV using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@dev_medium
+[2026-11-07 20:55:47] Starting script with Action=FOLDER Environment=DEV ExportType=SCHEMA Folder=peds_mstr DbAlias=dev_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-11-07 20:55:47] Connecting as proxy user peds_mstr in DEV using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@dev_medium
+[2026-11-07 21:05:34] Starting script with Action=FOLDER Environment=PROD ExportType=SCHEMA Folder=peds_mstr DbAlias=lts_medium LogDir=C:\Users\micha\OneDrive\CIS\peds_mstr\.Logs
+[2026-11-07 21:05:34] Connecting as proxy user peds_mstr in PROD using connection chambersm[peds_mstr]/euKRteTeh2FGB6m@lts_medium

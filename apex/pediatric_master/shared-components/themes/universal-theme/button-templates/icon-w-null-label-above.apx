@@ -5,13 +5,9 @@ buttonTemplate icon-w-null-label-above (
         normal: "<div class=\"t-Form-fieldContainer t-Form-fieldContainer--stacked\"><div class=\"t-Form-labelContainer\">&nbsp;</div><div class=\"t-Form-fieldContainer\"><button class=\"t-Button t-Button--noLabel t-Button--icon #BUTTON_CSS_CLASSES#\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# type=\"button\" id=\"#DOM_ID#\" title=\"#LABEL!ATTR#\" aria-label=\"#LABEL!ATTR#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Icon #ICON_CSS_CLASSES#\" aria-hidden=\"true\"></span></button></div></div>"
         hot: "<div class=\"t-Form-fieldContainer t-Form-fieldContainer--stacked\"><div class=\"t-Form-labelContainer\">&nbsp;</div><div class=\"t-Form-fieldContainer\"><button class=\"t-Button t-Button--noLabel t-Button--icon #BUTTON_CSS_CLASSES# t-Button--hot\" {if MENU_ID/}data-menu=\"#MENU_ID#\"{endif/} #BUTTON_ATTRIBUTES# #ONCLICK# type=\"button\" id=\"#DOM_ID#\" title=\"#LABEL!ATTR#\" aria-label=\"#LABEL!ATTR#\" data-otel-label=\"#BUTTON_NAME!ATTR#\" {if IS_DISABLED/} disabled{endif/}><span class=\"t-Icon #ICON_CSS_CLASSES#\" aria-hidden=\"true\"></span></button></div></div>"
     }
-    subscription {
-        master: @/100/universal-theme/icon-w-null-label-above
-    }
-
     templateOption push (
         name: Push
-        group: 1666140410328385209
+        group: @button/icon-hover-animation
         sequence: 20
         appearance {
             cssClasses: t-Button--hoverIconPush
@@ -19,14 +15,11 @@ buttonTemplate icon-w-null-label-above (
         help {
             helpText: The icon will animate to the right or left on button hover or focus.
         }
-        subscription {
-            master: @/100/universal-theme/icon-w-null-label-above/push
-        }
     )
 
     templateOption spin (
         name: Spin
-        group: 1666140410328385209
+        group: @button/icon-hover-animation
         sequence: 10
         appearance {
             cssClasses: t-Button--hoverIconSpin
@@ -34,10 +27,6 @@ buttonTemplate icon-w-null-label-above (
         help {
             helpText: The icon will spin on button hover or focus.
         }
-        subscription {
-            master: @/100/universal-theme/icon-w-null-label-above/spin
-        }
     )
 
 )
-
